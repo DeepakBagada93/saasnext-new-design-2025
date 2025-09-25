@@ -9,7 +9,7 @@ import Footer from '@/components/layout/footer';
 import { useUser } from '@/firebase';
 import { Skeleton } from './ui/skeleton';
 
-const ADMIN_EMAIL = "admin@saasnext.com";
+const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();

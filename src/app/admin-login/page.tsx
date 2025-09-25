@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
 
-const ADMIN_EMAIL = "admin@saasnext.com";
+const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -67,7 +67,7 @@ export default function AdminLoginPage() {
             <Input 
               id="email" 
               type="email" 
-              placeholder="admin@saasnext.com" 
+              placeholder="deepakbagada25@gmail.com" 
               required 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
