@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -51,16 +51,6 @@ export default function ContactPage() {
                     <Phone className="h-6 w-6 text-primary"/>
                     <span className="text-muted-foreground">+91 7016179234</span>
                 </div>
-                <div className="flex items-start space-x-4">
-                    <MapPin className="h-6 w-6 text-primary mt-1"/>
-                    <span className="text-muted-foreground">123 Digital Ave, Junagadh, 362001</span>
-                </div>
-            </div>
-            <div className="aspect-video w-full">
-              {/* In a real app, this would be a map component like react-google-maps */}
-              <div className="w-full h-full bg-muted rounded-lg flex items-center justify-center">
-                <p className="text-muted-foreground">Map of our Junagadh office would be here.</p>
-              </div>
             </div>
         </div>
       </div>
