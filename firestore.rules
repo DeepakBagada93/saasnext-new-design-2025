@@ -2,82 +2,53 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // Helper function to check for admin role
+    // Helper function to check if a user is an admin
     function isAdmin() {
-      return request.auth != null && request.auth.token.email == "deepakbagada25@gmail.com";
+      return request.auth.token.email == "deepakbagada25@gmail.com";
     }
 
-    // Helper function to check if the user is the owner of the document
-    function isOwner(userId) {
-      return request.auth != null && request.auth.uid == userId;
-    }
-
-    // Rules for the 'clients' collection
+    // CLIENTS:
+    // - Authenticated users can create their own client document.
+    // - Authenticated users can read/update their own client document.
+    // - Admins can read, list, and delete any client document.
     match /clients/{userId} {
-      // Admins can perform any action on any client document
-      allow read, write: if isAdmin();
-      // Authenticated users can read and update their OWN client document
-      allow get, update: if isOwner(userId);
-      // Any authenticated user can create their own client document (on registration)
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-    }
-    
-    // Admins need list access to the collection itself
-    match /clients/{document=**} {
-        allow list: if isAdmin();
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      allow list, delete: if isAdmin();
     }
 
-    // Rules for the 'projects' collection
+    // PROJECTS:
+    // - Admins can create and update projects.
+    // - Authenticated users can read projects assigned to them.
     match /projects/{projectId} {
-      // Admins can perform any action on any project
-      allow read, write: if isAdmin();
-      // Clients can only read projects where their userId matches
-      allow get: if request.auth != null && resource.data.userId == request.auth.uid;
-    }
-    
-    // Clients need to be able to list their own projects
-    match /projects/{document=**} {
-        allow list: if request.auth != null && resource.data.userId == request.auth.uid || isAdmin();
+      allow create, update: if isAdmin();
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
     }
 
-    // Rules for 'serviceRequests'
+    // SERVICE REQUESTS:
+    // - Authenticated users can create their own service requests.
+    // - Clients can read their own service requests.
+    // - Admins can read, list, and delete any service request.
     match /serviceRequests/{requestId} {
-      // Admins can read and delete (approve/reject) any service request
-      allow read, delete: if isAdmin();
-      // Authenticated users can create their own service requests
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null;
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow list, delete: if isAdmin();
     }
     
-    // Admins need list access to the collection itself
-     match /serviceRequests/{document=**} {
-        allow list: if isAdmin();
-    }
-
-    // Rules for 'meetingRequests'
+    // MEETING REQUESTS:
+    // - Authenticated users can create their own meeting requests.
+    // - Admins can read, list, and update any meeting request.
     match /meetingRequests/{requestId} {
-        // Admins can read and update (status) any meeting request
-        allow read, update: if isAdmin();
-        // Authenticated users can create their own meeting requests
-        allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+        allow create: if request.auth != null;
+        allow read, update, list: if isAdmin();
     }
     
-    // Admins need list access to the collection itself
-    match /meetingRequests/{document=**} {
-        allow list: if isAdmin();
-    }
-
-    // Rules for 'invoices'
+    // INVOICES:
+    // - Admins can manage all invoices.
+    // - Authenticated users can read invoices assigned to them.
     match /invoices/{invoiceId} {
-        // Admins can do anything
         allow read, write: if isAdmin();
-        // Users can only read invoices that belong to them
-        allow get: if request.auth != null && resource.data.userId == request.auth.uid;
-    }
-
-    // Clients need to be able to list their own invoices
-    match /invoices/{document=**} {
-        allow list: if request.auth != null && resource.data.userId == request.auth.uid || isAdmin();
+        allow read: if request.auth != null && resource.data.userId == request.auth.uid;
     }
   }
 }
