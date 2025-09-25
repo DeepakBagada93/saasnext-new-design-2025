@@ -50,7 +50,7 @@ export default function AdminRequestsPage() {
         userId: request.userId, // Store the actual user ID
         status: 'Planning',
         budget: request.budget || 0,
-        currency: request.currency || 'USD',
+        currency: request.currency || 'INR',
         timeline: {
           start: new Date().toISOString(),
           end: request.timeline || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // Default to 30 days from now

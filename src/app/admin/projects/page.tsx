@@ -72,7 +72,7 @@ function EditProjectDialog({
   const { toast } = useToast();
   const [status, setStatus] = useState(project.status);
   const [budget, setBudget] = useState(project.budget);
-  const [currency, setCurrency] = useState(project.currency || 'USD');
+  const [currency, setCurrency] = useState(project.currency || 'INR');
 
   const handleSave = async () => {
     try {
@@ -133,8 +133,8 @@ function EditProjectDialog({
                         <SelectValue placeholder="Select currency" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="USD">USD</SelectItem>
                         <SelectItem value="INR">INR</SelectItem>
+                        <SelectItem value="USD">USD</SelectItem>
                         <SelectItem value="EUR">EUR</SelectItem>
                         <SelectItem value="GBP">GBP</SelectItem>
                     </SelectContent>
@@ -207,7 +207,7 @@ export default function AdminProjectsPage() {
                 <TableRow key={project.id}>
                   <TableCell className="font-medium">{project.name}</TableCell>
                   <TableCell>{project.clientName}</TableCell>
-                  <TableCell>{formatCurrency(project.budget || 0, project.currency || 'USD')}</TableCell>
+                  <TableCell>{formatCurrency(project.budget || 0, project.currency || 'INR')}</TableCell>
                   <TableCell>
                     {new Date(project.timeline.start).toLocaleDateString()} -{' '}
                     {new Date(project.timeline.end).toLocaleDateString()}
