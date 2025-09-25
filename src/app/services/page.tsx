@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { services } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
@@ -13,16 +12,15 @@ export default function ServicesPage() {
         </p>
       </section>
 
-      <div className="mt-16 space-y-20">
+      <div className="mt-16 space-y-12 max-w-4xl mx-auto">
         {services.map((service, index) => (
           <section key={service.title} id={service.slug} className="scroll-mt-20">
-            <Card className="overflow-hidden">
-              <div className={`grid md:grid-cols-2 items-center gap-8`}>
-                <div className={`p-8 md:p-12 space-y-4 ${index % 2 === 1 ? 'md:order-last' : ''}`}>
+            <Card className="overflow-hidden bg-card/50">
+                <div className="p-8 md:p-12 space-y-4">
                   <h2 className="font-headline text-3xl font-bold">{service.title}</h2>
-                  <p className="text-muted-foreground">{service.description}</p>
+                  <p className="text-muted-foreground pb-4">{service.description}</p>
                   
-                  <div className="space-y-6 pt-4">
+                  <div className="grid md:grid-cols-2 gap-8 pt-4 border-t">
                     <div>
                       <h3 className="font-headline font-semibold text-lg mb-2">Our Process</h3>
                       <p className="text-muted-foreground text-sm">{service.process}</p>
@@ -42,16 +40,6 @@ export default function ServicesPage() {
                     </div>
                   </div>
                 </div>
-                <div className="relative h-64 md:h-full w-full">
-                  <Image
-                    src={service.image.imageUrl}
-                    alt={service.image.description}
-                    data-ai-hint={service.image.imageHint}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
             </Card>
           </section>
         ))}

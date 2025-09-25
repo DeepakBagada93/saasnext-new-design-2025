@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Code, Users, BrainCircuit, BarChart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,16 +29,6 @@ export default function Home() {
     <div className="flex flex-col">
       <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center pt-20 md:pt-32 lg:pt-40 pb-20 md:pb-32 lg:pb-40 text-center overflow-hidden">
         <div className="absolute inset-0 bg-background/90 z-0">
-            {heroImage && 
-                <Image 
-                    src={heroImage.imageUrl} 
-                    alt={heroImage.description} 
-                    fill 
-                    className="object-cover opacity-5"
-                    data-ai-hint={heroImage.imageHint}
-                    priority
-                />
-            }
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
         </div>
         <div className="relative z-10 px-4 sm:px-6 lg:px-8">
@@ -86,15 +75,6 @@ export default function Home() {
                     index === 3 && "md:col-span-2"
                   )}
                   style={{ animationDelay: `${index * 150}ms` }}
-                  background={
-                    <Image
-                      src={service.image.imageUrl}
-                      alt={service.image.description}
-                      data-ai-hint={service.image.imageHint}
-                      fill
-                      className="absolute -z-10 object-cover opacity-10 group-hover:opacity-20 transition-opacity"
-                    />
-                  }
                 />
               );
             })}

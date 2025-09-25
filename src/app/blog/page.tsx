@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { blogPosts } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,18 +18,7 @@ export default function BlogPage() {
         {blogPosts.map((post) => (
           <Card key={post.slug} className="flex flex-col">
             <Link href={`/blog/${post.slug}`}>
-              <CardHeader className="p-0">
-                <div className="relative aspect-[3/2] w-full">
-                  <Image
-                    src={post.image.imageUrl}
-                    alt={post.title}
-                    data-ai-hint={post.image.imageHint}
-                    fill
-                    className="rounded-t-lg object-cover"
-                  />
-                </div>
-              </CardHeader>
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col flex-grow h-full">
                 <CardTitle className="font-headline text-xl">{post.title}</CardTitle>
                 <CardDescription className="mt-2 flex-grow">{post.excerpt}</CardDescription>
                 <CardFooter className="p-0 mt-4 flex justify-between items-center">

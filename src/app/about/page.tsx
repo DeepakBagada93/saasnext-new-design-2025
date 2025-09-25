@@ -15,25 +15,15 @@ export default function AboutPage() {
         </p>
       </section>
       
-      <section className="mt-16 grid md:grid-cols-2 gap-12 items-center">
-        <div className="space-y-4">
+      <section className="mt-16 max-w-4xl mx-auto">
+        <div className="space-y-4 text-center">
             <h2 className="font-headline text-3xl font-bold">Our Mission & Vision</h2>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-lg">
               Our mission is to provide innovative and effective digital solutions that drive growth and create value for our clients. We envision a world where every business, regardless of size, can leverage the power of technology to its fullest potential.
             </p>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-lg">
               We believe in partnership, transparency, and a results-driven approach. Your success is our success, and we're committed to building long-term relationships based on trust and mutual respect.
             </p>
-        </div>
-        <div>
-            <Image
-                src="https://picsum.photos/seed/aboutus/600/400"
-                alt="Team working together"
-                data-ai-hint="team collaboration"
-                width={600}
-                height={400}
-                className="rounded-lg shadow-md"
-            />
         </div>
       </section>
 
