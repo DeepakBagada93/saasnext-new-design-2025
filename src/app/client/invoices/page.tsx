@@ -1,13 +1,22 @@
-import { invoices } from "@/lib/data";
+'use client';
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 import { Eye } from "lucide-react";
+import { useUser, useFirestore } from "@/firebase";
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { collection, query, where } from 'firebase/firestore';
 
 export default function ClientInvoicesPage() {
-  const clientInvoices = invoices.filter(i => i.clientId === 'client-2');
+  const { user } = useUser();
+  const firestore = useFirestore();
+
+  const invoicesQuery = user?.uid && query(collection(firestore, 'invoices'), where('userId', '==', user.uid));
+  const [invoicesSnapshot, loading, error] = useCollection(invoicesQuery || null);
+
+  const clientInvoices = invoicesSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
   return (
     <div className="space-y-6">
@@ -33,7 +42,22 @@ export default function ClientInvoicesPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {clientInvoices.map(invoice => (
+              {loading && (
+                <TableRow>
+                  <TableCell colSpan={6} className="text-center">Loading invoices...</TableCell>
+                </TableRow>
+              )}
+              {error && (
+                <TableRow>
+                  <TableCell colSpan={6} className="text-center text-destructive">Error: {error.message}</TableCell>
+                </TableRow>
+              )}
+              {clientInvoices && clientInvoices.length === 0 && !loading && (
+                <TableRow>
+                    <TableCell colSpan={6} className="text-center">You don't have any invoices yet.</TableCell>
+                </TableRow>
+              )}
+              {clientInvoices?.map((invoice: any) => (
                 <TableRow key={invoice.id}>
                   <TableCell className="font-mono">{invoice.id}</TableCell>
                   <TableCell>{new Date(invoice.date).toLocaleDateString()}</TableCell>

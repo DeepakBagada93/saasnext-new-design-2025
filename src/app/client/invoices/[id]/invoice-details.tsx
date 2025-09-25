@@ -1,11 +1,25 @@
 'use client';
 import { Button } from "@/components/ui/button";
 import { Printer } from "lucide-react";
-import type { invoices } from "@/lib/data";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 
-type Invoice = (typeof invoices)[0];
+// A more generic type for the invoice since it now comes from Firestore
+type Invoice = {
+    id: string;
+    status: string;
+    date: string;
+    dueDate: string;
+    amount: number;
+    items: {
+        description: string;
+        quantity: number;
+        price: number;
+    }[];
+    // Add other fields from your Firestore document as needed
+    clientName?: string;
+    clientEmail?: string;
+};
 
 export default function InvoiceDetails({ invoice }: { invoice: Invoice }) {
     const handlePrint = () => {
@@ -42,9 +56,8 @@ export default function InvoiceDetails({ invoice }: { invoice: Invoice }) {
                 <section className="grid grid-cols-2 gap-4 my-8">
                     <div>
                         <h2 className="text-sm font-semibold text-gray-600 uppercase mb-2">Bill To</h2>
-                        <p className="font-bold">Innovate Ltd.</p>
-                        <p className="text-sm text-gray-600">John Smith</p>
-                        <p className="text-sm text-gray-600">john.smith@innovate.com</p>
+                        <p className="font-bold">{invoice.clientName || 'Client Name'}</p>
+                        <p className="text-sm text-gray-600">{invoice.clientEmail || 'client@email.com'}</p>
                     </div>
                     <div className="text-right">
                         <p className="text-sm"><span className="font-semibold text-gray-600">Invoice Date:</span> {new Date(invoice.date).toLocaleDateString()}</p>
@@ -64,7 +77,7 @@ export default function InvoiceDetails({ invoice }: { invoice: Invoice }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {invoice.items.map((item, index) => (
+                            {invoice.items && invoice.items.map((item, index) => (
                                 <tr key={index} className="border-b">
                                     <td className="p-2">{item.description}</td>
                                     <td className="text-center p-2">{item.quantity}</td>
