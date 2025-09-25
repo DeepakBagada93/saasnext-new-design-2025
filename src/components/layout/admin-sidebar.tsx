@@ -63,7 +63,7 @@ export default function AdminSidebar() {
   };
 
   return (
-    <Sidebar className="border-r bg-card">
+    <Sidebar>
       <SidebarHeader>
         <Logo />
       </SidebarHeader>
@@ -84,7 +84,6 @@ export default function AdminSidebar() {
           ))}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarSeparator />
       <SidebarFooter>
         <div className="p-2">
             {loading ? (
@@ -104,6 +103,7 @@ export default function AdminSidebar() {
                 </div>
             )}
         </div>
+        <SidebarSeparator />
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton

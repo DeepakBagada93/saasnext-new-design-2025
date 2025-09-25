@@ -63,7 +63,7 @@ export default function ClientSidebar() {
   };
 
   return (
-    <Sidebar className="border-r bg-card">
+    <Sidebar>
       <SidebarHeader>
         <Logo />
       </SidebarHeader>
@@ -84,7 +84,6 @@ export default function ClientSidebar() {
           ))}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarSeparator />
       <SidebarFooter>
          <div className="p-2">
             {loading ? (
@@ -104,6 +103,7 @@ export default function ClientSidebar() {
                 </div>
             )}
         </div>
+        <SidebarSeparator />
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton

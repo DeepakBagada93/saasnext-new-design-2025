@@ -7,7 +7,7 @@ import ClientSidebar from '@/components/layout/client-sidebar';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { useUser } from '@/firebase';
-import { SidebarProvider } from './ui/sidebar';
+import { DashboardLayout, SidebarProvider } from './ui/sidebar';
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
@@ -41,10 +41,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     if (isAdminRoute) {
         return (
             <SidebarProvider>
-                <div className="flex min-h-screen bg-muted/30">
-                    <AdminSidebar />
-                    <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
-                </div>
+                <DashboardLayout sidebar={<AdminSidebar />}>
+                    {children}
+                </DashboardLayout>
             </SidebarProvider>
         );
     }
@@ -52,10 +51,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     if (isClientRoute) {
         return (
             <SidebarProvider>
-                <div className="flex min-h-screen bg-muted/30">
-                    <ClientSidebar />
-                    <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
-                </div>
+                 <DashboardLayout sidebar={<ClientSidebar />}>
+                    {children}
+                </DashboardLayout>
             </SidebarProvider>
         );
     }
