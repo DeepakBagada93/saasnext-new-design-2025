@@ -24,15 +24,6 @@ import { useUser, useFirestore } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
@@ -46,7 +37,6 @@ export default function NewRequestPage() {
   const [description, setDescription] = useState('');
   const [budget, setBudget] = useState('');
   const [currency, setCurrency] = useState('INR');
-  const [timeline, setTimeline] = useState<Date>();
 
   // State for conditional fields
   const [websiteType, setWebsiteType] = useState('');
@@ -99,7 +89,6 @@ export default function NewRequestPage() {
         description,
         budget: Number(budget) || null,
         currency,
-        timeline: timeline ? timeline.toISOString() : null,
         status: 'Pending',
         requestedAt: serverTimestamp(),
         ...additionalDetails
@@ -227,35 +216,6 @@ export default function NewRequestPage() {
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="timeline">Preferred Timeline</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant={'outline'}
-                    className={cn(
-                      'w-full justify-start text-left font-normal',
-                      !timeline && 'text-muted-foreground'
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {timeline ? (
-                      format(timeline, 'PPP')
-                    ) : (
-                      <span>Pick a date</span>
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
-                    selected={timeline}
-                    onSelect={setTimeline}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
             </div>
             <div className="pt-2">
               <Button type="submit" className="bg-accent hover:bg-accent/90">

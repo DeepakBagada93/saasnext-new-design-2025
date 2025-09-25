@@ -1,3 +1,4 @@
+
 'use client';
 import {
   Card,
@@ -24,7 +25,6 @@ type ServiceRequest = {
   description: string;
   budget?: number;
   currency?: string;
-  timeline?: string;
   clientName: string;
   clientEmail: string;
   userId: string;
@@ -53,7 +53,7 @@ export default function AdminRequestsPage() {
         currency: request.currency || 'INR',
         timeline: {
           start: new Date().toISOString(),
-          end: request.timeline || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // Default to 30 days from now
+          end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // Default to 30 days from now
         },
         createdAt: serverTimestamp(),
         updates: [],
@@ -123,7 +123,6 @@ export default function AdminRequestsPage() {
                     <p className="text-md mt-2">{request.description}</p>
                     <div className="text-sm text-muted-foreground mt-2 grid grid-cols-2 gap-x-4">
                         {request.budget && <span>Budget: {request.budget} {request.currency}</span>}
-                        {request.timeline && <span>Timeline: {new Date(request.timeline).toLocaleDateString()}</span>}
                     </div>
                   </div>
                   <div className="flex space-x-2">

@@ -1,3 +1,4 @@
+
 'use client';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -60,7 +61,6 @@ export default function ClientRequestsPage() {
                     </p>
                      <div className="text-sm text-muted-foreground mt-2 space-x-4">
                         {request.budget && <span>Budget: {request.budget} {request.currency}</span>}
-                        {request.timeline && <span>Timeline: {new Date(request.timeline).toLocaleDateString()}</span>}
                     </div>
                   </div>
                   <Badge variant="outline">{request.status}</Badge>
