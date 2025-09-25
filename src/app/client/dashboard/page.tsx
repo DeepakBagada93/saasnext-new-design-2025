@@ -22,6 +22,14 @@ import { useUser, useFirestore } from '@/firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection, query, where } from 'firebase/firestore';
 
+function formatCurrency(amount: number, currency: string) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 2,
+    }).format(amount);
+}
+
 export default function ClientDashboardPage() {
   const { user } = useUser();
   const firestore = useFirestore();
@@ -99,7 +107,7 @@ export default function ClientDashboardPage() {
                       {project.status}
                     </Badge>
                   </TableCell>
-                  <TableCell>${project.budget?.toLocaleString()}</TableCell>
+                  <TableCell>{formatCurrency(project.budget, project.currency || 'USD')}</TableCell>
                   <TableCell>
                     {new Date(project.timeline.end).toLocaleDateString()}
                   </TableCell>

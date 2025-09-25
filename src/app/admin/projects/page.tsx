@@ -23,7 +23,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import { useState } from 'react';
 import {
@@ -44,11 +43,21 @@ type Project = {
   clientId: string;
   status: string;
   budget: number;
+  currency: string;
   timeline: {
     start: string;
     end: string;
   };
 };
+
+function formatCurrency(amount: number, currency: string) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 2,
+    }).format(amount);
+}
+
 
 function EditProjectDialog({
   project,
@@ -63,6 +72,7 @@ function EditProjectDialog({
   const { toast } = useToast();
   const [status, setStatus] = useState(project.status);
   const [budget, setBudget] = useState(project.budget);
+  const [currency, setCurrency] = useState(project.currency || 'USD');
 
   const handleSave = async () => {
     try {
@@ -70,6 +80,7 @@ function EditProjectDialog({
       await updateDoc(projectRef, {
         status,
         budget: Number(budget),
+        currency,
       });
       toast({
         title: 'Project Updated',
@@ -105,14 +116,30 @@ function EditProjectDialog({
               </SelectContent>
             </Select>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="budget">Budget (USD)</Label>
-            <Input
-              id="budget"
-              type="number"
-              value={budget}
-              onChange={(e) => setBudget(Number(e.target.value))}
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+                <Label htmlFor="budget">Budget</Label>
+                <Input
+                id="budget"
+                type="number"
+                value={budget}
+                onChange={(e) => setBudget(Number(e.target.value))}
+                />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="currency">Currency</Label>
+                <Select value={currency} onValueChange={setCurrency}>
+                    <SelectTrigger id="currency">
+                        <SelectValue placeholder="Select currency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="USD">USD</SelectItem>
+                        <SelectItem value="INR">INR</SelectItem>
+                        <SelectItem value="EUR">EUR</SelectItem>
+                        <SelectItem value="GBP">GBP</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
           </div>
         </div>
         <div className="flex justify-end space-x-2">
@@ -180,7 +207,7 @@ export default function AdminProjectsPage() {
                 <TableRow key={project.id}>
                   <TableCell className="font-medium">{project.name}</TableCell>
                   <TableCell>{project.clientId}</TableCell>
-                  <TableCell>${project.budget.toLocaleString()}</TableCell>
+                  <TableCell>{formatCurrency(project.budget, project.currency || 'USD')}</TableCell>
                   <TableCell>
                     {new Date(project.timeline.start).toLocaleDateString()} -{' '}
                     {new Date(project.timeline.end).toLocaleDateString()}
