@@ -2,31 +2,55 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // Helper function to check for admin role
+  
+    // Helper function to check for Admin role
     function isAdmin() {
       return request.auth.token.email == "deepakbagada25@gmail.com";
     }
-
-    // Admin can read/write everything
-    match /{document=**} {
-      allow read, write: if request.auth != null && isAdmin();
+    
+    // Helper function to check if the user is the owner of the document
+    function isOwner(userId) {
+      return request.auth.uid == userId;
     }
 
-    // Client rules
-    match /projects/{projectId} {
-      // Clients can read a single project document if their UID matches the userId on the document.
-      allow get: if request.auth != null && request.auth.uid == resource.data.userId;
-      
-      // Clients can list projects, but ONLY if the query they make filters by their own userId.
-      // This is crucial for the dashboard query to work.
-      allow list: if request.auth != null && request.query.resource.data.userId == request.auth.uid;
-    }
-
+    // Clients collection: Only admins can read/list clients
     match /clients/{clientId} {
-      // For now, only admins can access client data directly.
-      // Clients do not need to access this collection.
-      allow read, write: if request.auth != null && isAdmin();
+      allow read, list: if isAdmin();
+      // Allow write for admins, or if you have a client creation flow
+      allow write: if isAdmin(); 
+    }
+
+    // Projects collection: Admins have full access, clients can only access their own
+    match /projects/{projectId} {
+      allow read: if isAdmin() || isOwner(resource.data.userId);
+      // Only admins can create, update, or delete projects directly
+      allow write: if isAdmin();
+      
+      // Clients can query for their own projects
+      allow list: if isAdmin() || (request.query.limit <= 10 && request.query.filters.size() == 1 && request.query.filters[0].field == "userId" && request.query.filters[0].value == request.auth.uid);
+    }
+    
+    // Invoices collection: Admins have full access, clients can only access their own
+    match /invoices/{invoiceId} {
+       allow read: if isAdmin() || isOwner(resource.data.userId);
+       // Only admins can create/update invoices
+       allow write: if isAdmin();
+       
+       // Clients can query for their own invoices
+       allow list: if isAdmin() || (request.query.limit <= 10 && request.query.filters.size() == 1 && request.query.filters[0].field == "userId" && request.query.filters[0].value == request.auth.uid);
+    }
+
+    // Service Requests: Any authenticated user can create a request. Only admins can read/delete them.
+    match /serviceRequests/{requestId} {
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow read, delete: if isAdmin();
+      allow list: if isAdmin();
+    }
+    
+    // Meeting Requests: Any authenticated user can create a request. Admins can manage them.
+    match /meetingRequests/{requestId} {
+       allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+       allow read, update, list: if isAdmin();
     }
   }
 }
