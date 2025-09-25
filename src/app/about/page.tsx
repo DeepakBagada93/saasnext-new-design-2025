@@ -1,0 +1,95 @@
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { teamMembers } from "@/lib/data";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
+export default function AboutPage() {
+  return (
+    <div className="container py-12 md:py-20">
+      <section className="text-center max-w-3xl mx-auto">
+        <h1 className="font-headline text-4xl md:text-5xl font-bold">About SaaSNext</h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+          We are a team of passionate developers, designers, and marketers dedicated to helping businesses succeed in the digital world.
+        </p>
+      </section>
+      
+      <section className="mt-16 grid md:grid-cols-2 gap-12 items-center">
+        <div className="space-y-4">
+            <h2 className="font-headline text-3xl font-bold">Our Mission & Vision</h2>
+            <p className="text-muted-foreground">
+              Our mission is to provide innovative and effective digital solutions that drive growth and create value for our clients. We envision a world where every business, regardless of size, can leverage the power of technology to its fullest potential.
+            </p>
+            <p className="text-muted-foreground">
+              We believe in partnership, transparency, and a results-driven approach. Your success is our success, and we're committed to building long-term relationships based on trust and mutual respect.
+            </p>
+        </div>
+        <div>
+            <Image
+                src="https://picsum.photos/seed/aboutus/600/400"
+                alt="Team working together"
+                data-ai-hint="team collaboration"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-md"
+            />
+        </div>
+      </section>
+
+      <section className="mt-20">
+        <div className="text-center max-w-2xl mx-auto">
+            <h2 className="font-headline text-3xl md:text-4xl font-bold">Meet the Team</h2>
+            <p className="mt-4 text-muted-foreground">
+                The experts behind our success.
+            </p>
+        </div>
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((member) => (
+                <Card key={member.name} className="text-center">
+                    <CardHeader>
+                        <div className="relative h-32 w-32 mx-auto">
+                            <Image
+                                src={member.image.imageUrl}
+                                alt={member.name}
+                                data-ai-hint={member.image.imageHint}
+                                width={128}
+                                height={128}
+                                className="rounded-full object-cover"
+                            />
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <CardTitle className="text-xl font-headline">{member.name}</CardTitle>
+                        <p className="text-primary">{member.role}</p>
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+      </section>
+      
+      <section className="mt-20 text-center bg-card p-12 rounded-lg">
+        <h2 className="font-headline text-3xl font-bold">Why Choose SaaSNext?</h2>
+        <div className="mt-8 grid md:grid-cols-3 gap-8">
+            <div className="space-y-2">
+                <h3 className="font-headline text-xl font-semibold">Expertise</h3>
+                <p className="text-muted-foreground">Our team consists of industry veterans with proven track records.</p>
+            </div>
+            <div className="space-y-2">
+                <h3 className="font-headline text-xl font-semibold">Custom Solutions</h3>
+                <p className="text-muted-foreground">We don't do one-size-fits-all. Every project is tailored to your unique needs.</p>
+            </div>
+            <div className="space-y-2">
+                <h3 className="font-headline text-xl font-semibold">Dedicated Support</h3>
+                <p className="text-muted-foreground">We're with you every step of the way, from initial concept to post-launch support.</p>
+            </div>
+        </div>
+        <Button asChild size="lg" className="mt-12 bg-accent hover:bg-accent/90 text-accent-foreground">
+          <Link href="/contact">
+            Work With Us <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
+        </Button>
+      </section>
+    </div>
+  );
+}
