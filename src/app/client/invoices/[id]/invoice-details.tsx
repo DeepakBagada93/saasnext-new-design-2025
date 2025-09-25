@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Printer } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
+import { useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { notFound } from 'next/navigation';
 
 type Quotation = {
     id: string;
@@ -28,11 +32,25 @@ const formatCurrency = (amount: number, currency: string) => {
     }).format(amount);
 }
 
+export default function QuotationDetails({ quotationId }: { quotationId: string }) {
+    const firestore = useFirestore();
+    const quotationRef = doc(firestore, 'quotations', quotationId);
+    const [data, loading, error] = useDocumentData(quotationRef);
 
-export default function QuotationDetails({ quotation }: { quotation: Quotation }) {
     const handlePrint = () => {
         window.print();
     }
+    
+    if (loading) {
+        return <div>Loading quotation...</div>
+    }
+
+    if (error || !data) {
+        notFound();
+    }
+
+    const quotation: Quotation = { ...data, id: quotationId } as Quotation;
+
 
     return (
         <div className="bg-card p-4 sm:p-6 lg:p-8 rounded-lg shadow-sm">
