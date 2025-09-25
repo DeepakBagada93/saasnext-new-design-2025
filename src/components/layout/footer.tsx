@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <footer className="border-t">
       <div className="px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
             <div className="space-y-4 md:col-span-1">
                 <Logo />
                 <p className="text-sm text-muted-foreground">
@@ -40,7 +40,7 @@ export default function Footer() {
                 <div>
                     <h4 className="font-headline font-semibold mb-2">Resources</h4>
                     <ul className="space-y-2">
-                        {navLinks.slice(3).map(link => (
+                        {navLinks.slice(3, 5).map(link => (
                             <li key={link.href}><Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">{link.label}</Link></li>
                         ))}
                     </ul>
@@ -50,11 +50,12 @@ export default function Footer() {
                     <ul className="space-y-2">
                         <li><Link href="#" className="text-sm text-muted-foreground hover:text-primary">Privacy Policy</Link></li>
                         <li><Link href="#" className="text-sm text-muted-foreground hover:text-primary">Terms of Service</Link></li>
+                         <li><Link href="/admin-login" className="text-sm text-muted-foreground hover:text-primary">Admin</Link></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground">
+        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground max-w-7xl mx-auto">
             <p>&copy; {new Date().getFullYear()} SaaSNext. All rights reserved.</p>
         </div>
       </div>

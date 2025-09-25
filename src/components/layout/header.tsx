@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "next-themes";
 
@@ -40,36 +40,14 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="px-4 sm:px-6 lg:px-8 flex h-16 items-center">
+    <header className="fixed top-0 z-50 w-full p-4">
+      <div className="md:hidden flex h-14 items-center justify-between rounded-lg border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Logo />
-        <nav className="hidden md:flex items-center space-x-6 ml-10 text-sm font-medium">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                "transition-colors hover:text-primary",
-                pathname === href ? "text-primary" : "text-foreground/60"
-              )}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex flex-1 items-center justify-end space-x-2">
-           <ThemeToggleButton />
-          <nav className="hidden md:flex items-center space-x-2">
-            <Button variant="ghost" asChild>
-                <Link href="/login">Client Login</Link>
-            </Button>
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground" asChild>
-                <Link href="/register">Register</Link>
-            </Button>
-          </nav>
+        <div className="flex items-center gap-2">
+          <ThemeToggleButton />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden">
+              <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
@@ -106,6 +84,35 @@ export default function Header() {
                 </div>
             </SheetContent>
           </Sheet>
+        </div>
+      </div>
+
+      <div className="hidden md:flex max-w-5xl mx-auto h-16 items-center justify-between rounded-full border bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <Logo />
+        <nav className="flex items-center space-x-6 text-sm font-medium">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "transition-colors hover:text-primary",
+                pathname === href ? "text-primary" : "text-foreground/60"
+              )}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
+        <div className="flex items-center justify-end space-x-2">
+          <ThemeToggleButton />
+          <nav className="flex items-center space-x-2">
+            <Button variant="ghost" asChild>
+                <Link href="/login">Client Login</Link>
+            </Button>
+            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full" asChild>
+                <Link href="/register">Register</Link>
+            </Button>
+          </nav>
         </div>
       </div>
     </header>
