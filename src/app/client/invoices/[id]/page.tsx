@@ -5,9 +5,9 @@ import { useFirestore } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 
-export default function QuotationPage({ params }: { params: { id: string } }) {
+export default function QuotationPage({ params: { id } }: { params: { id: string } }) {
     const firestore = useFirestore();
-    const quotationRef = doc(firestore, 'quotations', params.id);
+    const quotationRef = doc(firestore, 'quotations', id);
     const [quotation, loading, error] = useDocumentData(quotationRef);
 
     if (loading) {
@@ -19,7 +19,7 @@ export default function QuotationPage({ params }: { params: { id: string } }) {
     }
 
     // The useDocumentData hook doesn't include the ID, so we add it back.
-    const quotationWithId = { ...quotation, id: params.id };
+    const quotationWithId = { ...quotation, id };
 
     return <QuotationDetails quotation={quotationWithId as any} />;
 }
