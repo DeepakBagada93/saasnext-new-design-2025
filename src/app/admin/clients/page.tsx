@@ -64,7 +64,7 @@ export default function AdminClientsPage() {
                     </TableCell>
                 </TableRow>
               )}
-              {clients?.map((client) => (
+              {clients?.map((client: any) => (
                 <TableRow key={client.id}>
                   <TableCell className="font-medium">{client.name}</TableCell>
                   <TableCell>{client.contact}</TableCell>
