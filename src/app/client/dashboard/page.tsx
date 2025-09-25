@@ -37,10 +37,19 @@ export default function ClientDashboardPage() {
   const projectsQuery =
     user?.uid &&
     query(collection(firestore, 'projects'), where('userId', '==', user.uid));
-
-  const [projectsSnapshot, loading, error] = useCollection(projectsQuery || null);
+  const [projectsSnapshot, loadingProjects, errorProjects] = useCollection(projectsQuery || null);
+  
+  const requestsQuery =
+    user?.uid &&
+    query(collection(firestore, 'serviceRequests'), where('userId', '==', user.uid));
+  const [requestsSnapshot, loadingRequests, errorRequests] = useCollection(requestsQuery || null);
 
   const clientProjects = projectsSnapshot?.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  const serviceRequests = requestsSnapshot?.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
@@ -51,7 +60,7 @@ export default function ClientDashboardPage() {
         <div>
           <h1 className="font-headline text-3xl font-bold">Welcome Back!</h1>
           <p className="text-muted-foreground">
-            Here's a summary of your projects.
+            Here's a summary of your projects and requests.
           </p>
         </div>
         <Button asChild className="bg-accent hover:bg-accent/90">
@@ -61,6 +70,66 @@ export default function ClientDashboardPage() {
           </Link>
         </Button>
       </div>
+
+       <Card>
+        <CardHeader>
+          <CardTitle>My Service Requests</CardTitle>
+          <CardDescription>
+            Track the status of your recent service inquiries.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Service Type</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Requested On</TableHead>
+                <TableHead></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {loadingRequests && (
+                <TableRow>
+                  <TableCell colSpan={4} className="text-center">
+                    Loading requests...
+                  </TableCell>
+                </TableRow>
+              )}
+               {errorRequests && (
+                <TableRow>
+                    <TableCell colSpan={4} className="text-center text-destructive">
+                        Error: {errorRequests.message}
+                    </TableCell>
+                </TableRow>
+              )}
+              {serviceRequests && serviceRequests.length === 0 && !loadingRequests && (
+                <TableRow>
+                    <TableCell colSpan={4} className="text-center">You have no pending service requests.</TableCell>
+                </TableRow>
+              )}
+              {serviceRequests?.map((request: any) => (
+                <TableRow key={request.id}>
+                  <TableCell className="font-medium">{request.serviceType}</TableCell>
+                  <TableCell>
+                    <Badge variant='outline'>{request.status}</Badge>
+                  </TableCell>
+                  <TableCell>
+                    {new Date(request.requestedAt.toDate()).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link href={`/client/requests`}>
+                        View Details <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>
@@ -81,18 +150,23 @@ export default function ClientDashboardPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {loading && (
+              {loadingProjects && (
                 <TableRow>
                   <TableCell colSpan={5} className="text-center">
                     Loading projects...
                   </TableCell>
                 </TableRow>
               )}
-               {error && (
+               {errorProjects && (
                 <TableRow>
                     <TableCell colSpan={5} className="text-center text-destructive">
-                        Error: {error.message}
+                        Error: {errorProjects.message}
                     </TableCell>
+                </TableRow>
+              )}
+              {clientProjects && clientProjects.length === 0 && !loadingProjects && (
+                <TableRow>
+                    <TableCell colSpan={5} className="text-center">You don't have any projects yet.</TableCell>
                 </TableRow>
               )}
               {clientProjects?.map((project: any) => (

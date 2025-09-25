@@ -10,6 +10,7 @@ import {
   User,
   LogOut,
   CalendarClock,
+  Bell,
 } from "lucide-react";
 
 import {
@@ -31,6 +32,7 @@ import { Skeleton } from "../ui/skeleton";
 const menuItems = [
   { href: "/client/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/client/projects", label: "Projects", icon: Briefcase },
+  { href: "/client/requests", label: "My Requests", icon: Bell },
   { href: "/client/requests/new", label: "New Request", icon: PlusCircle },
   { href: "/client/invoices", label: "Invoices", icon: FileText },
   { href: "/client/schedule-meeting", label: "Schedule Meeting", icon: CalendarClock },
