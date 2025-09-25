@@ -363,3 +363,20 @@ export {
   ChartLegendContent,
   ChartStyle,
 }
+
+export {
+    Bar,
+    BarChart,
+    CartesianGrid,
+    Legend,
+    Line,
+    LineChart,
+    Pie,
+    PieChart,
+    PolarGrid,
+    RadialBar,
+    RadialBarChart,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from 'recharts'
