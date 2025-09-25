@@ -10,6 +10,7 @@ import {
   BarChart2,
   Bell,
   LogOut,
+  CalendarClock,
 } from "lucide-react";
 
 import {
@@ -35,6 +36,7 @@ const menuItems = [
   { href: "/admin/requests", label: "Service Requests", icon: Bell },
   { href: "/admin/projects", label: "Project Management", icon: Briefcase },
   { href: "/admin/invoices", label: "Invoice Management", icon: FileText },
+  { href: "/admin/meetings", label: "Meeting Requests", icon: CalendarClock },
 ];
 
 export default function AdminSidebar() {
