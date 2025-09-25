@@ -14,9 +14,23 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection } from 'firebase/firestore';
+import { collection, doc, deleteDoc } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { useToast } from '@/hooks/use-toast';
+
 
 type Client = {
   id: string;
@@ -27,6 +41,7 @@ type Client = {
 
 export default function AdminClientsPage() {
   const firestore = useFirestore();
+  const { toast } = useToast();
   const [clientsSnapshot, loading, error] = useCollection(
     collection(firestore, 'clients')
   );
@@ -34,6 +49,22 @@ export default function AdminClientsPage() {
   const clients = clientsSnapshot?.docs.map(
     (doc) => ({ id: doc.id, ...doc.data() } as Client)
   );
+
+  const handleDeleteClient = async (clientId: string) => {
+    try {
+      await deleteDoc(doc(firestore, 'clients', clientId));
+      toast({
+        title: 'Client Deleted',
+        description: 'The client has been successfully deleted.',
+      });
+    } catch (e: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Deletion Failed',
+        description: e.message,
+      });
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -54,12 +85,13 @@ export default function AdminClientsPage() {
                 <TableHead>Client Name</TableHead>
                 <TableHead>Contact Person</TableHead>
                 <TableHead>Email</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading && (
                 <TableRow>
-                  <TableCell colSpan={3}>
+                  <TableCell colSpan={4}>
                     <div className="space-y-2">
                         <Skeleton className="h-4 w-full" />
                         <Skeleton className="h-4 w-full" />
@@ -69,7 +101,7 @@ export default function AdminClientsPage() {
               )}
               {error && (
                  <TableRow>
-                    <TableCell colSpan={3} className="text-center text-destructive">
+                    <TableCell colSpan={4} className="text-center text-destructive">
                         Error fetching clients: {error.message}
                     </TableCell>
                 </TableRow>
@@ -79,11 +111,33 @@ export default function AdminClientsPage() {
                   <TableCell className="font-medium">{client.name}</TableCell>
                   <TableCell>{client.contact}</TableCell>
                   <TableCell>{client.email}</TableCell>
+                  <TableCell className="text-right">
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive" size="sm">Delete</Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete the client
+                            and all their associated data from our servers.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => handleDeleteClient(client.id)}>
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </TableCell>
                 </TableRow>
               ))}
                {clients && clients.length === 0 && !loading && (
                 <TableRow>
-                  <TableCell colSpan={3} className="text-center">
+                  <TableCell colSpan={4} className="text-center">
                     No clients found.
                   </TableCell>
                 </TableRow>
