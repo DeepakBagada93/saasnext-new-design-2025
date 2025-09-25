@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
-      <section className="relative pt-20 md:pt-32 lg:pt-40 pb-20 md:pb-32 lg:pb-40 text-center">
+      <section className="relative pt-20 md:pt-32 lg:pt-40 pb-20 md:pb-32 lg:pb-40 text-center overflow-hidden">
         <div className="absolute inset-0 bg-background/90">
             {heroImage && 
                 <Image 
@@ -39,14 +39,14 @@ export default function Home() {
                 />
             }
         </div>
-        <div className="relative px-4 sm:px-6 lg:px-8">
+        <div className="relative px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
             Elevate Your Business with Next-Gen Solutions
           </h1>
-          <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground">
+          <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground animation-delay-200">
             We deliver high-performance web development, AI integration, and data-driven marketing to fuel your growth.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4 animation-delay-400">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto">
               <Link href="/contact">
                 Get a Free Quote <ArrowRight className="ml-2 h-5 w-5" />
@@ -68,10 +68,10 @@ export default function Home() {
             </p>
           </div>
           <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service) => {
+            {services.map((service, index) => {
               const Icon = serviceIcons[service.icon];
               return (
-                <Card key={service.title} className="flex flex-col text-center items-center p-6 bg-background hover:shadow-lg transition-shadow">
+                <Card key={service.title} className="flex flex-col text-center items-center p-6 bg-background hover:shadow-lg transition-shadow animate-fade-in-up" style={{animationDelay: `${index * 150}ms`}}>
                   <CardHeader className="p-0">
                     <div className="bg-primary/10 text-primary p-4 rounded-full mb-4 mx-auto">
                       {Icon && <Icon className="h-8 w-8" />}
