@@ -10,6 +10,11 @@ import { CustomCursor } from '@/components/ui/custom-cursor';
 export const metadata: Metadata = {
   title: 'SaaSNext Platform',
   description: 'The web application for SaaSNext.',
+  icons: {
+    icon: '/icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
+  },
 };
 
 export default function RootLayout({
