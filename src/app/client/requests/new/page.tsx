@@ -23,6 +23,15 @@ import { useUser, useFirestore } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 
 export default function NewRequestPage() {
   const { user } = useUser();
@@ -34,7 +43,7 @@ export default function NewRequestPage() {
   const [description, setDescription] = useState('');
   const [budget, setBudget] = useState('');
   const [currency, setCurrency] = useState('USD');
-  const [timeline, setTimeline] = useState('');
+  const [timeline, setTimeline] = useState<Date>();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,12 +57,13 @@ export default function NewRequestPage() {
     }
 
     if (!serviceType || !description) {
-        toast({
-            variant: 'destructive',
-            title: 'Missing Information',
-            description: 'Please select a service type and provide a description.',
-        });
-        return;
+      toast({
+        variant: 'destructive',
+        title: 'Missing Information',
+        description:
+          'Please select a service type and provide a description.',
+      });
+      return;
     }
 
     try {
@@ -64,13 +74,14 @@ export default function NewRequestPage() {
         description,
         budget: Number(budget) || null,
         currency,
-        timeline: timeline || null,
+        timeline: timeline ? timeline.toISOString() : null,
         status: 'Pending',
         requestedAt: serverTimestamp(),
       });
       toast({
         title: 'Request Submitted',
-        description: "We've received your request and will get back to you shortly.",
+        description:
+          "We've received your request and will get back to you shortly.",
       });
       router.push('/client/dashboard');
     } catch (error: any) {
@@ -155,12 +166,32 @@ export default function NewRequestPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="timeline">Preferred Timeline</Label>
-              <Input
-                id="timeline"
-                type="date"
-                value={timeline}
-                onChange={(e) => setTimeline(e.target.value)}
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={'outline'}
+                    className={cn(
+                      'w-full justify-start text-left font-normal',
+                      !timeline && 'text-muted-foreground'
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {timeline ? (
+                      format(timeline, 'PPP')
+                    ) : (
+                      <span>Pick a date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={timeline}
+                    onSelect={setTimeline}
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="pt-2">
               <Button type="submit" className="bg-accent hover:bg-accent/90">
