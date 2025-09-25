@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
@@ -22,6 +22,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarSeparator,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/logo";
 import { useAuth, useUser } from "@/firebase";
@@ -43,7 +44,9 @@ export default function AdminSidebar() {
   const auth = useAuth();
   const { user, loading } = useUser();
   const router = useRouter();
+  const pathname = usePathname();
   const { toast } = useToast();
+  const { setOpenMobile } = useSidebar();
 
   const handleLogout = async () => {
     try {
@@ -71,8 +74,9 @@ export default function AdminSidebar() {
         <SidebarMenu>
           {menuItems.map((item) => (
             <SidebarMenuItem key={item.href}>
-              <Link href={item.href} className="w-full">
+              <Link href={item.href} className="w-full" onClick={() => setOpenMobile(false)}>
                 <SidebarMenuButton
+                  isActive={pathname === item.href}
                   variant="ghost"
                   className="w-full justify-start"
                 >
