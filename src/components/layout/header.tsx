@@ -11,11 +11,11 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Logo } from "@/components/logo";
 
 const navLinks = [
-  { href: "/about", label: "About Us" },
-  { href: "/services", label: "Services" },
+  { href: "/about", label: "Our Story" },
+  { href: "/services", label: "What We Do" },
   { href: "/portfolio", label: "Portfolio" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
+  { href: "/blog", label: "Insights" },
+  { href: "/contact", label: "Connect" },
 ];
 
 export default function Header() {

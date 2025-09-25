@@ -4,11 +4,11 @@ import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-    { href: "/about", label: "About Us" },
-    { href: "/services", label: "Services" },
+    { href: "/about", label: "Our Story" },
+    { href: "/services", label: "What We Do" },
     { href: "/portfolio", label: "Portfolio" },
-    { href: "/blog",label: "Blog" },
-    { href: "/contact", label: "Contact" },
+    { href: "/blog",label: "Insights" },
+    { href: "/contact", label: "Connect" },
     { href: "/admin-login", label: "Admin" },
 ];
 
