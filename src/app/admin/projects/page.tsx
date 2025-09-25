@@ -1,42 +1,221 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { projects } from "@/lib/data";
-import { Badge } from "@/components/ui/badge";
+'use client';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { collection } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { useState } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useToast } from '@/hooks/use-toast';
+
+type Project = {
+  id: string;
+  name: string;
+  clientId: string;
+  status: string;
+  budget: number;
+  timeline: {
+    start: string;
+    end: string;
+  };
+};
+
+function EditProjectDialog({
+  project,
+  isOpen,
+  onClose,
+}: {
+  project: Project;
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const firestore = useFirestore();
+  const { toast } = useToast();
+  const [status, setStatus] = useState(project.status);
+  const [budget, setBudget] = useState(project.budget);
+
+  const handleSave = async () => {
+    try {
+      const projectRef = doc(firestore, 'projects', project.id);
+      await updateDoc(projectRef, {
+        status,
+        budget: Number(budget),
+      });
+      toast({
+        title: 'Project Updated',
+        description: `${project.name} has been updated.`,
+      });
+      onClose();
+    } catch (error: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Update Failed',
+        description: error.message,
+      });
+    }
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit Project: {project.name}</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="status">Project Status</Label>
+            <Select value={status} onValueChange={setStatus}>
+              <SelectTrigger id="status">
+                <SelectValue placeholder="Select status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Planning">Planning</SelectItem>
+                <SelectItem value="In Progress">In Progress</SelectItem>
+                <SelectItem value="Completed">Completed</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="budget">Budget (USD)</Label>
+            <Input
+              id="budget"
+              type="number"
+              value={budget}
+              onChange={(e) => setBudget(Number(e.target.value))}
+            />
+          </div>
+        </div>
+        <div className="flex justify-end space-x-2">
+          <Button variant="outline" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button onClick={handleSave}>Save Changes</Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 export default function AdminProjectsPage() {
-    return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="font-headline text-3xl font-bold">Project Management</h1>
-                <p className="text-muted-foreground">Update timelines, post progress, and change statuses.</p>
-            </div>
-            <Card>
-                <CardHeader>
-                    <CardTitle>All Projects</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead>Project Name</TableHead>
-                                <TableHead>Client ID</TableHead>
-                                <TableHead>Status</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {projects.map(project => (
-                                <TableRow key={project.id}>
-                                    <TableCell className="font-medium">{project.name}</TableCell>
-                                    <TableCell>{project.clientId}</TableCell>
-                                    <TableCell>
-                                        <Badge variant={project.status === 'Completed' ? 'secondary' : 'default'}>{project.status}</Badge>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </CardContent>
-            </Card>
-        </div>
-    );
+  const firestore = useFirestore();
+  const [projectsSnapshot, loading, error] = useCollection(
+    collection(firestore, 'projects')
+  );
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
+
+  const projects = projectsSnapshot?.docs.map(
+    (doc) => ({ id: doc.id, ...doc.data() } as Project)
+  );
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="font-headline text-3xl font-bold">Project Management</h1>
+        <p className="text-muted-foreground">
+          Update timelines, post progress, and change statuses.
+        </p>
+      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>All Projects</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Project Name</TableHead>
+                <TableHead>Client ID</TableHead>
+                <TableHead>Budget</TableHead>
+                <TableHead>Timeline</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {loading && (
+                <TableRow>
+                  <TableCell colSpan={6} className="text-center">
+                    Loading...
+                  </TableCell>
+                </TableRow>
+              )}
+              {error && (
+                <TableRow>
+                  <TableCell colSpan={6} className="text-center text-destructive">
+                    Error: {error.message}
+                  </TableCell>
+                </TableRow>
+              )}
+              {projects?.map((project) => (
+                <TableRow key={project.id}>
+                  <TableCell className="font-medium">{project.name}</TableCell>
+                  <TableCell>{project.clientId}</TableCell>
+                  <TableCell>${project.budget.toLocaleString()}</TableCell>
+                  <TableCell>
+                    {new Date(project.timeline.start).toLocaleDateString()} -{' '}
+                    {new Date(project.timeline.end).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      variant={
+                        project.status === 'Completed' ? 'secondary' : 'default'
+                      }
+                    >
+                      {project.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setEditingProject(project)}
+                    >
+                      Edit
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+      {editingProject && (
+        <EditProjectDialog
+          project={editingProject}
+          isOpen={!!editingProject}
+          onClose={() => setEditingProject(null)}
+        />
+      )}
+    </div>
+  );
 }

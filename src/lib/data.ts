@@ -133,17 +133,6 @@ export const blogPosts = [
     }
 ];
 
-export const clients = [
-    { id: 'client-1', name: 'TechCorp', contact: 'Jane Doe', email: 'jane.doe@techcorp.com' },
-    { id: 'client-2', name: 'Innovate Ltd.', contact: 'John Smith', email: 'john.smith@innovate.com' },
-];
-
-export const projects = [
-    { id: 'proj-101', clientId: 'client-1', name: 'Corporate Website Redesign', status: 'In Progress', timeline: { start: '2024-04-01', end: '2024-07-30' }, updates: [{ date: '2024-05-20', text: 'Initial wireframes approved. Moving to high-fidelity design.' }] },
-    { id: 'proj-102', clientId: 'client-2', name: 'Q2 Lead Gen Campaign', status: 'Completed', timeline: { start: '2024-04-01', end: '2024-06-30' }, updates: [{ date: '2024-06-28', text: 'Final report delivered. Campaign exceeded all KPIs.' }] },
-    { id: 'proj-103', clientId: 'client-1', name: 'AI Chatbot Integration', status: 'Planning', timeline: { start: '2024-07-01', end: '2024-09-30' }, updates: [] },
-];
-
 export const invoices = [
     {
         id: 'inv-001',
