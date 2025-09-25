@@ -31,7 +31,7 @@ export function AnimatedHeadline() {
           {words[index]}.
         </motion.span>
       </AnimatePresence>
-      Start <span className="text-green-500 italic">Winning</span>.
+      Start <span className="text-green-500">Winning</span>.
     </h1>
   );
 }
