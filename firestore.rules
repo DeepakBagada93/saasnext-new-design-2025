@@ -1,8 +1,27 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if request.auth != null;
+    // Helper function to check if the user is the designated admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == 'deepakbagada25@gmail.com';
+    }
+
+    // Admins can read and write to the clients collection
+    match /clients/{clientId} {
+      allow list, get: if isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Admins can read and write to the projects collection
+    match /projects/{projectId} {
+      allow list, get: if isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Authenticated clients can read projects assigned to them
+    match /projects/{projectId} {
+      allow get: if request.auth != null && resource.data.userId == request.auth.uid;
     }
   }
 }
