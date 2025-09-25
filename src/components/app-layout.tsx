@@ -22,16 +22,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         if (!loading && isAdminRoute) {
-            if (!user || user.email !== ADMIN_EMAIL) {
+            if (!user || user.email?.toLowerCase() !== ADMIN_EMAIL) {
                 router.replace('/admin-login');
             }
         }
-    }, [user, loading, isAdminRoute, router]);
+    }, [user, loading, isAdminRoute, router, pathname]);
 
     if (loading && (isAdminRoute || isClientRoute)) {
         return (
-             <div className="flex min-h-screen">
-                <div className="w-64 hidden md:block border-r p-4 space-y-4">
+             <div className="flex min-h-screen bg-muted/30">
+                <div className="w-64 hidden md:block border-r p-4 space-y-4 bg-card">
                     <Skeleton className="h-8 w-32" />
                     <Skeleton className="h-8 w-full" />
                     <Skeleton className="h-8 w-full" />
@@ -46,8 +46,22 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     }
     
     if (isAdminRoute) {
-        if (!user || user.email !== ADMIN_EMAIL) {
-            return null; // or a loading spinner
+        if (!user || user.email?.toLowerCase() !== ADMIN_EMAIL) {
+            // This can happen briefly on load, so we show a loader
+            return (
+                 <div className="flex min-h-screen bg-muted/30">
+                    <div className="w-64 hidden md:block border-r p-4 space-y-4 bg-card">
+                        <Skeleton className="h-8 w-32" />
+                        <Skeleton className="h-8 w-full" />
+                        <Skeleton className="h-8 w-full" />
+                        <Skeleton className="h-8 w-full" />
+                    </div>
+                    <main className="flex-1 p-8">
+                        <Skeleton className="h-12 w-1/2 mb-4" />
+                        <Skeleton className="h-48 w-full" />
+                    </main>
+                </div>
+            );
         }
         return (
             <div className="flex min-h-screen bg-muted/30">

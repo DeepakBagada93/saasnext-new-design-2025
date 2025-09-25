@@ -26,7 +26,7 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setError(null);
 
-    if (email !== ADMIN_EMAIL) {
+    if (email.toLowerCase() !== ADMIN_EMAIL) {
       setError("You are not authorized to access the admin portal.");
       toast({
         variant: "destructive",
@@ -83,6 +83,7 @@ export default function AdminLoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          {error && <p className="text-sm text-destructive">{error}</p>}
           <Button type="submit" className="w-full">
             Login
           </Button>
