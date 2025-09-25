@@ -3,53 +3,75 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
   
+    // Helper functions
     function isAdmin() {
-      return request.auth.token.email == "deepakbagada25@gmail.com";
+      return get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.isAdmin == true;
     }
 
-    // A user can read/write their own client document
-    // An admin can read/write any client document
+    // Admins can read/write any data
+    match /{path=**} {
+      allow read, write: if isAdmin();
+    }
+
+    // Client-specific rules
+    
+    // The 'clients' collection
     match /clients/{userId} {
-      allow get, update: if request.auth.uid == userId || isAdmin();
-      allow create: if request.auth.uid == userId;
-    }
-    
-    // Admins can list all clients
-    match /clients {
-       allow list: if isAdmin();
+      // Any authenticated user can create their own client profile
+      allow create: if request.auth != null && request.auth.uid == userId;
+      
+      // A user can only read or update their own client profile
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+
+      // Admins can list all clients
+      allow list: if isAdmin();
     }
 
-    // A user can create service requests for themselves
-    // An admin can manage all service requests
-    match /serviceRequests/{requestId} {
-      allow create: if request.auth.uid == request.resource.data.userId;
-      allow read, write: if isAdmin();
-      // Users can only read their own requests
-      allow read: if request.auth.uid == resource.data.userId;
-    }
-    
-    // Admins can manage all projects
-    // Users can only read their own projects
+    // The 'projects' collection
     match /projects/{projectId} {
-      allow read, write: if isAdmin();
-      allow read: if request.auth.uid == resource.data.userId;
-    }
-
-    // Invoices can be managed by admins
-    // Users can only read their own invoices
-    match /invoices/{invoiceId} {
-       allow read, write: if isAdmin();
-       allow read: if request.auth.uid == resource.data.userId;
+      // Only admins can create, update, or delete projects
+      allow create, update, delete: if isAdmin();
+      
+      // Clients can only read projects assigned to them
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || resource.data.clientId == request.auth.uid);
+      
+      // Clients can list their own projects
+      allow list: if isAdmin() || (request.auth != null && request.query.where[0][2] == request.auth.uid);
     }
     
-    // Users can create meeting requests
-    // Admins can read and update all meeting requests
-    match /meetingRequests/{requestId} {
-        allow create: if request.auth.uid == request.resource.data.userId;
-        allow read, update: if isAdmin();
+    // The 'serviceRequests' collection
+    match /serviceRequests/{requestId} {
+        // Clients can create a service request
+        allow create: if request.auth != null;
+        
+        // Admins can manage all requests
+        allow read, list, delete: if isAdmin();
+
+        // Clients can read their own requests
+        allow read, list: if request.auth != null && request.query.where[0][2] == request.auth.uid;
     }
-     match /meetingRequests {
-        allow list: if isAdmin();
+    
+    // The 'meetingRequests' collection
+    match /meetingRequests/{requestId} {
+      // Authenticated users can create meeting requests
+      allow create: if request.auth != null;
+      
+      // Admins can manage all meeting requests
+      allow read, list, update, delete: if isAdmin();
+    }
+
+    // The 'invoices' collection
+    match /invoices/{invoiceId} {
+        // Admins can manage all invoices
+        allow read, list, create, update, delete: if isAdmin();
+        
+        // Clients can only read invoices that belong to them
+        allow read, list: if request.auth != null && request.query.where[0][2] == request.auth.uid;
+    }
+
+    // Admins collection - only other admins can read/write this
+    match /admins/{adminId} {
+        allow read, write: if isAdmin();
     }
   }
 }
