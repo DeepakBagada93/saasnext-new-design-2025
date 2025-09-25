@@ -109,7 +109,7 @@ export default function NewRequestPage() {
           "We've received your request and will get back to you shortly.",
       });
       router.push('/client/dashboard');
-    } catch (error: any) => {
+    } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Submission Failed',
