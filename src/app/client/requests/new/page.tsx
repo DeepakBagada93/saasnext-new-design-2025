@@ -32,6 +32,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { Checkbox } from '@/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 export default function NewRequestPage() {
   const { user } = useUser();
@@ -39,11 +41,23 @@ export default function NewRequestPage() {
   const { toast } = useToast();
   const router = useRouter();
 
-  const [serviceType, setServiceType] = useState('');
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [description, setDescription] = useState('');
   const [budget, setBudget] = useState('');
   const [currency, setCurrency] = useState('USD');
   const [timeline, setTimeline] = useState<Date>();
+
+  // State for conditional fields
+  const [websiteType, setWebsiteType] = useState('');
+  const [aiRequirements, setAiRequirements] = useState('');
+
+  const handleServiceChange = (serviceTitle: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(serviceTitle)
+        ? prev.filter((s) => s !== serviceTitle)
+        : [...prev, serviceTitle]
+    );
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,14 +70,23 @@ export default function NewRequestPage() {
       return;
     }
 
-    if (!serviceType || !description) {
+    if (selectedServices.length === 0 || !description) {
       toast({
         variant: 'destructive',
         title: 'Missing Information',
         description:
-          'Please select a service type and provide a description.',
+          'Please select at least one service type and provide a description.',
       });
       return;
+    }
+    
+    // Construct additional details object
+    const additionalDetails: any = {};
+    if (selectedServices.includes('Web Development') && websiteType) {
+        additionalDetails.websiteType = websiteType;
+    }
+    if (selectedServices.includes('AI Solutions') && aiRequirements) {
+        additionalDetails.aiRequirements = aiRequirements;
     }
 
     try {
@@ -71,13 +94,14 @@ export default function NewRequestPage() {
         userId: user.uid,
         clientName: user.displayName,
         clientEmail: user.email,
-        serviceType,
+        serviceType: selectedServices.join(', '), // Join selected services into a string
         description,
         budget: Number(budget) || null,
         currency,
         timeline: timeline ? timeline.toISOString() : null,
         status: 'Pending',
         requestedAt: serverTimestamp(),
+        ...additionalDetails
       });
       toast({
         title: 'Request Submitted',
@@ -85,7 +109,7 @@ export default function NewRequestPage() {
           "We've received your request and will get back to you shortly.",
       });
       router.push('/client/dashboard');
-    } catch (error: any) {
+    } catch (error: any) => {
       toast({
         variant: 'destructive',
         title: 'Submission Failed',
@@ -111,23 +135,61 @@ export default function NewRequestPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
-            <div className="space-y-2">
-              <Label htmlFor="service-type">Service Type</Label>
-              <Select value={serviceType} onValueChange={setServiceType}>
-                <SelectTrigger id="service-type">
-                  <SelectValue placeholder="Select a service" />
-                </SelectTrigger>
-                <SelectContent>
-                  {services.map((service) => (
-                    <SelectItem key={service.slug} value={service.title}>
+          <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+            <div className="space-y-3">
+              <Label>Service Type(s)</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-md border p-4">
+                {services.map((service) => (
+                  <div key={service.slug} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={service.slug}
+                      checked={selectedServices.includes(service.title)}
+                      onCheckedChange={() => handleServiceChange(service.title)}
+                    />
+                    <Label htmlFor={service.slug} className="font-normal">
                       {service.title}
-                    </SelectItem>
-                  ))}
-                  <SelectItem value="Other">Other</SelectItem>
-                </SelectContent>
-              </Select>
+                    </Label>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            {selectedServices.includes('Web Development') && (
+                <div className="space-y-3 pt-2">
+                    <Label>Website Type</Label>
+                    <RadioGroup value={websiteType} onValueChange={setWebsiteType} className="flex flex-col sm:flex-row gap-4">
+                         <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="e-commerce" id="e-commerce" />
+                            <Label htmlFor="e-commerce">E-commerce Store</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="corporate" id="corporate" />
+                            <Label htmlFor="corporate">Corporate / Brochure</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="portfolio" id="portfolio" />
+                            <Label htmlFor="portfolio">Portfolio / Personal</Label>
+                        </div>
+                         <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="other" id="other" />
+                            <Label htmlFor="other">Other</Label>
+                        </div>
+                    </RadioGroup>
+                </div>
+            )}
+
+            {selectedServices.includes('AI Solutions') && (
+                <div className="space-y-2 pt-2">
+                    <Label htmlFor="ai-requirements">Specific AI Requirements</Label>
+                    <Textarea
+                        id="ai-requirements"
+                        placeholder="e.g., Customer service chatbot, data analysis model, image generation feature..."
+                        value={aiRequirements}
+                        onChange={(e) => setAiRequirements(e.target.value)}
+                    />
+                </div>
+            )}
+
             <div className="space-y-2">
               <Label htmlFor="description">Project Description</Label>
               <Textarea
