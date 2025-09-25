@@ -1,7 +1,7 @@
 
 
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -23,7 +23,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -37,13 +36,24 @@ import {
 } from '@/components/ui/select';
 import { useFirestore } from '@/firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
-import { PlusCircle, X } from 'lucide-react';
+import { PlusCircle, X, Edit, Trash2 } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type Client = {
   id: string;
@@ -67,11 +77,21 @@ type Quotation = {
   status: 'Paid' | 'Due' | 'Overdue';
   dueDate: string;
   date: string;
+  items: QuotationItem[];
 };
 
 
-function NewQuotationDialog({ clients }: { clients: Client[] }) {
-  const [isOpen, setIsOpen] = useState(false);
+function QuotationDialog({ 
+    isOpen, 
+    onClose, 
+    clients, 
+    quotation 
+}: { 
+    isOpen: boolean, 
+    onClose: () => void, 
+    clients: Client[], 
+    quotation?: Quotation | null 
+}) {
   const [selectedClientId, setSelectedClientId] = useState('');
   const [dueDate, setDueDate] = useState<Date>();
   const [status, setStatus] = useState<'Paid' | 'Due' | 'Overdue'>('Due');
@@ -81,6 +101,26 @@ function NewQuotationDialog({ clients }: { clients: Client[] }) {
   ]);
   const firestore = useFirestore();
   const { toast } = useToast();
+  
+  const isEditing = !!quotation;
+
+  useEffect(() => {
+    if (isEditing && quotation) {
+        setSelectedClientId(quotation.clientId);
+        setDueDate(new Date(quotation.dueDate));
+        setStatus(quotation.status);
+        setCurrency(quotation.currency);
+        setItems(quotation.items);
+    } else {
+        // Reset form for new quotation
+        setSelectedClientId('');
+        setDueDate(undefined);
+        setStatus('Due');
+        setCurrency('INR');
+        setItems([{ description: '', quantity: 1, price: 0 }]);
+    }
+  }, [quotation, isEditing, isOpen]);
+
 
   const handleAddItem = () => {
     setItems([...items, { description: '', quantity: 1, price: 0 }]);
@@ -124,55 +164,59 @@ function NewQuotationDialog({ clients }: { clients: Client[] }) {
 
     const totalAmount = calculateTotalAmount();
 
-    try {
-        await addDoc(collection(firestore, 'quotations'), {
-            userId: selectedClient.userId,
-            clientId: selectedClientId,
-            clientName: selectedClient.name,
-            clientEmail: selectedClient.email,
-            amount: totalAmount,
-            currency: currency,
-            status,
-            date: new Date().toISOString(),
-            dueDate: dueDate.toISOString(),
-            items,
-            createdAt: serverTimestamp(),
-        });
+    const quotationData = {
+        userId: selectedClient.userId,
+        clientId: selectedClientId,
+        clientName: selectedClient.name,
+        clientEmail: selectedClient.email,
+        amount: totalAmount,
+        currency: currency,
+        status,
+        dueDate: dueDate.toISOString(),
+        items,
+    };
 
-        toast({
-            title: "Quotation Created",
-            description: "The new quotation has been successfully created and saved."
-        });
-        setIsOpen(false);
-        // Reset form
-        setSelectedClientId('');
-        setDueDate(undefined);
-        setStatus('Due');
-        setCurrency('INR');
-        setItems([{ description: '', quantity: 1, price: 0 }]);
+    try {
+        if (isEditing && quotation) {
+            const quotationRef = doc(firestore, 'quotations', quotation.id);
+            await updateDoc(quotationRef, {
+                ...quotationData,
+            });
+            toast({
+                title: "Quotation Updated",
+                description: "The quotation has been successfully updated."
+            });
+        } else {
+            await addDoc(collection(firestore, 'quotations'), {
+                ...quotationData,
+                date: new Date().toISOString(),
+                createdAt: serverTimestamp(),
+            });
+
+            toast({
+                title: "Quotation Created",
+                description: "The new quotation has been successfully created and saved."
+            });
+        }
+        
+        onClose();
 
     } catch (e: any) {
         toast({
             variant: "destructive",
-            title: "Creation Failed",
+            title: isEditing ? "Update Failed" : "Creation Failed",
             description: e.message
         });
     }
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Button>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Create New Quotation
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
-          <DialogTitle>New Quotation</DialogTitle>
+          <DialogTitle>{isEditing ? 'Edit Quotation' : 'New Quotation'}</DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 py-4">
+        <div className="space-y-4 py-4 max-h-[70vh] overflow-y-auto">
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                 <div className="space-y-2 col-span-2 sm:col-span-1">
                     <Label htmlFor="client">Client</Label>
@@ -283,8 +327,8 @@ function NewQuotationDialog({ clients }: { clients: Client[] }) {
 
         </div>
         <DialogFooter>
-            <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
-          <Button onClick={handleSubmit}>Create Quotation</Button>
+            <Button variant="outline" onClick={onClose}>Cancel</Button>
+          <Button onClick={handleSubmit}>{isEditing ? 'Save Changes' : 'Create Quotation'}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -294,6 +338,10 @@ function NewQuotationDialog({ clients }: { clients: Client[] }) {
 
 export default function AdminQuotationsPage() {
     const firestore = useFirestore();
+    const { toast } = useToast();
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [editingQuotation, setEditingQuotation] = useState<Quotation | null>(null);
+
     const [quotationsSnapshot, loadingQuotations, errorQuotations] = useCollection(
         collection(firestore, 'quotations')
     );
@@ -313,6 +361,32 @@ export default function AdminQuotationsPage() {
         }).format(amount);
     }
 
+    const handleOpenNewDialog = () => {
+        setEditingQuotation(null);
+        setIsDialogOpen(true);
+    }
+
+    const handleOpenEditDialog = (quotation: Quotation) => {
+        setEditingQuotation(quotation);
+        setIsDialogOpen(true);
+    }
+
+    const handleDeleteQuotation = async (quotationId: string) => {
+        try {
+            await deleteDoc(doc(firestore, 'quotations', quotationId));
+            toast({
+                title: "Quotation Deleted",
+                description: "The quotation has been successfully deleted.",
+            });
+        } catch (e: any) {
+            toast({
+                variant: 'destructive',
+                title: 'Deletion Failed',
+                description: e.message,
+            });
+        }
+    }
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
@@ -320,7 +394,12 @@ export default function AdminQuotationsPage() {
                     <h1 className="font-headline text-3xl font-bold">Quotation Management</h1>
                     <p className="text-muted-foreground">Create and manage all client quotations.</p>
                 </div>
-                {clients && <NewQuotationDialog clients={clients} />}
+                {clients && (
+                    <Button onClick={handleOpenNewDialog}>
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Create New Quotation
+                    </Button>
+                )}
             </div>
             <Card>
                 <CardHeader>
@@ -335,22 +414,23 @@ export default function AdminQuotationsPage() {
                                 <TableHead>Amount</TableHead>
                                 <TableHead>Due Date</TableHead>
                                 <TableHead>Status</TableHead>
+                                <TableHead className="text-right">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {loading && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">Loading quotations...</TableCell>
+                                    <TableCell colSpan={6} className="text-center">Loading quotations...</TableCell>
                                 </TableRow>
                             )}
                             {errorQuotations && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center text-destructive">Error: {errorQuotations.message}</TableCell>
+                                    <TableCell colSpan={6} className="text-center text-destructive">Error: {errorQuotations.message}</TableCell>
                                 </TableRow>
                             )}
                             {quotations?.map(quotation => (
                                 <TableRow key={quotation.id}>
-                                    <TableCell className="font-mono">{quotation.id}</TableCell>
+                                    <TableCell className="font-mono text-xs">{quotation.id}</TableCell>
                                     <TableCell>{quotation.clientName}</TableCell>
                                     <TableCell>{formatCurrency(quotation.amount, quotation.currency || 'INR')}</TableCell>
                                     <TableCell>{new Date(quotation.dueDate).toLocaleDateString()}</TableCell>
@@ -362,17 +442,57 @@ export default function AdminQuotationsPage() {
                                             {quotation.status}
                                         </Badge>
                                     </TableCell>
+                                    <TableCell className="text-right">
+                                        <div className="flex justify-end gap-2">
+                                            <Button variant="ghost" size="icon" onClick={() => handleOpenEditDialog(quotation)}>
+                                                <Edit className="h-4 w-4" />
+                                            </Button>
+                                            <AlertDialog>
+                                                <AlertDialogTrigger asChild>
+                                                    <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                </AlertDialogTrigger>
+                                                <AlertDialogContent>
+                                                    <AlertDialogHeader>
+                                                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        This action cannot be undone. This will permanently delete the quotation.
+                                                    </AlertDialogDescription>
+                                                    </AlertDialogHeader>
+                                                    <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction
+                                                        className="bg-destructive hover:bg-destructive/90"
+                                                        onClick={() => handleDeleteQuotation(quotation.id)}
+                                                    >
+                                                        Delete
+                                                    </AlertDialogAction>
+                                                    </AlertDialogFooter>
+                                                </AlertDialogContent>
+                                            </AlertDialog>
+                                        </div>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                              {quotations && quotations.length === 0 && !loading && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">No quotations found.</TableCell>
+                                    <TableCell colSpan={6} className="text-center">No quotations found.</TableCell>
                                 </TableRow>
                              )}
                         </TableBody>
                     </Table>
                 </CardContent>
             </Card>
+
+            {clients && (
+                <QuotationDialog 
+                    isOpen={isDialogOpen}
+                    onClose={() => setIsDialogOpen(false)}
+                    clients={clients}
+                    quotation={editingQuotation}
+                />
+            )}
         </div>
     );
 }
