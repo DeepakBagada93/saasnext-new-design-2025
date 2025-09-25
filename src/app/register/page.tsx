@@ -27,23 +27,32 @@ export default function RegisterPage() {
     e.preventDefault();
     setError(null);
 
+    if (!firestore) {
+      setError("Firestore is not initialized.");
+      toast({
+        variant: "destructive",
+        title: "Registration Failed",
+        description: "Database connection failed. Please try again later.",
+      });
+      return;
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Update the user's profile in Firebase Auth
+      await updateProfile(user, { displayName: name });
       
-      if (userCredential.user) {
-        const user = userCredential.user;
-        await updateProfile(user, { displayName: name });
-        
-        // Create a client document in Firestore
-        const clientRef = doc(firestore, "clients", user.uid);
-        await setDoc(clientRef, {
-            name: name,
-            email: user.email,
-            contact: name, // Default contact to name
-            createdAt: serverTimestamp(),
-            userId: user.uid,
-        });
-      }
+      // Create a client document in Firestore
+      const clientRef = doc(firestore, "clients", user.uid);
+      await setDoc(clientRef, {
+          name: name,
+          email: user.email,
+          contact: name, // Default contact to name
+          createdAt: serverTimestamp(),
+          userId: user.uid, // Explicitly store the user's UID
+      });
       
       toast({
         title: "Account Created",
