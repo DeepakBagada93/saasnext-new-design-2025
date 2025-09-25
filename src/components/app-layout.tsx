@@ -43,9 +43,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <SidebarProvider>
                 <div className="flex min-h-screen bg-muted/30">
                     <AdminSidebar />
-                    <main className="flex-1">
-                        <div className="p-4 sm:p-6 lg:p-8">{children}</div>
-                    </main>
+                    <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
                 </div>
             </SidebarProvider>
         );
@@ -56,9 +54,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <SidebarProvider>
                 <div className="flex min-h-screen bg-muted/30">
                     <ClientSidebar />
-                    <main className="flex-1">
-                        <div className="p-4 sm:p-6 lg:p-8">{children}</div>
-                    </main>
+                    <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
                 </div>
             </SidebarProvider>
         );
