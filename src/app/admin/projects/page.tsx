@@ -207,7 +207,7 @@ export default function AdminProjectsPage() {
                 <TableRow key={project.id}>
                   <TableCell className="font-medium">{project.name}</TableCell>
                   <TableCell>{project.clientId}</TableCell>
-                  <TableCell>{formatCurrency(project.budget, project.currency || 'USD')}</TableCell>
+                  <TableCell>{formatCurrency(project.budget || 0, project.currency || 'USD')}</TableCell>
                   <TableCell>
                     {new Date(project.timeline.start).toLocaleDateString()} -{' '}
                     {new Date(project.timeline.end).toLocaleDateString()}

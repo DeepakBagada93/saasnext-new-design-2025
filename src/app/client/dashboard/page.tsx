@@ -107,7 +107,7 @@ export default function ClientDashboardPage() {
                       {project.status}
                     </Badge>
                   </TableCell>
-                  <TableCell>{formatCurrency(project.budget, project.currency || 'USD')}</TableCell>
+                  <TableCell>{formatCurrency(project.budget || 0, project.currency || 'USD')}</TableCell>
                   <TableCell>
                     {new Date(project.timeline.end).toLocaleDateString()}
                   </TableCell>

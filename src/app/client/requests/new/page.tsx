@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -41,14 +42,28 @@ export default function NewRequestPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="budget">Preferred Budget (USD)</Label>
+                <Label htmlFor="budget">Preferred Budget</Label>
                 <Input id="budget" type="number" placeholder="e.g., 5000" />
               </div>
               <div className="space-y-2">
+                <Label htmlFor="currency">Preferred Currency</Label>
+                <Select defaultValue="USD">
+                    <SelectTrigger id="currency">
+                        <SelectValue placeholder="Select currency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="USD">USD</SelectItem>
+                        <SelectItem value="INR">INR</SelectItem>
+                        <SelectItem value="EUR">EUR</SelectItem>
+                        <SelectItem value="GBP">GBP</SelectItem>
+                    </SelectContent>
+                </Select>
+              </div>
+            </div>
+             <div className="space-y-2">
                 <Label htmlFor="timeline">Preferred Timeline</Label>
                 <Input id="timeline" type="date" />
               </div>
-            </div>
             <div className="pt-2">
                 <Button type="submit" className="bg-accent hover:bg-accent/90">Submit Request</Button>
             </div>
