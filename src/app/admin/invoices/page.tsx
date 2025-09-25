@@ -80,6 +80,14 @@ type Quotation = {
   items: QuotationItem[];
 };
 
+const formatCurrency = (amount: number, currency: string) => {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 2,
+    }).format(amount);
+}
+
 
 function QuotationDialog({ 
     isOpen, 
@@ -140,14 +148,6 @@ function QuotationDialog({
   const calculateTotalAmount = () => {
     return items.reduce((total, item) => total + item.quantity * item.price, 0);
   };
-
-  const formatCurrency = (amount: number, currency: string) => {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency,
-        minimumFractionDigits: 2,
-    }).format(amount);
-  }
 
   const handleSubmit = async () => {
     if (!selectedClientId || !dueDate || items.some(item => !item.description || item.price <= 0)) {
@@ -353,14 +353,6 @@ export default function AdminQuotationsPage() {
     const clients = clientsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Client));
     const loading = loadingQuotations || loadingClients;
     
-    const formatCurrency = (amount: number, currency: string) => {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: currency,
-            minimumFractionDigits: 2,
-        }).format(amount);
-    }
-
     const handleOpenNewDialog = () => {
         setEditingQuotation(null);
         setIsDialogOpen(true);

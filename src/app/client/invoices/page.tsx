@@ -9,6 +9,14 @@ import { useUser, useFirestore } from "@/firebase";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection, query, where } from 'firebase/firestore';
 
+const formatCurrency = (amount: number, currency: string) => {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 2,
+    }).format(amount);
+}
+
 export default function ClientQuotationsPage() {
   const { user } = useUser();
   const firestore = useFirestore();
@@ -62,7 +70,7 @@ export default function ClientQuotationsPage() {
                   <TableCell className="font-mono">{quotation.id}</TableCell>
                   <TableCell>{new Date(quotation.date).toLocaleDateString()}</TableCell>
                   <TableCell>{new Date(quotation.dueDate).toLocaleDateString()}</TableCell>
-                  <TableCell>${quotation.amount.toFixed(2)}</TableCell>
+                  <TableCell>{formatCurrency(quotation.amount, quotation.currency || 'INR')}</TableCell>
                   <TableCell>
                     <Badge variant={quotation.status === 'Paid' ? 'secondary' : 'destructive'}>{quotation.status}</Badge>
                   </TableCell>

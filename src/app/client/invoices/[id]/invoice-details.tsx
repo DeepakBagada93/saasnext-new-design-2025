@@ -4,22 +4,30 @@ import { Printer } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
 
-// A more generic type for the quotation since it now comes from Firestore
 type Quotation = {
     id: string;
     status: string;
     date: string;
     dueDate: string;
     amount: number;
+    currency: string;
     items: {
         description: string;
         quantity: number;
         price: number;
     }[];
-    // Add other fields from your Firestore document as needed
     clientName?: string;
     clientEmail?: string;
 };
+
+const formatCurrency = (amount: number, currency: string) => {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 2,
+    }).format(amount);
+}
+
 
 export default function QuotationDetails({ quotation }: { quotation: Quotation }) {
     const handlePrint = () => {
@@ -62,7 +70,7 @@ export default function QuotationDetails({ quotation }: { quotation: Quotation }
                     <div className="text-right">
                         <p className="text-sm"><span className="font-semibold text-gray-600">Quotation Date:</span> {new Date(quotation.date).toLocaleDateString()}</p>
                         <p className="text-sm"><span className="font-semibold text-gray-600">Due Date:</span> {new Date(quotation.dueDate).toLocaleDateString()}</p>
-                        <p className="text-lg mt-2"><span className="font-semibold text-gray-600">Amount Due:</span> <span className="font-bold text-gray-800">${quotation.amount.toFixed(2)}</span></p>
+                        <p className="text-lg mt-2"><span className="font-semibold text-gray-600">Amount Due:</span> <span className="font-bold text-gray-800">{formatCurrency(quotation.amount, quotation.currency)}</span></p>
                     </div>
                 </section>
 
@@ -81,8 +89,8 @@ export default function QuotationDetails({ quotation }: { quotation: Quotation }
                                 <tr key={index} className="border-b">
                                     <td className="p-2">{item.description}</td>
                                     <td className="text-center p-2">{item.quantity}</td>
-                                    <td className="text-right p-2">${item.price.toFixed(2)}</td>
-                                    <td className="text-right p-2">${(item.quantity * item.price).toFixed(2)}</td>
+                                    <td className="text-right p-2">{formatCurrency(item.price, quotation.currency)}</td>
+                                    <td className="text-right p-2">{formatCurrency(item.quantity * item.price, quotation.currency)}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -95,15 +103,15 @@ export default function QuotationDetails({ quotation }: { quotation: Quotation }
                             <tbody>
                                 <tr>
                                     <td className="p-2 text-gray-600">Subtotal</td>
-                                    <td className="p-2 text-right">${quotation.amount.toFixed(2)}</td>
+                                    <td className="p-2 text-right">{formatCurrency(quotation.amount, quotation.currency)}</td>
                                 </tr>
                                 <tr>
                                     <td className="p-2 text-gray-600">Tax (0%)</td>
-                                    <td className="p-2 text-right">$0.00</td>
+                                    <td className="p-2 text-right">{formatCurrency(0, quotation.currency)}</td>
                                 </tr>
                                 <tr className="font-bold bg-gray-100">
                                     <td className="p-2 text-gray-800">Total</td>
-                                    <td className="p-2 text-right text-gray-800">${quotation.amount.toFixed(2)}</td>
+                                    <td className="p-2 text-right text-gray-800">{formatCurrency(quotation.amount, quotation.currency)}</td>
                                 </tr>
                             </tbody>
                         </table>
