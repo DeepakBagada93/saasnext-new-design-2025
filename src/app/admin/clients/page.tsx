@@ -16,6 +16,7 @@ import {
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type Client = {
   id: string;
@@ -58,15 +59,18 @@ export default function AdminClientsPage() {
             <TableBody>
               {loading && (
                 <TableRow>
-                  <TableCell colSpan={3} className="text-center">
-                    Loading...
+                  <TableCell colSpan={3}>
+                    <div className="space-y-2">
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-full" />
+                    </div>
                   </TableCell>
                 </TableRow>
               )}
               {error && (
                  <TableRow>
                     <TableCell colSpan={3} className="text-center text-destructive">
-                        Error: {error.message}
+                        Error fetching clients: {error.message}
                     </TableCell>
                 </TableRow>
               )}
