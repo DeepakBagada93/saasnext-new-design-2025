@@ -1,8 +1,9 @@
+
 import Image from "next/image";
-import Link from "next/link";
 import { portfolioItems } from "@/lib/data";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { TrendingUp } from "lucide-react";
 
 export default function PortfolioPage() {
   return (
@@ -16,30 +17,29 @@ export default function PortfolioPage() {
 
       <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {portfolioItems.map((item) => (
-          <Card key={item.id} className="flex flex-col">
-            <CardHeader>
-              <div className="relative aspect-[3/2] w-full mb-4">
+          <Card key={item.id} className="flex flex-col group overflow-hidden">
+             <div className="relative aspect-[16/9] w-full overflow-hidden">
                 <Image
-                  src={item.image.imageUrl}
-                  alt={item.title}
-                  data-ai-hint={item.image.imageHint}
-                  fill
-                  className="rounded-t-lg object-cover"
+                    src={item.image.imageUrl}
+                    alt={item.title}
+                    data-ai-hint={item.image.imageHint}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-              </div>
+            </div>
+            <CardHeader>
               <Badge variant="secondary" className="w-fit">{item.service}</Badge>
               <CardTitle className="font-headline text-xl pt-2">{item.title}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
-              <CardDescription>
-                <span className="font-semibold text-foreground">Problem:</span> {item.problem}
-              </CardDescription>
-              <CardDescription className="mt-2">
-                <span className="font-semibold text-foreground">Solution:</span> {item.solution}
-              </CardDescription>
+              <p><span className="font-semibold text-foreground">The Problem:</span> <span className="text-muted-foreground">{item.problem}</span></p>
+              <p className="mt-2"><span className="font-semibold text-foreground">Our Solution:</span> <span className="text-muted-foreground">{item.solution}</span></p>
             </CardContent>
             <CardFooter>
-                 <p className="text-sm font-semibold text-primary">{item.results}</p>
+                 <div className="flex items-center gap-2 text-primary font-bold">
+                    <TrendingUp className="h-5 w-5"/>
+                    <p className="text-lg">{item.results}</p>
+                </div>
             </CardFooter>
           </Card>
         ))}
@@ -47,3 +47,5 @@ export default function PortfolioPage() {
     </div>
   );
 }
+
+    

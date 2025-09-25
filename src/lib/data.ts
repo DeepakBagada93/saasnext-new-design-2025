@@ -1,3 +1,4 @@
+
 import type { ImagePlaceholder } from './placeholder-images';
 import { PlaceHolderImages } from './placeholder-images';
 
@@ -171,3 +172,28 @@ export const invoices = [
         ]
     }
 ];
+
+export const faqs = [
+    {
+      question: 'What types of businesses do you work with?',
+      answer: 'We work with a wide range of businesses, from early-stage startups to established enterprise companies. Our core expertise lies in helping technology, SaaS, and e-commerce businesses scale, but our strategies are adaptable to any industry.'
+    },
+    {
+      question: 'How much does a typical project cost?',
+      answer: "Project costs vary greatly depending on the scope and complexity. We provide custom quotes after an initial discovery call. For a rough estimate, a standard website redesign starts around $10,000, while ongoing marketing retainers begin at $2,500/month."
+    },
+    {
+      question: 'How long does a project usually take?',
+      answer: "A typical website project takes 8-12 weeks from kick-off to launch. Smaller projects can be faster, and more complex builds may take longer. We establish a clear timeline at the beginning of every project."
+    },
+    {
+      question: "What's your process for working with new clients?",
+      answer: "Our process begins with a free discovery call to understand your goals. From there, we move to a detailed proposal, project kick-off, and then into our agile design and development sprints, with regular check-ins to ensure we're aligned every step of the way."
+    },
+    {
+      question: 'Do you offer ongoing support and maintenance?',
+      answer: "Yes, we offer a variety of ongoing support and maintenance packages to ensure your website or application remains secure, updated, and performing optimally post-launch. We can also provide retainers for ongoing feature development or marketing."
+    }
+  ];
+
+    
