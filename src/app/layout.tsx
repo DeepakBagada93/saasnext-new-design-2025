@@ -3,6 +3,7 @@ import './globals.css';
 import { AppLayout } from '@/components/app-layout';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import { FirebaseProvider } from '@/firebase';
 
 export const metadata: Metadata = {
   title: 'SaaSNext Platform',
@@ -22,7 +23,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className={cn("min-h-screen font-body antialiased", "bg-background")}>
-        <AppLayout>{children}</AppLayout>
+        <FirebaseProvider>
+          <AppLayout>{children}</AppLayout>
+        </FirebaseProvider>
         <Toaster />
       </body>
     </html>
