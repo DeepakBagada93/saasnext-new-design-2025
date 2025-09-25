@@ -45,7 +45,7 @@ export default function ContactPage() {
             <div className="space-y-4 text-lg">
                 <div className="flex items-center space-x-4">
                     <Mail className="h-6 w-6 text-primary"/>
-                    <a href="mailto:contact@saasnext.com" className="text-muted-foreground hover:text-primary">contact@saasnext.com</a>
+                    <a href="mailto:connect@saasnext.in" className="text-muted-foreground hover:text-primary">connect@saasnext.in</a>
                 </div>
                 <div className="flex items-center space-x-4">
                     <Phone className="h-6 w-6 text-primary"/>

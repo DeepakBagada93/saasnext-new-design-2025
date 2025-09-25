@@ -71,7 +71,7 @@ export default function QuotationDetails({ quotationId }: { quotationId: string 
                     <div>
                         <Logo className="text-primary" />
                         <p className="text-xs text-gray-500 mt-1">123 Digital Ave, Tech City, 54321</p>
-                        <p className="text-xs text-gray-500">contact@saasnext.com</p>
+                        <p className="text-xs text-gray-500">connect@saasnext.in</p>
                     </div>
                     <div className="text-right">
                         <h1 className="text-4xl font-bold text-gray-800 uppercase">Quotation</h1>
