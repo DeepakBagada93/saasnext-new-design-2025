@@ -1,3 +1,4 @@
+
 'use client';
 import { useState } from 'react';
 import {
@@ -61,6 +62,7 @@ type Invoice = {
   clientId: string;
   clientName: string;
   amount: number;
+  currency: string;
   status: 'Paid' | 'Due' | 'Overdue';
   dueDate: string;
   date: string;
@@ -72,6 +74,7 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
   const [selectedClientId, setSelectedClientId] = useState('');
   const [dueDate, setDueDate] = useState<Date>();
   const [status, setStatus] = useState<'Paid' | 'Due' | 'Overdue'>('Due');
+  const [currency, setCurrency] = useState('INR');
   const [items, setItems] = useState<InvoiceItem[]>([
     { description: '', quantity: 1, price: 0 },
   ]);
@@ -97,6 +100,14 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
     return items.reduce((total, item) => total + item.quantity * item.price, 0);
   };
 
+  const formatCurrency = (amount: number, currency: string) => {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 2,
+    }).format(amount);
+  }
+
   const handleSubmit = async () => {
     if (!selectedClientId || !dueDate || items.some(item => !item.description || item.price <= 0)) {
         toast({
@@ -119,6 +130,7 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
             clientName: selectedClient.name,
             clientEmail: selectedClient.email,
             amount: totalAmount,
+            currency: currency,
             status,
             date: new Date().toISOString(),
             dueDate: dueDate.toISOString(),
@@ -135,6 +147,7 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
         setSelectedClientId('');
         setDueDate(undefined);
         setStatus('Due');
+        setCurrency('INR');
         setItems([{ description: '', quantity: 1, price: 0 }]);
 
     } catch (e: any) {
@@ -154,13 +167,13 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
           Create New Invoice
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
           <DialogTitle>New Invoice</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="space-y-2">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                <div className="space-y-2 col-span-2 sm:col-span-1">
                     <Label htmlFor="client">Client</Label>
                     <Select value={selectedClientId} onValueChange={setSelectedClientId}>
                     <SelectTrigger id="client">
@@ -212,6 +225,20 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
                     </SelectContent>
                     </Select>
                 </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="currency">Currency</Label>
+                    <Select value={currency} onValueChange={setCurrency}>
+                    <SelectTrigger id="currency">
+                        <SelectValue placeholder="Select currency" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="INR">INR</SelectItem>
+                        <SelectItem value="USD">USD</SelectItem>
+                        <SelectItem value="EUR">EUR</SelectItem>
+                        <SelectItem value="GBP">GBP</SelectItem>
+                    </SelectContent>
+                    </Select>
+                </div>
             </div>
             
             <div className="space-y-2 pt-4">
@@ -250,7 +277,7 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
                 </Button>
             </div>
             <div className="flex justify-end pt-4 font-medium">
-                Total Amount: ${calculateTotalAmount().toFixed(2)}
+                Total Amount: {formatCurrency(calculateTotalAmount(), currency)}
             </div>
 
         </div>
@@ -276,6 +303,14 @@ export default function AdminInvoicesPage() {
     const invoices = invoicesSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Invoice));
     const clients = clientsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Client));
     const loading = loadingInvoices || loadingClients;
+    
+    const formatCurrency = (amount: number, currency: string) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: currency,
+            minimumFractionDigits: 2,
+        }).format(amount);
+    }
 
     return (
         <div className="space-y-6">
@@ -316,7 +351,7 @@ export default function AdminInvoicesPage() {
                                 <TableRow key={invoice.id}>
                                     <TableCell className="font-mono">{invoice.id}</TableCell>
                                     <TableCell>{invoice.clientName}</TableCell>
-                                    <TableCell>${invoice.amount.toFixed(2)}</TableCell>
+                                    <TableCell>{formatCurrency(invoice.amount, invoice.currency || 'INR')}</TableCell>
                                     <TableCell>{new Date(invoice.dueDate).toLocaleDateString()}</TableCell>
                                     <TableCell>
                                         <Badge 
