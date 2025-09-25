@@ -15,6 +15,11 @@ import { doc } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { ProjectTimeline } from './project-timeline';
 
+type Milestone = {
+    name: string;
+    date: string;
+    status: 'Completed' | 'Active' | 'Upcoming';
+}
 
 export default function ProjectDetails({ id }: { id: string }) {
   const firestore = useFirestore();
@@ -30,10 +35,31 @@ export default function ProjectDetails({ id }: { id: string }) {
 
   const project = { id: projectSnapshot.id, ...projectSnapshot.data() };
   
-  const milestones = [
+  const getMilestoneStatus = (milestoneDate: string, projectStatus: string, allMilestones: Milestone[]): 'Completed' | 'Active' | 'Upcoming' => {
+      const now = new Date();
+      const date = new Date(milestoneDate);
+      
+      if (projectStatus === 'Completed' || date < now) {
+          return 'Completed';
+      }
+      
+      const upcomingMilestones = allMilestones
+          .filter(m => new Date(m.date) >= now)
+          .sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+      if (upcomingMilestones.length > 0 && upcomingMilestones[0].date === milestoneDate) {
+          return 'Active';
+      }
+      
+      return 'Upcoming';
+  };
+
+  const milestones: Milestone[] = project.milestones ? project.milestones.map((m: any) => ({
+      ...m,
+      status: getMilestoneStatus(m.date, project.status, project.milestones),
+  })) : [
+    // Fallback for older projects without milestones
     { name: 'Project Kick-off', date: project.timeline.start, status: 'Completed' },
-    { name: 'Design Phase', date: new Date(new Date(project.timeline.start).getTime() + 15 * 24 * 60 * 60 * 1000).toISOString(), status: project.status === 'Planning' ? 'Upcoming' : 'Completed' },
-    { name: 'Development', date: new Date(new Date(project.timeline.start).getTime() + 45 * 24 * 60 * 60 * 1000).toISOString(), status: project.status === 'In Progress' ? 'Active' : (project.status === 'Completed' ? 'Completed' : 'Upcoming') },
     { name: 'Final Delivery', date: project.timeline.end, status: project.status === 'Completed' ? 'Completed' : 'Upcoming' },
   ];
 
