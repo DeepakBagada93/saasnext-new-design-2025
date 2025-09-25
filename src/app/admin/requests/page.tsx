@@ -26,6 +26,7 @@ type ServiceRequest = {
   currency?: string;
   timeline?: string;
   clientName: string;
+  clientEmail: string;
   userId: string;
 };
 
@@ -113,14 +114,14 @@ export default function AdminRequestsPage() {
               <div key={request.id} className="border rounded-lg p-4">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-semibold">
-                      {request.serviceType} for "{request.clientName}"
+                    <h3 className="font-semibold text-lg">
+                      {request.serviceType}
                     </h3>
-                    <p className="text-sm text-muted-foreground">
-                      Client ID: {request.userId}
+                     <p className="text-sm text-muted-foreground">
+                      From: {request.clientName} ({request.clientEmail})
                     </p>
-                    <p className="text-sm mt-2">{request.description}</p>
-                    <div className="text-sm text-muted-foreground mt-2 space-x-4">
+                    <p className="text-md mt-2">{request.description}</p>
+                    <div className="text-sm text-muted-foreground mt-2 grid grid-cols-2 gap-x-4">
                         {request.budget && <span>Budget: {request.budget} {request.currency}</span>}
                         {request.timeline && <span>Timeline: {new Date(request.timeline).toLocaleDateString()}</span>}
                     </div>

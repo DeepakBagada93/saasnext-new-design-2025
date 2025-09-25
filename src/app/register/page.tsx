@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useAuth } from "@/firebase";
+import { useAuth, useFirestore } from "@/firebase";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -18,6 +19,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const auth = useAuth();
+  const firestore = useFirestore();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -27,14 +29,28 @@ export default function RegisterPage() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      
       if (userCredential.user) {
-        await updateProfile(userCredential.user, { displayName: name });
+        const user = userCredential.user;
+        await updateProfile(user, { displayName: name });
+        
+        // Create a client document in Firestore
+        const clientRef = doc(firestore, "clients", user.uid);
+        await setDoc(clientRef, {
+            name: name,
+            email: user.email,
+            contact: name, // Default contact to name
+            createdAt: serverTimestamp(),
+            userId: user.uid,
+        });
       }
+      
       toast({
         title: "Account Created",
         description: "Redirecting to your dashboard...",
       });
       router.push("/client/dashboard");
+      
     } catch (error: any) {
       let errorMessage = "An unknown error occurred.";
       switch (error.code) {

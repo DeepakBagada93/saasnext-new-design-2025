@@ -69,7 +69,8 @@ export default function NewRequestPage() {
     try {
       await addDoc(collection(firestore, 'serviceRequests'), {
         userId: user.uid,
-        clientName: user.displayName || user.email,
+        clientName: user.displayName,
+        clientEmail: user.email,
         serviceType,
         description,
         budget: Number(budget) || null,
