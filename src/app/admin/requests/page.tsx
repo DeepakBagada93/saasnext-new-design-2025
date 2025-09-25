@@ -46,8 +46,8 @@ export default function AdminRequestsPage() {
       // Create a new project
       await addDoc(collection(firestore, 'projects'), {
         name: `New Project: ${request.serviceType}`,
-        clientId: request.clientName, // Keep the name for display
-        userId: request.userId,
+        clientName: request.clientName, // Store client name for easy display
+        clientId: request.userId, // Store the actual user ID
         status: 'Planning',
         budget: request.budget || 0,
         currency: request.currency || 'USD',

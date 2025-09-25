@@ -40,7 +40,7 @@ import { useToast } from '@/hooks/use-toast';
 type Project = {
   id: string;
   name: string;
-  clientId: string;
+  clientName: string; // Changed from clientId to clientName for display
   status: string;
   budget: number;
   currency: string;
@@ -181,7 +181,7 @@ export default function AdminProjectsPage() {
             <TableHeader>
               <TableRow>
                 <TableHead>Project Name</TableHead>
-                <TableHead>Client ID</TableHead>
+                <TableHead>Client Name</TableHead>
                 <TableHead>Budget</TableHead>
                 <TableHead>Timeline</TableHead>
                 <TableHead>Status</TableHead>
@@ -206,7 +206,7 @@ export default function AdminProjectsPage() {
               {projects?.map((project) => (
                 <TableRow key={project.id}>
                   <TableCell className="font-medium">{project.name}</TableCell>
-                  <TableCell>{project.clientId}</TableCell>
+                  <TableCell>{project.clientName}</TableCell>
                   <TableCell>{formatCurrency(project.budget || 0, project.currency || 'USD')}</TableCell>
                   <TableCell>
                     {new Date(project.timeline.start).toLocaleDateString()} -{' '}

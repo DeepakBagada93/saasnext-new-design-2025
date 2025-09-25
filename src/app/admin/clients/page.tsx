@@ -17,16 +17,22 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 
+type Client = {
+  id: string;
+  name: string;
+  contact: string;
+  email: string;
+};
+
 export default function AdminClientsPage() {
   const firestore = useFirestore();
   const [clientsSnapshot, loading, error] = useCollection(
     collection(firestore, 'clients')
   );
 
-  const clients = clientsSnapshot?.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  const clients = clientsSnapshot?.docs.map(
+    (doc) => ({ id: doc.id, ...doc.data() } as Client)
+  );
 
   return (
     <div className="space-y-6">
@@ -64,13 +70,20 @@ export default function AdminClientsPage() {
                     </TableCell>
                 </TableRow>
               )}
-              {clients?.map((client: any) => (
+              {clients?.map((client) => (
                 <TableRow key={client.id}>
                   <TableCell className="font-medium">{client.name}</TableCell>
                   <TableCell>{client.contact}</TableCell>
                   <TableCell>{client.email}</TableCell>
                 </TableRow>
               ))}
+               {clients && clients.length === 0 && !loading && (
+                <TableRow>
+                  <TableCell colSpan={3} className="text-center">
+                    No clients found.
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </CardContent>
