@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, doc, updateDoc, arrayUnion, serverTimestamp } from 'firebase/firestore';
+import { collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import {
@@ -61,6 +61,8 @@ type Project = {
   };
   milestones?: Milestone[];
   updates?: any[];
+  quickCallNumber?: string;
+  whatsappLink?: string;
 };
 
 function formatCurrency(amount: number, currency: string) {
@@ -88,6 +90,8 @@ function EditProjectDialog({
   const [currency, setCurrency] = useState(project.currency || 'INR');
   const [milestones, setMilestones] = useState(project.milestones || []);
   const [newUpdate, setNewUpdate] = useState('');
+  const [quickCallNumber, setQuickCallNumber] = useState(project.quickCallNumber || '');
+  const [whatsappLink, setWhatsappLink] = useState(project.whatsappLink || '');
 
   const handleMilestoneDateChange = (index: number, date: Date | undefined) => {
     if (!date) return;
@@ -105,6 +109,8 @@ function EditProjectDialog({
         budget: Number(budget),
         currency,
         milestones,
+        quickCallNumber,
+        whatsappLink,
       };
 
       if (newUpdate.trim() !== '') {
@@ -175,6 +181,28 @@ function EditProjectDialog({
                 </Select>
             </div>
           </div>
+          
+           <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label htmlFor="quickCallNumber">Quick Call Number</Label>
+                    <Input
+                        id="quickCallNumber"
+                        placeholder="+91 12345 67890"
+                        value={quickCallNumber}
+                        onChange={(e) => setQuickCallNumber(e.target.value)}
+                    />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="whatsappLink">WhatsApp Group Link</Label>
+                    <Input
+                        id="whatsappLink"
+                        placeholder="https://chat.whatsapp.com/..."
+                        value={whatsappLink}
+                        onChange={(e) => setWhatsappLink(e.target.value)}
+                    />
+                </div>
+          </div>
+
 
           <div className="space-y-4">
             <Label>Work Phases (Milestones)</Label>

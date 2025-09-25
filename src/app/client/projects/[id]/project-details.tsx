@@ -8,17 +8,38 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock } from 'lucide-react';
+import { Calendar, Clock, Phone } from 'lucide-react';
 import { ProjectProgress } from './project-progress';
 import { useFirestore } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { ProjectTimeline } from './project-timeline';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type Milestone = {
     name: string;
     date: string;
     status: 'Completed' | 'Active' | 'Upcoming';
+}
+
+function WhatsappIcon(props: any) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+    )
 }
 
 export default function ProjectDetails({ id }: { id: string }) {
@@ -123,7 +144,34 @@ export default function ProjectDetails({ id }: { id: string }) {
             </Card>
         </div>
 
-        <div className="md:col-span-1">
+        <div className="md:col-span-1 space-y-8">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Quick Contact</CardTitle>
+                    <CardDescription>Get in touch with the team.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                    {project.quickCallNumber && (
+                         <Button asChild variant="outline" className="w-full justify-start">
+                            <a href={`tel:${project.quickCallNumber}`}>
+                                <Phone className="mr-2 h-4 w-4" />
+                                {project.quickCallNumber}
+                            </a>
+                        </Button>
+                    )}
+                    {project.whatsappLink && (
+                        <Button asChild variant="outline" className="w-full justify-start">
+                            <Link href={project.whatsappLink} target="_blank">
+                                <WhatsappIcon className="mr-2 h-4 w-4" />
+                                Join WhatsApp Group
+                            </Link>
+                        </Button>
+                    )}
+                    {(!project.quickCallNumber && !project.whatsappLink) && (
+                        <p className="text-sm text-muted-foreground text-center py-4">No quick contact methods have been added for this project.</p>
+                    )}
+                </CardContent>
+            </Card>
             <Card>
             <CardHeader>
                 <CardTitle>Recent Updates</CardTitle>
