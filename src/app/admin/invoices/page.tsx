@@ -1,4 +1,5 @@
 
+
 'use client';
 import { useState } from 'react';
 import {
@@ -51,13 +52,13 @@ type Client = {
   email: string;
 };
 
-type InvoiceItem = {
+type QuotationItem = {
   description: string;
   quantity: number;
   price: number;
 };
 
-type Invoice = {
+type Quotation = {
   id: string;
   clientId: string;
   clientName: string;
@@ -69,13 +70,13 @@ type Invoice = {
 };
 
 
-function NewInvoiceDialog({ clients }: { clients: Client[] }) {
+function NewQuotationDialog({ clients }: { clients: Client[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedClientId, setSelectedClientId] = useState('');
   const [dueDate, setDueDate] = useState<Date>();
   const [status, setStatus] = useState<'Paid' | 'Due' | 'Overdue'>('Due');
   const [currency, setCurrency] = useState('INR');
-  const [items, setItems] = useState<InvoiceItem[]>([
+  const [items, setItems] = useState<QuotationItem[]>([
     { description: '', quantity: 1, price: 0 },
   ]);
   const firestore = useFirestore();
@@ -90,7 +91,7 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
     setItems(newItems);
   };
 
-  const handleItemChange = (index: number, field: keyof InvoiceItem, value: string | number) => {
+  const handleItemChange = (index: number, field: keyof QuotationItem, value: string | number) => {
     const newItems = [...items];
     (newItems[index] as any)[field] = value;
     setItems(newItems);
@@ -124,7 +125,7 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
     const totalAmount = calculateTotalAmount();
 
     try {
-        await addDoc(collection(firestore, 'invoices'), {
+        await addDoc(collection(firestore, 'quotations'), {
             userId: selectedClient.userId,
             clientId: selectedClientId,
             clientName: selectedClient.name,
@@ -139,8 +140,8 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
         });
 
         toast({
-            title: "Invoice Created",
-            description: "The new invoice has been successfully created and saved."
+            title: "Quotation Created",
+            description: "The new quotation has been successfully created and saved."
         });
         setIsOpen(false);
         // Reset form
@@ -164,12 +165,12 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
       <DialogTrigger asChild>
         <Button>
           <PlusCircle className="mr-2 h-4 w-4" />
-          Create New Invoice
+          Create New Quotation
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
-          <DialogTitle>New Invoice</DialogTitle>
+          <DialogTitle>New Quotation</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
@@ -242,7 +243,7 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
             </div>
             
             <div className="space-y-2 pt-4">
-                <Label>Invoice Items</Label>
+                <Label>Quotation Items</Label>
                 <div className="space-y-2">
                     {items.map((item, index) => (
                         <div key={index} className="flex items-center gap-2">
@@ -283,7 +284,7 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
         </div>
         <DialogFooter>
             <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
-          <Button onClick={handleSubmit}>Create Invoice</Button>
+          <Button onClick={handleSubmit}>Create Quotation</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -291,18 +292,18 @@ function NewInvoiceDialog({ clients }: { clients: Client[] }) {
 }
 
 
-export default function AdminInvoicesPage() {
+export default function AdminQuotationsPage() {
     const firestore = useFirestore();
-    const [invoicesSnapshot, loadingInvoices, errorInvoices] = useCollection(
-        collection(firestore, 'invoices')
+    const [quotationsSnapshot, loadingQuotations, errorQuotations] = useCollection(
+        collection(firestore, 'quotations')
     );
     const [clientsSnapshot, loadingClients, errorClients] = useCollection(
         collection(firestore, 'clients')
     );
 
-    const invoices = invoicesSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Invoice));
+    const quotations = quotationsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Quotation));
     const clients = clientsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Client));
-    const loading = loadingInvoices || loadingClients;
+    const loading = loadingQuotations || loadingClients;
     
     const formatCurrency = (amount: number, currency: string) => {
         return new Intl.NumberFormat('en-US', {
@@ -316,20 +317,20 @@ export default function AdminInvoicesPage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="font-headline text-3xl font-bold">Invoice Management</h1>
-                    <p className="text-muted-foreground">Create and manage all client invoices.</p>
+                    <h1 className="font-headline text-3xl font-bold">Quotation Management</h1>
+                    <p className="text-muted-foreground">Create and manage all client quotations.</p>
                 </div>
-                {clients && <NewInvoiceDialog clients={clients} />}
+                {clients && <NewQuotationDialog clients={clients} />}
             </div>
             <Card>
                 <CardHeader>
-                    <CardTitle>All Invoices</CardTitle>
+                    <CardTitle>All Quotations</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Invoice ID</TableHead>
+                                <TableHead>Quotation ID</TableHead>
                                 <TableHead>Client Name</TableHead>
                                 <TableHead>Amount</TableHead>
                                 <TableHead>Due Date</TableHead>
@@ -339,33 +340,33 @@ export default function AdminInvoicesPage() {
                         <TableBody>
                             {loading && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">Loading invoices...</TableCell>
+                                    <TableCell colSpan={5} className="text-center">Loading quotations...</TableCell>
                                 </TableRow>
                             )}
-                            {errorInvoices && (
+                            {errorQuotations && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center text-destructive">Error: {errorInvoices.message}</TableCell>
+                                    <TableCell colSpan={5} className="text-center text-destructive">Error: {errorQuotations.message}</TableCell>
                                 </TableRow>
                             )}
-                            {invoices?.map(invoice => (
-                                <TableRow key={invoice.id}>
-                                    <TableCell className="font-mono">{invoice.id}</TableCell>
-                                    <TableCell>{invoice.clientName}</TableCell>
-                                    <TableCell>{formatCurrency(invoice.amount, invoice.currency || 'INR')}</TableCell>
-                                    <TableCell>{new Date(invoice.dueDate).toLocaleDateString()}</TableCell>
+                            {quotations?.map(quotation => (
+                                <TableRow key={quotation.id}>
+                                    <TableCell className="font-mono">{quotation.id}</TableCell>
+                                    <TableCell>{quotation.clientName}</TableCell>
+                                    <TableCell>{formatCurrency(quotation.amount, quotation.currency || 'INR')}</TableCell>
+                                    <TableCell>{new Date(quotation.dueDate).toLocaleDateString()}</TableCell>
                                     <TableCell>
                                         <Badge 
-                                            variant={invoice.status === 'Paid' ? 'secondary' : (invoice.status === 'Overdue' ? 'destructive' : 'default')}
-                                            className={invoice.status === 'Due' ? 'bg-amber-500' : ''}
+                                            variant={quotation.status === 'Paid' ? 'secondary' : (quotation.status === 'Overdue' ? 'destructive' : 'default')}
+                                            className={quotation.status === 'Due' ? 'bg-amber-500' : ''}
                                         >
-                                            {invoice.status}
+                                            {quotation.status}
                                         </Badge>
                                     </TableCell>
                                 </TableRow>
                             ))}
-                             {invoices && invoices.length === 0 && !loading && (
+                             {quotations && quotations.length === 0 && !loading && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">No invoices found.</TableCell>
+                                    <TableCell colSpan={5} className="text-center">No quotations found.</TableCell>
                                 </TableRow>
                              )}
                         </TableBody>

@@ -36,7 +36,7 @@ const menuItems = [
   { href: "/admin/clients", label: "Client Management", icon: Users },
   { href: "/admin/requests", label: "Service Requests", icon: Bell },
   { href: "/admin/projects", label: "Project Management", icon: Briefcase },
-  { href: "/admin/invoices", label: "Invoice Management", icon: FileText },
+  { href: "/admin/invoices", label: "Quotation Management", icon: FileText },
   { href: "/admin/meetings", label: "Meeting Requests", icon: CalendarClock },
 ];
 

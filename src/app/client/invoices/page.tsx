@@ -9,31 +9,31 @@ import { useUser, useFirestore } from "@/firebase";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection, query, where } from 'firebase/firestore';
 
-export default function ClientInvoicesPage() {
+export default function ClientQuotationsPage() {
   const { user } = useUser();
   const firestore = useFirestore();
 
-  const invoicesQuery = user?.uid && query(collection(firestore, 'invoices'), where('userId', '==', user.uid));
-  const [invoicesSnapshot, loading, error] = useCollection(invoicesQuery || null);
+  const quotationsQuery = user?.uid && query(collection(firestore, 'quotations'), where('userId', '==', user.uid));
+  const [quotationsSnapshot, loading, error] = useCollection(quotationsQuery || null);
 
-  const clientInvoices = invoicesSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const clientQuotations = quotationsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-headline text-3xl font-bold">Invoices</h1>
+        <h1 className="font-headline text-3xl font-bold">Quotations</h1>
         <p className="text-muted-foreground">Manage your billing and payments.</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Invoice History</CardTitle>
+          <CardTitle>Quotation History</CardTitle>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Invoice ID</TableHead>
+                <TableHead>Quotation ID</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Due Date</TableHead>
                 <TableHead>Amount</TableHead>
@@ -44,7 +44,7 @@ export default function ClientInvoicesPage() {
             <TableBody>
               {loading && (
                 <TableRow>
-                  <TableCell colSpan={6} className="text-center">Loading invoices...</TableCell>
+                  <TableCell colSpan={6} className="text-center">Loading quotations...</TableCell>
                 </TableRow>
               )}
               {error && (
@@ -52,23 +52,23 @@ export default function ClientInvoicesPage() {
                   <TableCell colSpan={6} className="text-center text-destructive">Error: {error.message}</TableCell>
                 </TableRow>
               )}
-              {clientInvoices && clientInvoices.length === 0 && !loading && (
+              {clientQuotations && clientQuotations.length === 0 && !loading && (
                 <TableRow>
-                    <TableCell colSpan={6} className="text-center">You don't have any invoices yet.</TableCell>
+                    <TableCell colSpan={6} className="text-center">You don't have any quotations yet.</TableCell>
                 </TableRow>
               )}
-              {clientInvoices?.map((invoice: any) => (
-                <TableRow key={invoice.id}>
-                  <TableCell className="font-mono">{invoice.id}</TableCell>
-                  <TableCell>{new Date(invoice.date).toLocaleDateString()}</TableCell>
-                  <TableCell>{new Date(invoice.dueDate).toLocaleDateString()}</TableCell>
-                  <TableCell>${invoice.amount.toFixed(2)}</TableCell>
+              {clientQuotations?.map((quotation: any) => (
+                <TableRow key={quotation.id}>
+                  <TableCell className="font-mono">{quotation.id}</TableCell>
+                  <TableCell>{new Date(quotation.date).toLocaleDateString()}</TableCell>
+                  <TableCell>{new Date(quotation.dueDate).toLocaleDateString()}</TableCell>
+                  <TableCell>${quotation.amount.toFixed(2)}</TableCell>
                   <TableCell>
-                    <Badge variant={invoice.status === 'Paid' ? 'secondary' : 'destructive'}>{invoice.status}</Badge>
+                    <Badge variant={quotation.status === 'Paid' ? 'secondary' : 'destructive'}>{quotation.status}</Badge>
                   </TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="sm" asChild>
-                      <Link href={`/client/invoices/${invoice.id}`}><Eye className="mr-2 h-4 w-4"/>View</Link>
+                      <Link href={`/client/invoices/${quotation.id}`}><Eye className="mr-2 h-4 w-4"/>View</Link>
                     </Button>
                   </TableCell>
                 </TableRow>
