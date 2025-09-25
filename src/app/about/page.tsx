@@ -9,9 +9,9 @@ export default function AboutPage() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-12 md:py-20">
       <section className="text-center max-w-3xl mx-auto">
-        <h1 className="font-headline text-4xl md:text-5xl font-bold">About SaaSNext</h1>
+        <h1 className="font-headline text-4xl md:text-5xl font-bold">About SaaSNext - Your Junagadh Digital Partner</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          We are a team of passionate developers, designers, and marketers dedicated to helping businesses succeed in the digital world.
+          We are a passionate, Junagadh-based team of developers, designers, and marketers dedicated to helping local businesses succeed in the digital world.
         </p>
       </section>
       
@@ -19,7 +19,7 @@ export default function AboutPage() {
         <div className="space-y-4 text-center">
             <h2 className="font-headline text-3xl font-bold">Our Mission & Vision</h2>
             <p className="text-muted-foreground text-lg">
-              Our mission is to provide innovative and effective digital solutions that drive growth and create value for our clients. We envision a world where every business, regardless of size, can leverage the power of technology to its fullest potential.
+              Our mission is to provide innovative and effective digital solutions that drive growth for our clients in Junagadh and beyond. We envision a world where every business, regardless of size, can leverage the power of technology to its fullest potential.
             </p>
             <p className="text-muted-foreground text-lg">
               We believe in partnership, transparency, and a results-driven approach. Your success is our success, and we're committed to building long-term relationships based on trust and mutual respect.
@@ -29,9 +29,9 @@ export default function AboutPage() {
 
       <section className="mt-20">
         <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-headline text-3xl md:text-4xl font-bold">Meet the Team</h2>
+            <h2 className="font-headline text-3xl md:text-4xl font-bold">Meet the Junagadh Team</h2>
             <p className="mt-4 text-muted-foreground">
-                The experts behind our success.
+                The local experts behind our success.
             </p>
         </div>
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -59,11 +59,11 @@ export default function AboutPage() {
       </section>
       
       <section className="mt-20 text-center bg-card p-12 rounded-lg">
-        <h2 className="font-headline text-3xl font-bold">Why Choose SaaSNext?</h2>
+        <h2 className="font-headline text-3xl font-bold">Why Choose SaaSNext in Junagadh?</h2>
         <div className="mt-8 grid md:grid-cols-3 gap-8">
             <div className="space-y-2">
-                <h3 className="font-headline text-xl font-semibold">Expertise</h3>
-                <p className="text-muted-foreground">Our team consists of industry veterans with proven track records.</p>
+                <h3 className="font-headline text-xl font-semibold">Local Expertise</h3>
+                <p className="text-muted-foreground">Our team consists of industry veterans with proven track records in the Junagadh market.</p>
             </div>
             <div className="space-y-2">
                 <h3 className="font-headline text-xl font-semibold">Custom Solutions</h3>

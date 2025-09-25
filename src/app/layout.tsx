@@ -8,8 +8,8 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { CustomCursor } from '@/components/ui/custom-cursor';
 
 export const metadata: Metadata = {
-  title: 'SaaSNext Platform',
-  description: 'The web application for SaaSNext.',
+  title: 'SaaSNext | Web Design & Digital Marketing in Junagadh',
+  description: 'Top web design, development, and SEO agency in Junagadh. We help local businesses grow with high-performance websites and marketing solutions.',
   icons: {
     icon: '/icon.png',
     shortcut: '/icon.png',

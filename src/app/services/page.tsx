@@ -6,9 +6,9 @@ export default function ServicesPage() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-12 md:py-20">
       <section className="text-center max-w-3xl mx-auto">
-        <h1 className="font-headline text-4xl md:text-5xl font-bold">Our Services</h1>
+        <h1 className="font-headline text-4xl md:text-5xl font-bold">Our Digital Services in Junagadh</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          We offer a comprehensive suite of digital services designed to elevate your brand and accelerate your growth.
+          We offer a comprehensive suite of digital services in Junagadh, designed to elevate your brand and accelerate your growth in the local market.
         </p>
       </section>
 
