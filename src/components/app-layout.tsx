@@ -8,6 +8,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { useUser } from '@/firebase';
 import { Skeleton } from './ui/skeleton';
+import { SidebarProvider } from './ui/sidebar';
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
@@ -64,23 +65,27 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             );
         }
         return (
-            <div className="flex min-h-screen bg-muted/30">
-                <AdminSidebar />
-                <main className="flex-1">
-                    <div className="p-4 sm:p-6 lg:p-8">{children}</div>
-                </main>
-            </div>
+            <SidebarProvider>
+                <div className="flex min-h-screen bg-muted/30">
+                    <AdminSidebar />
+                    <main className="flex-1">
+                        <div className="p-4 sm:p-6 lg:p-8">{children}</div>
+                    </main>
+                </div>
+            </SidebarProvider>
         );
     }
     
     if (isClientRoute) {
         return (
-            <div className="flex min-h-screen bg-muted/30">
-                <ClientSidebar />
-                <main className="flex-1">
-                    <div className="p-4 sm:p-6 lg:p-8">{children}</div>
-                </main>
-            </div>
+            <SidebarProvider>
+                <div className="flex min-h-screen bg-muted/30">
+                    <ClientSidebar />
+                    <main className="flex-1">
+                        <div className="p-4 sm:p-6 lg:p-8">{children}</div>
+                    </main>
+                </div>
+            </SidebarProvider>
         );
     }
 
