@@ -134,45 +134,6 @@ export const blogPosts = [
     }
 ];
 
-export const invoices = [
-    {
-        id: 'inv-001',
-        clientId: 'client-1',
-        projectId: 'proj-102',
-        date: '2024-07-01',
-        dueDate: '2024-07-15',
-        status: 'Paid',
-        amount: 5000.00,
-        items: [
-            { description: 'Q2 Lead Generation Campaign Management', quantity: 1, price: 5000.00 }
-        ]
-    },
-    {
-        id: 'inv-002',
-        clientId: 'client-2',
-        projectId: 'proj-101',
-        date: '2024-06-01',
-        dueDate: '2024-06-15',
-        status: 'Paid',
-        amount: 7500.00,
-        items: [
-            { description: 'Corporate Website Redesign - Milestone 1', quantity: 1, price: 7500.00 }
-        ]
-    },
-    {
-        id: 'inv-003',
-        clientId: 'client-2',
-        projectId: 'proj-101',
-        date: '2024-07-01',
-        dueDate: '2024-07-15',
-        status: 'Due',
-        amount: 7500.00,
-        items: [
-            { description: 'Corporate Website Redesign - Milestone 2', quantity: 1, price: 7500.00 }
-        ]
-    }
-];
-
 export const faqs = [
     {
       question: 'What types of businesses do you work with?',
