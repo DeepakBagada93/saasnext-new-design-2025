@@ -1,4 +1,7 @@
+'use client';
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
@@ -20,6 +23,8 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/logo";
+import { useAuth } from "@/firebase";
+import { useToast } from "@/hooks/use-toast";
 
 const menuItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -31,6 +36,27 @@ const menuItems = [
 ];
 
 export default function AdminSidebar() {
+  const auth = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      toast({
+        title: "Logged Out",
+        description: "You have been successfully logged out.",
+      });
+      router.push('/admin-login');
+    } catch (error: any) {
+       toast({
+        variant: "destructive",
+        title: "Logout Failed",
+        description: error.message,
+      });
+    }
+  };
+
   return (
     <Sidebar className="border-r bg-card">
       <SidebarHeader>
@@ -57,15 +83,14 @@ export default function AdminSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <Link href="/" className="w-full">
-                <SidebarMenuButton
-                variant="ghost"
-                className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
-                >
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-                </SidebarMenuButton>
-            </Link>
+            <SidebarMenuButton
+            variant="ghost"
+            className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
+            onClick={handleLogout}
+            >
+            <LogOut className="mr-2 h-4 w-4" />
+            Logout
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

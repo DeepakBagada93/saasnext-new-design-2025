@@ -1,20 +1,54 @@
 'use client';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import AdminSidebar from '@/components/layout/admin-sidebar';
 import ClientSidebar from '@/components/layout/client-sidebar';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import { Toaster } from './ui/toaster';
+import { useUser } from '@/firebase';
+import { Skeleton } from './ui/skeleton';
+
+const ADMIN_EMAIL = "admin@saasnext.com";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
+    const router = useRouter();
+    const { user, loading } = useUser();
 
     const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
     const isClientRoute = pathname.startsWith('/client');
     const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
 
+    useEffect(() => {
+        if (!loading && isAdminRoute) {
+            if (!user || user.email !== ADMIN_EMAIL) {
+                router.replace('/admin-login');
+            }
+        }
+    }, [user, loading, isAdminRoute, router]);
+
+    if (loading && (isAdminRoute || isClientRoute)) {
+        return (
+             <div className="flex min-h-screen">
+                <div className="w-64 hidden md:block border-r p-4 space-y-4">
+                    <Skeleton className="h-8 w-32" />
+                    <Skeleton className="h-8 w-full" />
+                    <Skeleton className="h-8 w-full" />
+                    <Skeleton className="h-8 w-full" />
+                </div>
+                <main className="flex-1 p-8">
+                    <Skeleton className="h-12 w-1/2 mb-4" />
+                    <Skeleton className="h-48 w-full" />
+                </main>
+            </div>
+        );
+    }
+    
     if (isAdminRoute) {
+        if (!user || user.email !== ADMIN_EMAIL) {
+            return null; // or a loading spinner
+        }
         return (
             <div className="flex min-h-screen bg-muted/30">
                 <AdminSidebar />
