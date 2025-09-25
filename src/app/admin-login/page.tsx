@@ -1,6 +1,5 @@
 'use client';
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -26,29 +25,48 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setError(null);
 
-    if (email.toLowerCase() !== ADMIN_EMAIL) {
-      setError("You are not authorized to access the admin portal.");
-      toast({
-        variant: "destructive",
-        title: "Authorization Error",
-        description: "You are not authorized to access the admin portal.",
-      });
-      return;
-    }
-
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      
+      if (userCredential.user.email?.toLowerCase() !== ADMIN_EMAIL) {
+        await auth.signOut(); // Sign out the non-admin user
+        const authError = "You are not authorized to access the admin portal.";
+        setError(authError);
+        toast({
+            variant: "destructive",
+            title: "Authorization Error",
+            description: authError,
+        });
+        return;
+      }
+
       toast({
         title: "Login Successful",
         description: "Redirecting to dashboard...",
       });
       router.push("/admin/dashboard");
+
     } catch (error: any) {
-      setError(error.message);
+      let errorMessage = "An unknown error occurred.";
+      switch (error.code) {
+        case 'auth/wrong-password':
+          errorMessage = 'Incorrect password. Please try again.';
+          break;
+        case 'auth/user-not-found':
+          errorMessage = 'No user found with this email.';
+          break;
+        case 'auth/invalid-email':
+            errorMessage = 'Please enter a valid email address.';
+            break;
+        default:
+          errorMessage = error.message;
+          break;
+      }
+      setError(errorMessage);
        toast({
         variant: "destructive",
         title: "Login Failed",
-        description: error.message,
+        description: errorMessage,
       });
     }
   };
@@ -67,7 +85,7 @@ export default function AdminLoginPage() {
             <Input 
               id="email" 
               type="email" 
-              placeholder="deepakbagada25@gmail.com" 
+              placeholder="admin@example.com" 
               required 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
