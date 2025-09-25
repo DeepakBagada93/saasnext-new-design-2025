@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { FirebaseProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/theme-provider';
 import { CustomCursor } from '@/components/ui/custom-cursor';
+import { ClientOnly } from '@/components/client-only';
 
 export const metadata: Metadata = {
   title: 'SaaSNext | Web Design & Digital Marketing in Junagadh',
@@ -37,7 +38,9 @@ export default function RootLayout({
             disableTransitionOnChange
         >
           <FirebaseProvider>
-            <CustomCursor />
+            <ClientOnly>
+              <CustomCursor />
+            </ClientOnly>
             <AppLayout>{children}</AppLayout>
           </FirebaseProvider>
           <Toaster />
