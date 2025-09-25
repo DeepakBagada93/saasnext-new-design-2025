@@ -20,6 +20,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { AnimatedHeadline } from "@/components/animated-headline";
 
 const whyChooseUsItems = [
   {
@@ -49,9 +50,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
         </div>
         <div className="relative z-10 px-4 sm:px-6 lg:px-8">
-          <h1 className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter animate-fade-in-up">
-            Stop Losing Customers. Start Winning Them.
-          </h1>
+          <AnimatedHeadline />
           <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground animate-fade-in-up animation-delay-200">
             Is your website costing you sales? We build high-performance web experiences that turn visitors into loyal customers.
           </p>
@@ -240,5 +239,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
