@@ -49,7 +49,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex items-center space-x-4">
                     <Phone className="h-6 w-6 text-primary"/>
-                    <span className="text-muted-foreground">(123) 456-7890</span>
+                    <span className="text-muted-foreground">+91 7016179234</span>
                 </div>
                 <div className="flex items-start space-x-4">
                     <MapPin className="h-6 w-6 text-primary mt-1"/>
