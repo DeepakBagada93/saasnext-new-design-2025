@@ -16,14 +16,24 @@ export const services = [
     results: 'Increased traffic, higher conversion rates, and a stronger brand identity.'
   },
   {
-    icon: 'Users',
-    title: 'Lead Generation',
-    description: 'Implementing data-driven strategies to attract and convert high-quality leads for your business.',
-    image: getImage('serviceLead'),
-    slug: 'lead-generation',
-    process: 'Our team identifies your target audience, creates compelling campaigns, and optimizes funnels for maximum conversion.',
-    benefits: 'A consistent flow of qualified leads, improved sales pipeline, and measurable ROI.',
-    results: 'Significant increase in lead volume and quality, leading to higher revenue.'
+    icon: 'Megaphone',
+    title: 'Digital Marketing',
+    description: 'A holistic approach to online growth, combining data-driven SEO, PPC, and content strategies to attract and convert high-quality leads.',
+    image: getImage('serviceMarketing'),
+    slug: 'digital-marketing',
+    process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI.',
+    benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
+    results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS).'
+  },
+  {
+    icon: 'Palette',
+    title: 'Logo & Branding',
+    description: 'Creating a memorable and cohesive brand identity that resonates with your target audience and sets you apart from the competition.',
+    image: getImage('serviceBranding'),
+    slug: 'logo-branding',
+    process: 'Our process involves deep-diving into your brand\'s essence, exploring visual concepts, and delivering a comprehensive brand guide.',
+    benefits: 'A strong, recognizable brand that builds trust and loyalty with your customers.',
+    results: 'Increased brand recognition and a professional image that attracts high-value clients.'
   },
   {
     icon: 'BrainCircuit',
@@ -34,16 +44,6 @@ export const services = [
     process: 'We analyze your business challenges, develop custom AI models, and integrate them seamlessly into your existing workflows.',
     benefits: 'Increased efficiency, data-driven decision-making, and a competitive edge in your industry.',
     results: 'Measurable improvements in operational efficiency and the creation of innovative, AI-powered features.'
-  },
-  {
-    icon: 'BarChart',
-    title: 'Performance Marketing',
-    description: 'Maximizing your ROI with targeted digital marketing campaigns across various channels.',
-    image: getImage('serviceMarketing'),
-    slug: 'performance-marketing',
-    process: 'From PPC and SEO to social media advertising, we manage and optimize your campaigns for peak performance.',
-    benefits: 'Efficient ad spend, greater brand visibility, and a direct impact on your bottom line.',
-    results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS).'
   },
 ];
 

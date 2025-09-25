@@ -31,12 +31,6 @@
       "imageHint": "web design"
     },
     {
-      "id": "serviceLead",
-      "description": "Chart showing lead generation growth",
-      "imageUrl": "https://images.unsplash.com/photo-1639389016237-85a1a16f76d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYXJrZXRpbmclMjBjaGFydHxlbnwwfHx8fDE3NTg4MTQ1MTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "marketing chart"
-    },
-    {
       "id": "serviceAI",
       "description": "Futuristic AI visualization",
       "imageUrl": "https://images.unsplash.com/photo-1694903110330-cc64b7e1d21d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc1ODc5NDU3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
@@ -47,6 +41,12 @@
       "description": "Digital marketing campaign dashboard",
       "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhbmFseXRpY3MlMjBkYXNoYm9hcmR8ZW58MHx8fHwxNzU4NzIzNTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "analytics dashboard"
+    },
+    {
+      "id": "serviceBranding",
+      "description": "A designer working on a logo",
+      "imageUrl": "https://images.unsplash.com/photo-1558655146-d3dfcfe99523?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFwaGljJTIwZGVzaWdufGVufDB8fHx8MTc1OTU4MjI4NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "graphic design"
     },
     {
       "id": "portfolio1",
