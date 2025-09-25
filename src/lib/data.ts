@@ -16,14 +16,34 @@ export const services = [
     results: 'Increased traffic, higher conversion rates, and a stronger brand identity.'
   },
   {
+    icon: 'Search',
+    title: 'SEO',
+    description: 'Dominating search engine rankings to drive organic traffic and capture high-intent customers.',
+    image: getImage('serviceSEO'),
+    slug: 'seo',
+    process: 'We perform in-depth keyword research, on-page optimization, technical SEO audits, and build high-quality backlinks to establish your authority.',
+    benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
+    results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads.'
+  },
+  {
     icon: 'Megaphone',
-    title: 'Digital Marketing',
-    description: 'A holistic approach to online growth, combining data-driven SEO, PPC, and content strategies to attract and convert high-quality leads.',
+    title: 'Performance Marketing',
+    description: 'A data-driven approach to paid advertising, focusing on maximizing your return on investment through PPC, and social media ads.',
     image: getImage('serviceMarketing'),
-    slug: 'digital-marketing',
+    slug: 'performance-marketing',
     process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI.',
     benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
     results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS).'
+  },
+  {
+    icon: 'Feather',
+    title: 'Content Writing',
+    description: 'Crafting compelling, SEO-optimized content that engages your audience and establishes you as a thought leader in your industry.',
+    image: getImage('serviceContent'),
+    slug: 'content-writing',
+    process: 'We develop a content strategy, create a content calendar, and produce high-quality blog posts, articles, and website copy that speaks to your audience.',
+    benefits: 'Improved SEO rankings, stronger brand voice, and valuable resources that attract and nurture leads.',
+    results: 'Higher engagement rates, increased organic traffic, and a library of assets that supports sales and marketing efforts.'
   },
   {
     icon: 'Palette',
