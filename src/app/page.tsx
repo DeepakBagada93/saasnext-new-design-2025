@@ -39,7 +39,7 @@ export default function Home() {
                 />
             }
         </div>
-        <div className="container relative">
+        <div className="relative px-4 sm:px-6 lg:px-8">
           <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
             Elevate Your Business with Next-Gen Solutions
           </h1>
@@ -60,7 +60,7 @@ export default function Home() {
       </section>
 
       <section id="services" className="py-20 md:py-28 bg-card">
-        <div className="container">
+        <div className="px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-3xl md:text-4xl font-bold">Our Core Services</h2>
             <p className="mt-4 text-muted-foreground">
@@ -92,7 +92,7 @@ export default function Home() {
       </section>
       
       <section id="testimonials" className="py-20 md:py-28">
-        <div className="container">
+        <div className="px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-3xl md:text-4xl font-bold">What Our Clients Say</h2>
             <p className="mt-4 text-muted-foreground">
@@ -131,8 +131,8 @@ export default function Home() {
       </section>
       
       <section id="cta" className="py-20 md:py-28 bg-card">
-        <div className="container">
-          <div className="bg-primary text-primary-foreground p-12 rounded-lg text-center">
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="bg-primary text-primary-foreground p-12 rounded-lg text-center max-w-5xl mx-auto">
             <h2 className="font-headline text-3xl md:text-4xl font-bold">Ready to Start Your Project?</h2>
             <p className="mt-4 max-w-3xl mx-auto">
               Let's talk about how we can help you achieve your business goals. Get a free, no-obligation quote today.

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 
 export default function PortfolioPage() {
   return (
-    <div className="container py-12 md:py-20">
+    <div className="px-4 sm:px-6 lg:px-8 py-12 md:py-20">
       <section className="text-center max-w-3xl mx-auto">
         <h1 className="font-headline text-4xl md:text-5xl font-bold">Our Work</h1>
         <p className="mt-4 text-lg text-muted-foreground">
