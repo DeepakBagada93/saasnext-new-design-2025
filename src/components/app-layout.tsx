@@ -7,7 +7,6 @@ import ClientSidebar from '@/components/layout/client-sidebar';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { useUser } from '@/firebase';
-import { Skeleton } from './ui/skeleton';
 import { SidebarProvider } from './ui/sidebar';
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
@@ -22,48 +21,24 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
 
     useEffect(() => {
-        if (!loading && isAdminRoute) {
-            if (!user || user.email?.toLowerCase() !== ADMIN_EMAIL) {
+        if (!loading) {
+            if (isAdminRoute && (!user || user.email?.toLowerCase() !== ADMIN_EMAIL)) {
                 router.replace('/admin-login');
+            } else if (isClientRoute && !user) {
+                router.replace('/login');
             }
         }
-    }, [user, loading, isAdminRoute, router, pathname]);
+    }, [user, loading, isAdminRoute, isClientRoute, router, pathname]);
 
     if (loading && (isAdminRoute || isClientRoute)) {
         return (
-             <div className="flex min-h-screen bg-muted/30">
-                <div className="w-64 hidden md:block border-r p-4 space-y-4 bg-card">
-                    <Skeleton className="h-8 w-32" />
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
-                    <Skeleton className="h-8 w-full" />
-                </div>
-                <main className="flex-1 p-8">
-                    <Skeleton className="h-12 w-1/2 mb-4" />
-                    <Skeleton className="h-48 w-full" />
-                </main>
+             <div className="flex min-h-screen items-center justify-center">
+                <p>Loading...</p>
             </div>
         );
     }
     
     if (isAdminRoute) {
-        if (!user || user.email?.toLowerCase() !== ADMIN_EMAIL) {
-            // This can happen briefly on load, so we show a loader
-            return (
-                 <div className="flex min-h-screen bg-muted/30">
-                    <div className="w-64 hidden md:block border-r p-4 space-y-4 bg-card">
-                        <Skeleton className="h-8 w-32" />
-                        <Skeleton className="h-8 w-full" />
-                        <Skeleton className="h-8 w-full" />
-                        <Skeleton className="h-8 w-full" />
-                    </div>
-                    <main className="flex-1 p-8">
-                        <Skeleton className="h-12 w-1/2 mb-4" />
-                        <Skeleton className="h-48 w-full" />
-                    </main>
-                </div>
-            );
-        }
         return (
             <SidebarProvider>
                 <div className="flex min-h-screen bg-muted/30">
@@ -91,7 +66,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
     if (isAuthRoute) {
         return (
-            <div className="flex min-h-screen items-center justify-center p-4">
+            <div className="flex min-h-screen items-center justify-center p-4 bg-background">
                 {children}
             </div>
         );
@@ -99,7 +74,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
     // Public routes default
     return (
-        <div className="relative flex min-h-screen flex-col">
+        <div className="relative flex min-h-screen flex-col bg-background">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

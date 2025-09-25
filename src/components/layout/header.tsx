@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 
 const navLinks = [
@@ -56,28 +56,26 @@ export default function Header() {
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <div className="flex flex-col h-full">
-                <div className="flex justify-between items-center p-4 border-b">
-                    <Logo />
-                    <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
-                        <X className="h-6 w-6" />
-                    </Button>
-                </div>
+            <SheetContent side="right" className="w-[300px] flex flex-col p-0">
+                <SheetHeader className="p-4 border-b">
+                    <SheetTitle><Logo /></SheetTitle>
+                </SheetHeader>
                 <div className="flex-1 flex flex-col p-4 space-y-4">
-                  {navLinks.map(({ href, label }) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={cn(
-                        "text-lg font-medium transition-colors hover:text-primary",
-                        pathname === href ? "text-primary" : "text-foreground/80"
-                      )}
-                    >
-                      {label}
-                    </Link>
-                  ))}
+                  <nav className="flex flex-col space-y-4">
+                    {navLinks.map(({ href, label }) => (
+                        <Link
+                        key={href}
+                        href={href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={cn(
+                            "text-lg font-medium transition-colors hover:text-primary",
+                            pathname === href ? "text-primary" : "text-foreground/80"
+                        )}
+                        >
+                        {label}
+                        </Link>
+                    ))}
+                  </nav>
                   <div className="flex-grow"></div>
                   <div className="space-y-2">
                     <Button variant="outline" className="w-full" asChild>
@@ -88,7 +86,6 @@ export default function Header() {
                     </Button>
                   </div>
                 </div>
-              </div>
             </SheetContent>
           </Sheet>
         </div>
