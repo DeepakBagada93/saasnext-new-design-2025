@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection } from 'firebase/firestore';
+import { collection, doc, updateDoc, arrayUnion, serverTimestamp } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import {
@@ -23,6 +23,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from '@/components/ui/dialog';
 import { useState } from 'react';
 import {
@@ -34,13 +35,23 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { doc, updateDoc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
+import { Textarea } from '@/components/ui/textarea';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
+
+type Milestone = {
+    name: string;
+    date: string; // Keep as ISO string for consistency
+    status: 'Upcoming' | 'Active' | 'Completed';
+}
 
 type Project = {
   id: string;
   name: string;
-  clientName: string; // Changed from clientId to clientName for display
+  clientName: string;
   status: string;
   budget: number;
   currency: string;
@@ -48,6 +59,8 @@ type Project = {
     start: string;
     end: string;
   };
+  milestones?: Milestone[];
+  updates?: any[];
 };
 
 function formatCurrency(amount: number, currency: string) {
@@ -73,15 +86,36 @@ function EditProjectDialog({
   const [status, setStatus] = useState(project.status);
   const [budget, setBudget] = useState(project.budget);
   const [currency, setCurrency] = useState(project.currency || 'INR');
+  const [milestones, setMilestones] = useState(project.milestones || []);
+  const [newUpdate, setNewUpdate] = useState('');
+
+  const handleMilestoneDateChange = (index: number, date: Date | undefined) => {
+    if (!date) return;
+    const newMilestones = [...milestones];
+    newMilestones[index].date = date.toISOString();
+    setMilestones(newMilestones);
+  };
 
   const handleSave = async () => {
     try {
       const projectRef = doc(firestore, 'projects', project.id);
-      await updateDoc(projectRef, {
+      
+      const updateData: any = {
         status,
         budget: Number(budget),
         currency,
-      });
+        milestones,
+      };
+
+      if (newUpdate.trim() !== '') {
+        updateData.updates = arrayUnion({
+            text: newUpdate,
+            date: new Date().toISOString(),
+        })
+      }
+
+      await updateDoc(projectRef, updateData);
+
       toast({
         title: 'Project Updated',
         description: `${project.name} has been updated.`,
@@ -98,11 +132,11 @@ function EditProjectDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>Edit Project: {project.name}</DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 py-4">
+        <div className="space-y-6 py-4 max-h-[70vh] overflow-y-auto pr-2">
           <div className="space-y-2">
             <Label htmlFor="status">Project Status</Label>
             <Select value={status} onValueChange={setStatus}>
@@ -141,13 +175,53 @@ function EditProjectDialog({
                 </Select>
             </div>
           </div>
+
+          <div className="space-y-4">
+            <Label>Work Phases (Milestones)</Label>
+             <div className="space-y-2">
+                {milestones.map((milestone, index) => (
+                    <div key={index} className="flex items-center gap-4">
+                        <Input value={milestone.name} readOnly className="flex-grow bg-muted"/>
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn("w-[280px] justify-start text-left font-normal")}
+                                >
+                                    {format(new Date(milestone.date), "PPP")}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                    mode="single"
+                                    selected={new Date(milestone.date)}
+                                    onSelect={(date) => handleMilestoneDateChange(index, date)}
+                                    initialFocus
+                                />
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+                ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="new-update">Add Project Update</Label>
+            <Textarea 
+                id="new-update"
+                placeholder="Share a new update with the client..."
+                value={newUpdate}
+                onChange={(e) => setNewUpdate(e.target.value)}
+            />
+          </div>
+
         </div>
-        <div className="flex justify-end space-x-2">
+        <DialogFooter>
           <Button variant="outline" onClick={onClose}>
             Cancel
           </Button>
           <Button onClick={handleSave}>Save Changes</Button>
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
@@ -232,6 +306,11 @@ export default function AdminProjectsPage() {
                   </TableCell>
                 </TableRow>
               ))}
+               {projects && projects.length === 0 && !loading && (
+                 <TableRow>
+                    <TableCell colSpan={6} className="text-center">No projects found.</TableCell>
+                 </TableRow>
+               )}
             </TableBody>
           </Table>
         </CardContent>

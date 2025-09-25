@@ -1,72 +1,54 @@
-
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-  
+
     // Helper functions
     function isOwner(userId) {
       return request.auth.uid == userId;
     }
-
+    
     function isAdmin() {
-      // Replace with your actual admin email
       return request.auth.token.email == "deepakbagada25@gmail.com";
     }
 
-    // Default deny all
+    // By default, lock down all collections
     match /{document=**} {
       allow read, write: if false;
     }
 
-    // CLIENTS:
-    // Admins can read/write all client data.
-    // Users can create their own client profile during registration.
-    // Users can read/write their own client profile.
+    // Allow clients to read/write their own data in these collections
     match /clients/{userId} {
-      allow read, update: if isOwner(userId) || isAdmin();
-      allow create, delete: if isAdmin();
-      allow create: if isOwner(userId); // For user registration
+      allow read, update, write: if isOwner(userId);
     }
-    match /clients/{clientId} {
-       allow read, list, create, delete: if isAdmin();
-    }
-
-
-    // PROJECTS:
-    // Admins can read/write all projects.
-    // Users can only read projects assigned to them.
     match /projects/{projectId} {
-      allow read: if isOwner(resource.data.userId) || isAdmin();
-      allow write: if isAdmin();
+      allow read: if isOwner(resource.data.userId);
     }
-
-    // SERVICE REQUESTS:
-    // Admins can read/write all service requests.
-    // Users can create their own service requests.
-    // Users can read their own service requests.
     match /serviceRequests/{requestId} {
-      allow read: if isOwner(resource.data.userId) || isAdmin();
-      allow create: if isOwner(request.resource.data.userId);
-      allow write: if isAdmin();
+      allow read, create: if isOwner(request.resource.data.userId);
+    }
+    match /meetingRequests/{requestId} {
+        allow read, create: if isOwner(request.resource.data.userId);
+    }
+    match /quotations/{quotationId} {
+        allow read: if isOwner(resource.data.userId);
     }
     
-    // QUOTATIONS:
-    // Admins can read/write all quotations.
-    // Users can only read quotations assigned to them.
-    match /quotations/{quotationId} {
-      allow read: if isOwner(resource.data.userId) || isAdmin();
-      allow write: if isAdmin();
+    // Allow admins to manage all data in these collections
+    match /clients/{clientId} {
+        allow read, write, delete: if isAdmin();
     }
-
-    // MEETING REQUESTS:
-    // Admins can read/write all meeting requests.
-    // Users can create their own meeting requests.
-    // Users can read their own meeting requests.
+    match /projects/{projectId} {
+        allow read, create, update, delete: if isAdmin();
+    }
+    match /serviceRequests/{requestId} {
+        allow read, create, delete: if isAdmin();
+    }
     match /meetingRequests/{requestId} {
-      allow read: if isOwner(resource.data.userId) || isAdmin();
-      allow create: if isOwner(request.resource.data.userId);
-      allow write: if isAdmin();
+        allow read, write: if isAdmin();
+    }
+    match /quotations/{quotationId} {
+        allow read, create, update, delete: if isAdmin();
     }
   }
 }
