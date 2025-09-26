@@ -36,7 +36,7 @@ export default function RootLayout({
         <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem
+            enableSystem={false}
             disableTransitionOnChange
         >
           <FirebaseClientProvider>
@@ -45,9 +45,7 @@ export default function RootLayout({
               <Toaster />
             </ClientOnly>
             <AuthProvider>
-              <AppLayout>
-                {children}
-              </AppLayout>
+              {children}
             </AuthProvider>
           </FirebaseClientProvider>
         </ThemeProvider>
