@@ -74,8 +74,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const layout = getLayout();
     
-    // Render a loading screen only if not mounted, to prevent content flash
-    if (!isMounted) {
+    // Render a loading screen only during server render or before mount.
+    // After mount, the effect will handle redirects.
+    if (!isMounted || (loading && (pathname.startsWith('/admin') || pathname.startsWith('/client')))) {
         return <LoadingScreen />;
     }
 
