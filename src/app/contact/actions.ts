@@ -15,6 +15,7 @@ export async function sendContactEmail(prevState: any, formData: FormData) {
   const transporter = nodemailer.createTransport({
     host: process.env.BREVO_SMTP_SERVER,
     port: Number(process.env.BREVO_SMTP_PORT),
+    secure: true, // Use a secure connection
     auth: {
       user: process.env.BREVO_SMTP_LOGIN,
       pass: process.env.BREVO_SMTP_API_KEY,
