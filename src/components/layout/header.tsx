@@ -3,9 +3,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Sun, Moon } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import { Menu } from "lucide-react";
+import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -19,31 +18,6 @@ const navLinks = [
   { href: "/contact", label: "Connect" },
 ];
 
-function ThemeToggleButton() {
-    const { setTheme, theme } = useTheme();
-    const [isMounted, setIsMounted] = useState(false);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    if (!isMounted) {
-        // Render a placeholder or null on the server and initial client render
-        return <Button variant="ghost" size="icon" className="h-[1.2rem] w-[1.2rem]"></Button>;
-    }
-  
-    return (
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      >
-        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        <span className="sr-only">Toggle theme</span>
-      </Button>
-    );
-}
 
 export default function Header() {
   const pathname = usePathname();
@@ -54,7 +28,6 @@ export default function Header() {
       <div className="md:hidden flex h-14 items-center justify-between rounded-lg border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Logo />
         <div className="flex items-center gap-2">
-          <ThemeToggleButton />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -114,7 +87,6 @@ export default function Header() {
           ))}
         </nav>
         <div className="flex items-center justify-end space-x-2">
-          <ThemeToggleButton />
           <nav className="flex items-center space-x-2">
             <Button variant="ghost" asChild>
                 <Link href="/login">Client Hub</Link>
