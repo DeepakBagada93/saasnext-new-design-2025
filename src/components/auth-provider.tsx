@@ -27,14 +27,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
-    const [isMounted, setIsMounted] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
-        setIsMounted(true);
+        setIsClient(true);
     }, []);
 
     useEffect(() => {
-        if (loading || !isMounted) return;
+        if (!isClient || loading) return;
 
         const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
         const isClientRoute = pathname.startsWith('/client');
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 router.replace('/client/dashboard');
             }
         }
-    }, [user, loading, pathname, router, isMounted]);
+    }, [user, loading, pathname, router, isClient]);
 
     const getLayout = (): LayoutType => {
         if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
@@ -72,11 +72,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return 'public';
     }
 
+    if (loading && !isClient) {
+        return <LoadingScreen />;
+    }
+    
+    // While loading, we still need to determine the basic layout to avoid flicker
+    // and provide a consistent shell.
     const layout = getLayout();
     
-    // Render a loading screen only during server render or before mount.
-    // After mount, the effect will handle redirects.
-    if (!isMounted || (loading && (pathname.startsWith('/admin') || pathname.startsWith('/client')))) {
+    // If we're loading auth state for a protected route, show a loading screen.
+    // Public routes and auth pages can be rendered immediately.
+    if (loading && (layout === 'admin' || layout === 'client')) {
         return <LoadingScreen />;
     }
 
