@@ -60,8 +60,8 @@ export default function LoginPage() {
     <Card className="w-full max-w-sm">
       <CardHeader className="text-center">
         <Logo className="mx-auto mb-4" />
-        <CardTitle className="font-headline text-2xl">Client Login</CardTitle>
-        <CardDescription>Enter your credentials to access your portal.</CardDescription>
+        <CardTitle className="font-headline text-2xl">Client Portal</CardTitle>
+        <CardDescription>Enter your credentials to access your dashboard.</CardDescription>
       </CardHeader>
       <CardContent>
         <form className="space-y-4" onSubmit={handleLogin}>
