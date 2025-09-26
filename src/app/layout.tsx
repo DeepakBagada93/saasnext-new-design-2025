@@ -40,10 +40,10 @@ export default function RootLayout({
           <FirebaseClientProvider>
             <ClientOnly>
               <CustomCursor />
+              <Toaster />
             </ClientOnly>
             <AppLayout>{children}</AppLayout>
           </FirebaseClientProvider>
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>
