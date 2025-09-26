@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { services } from "@/lib/data";
 import { ServiceCard } from '@/components/service-card';
 import { ServicesNav } from '@/components/services-nav';
+import { AnimatedHeadline } from '@/components/animated-headline';
 
 
 export default function ServicesPage() {
@@ -31,11 +32,16 @@ export default function ServicesPage() {
     }, []);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-12 md:pb-20">
-            <section className="text-center max-w-3xl mx-auto">
-                <h1 className="font-headline text-4xl md:text-5xl font-bold">Our Digital Services in Junagadh</h1>
-                <p className="mt-4 text-lg text-muted-foreground">
-                We offer a comprehensive suite of digital services in Junagadh, designed to elevate your brand and accelerate your growth in the local market.
+        <div className="px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+             <section className="pt-20 md:pt-28 text-center max-w-3xl mx-auto">
+                <AnimatedHeadline
+                    words={['Growth', 'Engagement', 'Results']}
+                    prefix="Digital Services that Drive"
+                    suffix="."
+                    className="font-headline text-4xl md:text-6xl font-bold tracking-tighter"
+                />
+                <p className="mt-6 text-lg md:text-xl text-muted-foreground">
+                    We offer a comprehensive suite of digital services in Junagadh, designed to elevate your brand and accelerate your growth in the local market.
                 </p>
             </section>
 
