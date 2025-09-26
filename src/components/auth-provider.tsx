@@ -2,22 +2,9 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useUser } from '@/firebase';
-import { Skeleton } from './ui/skeleton';
 import { AppLayout } from './app-layout';
-
-function LoadingScreen() {
-    return (
-        <div className="flex min-h-screen items-center justify-center p-4 bg-background">
-            <div className='w-full max-w-sm space-y-4'>
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
-            </div>
-        </div>
-    )
-}
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
@@ -40,16 +27,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
-    const [isMounted, setIsMounted] = useState(false);
     
     const layout = getLayoutType(pathname);
 
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (loading || !isMounted) return;
+        if (loading) return;
 
         const isAdminRoute = layout === 'admin';
         const isClientRoute = layout === 'client';
@@ -71,20 +53,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 router.replace('/admin/dashboard');
             }
         }
-    }, [user, loading, layout, router, isMounted, pathname]);
+    }, [user, loading, layout, router, pathname]);
 
-    if (!isMounted || loading) {
-        return <LoadingScreen />;
+    if (loading) {
+        // Render a static loading skeleton that is identical on server and client
+        return (
+             <div className="flex min-h-screen items-center justify-center p-4 bg-background">
+                <div className='w-full max-w-sm space-y-4'>
+                    {/* Skeletons matching a login form */}
+                </div>
+            </div>
+        );
     }
-    
-    if (user) {
-        const isAdminUser = user.email?.toLowerCase() === ADMIN_EMAIL;
-        if (layout === 'admin' && !isAdminUser) return <LoadingScreen />;
-        if (layout === 'client' && isAdminUser) return <LoadingScreen />;
+
+    if (!user && (layout === 'admin' || layout === 'client')) {
+        // While redirecting, render a static skeleton
+        return (
+             <div className="flex min-h-screen items-center justify-center p-4 bg-background">
+                <div className='w-full max-w-sm space-y-4'>
+                     {/* Skeletons matching a login form */}
+                </div>
+            </div>
+        );
     }
-     if (!user && (layout === 'admin' || layout === 'client')) {
-        return <LoadingScreen />;
-    }
+
 
     return <AppLayout>{children}</AppLayout>;
 }
