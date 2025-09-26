@@ -1,45 +1,20 @@
-
 'use client';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
 import AdminSidebar from '@/components/layout/admin-sidebar';
 import ClientSidebar from '@/components/layout/client-sidebar';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
-import { useUser } from '@/firebase';
 import { DashboardLayout, SidebarProvider } from './ui/sidebar';
 
-const ADMIN_EMAIL = "deepakbagada25@gmail.com";
+export function AppLayout({
+    layout,
+    children
+}: {
+    layout: 'admin' | 'client' | 'public' | 'auth',
+    children: React.ReactNode
+}) {
 
-export function AppLayout({ children }: { children: React.ReactNode }) {
-    const pathname = usePathname();
-    const router = useRouter();
-    const { user, loading } = useUser();
-
-    const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
-    const isClientRoute = pathname.startsWith('/client');
-    const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
-
-    useEffect(() => {
-        if (!loading) {
-            if (isAdminRoute && (!user || user.email?.toLowerCase() !== ADMIN_EMAIL)) {
-                router.replace('/admin-login');
-            } else if (isClientRoute && !user) {
-                router.replace('/login');
-            }
-        }
-    }, [user, loading, isAdminRoute, isClientRoute, router, pathname]);
-
-    if (loading && (isAdminRoute || isClientRoute)) {
-        return (
-             <div className="flex min-h-screen items-center justify-center">
-                <p>Loading...</p>
-            </div>
-        );
-    }
-    
-    if (isAdminRoute) {
+    if (layout === 'admin') {
         return (
             <SidebarProvider>
                 <DashboardLayout sidebar={<AdminSidebar />}>
@@ -49,7 +24,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         );
     }
     
-    if (isClientRoute) {
+    if (layout === 'client') {
         return (
             <SidebarProvider>
                  <DashboardLayout sidebar={<ClientSidebar />}>
@@ -59,7 +34,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         );
     }
 
-    if (isAuthRoute) {
+    if (layout === 'auth') {
         return (
             <div className="flex min-h-screen items-center justify-center p-4 bg-background">
                 {children}
@@ -76,4 +51,3 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
     );
 }
-

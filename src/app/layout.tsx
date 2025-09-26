@@ -1,12 +1,12 @@
 import type {Metadata} from 'next';
 import './globals.css';
-import { AppLayout } from '@/components/app-layout';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/theme-provider';
 import { CustomCursor } from '@/components/ui/custom-cursor';
 import { ClientOnly } from '@/components/client-only';
+import { AuthProvider } from '@/components/auth-provider';
 
 export const metadata: Metadata = {
   title: 'SaaSNext | Web Design & Digital Marketing in Junagadh',
@@ -42,7 +42,9 @@ export default function RootLayout({
               <CustomCursor />
               <Toaster />
             </ClientOnly>
-            <AppLayout>{children}</AppLayout>
+            <AuthProvider>
+                {children}
+            </AuthProvider>
           </FirebaseClientProvider>
         </ThemeProvider>
       </body>
