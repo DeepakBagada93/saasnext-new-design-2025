@@ -7,7 +7,6 @@ import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ClientOnly } from '@/components/client-only';
 import { AuthProvider } from '@/components/auth-provider';
-import { AppLayout } from '@/components/app-layout';
 
 export const metadata: Metadata = {
   title: 'SaaSNext | Web Design & Digital Marketing in Junagadh',
