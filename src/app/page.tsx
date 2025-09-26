@@ -81,7 +81,7 @@ const processSteps = [
     { name: "Next.js", description: "For performant, server-rendered React applications." },
     { name: "React", description: "To build dynamic and interactive user interfaces." },
     { name: "TypeScript", description: "For robust, scalable, and maintainable code." },
-    { name: "Tailwind CSS", description: "For rapid, utility-first styling and design." },
+    { name: "Tailwind CSS", "description": "For rapid, utility-first styling and design." },
     { name: "Firebase", description: "For scalable backend services like auth and database." },
     { name: "Genkit", description: "For integrating powerful AI and generative features." },
   ];
@@ -116,7 +116,12 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
         </div>
         <div className="relative z-10 px-4 sm:px-6 lg:px-8">
-          <AnimatedHeadline />
+           <AnimatedHeadline
+              words={['Customers', 'Revenue', 'Momentum']}
+              prefix={<>Stop <span>Losing</span></>}
+              suffix={<>. Start <span className="text-green-500">Winning</span>.</>}
+              className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter animate-fade-in-up"
+            />
           <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground animate-fade-in-up animation-delay-200">
             Is your website failing to attract local customers in Junagadh? We build high-performance web experiences that turn visitors into loyal customers.
           </p>

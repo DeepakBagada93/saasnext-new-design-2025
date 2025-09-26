@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { ArrowRight, Handshake, Target, CheckCircle } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { AnimatedHeadline } from "@/components/animated-headline";
 
 
 const coreValues = [
@@ -50,7 +51,12 @@ export default function AboutPage() {
         <section className="pt-32 md:pt-48 pb-20 md:pb-28">
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                    <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter">We're SaaSNext.</h1>
+                    <AnimatedHeadline
+                        words={['Grow', 'Innovate', 'Succeed']}
+                        prefix="We're SaaSNext. We help you"
+                        suffix="."
+                        className="font-headline text-5xl md:text-7xl font-bold tracking-tighter"
+                    />
                     <p className="text-xl md:text-2xl text-muted-foreground">
                         A passionate, Junagadh-based digital agency dedicated to crafting solutions that drive growth for businesses just like yours.
                     </p>

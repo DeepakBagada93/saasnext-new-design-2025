@@ -3,9 +3,14 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const words = ['Customers', 'Revenue', 'Momentum'];
+type AnimatedHeadlineProps = {
+  words: string[];
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
+  className?: string;
+};
 
-export function AnimatedHeadline() {
+export function AnimatedHeadline({ words, prefix, suffix, className }: AnimatedHeadlineProps) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -14,11 +19,11 @@ export function AnimatedHeadline() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [words.length]);
 
   return (
-    <h1 className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter animate-fade-in-up">
-      Stop <span>Losing</span>
+    <h1 className={className}>
+      {prefix && <span>{prefix}</span>}
       <AnimatePresence mode="wait">
         <motion.span
           key={words[index]}
@@ -26,12 +31,12 @@ export function AnimatedHeadline() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className="inline-block mx-4 text-primary"
+          className="inline-block mx-2 text-primary"
         >
           {words[index]}
         </motion.span>
       </AnimatePresence>
-      . Start <span className="text-green-500">Winning</span>.
+      {suffix && <span>{suffix}</span>}
     </h1>
   );
 }
