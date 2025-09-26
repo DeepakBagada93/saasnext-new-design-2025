@@ -2,7 +2,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useUser } from '@/firebase';
 import { AppLayout } from './app-layout';
 
@@ -23,16 +23,26 @@ const getLayoutType = (pathname: string): LayoutType => {
   return 'public';
 };
 
+function LoadingScreen() {
+    return (
+        <div className="flex min-h-screen items-center justify-center p-4 bg-background" />
+    );
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
+    const [isMounted, setIsMounted] = useState(false);
     
-    const layout = getLayoutType(pathname);
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
-        if (loading) return;
+        if (loading || !isMounted) return;
 
+        const layout = getLayoutType(pathname);
         const isAdminRoute = layout === 'admin';
         const isClientRoute = layout === 'client';
         const isAuthRoute = layout === 'auth';
@@ -53,30 +63,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 router.replace('/admin/dashboard');
             }
         }
-    }, [user, loading, layout, router, pathname]);
+    }, [user, loading, pathname, router, isMounted]);
 
-    if (loading) {
-        // Render a static loading skeleton that is identical on server and client
-        return (
-             <div className="flex min-h-screen items-center justify-center p-4 bg-background">
-                <div className='w-full max-w-sm space-y-4'>
-                    {/* Skeletons matching a login form */}
-                </div>
-            </div>
-        );
+    if (!isMounted || loading) {
+        return <LoadingScreen />;
     }
+    
+    const layout = getLayoutType(pathname);
 
     if (!user && (layout === 'admin' || layout === 'client')) {
-        // While redirecting, render a static skeleton
-        return (
-             <div className="flex min-h-screen items-center justify-center p-4 bg-background">
-                <div className='w-full max-w-sm space-y-4'>
-                     {/* Skeletons matching a login form */}
-                </div>
-            </div>
-        );
+        return <LoadingScreen />;
     }
-
 
     return <AppLayout>{children}</AppLayout>;
 }
