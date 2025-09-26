@@ -27,6 +27,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
     
     const getLayout = (): LayoutType => {
         if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
@@ -44,7 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const layout = getLayout();
 
     useEffect(() => {
-        if (loading) return;
+        if (loading || !isMounted) return;
 
         const isAdminRoute = layout === 'admin';
         const isClientRoute = layout === 'client';
@@ -66,13 +71,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 router.replace('/admin/dashboard');
             }
         }
-    }, [user, loading, layout, router, pathname]);
+    }, [user, loading, layout, router, isMounted, pathname]);
 
-    if (loading) {
+    if (!isMounted || loading) {
         return <LoadingScreen />;
     }
     
-    // Prevent rendering protected routes for the wrong user type before redirect
     if (user) {
         const isAdminUser = user.email?.toLowerCase() === ADMIN_EMAIL;
         if (layout === 'admin' && !isAdminUser) return <LoadingScreen />;
