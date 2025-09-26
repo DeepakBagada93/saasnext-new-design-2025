@@ -40,15 +40,15 @@ export default function ContactPage() {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-      <section className="text-center max-w-3xl mx-auto">
+      <section className="pt-20 md:pt-28 text-center max-w-3xl mx-auto">
         <h1 className="font-headline text-4xl md:text-5xl font-bold">Get in Touch in Junagadh</h1>
         <p className="mt-4 text-lg text-muted-foreground">
           Have a project in mind or just want to say hello? We'd love to hear from you. We are based in Junagadh and serve clients locally and worldwide.
         </p>
       </section>
 
-      <div className="mt-16 grid md:grid-cols-2 gap-12">
-        <Card>
+      <div className="mt-16 grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <Card className="md:col-span-1">
           <CardHeader>
             <CardTitle className="font-headline text-2xl">Send us a Message</CardTitle>
             <CardDescription>Fill out the form and our Junagadh team will get back to you shortly.</CardDescription>
@@ -65,7 +65,7 @@ export default function ContactPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
-                <Textarea id="message" name="message" placeholder="How can we help your Junagadh business?" required />
+                <Textarea id="message" name="message" placeholder="How can we help your Junagadh business?" required rows={5}/>
               </div>
               <Button type="submit" className="w-full bg-accent hover:bg-accent/90">
                 <Send className="mr-2 h-4 w-4" />
@@ -75,7 +75,7 @@ export default function ContactPage() {
           </CardContent>
         </Card>
         
-        <div className="space-y-8">
+        <div className="space-y-8 row-start-1 md:row-auto">
             <h2 className="font-headline text-3xl font-bold">Contact Information</h2>
             <div className="space-y-4 text-lg">
                 <div className="flex items-center space-x-4">
@@ -86,6 +86,10 @@ export default function ContactPage() {
                     <Phone className="h-6 w-6 text-primary"/>
                     <span className="text-muted-foreground">+91 7016179234</span>
                 </div>
+            </div>
+             <div className="pt-6">
+                <h3 className="font-headline text-2xl font-bold">Our Location</h3>
+                <p className="text-muted-foreground mt-2">We are proudly based in the vibrant city of Junagadh, ready to collaborate with local and global partners.</p>
             </div>
         </div>
       </div>
