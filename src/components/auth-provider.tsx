@@ -34,27 +34,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     useEffect(() => {
-        if (!loading && isMounted) {
-            const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
-            const isClientRoute = pathname.startsWith('/client');
-            const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
+        if (loading || !isMounted) return;
 
-            if (isAdminRoute) {
-                if (!user) {
-                    router.replace('/admin-login');
-                } else if (user.email?.toLowerCase() !== ADMIN_EMAIL) {
-                    router.replace('/admin-login');
-                }
-            } else if (isClientRoute) {
-                if (!user) {
-                    router.replace('/login');
-                }
-            } else if (isAuthRoute && user) {
-                if (user.email?.toLowerCase() === ADMIN_EMAIL) {
-                    router.replace('/admin/dashboard');
-                } else {
-                    router.replace('/client/dashboard');
-                }
+        const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
+        const isClientRoute = pathname.startsWith('/client');
+        const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
+
+        if (isAdminRoute) {
+            if (!user) {
+                router.replace('/admin-login');
+            } else if (user.email?.toLowerCase() !== ADMIN_EMAIL) {
+                router.replace('/admin-login');
+            }
+        } else if (isClientRoute) {
+            if (!user) {
+                router.replace('/login');
+            }
+        } else if (isAuthRoute && user) {
+            if (user.email?.toLowerCase() === ADMIN_EMAIL) {
+                router.replace('/admin/dashboard');
+            } else {
+                router.replace('/client/dashboard');
             }
         }
     }, [user, loading, pathname, router, isMounted]);
@@ -74,9 +74,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const layout = getLayout();
     
-    // While loading or before mounting on the client, render a static loading screen
-    // or a layout that matches the server-rendered output to avoid hydration mismatch.
-    if (loading || !isMounted) {
+    // Render a loading screen only if not mounted, to prevent content flash
+    if (!isMounted) {
         return <LoadingScreen />;
     }
 
