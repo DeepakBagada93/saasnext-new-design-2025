@@ -23,30 +23,30 @@ const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
 type LayoutType = 'public' | 'admin' | 'client' | 'auth';
 
+const getLayoutType = (pathname: string): LayoutType => {
+  if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
+    return 'admin';
+  }
+  if (pathname.startsWith('/client')) {
+    return 'client';
+  }
+  if (['/login', '/register', '/admin-login'].includes(pathname)) {
+    return 'auth';
+  }
+  return 'public';
+};
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
     const [isMounted, setIsMounted] = useState(false);
+    
+    const layout = getLayoutType(pathname);
 
     useEffect(() => {
         setIsMounted(true);
     }, []);
-    
-    const getLayout = (): LayoutType => {
-        if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
-            return 'admin';
-        }
-        if (pathname.startsWith('/client')) {
-            return 'client';
-        }
-        if (['/login', '/register', '/admin-login'].includes(pathname)) {
-            return 'auth';
-        }
-        return 'public';
-    };
-
-    const layout = getLayout();
 
     useEffect(() => {
         if (loading || !isMounted) return;
@@ -86,5 +86,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return <LoadingScreen />;
     }
 
-    return <AppLayout layout={layout}>{children}</AppLayout>;
+    return <AppLayout>{children}</AppLayout>;
 }

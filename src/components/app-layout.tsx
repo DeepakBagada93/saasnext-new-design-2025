@@ -6,16 +6,31 @@ import ClientSidebar from '@/components/layout/client-sidebar';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { DashboardLayout, SidebarProvider } from './ui/sidebar';
+import { usePathname } from 'next/navigation';
 
 type LayoutType = 'public' | 'admin' | 'client' | 'auth';
 
+const getLayoutType = (pathname: string): LayoutType => {
+  if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
+    return 'admin';
+  }
+  if (pathname.startsWith('/client')) {
+    return 'client';
+  }
+  if (['/login', '/register', '/admin-login'].includes(pathname)) {
+    return 'auth';
+  }
+  return 'public';
+};
+
 export function AppLayout({
   children,
-  layout,
 }: {
   children: React.ReactNode;
-  layout: LayoutType;
 }) {
+  const pathname = usePathname();
+  const layout = getLayoutType(pathname);
+
   if (layout === 'admin') {
     return (
       <SidebarProvider>
