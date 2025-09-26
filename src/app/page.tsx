@@ -1,11 +1,11 @@
 
 import Link from "next/link";
-import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check } from "lucide-react";
+import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { testimonials, portfolioItems, faqs } from "@/lib/data";
+import { testimonials, portfolioItems, faqs, services } from "@/lib/data";
 import Image from "next/image";
 import {
   Accordion,
@@ -21,6 +21,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { AnimatedHeadline } from "@/components/animated-headline";
+import { BentoCard, BentoGrid } from "@/components/ui/bento-card";
 
 const whyChooseUsItems = [
   {
@@ -39,6 +40,16 @@ const whyChooseUsItems = [
     description: "Our agile process means we move fast, iterate quickly, and get your project to market faster without sacrificing quality."
   }
 ];
+
+const serviceIcons: { [key: string]: React.ReactNode } = {
+    Code: <Code />,
+    Search: <Search />,
+    Megaphone: <Megaphone />,
+    Feather: <Feather />,
+    Palette: <Palette />,
+    BrainCircuit: <BrainCircuit />,
+};
+
 
 export default function Home() {
   const whyChooseUsImage = PlaceHolderImages.find(img => img.id === 'why-choose-us');
@@ -94,24 +105,60 @@ export default function Home() {
         </div>
       </section>
       
-      <section id="how-it-works" className="py-20 md:py-28">
+      <section id="services" className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Core Services</h2>
+                <p className="mt-4 text-muted-foreground text-lg">We provide a complete suite of digital services to help your Junagadh business thrive online.</p>
+            </div>
+            <BentoGrid className="mt-16">
+              {services.slice(0,4).map((service, idx) => (
+                <BentoCard
+                  key={service.title}
+                  title={service.title}
+                  description={service.description}
+                  href={`/services#${service.slug}`}
+                  icon={serviceIcons[service.icon] || <Zap />}
+                  className={idx === 0 || idx === 3 ? "md:col-span-2" : ""}
+                  background={service.image && 
+                    <Image 
+                      src={service.image.imageUrl} 
+                      alt={service.title}
+                      data-ai-hint={service.image.imageHint}
+                      fill 
+                      className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center opacity-10" 
+                    />}
+                />
+              ))}
+            </BentoGrid>
+            <div className="text-center mt-12">
+                <Button asChild size="lg">
+                    <Link href="/services">
+                        Explore All Services <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                </Button>
+            </div>
+        </div>
+      </section>
+
+      <section id="how-it-works" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
             <div className="text-center">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Our 3-Step Plan for Your Success in Junagadh</h2>
                 <p className="mt-4 text-muted-foreground text-lg">We keep it simple, transparent, and focused on local results.</p>
             </div>
             <div className="mt-16 grid md:grid-cols-3 gap-8 text-center">
-                <div className="space-y-4 p-8 border rounded-lg bg-card/50 animate-fade-in-up">
+                <div className="space-y-4 p-8 border rounded-lg bg-background/50 animate-fade-in-up">
                     <div className="text-5xl font-bold font-headline text-primary">1</div>
                     <h3 className="text-2xl font-headline font-bold">Local Strategy</h3>
                     <p className="text-muted-foreground">We dive deep into your business, your Junagadh audience, and goals to build a custom roadmap for success.</p>
                 </div>
-                 <div className="space-y-4 p-8 border rounded-lg bg-card/50 animate-fade-in-up animation-delay-200">
+                 <div className="space-y-4 p-8 border rounded-lg bg-background/50 animate-fade-in-up animation-delay-200">
                     <div className="text-5xl font-bold font-headline text-primary">2</div>
                     <h3 className="text-2xl font-headline font-bold">Execution & Build</h3>
                     <p className="text-muted-foreground">Our expert Junagadh-based team gets to work, building your high-performance website with full transparency.</p>
                 </div>
-                 <div className="space-y-4 p-8 border rounded-lg bg-card/50 animate-fade-in-up animation-delay-400">
+                 <div className="space-y-4 p-8 border rounded-lg bg-background/50 animate-fade-in-up animation-delay-400">
                     <div className="text-5xl font-bold font-headline text-primary">3</div>
                     <h3 className="text-2xl font-headline font-bold">Launch & Optimize</h3>
                     <p className="text-muted-foreground">We don't just launch and leave. We monitor performance, analyze data, and continuously optimize for local conversions.</p>
@@ -120,7 +167,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="success-stories" className="py-20 md:py-28 bg-card">
+      <section id="success-stories" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Junagadh Success Stories</h2>
@@ -128,7 +175,7 @@ export default function Home() {
             </div>
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
                 {portfolioItems.slice(0, 2).map((item) => (
-                    <Card key={item.id} className="flex flex-col group overflow-hidden">
+                    <Card key={item.id} className="flex flex-col group overflow-hidden bg-card">
                         <div className="relative aspect-[16/9] w-full overflow-hidden">
                              <Image
                                 src={item.image.imageUrl}
@@ -200,3 +247,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
