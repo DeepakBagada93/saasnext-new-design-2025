@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useUser } from '@/firebase';
+import { AppLayout } from './app-layout';
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
@@ -13,21 +14,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
     const isClientRoute = pathname.startsWith('/client');
-    
+    const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
+
     useEffect(() => {
         if (!loading) {
-            // If it's an admin route, check for admin user
             if (isAdminRoute && (!user || user.email?.toLowerCase() !== ADMIN_EMAIL)) {
                 router.replace('/admin-login');
             } 
-            // If it's a client route, check for any user
             else if (isClientRoute && !user) {
                 router.replace('/login');
             }
         }
     }, [user, loading, isAdminRoute, isClientRoute, router, pathname]);
 
-    // Show a loading state only on protected routes while auth status is being checked
     if (loading && (isAdminRoute || isClientRoute)) {
         return (
             <div className="flex min-h-screen items-center justify-center">
@@ -36,5 +35,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         );
     }
     
-    return <>{children}</>;
+    let layout: 'public' | 'admin' | 'client' | 'auth' = 'public';
+    if (isAdminRoute) {
+        layout = 'admin';
+    } else if (isClientRoute) {
+        layout = 'client';
+    } else if (isAuthRoute) {
+        layout = 'auth';
+    }
+
+    return <AppLayout layout={layout}>{children}</AppLayout>;
 }

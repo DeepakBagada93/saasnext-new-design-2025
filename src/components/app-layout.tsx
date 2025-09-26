@@ -1,19 +1,16 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import AdminSidebar from '@/components/layout/admin-sidebar';
 import ClientSidebar from '@/components/layout/client-sidebar';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { DashboardLayout, SidebarProvider } from './ui/sidebar';
 
-export function AppLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
-  const isClientRoute = pathname.startsWith('/client');
-  const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
+type LayoutType = 'public' | 'admin' | 'client' | 'auth';
 
-  if (isAdminRoute) {
+export function AppLayout({ layout, children }: { layout: LayoutType, children: React.ReactNode }) {
+
+  if (layout === 'admin') {
     return (
       <SidebarProvider>
         <DashboardLayout sidebar={<AdminSidebar />}>{children}</DashboardLayout>
@@ -21,7 +18,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (isClientRoute) {
+  if (layout === 'client') {
     return (
       <SidebarProvider>
         <DashboardLayout sidebar={<ClientSidebar />}>{children}</DashboardLayout>
@@ -29,7 +26,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (isAuthRoute) {
+  if (layout === 'auth') {
     return (
       <div className="flex min-h-screen items-center justify-center p-4 bg-background">
         {children}
