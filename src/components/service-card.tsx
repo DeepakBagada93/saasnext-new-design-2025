@@ -17,15 +17,14 @@ export function ServiceCard({ service }: { service: Service }) {
     const cardVariants = {
         offscreen: {
             opacity: 0,
-            y: 50
+            y: 20
         },
         onscreen: {
             opacity: 1,
             y: 0,
             transition: {
-                type: "spring",
-                bounce: 0.4,
-                duration: 0.8
+                duration: 0.5,
+                ease: "easeOut"
             }
         }
     };
@@ -37,7 +36,7 @@ export function ServiceCard({ service }: { service: Service }) {
             viewport={{ once: true, amount: 0.3 }}
             variants={cardVariants}
         >
-            <Card className="overflow-hidden bg-card/50">
+            <Card className="overflow-hidden bg-card">
                 <div className="p-8 md:p-12 space-y-4">
                     <h2 className="font-headline text-3xl font-bold">{service.title}</h2>
                     <p className="text-muted-foreground pb-4">{service.description}</p>
