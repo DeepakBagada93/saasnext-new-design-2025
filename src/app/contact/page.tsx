@@ -1,11 +1,44 @@
+
+'use client';
+
+import { useFormState } from 'react-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, Send } from "lucide-react";
+import { useToast } from '@/hooks/use-toast';
+import { useEffect } from 'react';
+import { sendContactEmail } from './actions';
 
 export default function ContactPage() {
+  const { toast } = useToast();
+
+  const initialState = {
+    message: '',
+    success: false,
+  };
+
+  const [state, formAction] = useFormState(sendContactEmail, initialState);
+
+  useEffect(() => {
+    if (state.message) {
+      if (state.success) {
+        toast({
+          title: "Message Sent!",
+          description: state.message,
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: state.message,
+        });
+      }
+    }
+  }, [state, toast]);
+
   return (
     <div className="px-4 sm:px-6 lg:px-8 py-12 md:py-20">
       <section className="text-center max-w-3xl mx-auto">
@@ -22,20 +55,23 @@ export default function ContactPage() {
             <CardDescription>Fill out the form and our Junagadh team will get back to you shortly.</CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4">
+            <form action={formAction} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Your Name" />
+                <Input id="name" name="name" placeholder="Your Name" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="your@email.com" />
+                <Input id="email" name="email" type="email" placeholder="your@email.com" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="How can we help your Junagadh business?" />
+                <Textarea id="message" name="message" placeholder="How can we help your Junagadh business?" required />
               </div>
-              <Button type="submit" className="w-full bg-accent hover:bg-accent/90">Send Message</Button>
+              <Button type="submit" className="w-full bg-accent hover:bg-accent/90">
+                <Send className="mr-2 h-4 w-4" />
+                Send Message
+              </Button>
             </form>
           </CardContent>
         </Card>
