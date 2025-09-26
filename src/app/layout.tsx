@@ -6,7 +6,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ClientOnly } from '@/components/client-only';
-import { CustomCursor } from '@/components/ui/custom-cursor';
 import { AuthProvider } from '@/components/auth-provider';
 import { AppLayout } from '@/components/app-layout';
 
@@ -41,7 +40,6 @@ export default function RootLayout({
         >
           <FirebaseClientProvider>
             <ClientOnly>
-              <CustomCursor />
               <Toaster />
             </ClientOnly>
             <AuthProvider>
