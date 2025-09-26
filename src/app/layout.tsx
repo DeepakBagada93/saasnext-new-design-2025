@@ -1,11 +1,12 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/theme-provider';
-import { CustomCursor } from '@/components/ui/custom-cursor';
 import { ClientOnly } from '@/components/client-only';
+import { CustomCursor } from '@/components/ui/custom-cursor';
 import { AuthProvider } from '@/components/auth-provider';
 
 export const metadata: Metadata = {
@@ -42,9 +43,7 @@ export default function RootLayout({
               <CustomCursor />
               <Toaster />
             </ClientOnly>
-            <AuthProvider>
-                {children}
-            </AuthProvider>
+            <AuthProvider>{children}</AuthProvider>
           </FirebaseClientProvider>
         </ThemeProvider>
       </body>

@@ -33,24 +33,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }, [user, loading, isAdminRoute, isClientRoute, router, pathname, isMounted]);
 
-    if (!isMounted) {
-        // On the server and initial client render, render the public layout shell
+    if (!isMounted || loading) {
+        // On the server and during initial client load, render the public layout shell
         // to avoid hydration mismatch. The actual content will be protected by the useEffect.
         return <AppLayout layout="public">{children}</AppLayout>;
     }
     
-    if (loading && (isAdminRoute || isClientRoute)) {
-        return (
-            <div className="flex min-h-screen items-center justify-center">
-                <p>Loading...</p>
-            </div>
-        );
-    }
-    
     let layout: 'public' | 'admin' | 'client' | 'auth' = 'public';
-    if (isAdminRoute) {
+    if (isAdminRoute && user && user.email?.toLowerCase() === ADMIN_EMAIL) {
         layout = 'admin';
-    } else if (isClientRoute) {
+    } else if (isClientRoute && user) {
         layout = 'client';
     } else if (isAuthRoute) {
         layout = 'auth';
