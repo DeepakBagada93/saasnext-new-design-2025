@@ -3,7 +3,7 @@ import './globals.css';
 import { AppLayout } from '@/components/app-layout';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
-import { FirebaseProvider } from '@/firebase';
+import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/components/theme-provider';
 import { CustomCursor } from '@/components/ui/custom-cursor';
 import { ClientOnly } from '@/components/client-only';
@@ -37,12 +37,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
         >
-          <FirebaseProvider>
+          <FirebaseClientProvider>
             <ClientOnly>
               <CustomCursor />
             </ClientOnly>
             <AppLayout>{children}</AppLayout>
-          </FirebaseProvider>
+          </FirebaseClientProvider>
           <Toaster />
         </ThemeProvider>
       </body>

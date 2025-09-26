@@ -1,30 +1,27 @@
+
 'use client';
 
-import React, { createContext, useContext, ReactNode, useMemo } from 'react';
-import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
-import { getAuth, Auth } from 'firebase/auth';
-import { getFirestore, Firestore } from 'firebase/firestore';
-import { firebaseConfig } from './config';
+import React, { createContext, useContext, ReactNode } from 'react';
+import type { FirebaseApp } from 'firebase/app';
+import type { Auth } from 'firebase/auth';
+import type { Firestore } from 'firebase/firestore';
 
 interface FirebaseContextType {
-  app: FirebaseApp;
-  auth: Auth;
-  firestore: Firestore;
+  app: FirebaseApp | null;
+  auth: Auth | null;
+  firestore: Firestore | null;
 }
 
-const FirebaseContext = createContext<FirebaseContextType | null>(null);
+const FirebaseContext = createContext<FirebaseContextType | undefined>(undefined);
 
-export const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const firebaseApp = useMemo(() => {
-    const apps = getApps();
-    return apps.length > 0 ? apps[0] : initializeApp(firebaseConfig);
-  }, []);
-  
-  const auth = useMemo(() => getAuth(firebaseApp), [firebaseApp]);
-  const firestore = useMemo(() => getFirestore(firebaseApp), [firebaseApp]);
+type FirebaseProviderProps = {
+  children: ReactNode;
+  value: FirebaseContextType;
+};
 
+export const FirebaseProvider: React.FC<FirebaseProviderProps> = ({ children, value }) => {
   return (
-    <FirebaseContext.Provider value={{ app: firebaseApp, auth, firestore }}>
+    <FirebaseContext.Provider value={value}>
       {children}
     </FirebaseContext.Provider>
   );
@@ -32,12 +29,12 @@ export const FirebaseProvider: React.FC<{ children: ReactNode }> = ({ children }
 
 export const useFirebase = () => {
   const context = useContext(FirebaseContext);
-  if (context === null) {
+  if (context === undefined) {
     throw new Error('useFirebase must be used within a FirebaseProvider');
   }
   return context;
 };
 
-export const useFirebaseApp = () => useFirebase().app;
-export const useAuth = () => useFirebase().auth;
-export const useFirestore = () => useFirebase().firestore;
+export const useFirebaseApp = () => useFirebase().app!;
+export const useAuth = () => useFirebase().auth!;
+export const useFirestore = () => useFirebase().firestore!;
