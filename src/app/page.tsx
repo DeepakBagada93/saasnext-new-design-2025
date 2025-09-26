@@ -1,7 +1,7 @@
 
 
 import Link from "next/link";
-import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit } from "lucide-react";
+import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -25,6 +25,7 @@ import { AnimatedHeadline } from "@/components/animated-headline";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-card";
 import { PortfolioGallery } from "@/components/portfolio-gallery";
 import { ScrollSection } from "@/components/scroll-section";
+import { cn } from "@/lib/utils";
 
 const whyChooseUsItems = [
   {
@@ -53,9 +54,60 @@ const serviceIcons: { [key: string]: React.ReactNode } = {
     BrainCircuit: <BrainCircuit />,
 };
 
+const processSteps = [
+    {
+      step: "01",
+      title: "Discovery & Strategy",
+      description: "We start by diving deep into your business, goals, and target audience in Junagadh. This phase includes stakeholder interviews, market research, and competitive analysis to build a data-driven strategy that sets the foundation for success."
+    },
+    {
+      step: "02",
+      title: "Design & Prototyping",
+      description: "Our team creates wireframes and high-fidelity mockups, focusing on a user-centric design that is both beautiful and intuitive. You'll get to see and approve the visual direction before any code is written."
+    },
+    {
+      step: "03",
+      title: "Development & QA",
+      description: "Using the latest technologies, we build a high-performance, scalable website. Throughout the process, we conduct rigorous quality assurance testing to ensure everything is bug-free and pixel-perfect."
+    },
+    {
+      step: "04",
+      title: "Launch & Optimization",
+      description: "We handle the entire deployment process. But our work doesn't stop there. We monitor performance, analyze user data, and provide ongoing optimization to ensure you're getting the best possible results."
+    }
+  ];
+
+  const techStack = [
+    { name: "Next.js", description: "For performant, server-rendered React applications." },
+    { name: "React", description: "To build dynamic and interactive user interfaces." },
+    { name: "TypeScript", description: "For robust, scalable, and maintainable code." },
+    { name: "Tailwind CSS", description: "For rapid, utility-first styling and design." },
+    { name: "Firebase", description: "For scalable backend services like auth and database." },
+    { name: "Genkit", description: "For integrating powerful AI and generative features." },
+  ];
+
+  const targetAudiences = [
+    {
+      icon: <Rocket className="h-8 w-8 text-primary" />,
+      title: "Ambitious Startups",
+      description: "You need to move fast and make a big impact. We provide the agile development and go-to-market strategies to help you launch, iterate, and scale quickly, securing your position in the market."
+    },
+    {
+      icon: <Building className="h-8 w-8 text-primary" />,
+      title: "Established Local Businesses",
+      description: "Your business is a staple in Junagadh, but your digital presence isn't keeping up. We'll modernize your website, optimize it for local search, and drive more foot traffic and online sales."
+    },
+    {
+      icon: <Scale className="h-8 w-8 text-primary" />,
+      title: "SMEs & Enterprises",
+      description: "You require a robust, scalable, and secure digital platform. We have the expertise to handle complex requirements, integrate with existing systems, and deliver enterprise-grade solutions that drive efficiency and growth."
+    }
+  ];
+
 
 export default function Home() {
   const whyChooseUsImage = PlaceHolderImages.find(img => img.id === 'why-choose-us');
+  const techStackImage = PlaceHolderImages.find(img => img.id === 'tech-stack');
 
   return (
     <div className="flex flex-col">
@@ -144,27 +196,48 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="how-it-works" className="py-20 md:py-28 bg-card">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-            <div className="text-center">
-                <h2 className="font-headline text-4xl md:text-5xl font-bold">Our 3-Step Plan for Your Success in Junagadh</h2>
-                <p className="mt-4 text-muted-foreground text-lg">We keep it simple, transparent, and focused on local results.</p>
+      <section id="our-process" className="py-20 md:py-28 bg-card">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Proven Path to Success</h2>
+                <p className="mt-4 text-muted-foreground text-lg">We follow a transparent, four-step process to ensure your project is a success from start to finish, keeping you informed and involved along the way.</p>
             </div>
-            <div className="mt-16 grid md:grid-cols-3 gap-8 text-center">
-                <div className="space-y-4 p-8 border rounded-lg bg-background/50 animate-fade-in-up">
-                    <div className="text-5xl font-bold font-headline text-primary">1</div>
-                    <h3 className="text-2xl font-headline font-bold">Local Strategy</h3>
-                    <p className="text-muted-foreground">We dive deep into your business, your Junagadh audience, and goals to build a custom roadmap for success.</p>
+            <div className="relative mt-16">
+                <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2 hidden md:block" aria-hidden="true"></div>
+                <div className="space-y-12 md:space-y-0">
+                    {processSteps.map((item, index) => (
+                        <div key={item.title} className="md:grid md:grid-cols-2 md:items-center md:gap-8">
+                            <div className={cn("flex items-center gap-4 md:justify-end", index % 2 === 0 ? "md:order-1" : "md:order-2")}>
+                                <div className="text-5xl font-bold font-headline text-primary">{item.step}</div>
+                                <h3 className="text-2xl font-headline font-bold text-right md:text-left">{item.title}</h3>
+                            </div>
+                            <div className={cn("mt-4 md:mt-0 p-6 rounded-lg border bg-background", index % 2 === 0 ? "md:order-2" : "md:order-1")}>
+                                <p className="text-muted-foreground">{item.description}</p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                 <div className="space-y-4 p-8 border rounded-lg bg-background/50 animate-fade-in-up animation-delay-200">
-                    <div className="text-5xl font-bold font-headline text-primary">2</div>
-                    <h3 className="text-2xl font-headline font-bold">Execution &amp; Build</h3>
-                    <p className="text-muted-foreground">Our expert Junagadh-based team gets to work, building your high-performance website with full transparency.</p>
-                </div>
-                 <div className="space-y-4 p-8 border rounded-lg bg-background/50 animate-fade-in-up animation-delay-400">
-                    <div className="text-5xl font-bold font-headline text-primary">3</div>
-                    <h3 className="text-2xl font-headline font-bold">Launch &amp; Optimize</h3>
-                    <p className="text-muted-foreground">We don't just launch and leave. We monitor performance, analyze data, and continuously optimize for local conversions.</p>
+            </div>
+        </div>
+      </section>
+
+      <section id="tech-stack" className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div className="relative h-96 w-full">
+                {techStackImage && (
+                    <Image src={techStackImage.imageUrl} alt="Technology stack logos" data-ai-hint={techStackImage.imageHint} fill className="object-contain" />
+                )}
+            </div>
+            <div className="space-y-6">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
+                <p className="text-lg text-muted-foreground">We leverage the best tools and technologies in the industry to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
+                <div className="grid grid-cols-2 gap-6">
+                    {techStack.map((tech) => (
+                        <div key={tech.name}>
+                            <h3 className="font-headline font-bold text-lg">{tech.name}</h3>
+                            <p className="text-sm text-muted-foreground">{tech.description}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
@@ -190,6 +263,66 @@ export default function Home() {
               </Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      <section id="testimonials" className="py-20 md:py-28 bg-card">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+            <div className="text-center">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">What Our Junagadh Clients Say</h2>
+                <p className="mt-4 text-muted-foreground text-lg">We're proud of the relationships we've built and the results we've delivered.</p>
+            </div>
+            <Carousel
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+                className="w-full mt-16"
+            >
+                <CarouselContent>
+                    {testimonials.map((testimonial, index) => (
+                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                            <Card className="h-full">
+                                <CardContent className="p-6 flex flex-col h-full">
+                                    <div className="flex-grow">
+                                        <p className="text-muted-foreground">"{testimonial.quote}"</p>
+                                    </div>
+                                    <div className="flex items-center gap-4 mt-6 pt-6 border-t">
+                                        <Avatar>
+                                            <AvatarImage src={testimonial.image.imageUrl} alt={testimonial.name} data-ai-hint={testimonial.image.imageHint} />
+                                            <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                                        </Avatar>
+                                        <div>
+                                            <p className="font-semibold">{testimonial.name}</p>
+                                            <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious className="hidden md:flex" />
+                <CarouselNext className="hidden md:flex" />
+            </Carousel>
+        </div>
+    </section>
+
+    <section id="target-audience" className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Digital Solutions for Every Business in Junagadh</h2>
+                <p className="mt-4 text-muted-foreground text-lg">Whether you're a budding startup or an established local enterprise, our services are tailored to meet your unique business needs and goals.</p>
+            </div>
+            <div className="mt-16 grid md:grid-cols-3 gap-8">
+                {targetAudiences.map((audience) => (
+                    <Card key={audience.title} className="text-center p-8">
+                        {audience.icon}
+                        <h3 className="mt-4 font-headline text-2xl font-bold">{audience.title}</h3>
+                        <p className="mt-2 text-muted-foreground">{audience.description}</p>
+                    </Card>
+                ))}
+            </div>
         </div>
       </section>
 
