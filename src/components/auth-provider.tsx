@@ -33,32 +33,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsClient(true);
     }, []);
 
-    useEffect(() => {
-        if (!isClient || loading) return;
-
-        const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
-        const isClientRoute = pathname.startsWith('/client');
-        const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
-
-        if (isAdminRoute) {
-            if (!user) {
-                router.replace('/admin-login');
-            } else if (user.email?.toLowerCase() !== ADMIN_EMAIL) {
-                router.replace('/admin-login');
-            }
-        } else if (isClientRoute) {
-            if (!user) {
-                router.replace('/login');
-            }
-        } else if (isAuthRoute && user) {
-            if (user.email?.toLowerCase() === ADMIN_EMAIL) {
-                router.replace('/admin/dashboard');
-            } else {
-                router.replace('/client/dashboard');
-            }
-        }
-    }, [user, loading, pathname, router, isClient]);
-
     const getLayout = (): LayoutType => {
         if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
             return 'admin';
@@ -70,21 +44,51 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             return 'auth';
         }
         return 'public';
+    };
+
+    const layout = getLayout();
+
+    useEffect(() => {
+        if (loading || !isClient) return;
+
+        const isAdminRoute = layout === 'admin';
+        const isClientRoute = layout === 'client';
+        const isAuthRoute = layout === 'auth';
+
+        if (!user) {
+            if (isAdminRoute) {
+                router.replace('/admin-login');
+            } else if (isClientRoute) {
+                router.replace('/login');
+            }
+        } else {
+            const isAdminUser = user.email?.toLowerCase() === ADMIN_EMAIL;
+            if (isAuthRoute) {
+                router.replace(isAdminUser ? '/admin/dashboard' : '/client/dashboard');
+            } else if (isAdminRoute && !isAdminUser) {
+                // If a non-admin tries to access an admin route, send to client dashboard
+                router.replace('/client/dashboard');
+            } else if (isClientRoute && isAdminUser) {
+                // If an admin somehow lands on a client route, send to admin dashboard
+                router.replace('/admin/dashboard');
+            }
+        }
+    }, [user, loading, layout, router, isClient]);
+
+    if (loading || !isClient) {
+        return <LoadingScreen />;
+    }
+    
+    // Prevent rendering protected routes for the wrong user type before redirect
+    if (user) {
+        const isAdminUser = user.email?.toLowerCase() === ADMIN_EMAIL;
+        if (layout === 'admin' && !isAdminUser) return <LoadingScreen />;
+        if (layout === 'client' && isAdminUser) return <LoadingScreen />;
+    }
+     if (!user && (layout === 'admin' || layout === 'client')) {
+        return <LoadingScreen />;
     }
 
-    if (loading && !isClient) {
-        return <LoadingScreen />;
-    }
-    
-    // While loading, we still need to determine the basic layout to avoid flicker
-    // and provide a consistent shell.
-    const layout = getLayout();
-    
-    // If we're loading auth state for a protected route, show a loading screen.
-    // Public routes and auth pages can be rendered immediately.
-    if (loading && (layout === 'admin' || layout === 'client')) {
-        return <LoadingScreen />;
-    }
 
     return <AppLayout layout={layout}>{children}</AppLayout>;
 }
