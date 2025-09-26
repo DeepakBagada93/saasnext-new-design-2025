@@ -27,11 +27,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }, [user, loading, isAdminRoute, isClientRoute, router, pathname]);
 
+    // This prevents a flash of unstyled content or a layout shift.
+    // The redirects in useEffect will handle unauthorized access.
     if (loading && (isAdminRoute || isClientRoute)) {
+        // Render the layout shell even during loading to prevent hydration errors
+        const layout = isAdminRoute ? 'admin' : 'client';
         return (
-             <div className="flex min-h-screen items-center justify-center">
-                <p>Loading...</p>
-            </div>
+            <AppLayout layout={layout}>
+                 <div className="flex min-h-screen items-center justify-center">
+                    <p>Loading...</p>
+                </div>
+            </AppLayout>
         );
     }
     
