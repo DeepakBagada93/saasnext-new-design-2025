@@ -7,7 +7,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { DashboardLayout, SidebarProvider } from './ui/sidebar';
 
-type LayoutType = 'public' | 'admin' | 'client' | 'auth' | 'loading';
+type LayoutType = 'public' | 'admin' | 'client' | 'auth';
 
 export function AppLayout({
   children,
@@ -16,10 +16,6 @@ export function AppLayout({
   children: React.ReactNode;
   layout: LayoutType;
 }) {
-
-  if (layout === 'loading') {
-    return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
-  }
 
   if (layout === 'admin') {
     return (
