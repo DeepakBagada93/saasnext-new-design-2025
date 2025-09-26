@@ -8,62 +8,73 @@ import { AppLayout } from './app-layout';
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
-type LayoutType = 'public' | 'admin' | 'client' | 'auth';
+type LayoutType = 'public' | 'admin' | 'client' | 'auth' | 'loading';
+
+function getLayoutType(pathname: string): Omit<LayoutType, 'loading'> {
+    if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
+        return 'admin';
+    }
+    if (pathname.startsWith('/client')) {
+        return 'client';
+    }
+    if (['/login', '/register', '/admin-login'].includes(pathname)) {
+        return 'auth';
+    }
+    return 'public';
+};
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
-    const [isMounted, setIsMounted] = useState(false);
+    const [layout, setLayout] = useState<LayoutType>('loading');
 
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    const getLayoutType = (pathname: string): LayoutType => {
-        if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
-            return 'admin';
+        if (loading) {
+            setLayout('loading');
+            return;
         }
-        if (pathname.startsWith('/client')) {
-            return 'client';
-        }
-        if (['/login', '/register', '/admin-login'].includes(pathname)) {
-            return 'auth';
-        }
-        return 'public';
-    };
 
-    const layout = getLayoutType(pathname);
+        const currentLayout = getLayoutType(pathname);
+        const isAuthRoute = currentLayout === 'auth';
 
-    useEffect(() => {
-        if (!isMounted || loading) return;
-
-        const isAuthRoute = layout === 'auth';
-
-        if (layout === 'admin') {
+        if (currentLayout === 'admin') {
             if (!user) {
                 router.replace('/admin-login');
+                setLayout('auth');
             } else if (user.email?.toLowerCase() !== ADMIN_EMAIL) {
                 router.replace('/client/dashboard');
+                setLayout('client');
+            } else {
+                setLayout('admin');
             }
-        } else if (layout === 'client') {
+        } else if (currentLayout === 'client') {
             if (!user) {
                 router.replace('/login');
+                setLayout('auth');
             } else if (user.email?.toLowerCase() === ADMIN_EMAIL) {
                 router.replace('/admin/dashboard');
-            }
-        } else if (isAuthRoute && user) {
-            if (user.email?.toLowerCase() === ADMIN_EMAIL) {
-                router.replace('/admin/dashboard');
+                setLayout('admin');
             } else {
-                router.replace('/client/dashboard');
+                setLayout('client');
             }
+        } else if (isAuthRoute) {
+            if (user) {
+                if (user.email?.toLowerCase() === ADMIN_EMAIL) {
+                    router.replace('/admin/dashboard');
+                    setLayout('admin');
+                } else {
+                    router.replace('/client/dashboard');
+                    setLayout('client');
+                }
+            } else {
+                setLayout('auth');
+            }
+        } else { // Public route
+            setLayout('public');
         }
-    }, [isMounted, user, loading, layout, pathname, router]);
 
-    if (!isMounted) {
-        return null;
-    }
-    
-    return <>{children}</>;
+    }, [user, loading, pathname, router]);
+
+    return <AppLayout layout={layout}>{children}</AppLayout>;
 }
