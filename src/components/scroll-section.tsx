@@ -33,90 +33,67 @@ export function ScrollSection() {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ['start start', 'end end'],
+    offset: ['start end', 'end start'],
   });
-  
-  // A simple function to create opacity transitions.
-  // A card will be fully visible for the middle 25% of its duration.
-  const createOpacity = (index: number, total: number) => {
-    const segment = 1 / total;
-    const start = index * segment;
-    const end = (index + 1) * segment;
 
-    return useTransform(
-      scrollYProgress,
-      [start, start + segment * 0.2, end - segment * 0.2, end],
-      [0, 1, 1, 0]
-    );
-  };
-  
-  const createScale = (index: number, total: number) => {
-    const segment = 1 / total;
-    const start = index * segment;
-    const end = (index + 1) * segment;
-    return useTransform(
-        scrollYProgress,
-        [start, start + segment * 0.2, end - segment * 0.2, end],
-        [0.9, 1, 1, 0.9]
-    );
-  }
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
+  const x = useTransform(scrollYProgress, [0.3, 0.7], ['0%', '-75%']);
 
-  const totalSections = problems.length + 1; // 3 problems + 1 solution
+  const SolutionOpacity = useTransform(scrollYProgress, [0.75, 0.85], [0, 1]);
+  const SolutionScale = useTransform(scrollYProgress, [0.8, 1], [0.8, 1]);
 
   return (
-    <section ref={targetRef} className="relative h-[500vh] bg-background">
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        <div className="relative flex w-full max-w-3xl mx-auto px-4">
-          
-          {problems.map((problem, index) => (
-             <motion.div
-                key={index}
-                className={cn(
-                    "absolute w-full p-8 rounded-2xl border text-center space-y-4",
-                    problem.bgColor
-                )}
-                style={{
-                    opacity: createOpacity(index, totalSections),
-                    scale: createScale(index, totalSections),
-                    y: '-50%',
-                    x: '-50%',
-                    top: '50%',
-                    left: '50%',
-                }}
-            >
-                {problem.icon}
-                <h3 className="font-headline text-3xl font-bold">{problem.title}</h3>
-                <p className="text-muted-foreground text-lg">{problem.description}</p>
+    <section ref={targetRef} className="relative h-[300vh] bg-background">
+      <div className="sticky top-0 h-screen flex items-center justify-start overflow-hidden">
+        <motion.div style={{ opacity }} className="w-full px-4">
+            <motion.div style={{ scale }} className="max-w-7xl mx-auto">
+                <motion.div style={{ x }} className="flex items-start gap-8 w-[400%]">
+                    <div className="w-1/4 p-8 rounded-2xl border text-center space-y-4 bg-card">
+                        <h2 className="font-headline text-4xl md:text-5xl font-bold">Your Digital Problems, Solved.</h2>
+                        <p className="text-muted-foreground text-xl">
+                            Are you facing these common challenges? Scroll to see how we tackle them.
+                        </p>
+                    </div>
+                     {problems.map((problem, index) => (
+                        <div
+                            key={index}
+                            className={cn(
+                                "w-1/4 p-8 rounded-2xl border text-center space-y-4",
+                                problem.bgColor
+                            )}
+                        >
+                            {problem.icon}
+                            <h3 className="font-headline text-3xl font-bold">{problem.title}</h3>
+                            <p className="text-muted-foreground text-lg">{problem.description}</p>
+                        </div>
+                    ))}
+
+                </motion.div>
             </motion.div>
-          ))}
-          
-          {/* The Solution Card */}
-          <motion.div
-            className="absolute w-full p-8 rounded-2xl border text-center space-y-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10"
-            style={{
-                opacity: createOpacity(problems.length, totalSections),
-                scale: createScale(problems.length, totalSections),
-                y: '-50%',
-                x: '-50%',
-                top: '50%',
-                left: '50%',
-            }}
-          >
-            <CheckCircle className="h-16 w-16 text-green-500 mx-auto animate-pulse" />
-             <h2 className="font-headline text-4xl md:text-5xl font-bold">The SaaSNext Solution</h2>
-             <p className="text-muted-foreground text-xl">
-               We turn your digital presence from a liability into your most powerful asset for growth in Junagadh.
-             </p>
-             <div className="flex justify-center gap-4">
-                 <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
-                    <Link href="/contact">Start Winning Today</Link>
-                 </Button>
-                 <Button size="lg" variant="outline" asChild>
-                    <Link href="/services">See How</Link>
-                 </Button>
-             </div>
-          </motion.div>
-        </div>
+        </motion.div>
+
+        <motion.div
+            className="absolute inset-0 z-10 flex items-center justify-center"
+            style={{ opacity: SolutionOpacity, scale: SolutionScale }}
+        >
+            <div className="bg-background/80 backdrop-blur-md max-w-3xl mx-auto p-8 rounded-2xl border text-center space-y-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10">
+                <CheckCircle className="h-16 w-16 text-green-500 mx-auto animate-pulse" />
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">The SaaSNext Solution</h2>
+                <p className="text-muted-foreground text-xl">
+                    We turn your digital presence from a liability into your most powerful asset for growth in Junagadh.
+                </p>
+                <div className="flex justify-center gap-4">
+                    <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
+                        <Link href="/contact">Start Winning Today</Link>
+                    </Button>
+                    <Button size="lg" variant="outline" asChild>
+                        <Link href="/services">See How</Link>
+                    </Button>
+                </div>
+            </div>
+        </motion.div>
+
       </div>
     </section>
   );

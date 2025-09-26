@@ -118,7 +118,7 @@ export default function Home() {
         <div className="relative z-10 px-4 sm:px-6 lg:px-8">
            <AnimatedHeadline
               words={['Customers', 'Revenue', 'Momentum']}
-              prefix={<>Stop <span>Losing</span></>}
+              prefix={<>Stop <span className="text-foreground">Losing</span></>}
               suffix={<>. Start <span className="text-green-500">Winning</span>.</>}
               className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter animate-fade-in-up"
             />
@@ -226,7 +226,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="tech-stack" className="py-20 md:py-28">
+      <section id="tech-stack" className="pb-20 md:pb-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-96 w-full">
                 {techStackImage && (
@@ -250,7 +250,7 @@ export default function Home() {
 
       <ScrollSection />
       
-      <section id="portfolio-showcase" className="py-20 md:py-28">
+      <section id="portfolio-showcase" className="pt-20 md:pt-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Work Showcase</h2>
