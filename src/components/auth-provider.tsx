@@ -27,12 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
-    const [isClient, setIsClient] = useState(false);
-
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
-
+    
     const getLayout = (): LayoutType => {
         if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
             return 'admin';
@@ -49,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const layout = getLayout();
 
     useEffect(() => {
-        if (loading || !isClient) return;
+        if (loading) return;
 
         const isAdminRoute = layout === 'admin';
         const isClientRoute = layout === 'client';
@@ -66,16 +61,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (isAuthRoute) {
                 router.replace(isAdminUser ? '/admin/dashboard' : '/client/dashboard');
             } else if (isAdminRoute && !isAdminUser) {
-                // If a non-admin tries to access an admin route, send to client dashboard
                 router.replace('/client/dashboard');
             } else if (isClientRoute && isAdminUser) {
-                // If an admin somehow lands on a client route, send to admin dashboard
                 router.replace('/admin/dashboard');
             }
         }
-    }, [user, loading, layout, router, isClient]);
+    }, [user, loading, layout, router, pathname]);
 
-    if (loading || !isClient) {
+    if (loading) {
         return <LoadingScreen />;
     }
     
@@ -88,7 +81,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
      if (!user && (layout === 'admin' || layout === 'client')) {
         return <LoadingScreen />;
     }
-
 
     return <AppLayout layout={layout}>{children}</AppLayout>;
 }
