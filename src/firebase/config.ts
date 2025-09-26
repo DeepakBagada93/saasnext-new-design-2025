@@ -1,11 +1,11 @@
 import { FirebaseOptions } from 'firebase/app';
 
 export const firebaseConfig: FirebaseOptions = {
-  apiKey: "AIzaSyByof-c2eRM9fLv-h1M6ilo9xgy_HvEOLg",
-  authDomain: "artechway-96129.firebaseapp.com",
-  projectId: "artechway-96129",
-  storageBucket: "artechway-96129.appspot.com",
-  messagingSenderId: "135768450224",
-  appId: "1:135768450224:web:dee7d1d721725e6f700775",
-  measurementId: "G-56C56MPN1D"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
