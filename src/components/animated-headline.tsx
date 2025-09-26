@@ -28,10 +28,10 @@ export function AnimatedHeadline() {
           transition={{ duration: 0.5, ease: 'easeInOut' }}
           className="inline-block mx-4 text-primary"
         >
-          {words[index]}.
+          {words[index]}
         </motion.span>
       </AnimatePresence>
-      Start <span className="text-green-500">Winning</span>.
+      . Start <span className="text-green-500">Winning</span>.
     </h1>
   );
 }

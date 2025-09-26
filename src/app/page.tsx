@@ -154,7 +154,7 @@ export default function Home() {
             </div>
             <div className="relative h-96 w-full animate-fade-in-up animation-delay-200">
                 {whyChooseUsImage && (
-                    <Image src={whyChooseUsImage.imageUrl} alt="Team collaborating" data-ai-hint={whyChooseUsImage.imageHint} fill className="object-cover rounded-lg shadow-lg"/>
+                    <Image src={whyChooseUsImage.imageUrl} alt="Team collaborating" data-ai-hint={whyChooseUs_usImage.imageHint} fill className="object-cover rounded-lg shadow-lg"/>
                 )}
             </div>
         </div>
@@ -346,7 +346,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    

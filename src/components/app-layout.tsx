@@ -1,5 +1,7 @@
+
 'use client';
 
+import { usePathname } from 'next/navigation';
 import AdminSidebar from '@/components/layout/admin-sidebar';
 import ClientSidebar from '@/components/layout/client-sidebar';
 import Header from '@/components/layout/header';
@@ -9,12 +11,29 @@ import { DashboardLayout, SidebarProvider } from './ui/sidebar';
 type LayoutType = 'public' | 'admin' | 'client' | 'auth';
 
 export function AppLayout({
-  children,
-  layout,
+  children
 }: {
   children: React.ReactNode;
-  layout: LayoutType;
 }) {
+
+  const pathname = usePathname();
+
+  const getLayoutType = (pathname: string): LayoutType => {
+      if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
+          return 'admin';
+      }
+      if (pathname.startsWith('/client')) {
+          return 'client';
+      }
+      if (['/login', '/register', '/admin-login'].includes(pathname)) {
+          return 'auth';
+      }
+      return 'public';
+  };
+
+  const layout = getLayoutType(pathname);
+
+
   if (layout === 'admin') {
     return (
       <SidebarProvider>
