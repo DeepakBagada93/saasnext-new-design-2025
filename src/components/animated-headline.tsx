@@ -18,7 +18,7 @@ export function AnimatedHeadline() {
 
   return (
     <h1 className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter animate-fade-in-up">
-      Stop <span className="text-destructive/80">Losing</span>
+      Stop <span>Losing</span>
       <AnimatePresence mode="wait">
         <motion.span
           key={words[index]}
