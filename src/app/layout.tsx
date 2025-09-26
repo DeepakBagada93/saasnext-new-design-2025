@@ -8,7 +8,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { ClientOnly } from '@/components/client-only';
 import { CustomCursor } from '@/components/ui/custom-cursor';
 import { AuthProvider } from '@/components/auth-provider';
-import { AppLayout } from '@/components/app-layout';
 
 export const metadata: Metadata = {
   title: 'SaaSNext | Web Design & Digital Marketing in Junagadh',
@@ -45,7 +44,7 @@ export default function RootLayout({
               <Toaster />
             </ClientOnly>
             <AuthProvider>
-              <AppLayout>{children}</AppLayout>
+              {children}
             </AuthProvider>
           </FirebaseClientProvider>
         </ThemeProvider>
