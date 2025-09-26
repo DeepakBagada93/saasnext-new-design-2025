@@ -1,4 +1,5 @@
 
+
 import type { ImagePlaceholder } from './placeholder-images';
 import { PlaceHolderImages } from './placeholder-images';
 
@@ -96,7 +97,9 @@ export const portfolioItems = [
       solution: 'We built a custom web application using Next.js and integrated a headless CMS for easy content management.',
       results: 'Achieved a 50% increase in online sales and a 30% improvement in page load times.',
       image: getImage('portfolio1'),
-      service: 'Web Development'
+      service: 'Web Development',
+      niche: 'E-commerce',
+      url: 'https://www.deepakbagada.in/'
     },
     {
       id: 'proj-2',
@@ -105,7 +108,9 @@ export const portfolioItems = [
       solution: 'We developed and trained a custom AI chatbot that could handle 80% of common customer queries.',
       results: 'Reduced customer support tickets by 60% and increased customer satisfaction scores by 25%.',
       image: getImage('portfolio2'),
-      service: 'AI Solutions'
+      service: 'AI Solutions',
+      niche: 'AI',
+      url: 'https://www.deepakbagada.in/'
     },
     {
       id: 'proj-3',
@@ -114,7 +119,31 @@ export const portfolioItems = [
       solution: 'We launched a multi-channel performance marketing campaign targeting key decision-makers on LinkedIn and Google Ads.',
       results: 'Generated over 500 qualified leads in the first quarter, resulting in a 200% ROI.',
       image: getImage('portfolio3'),
-      service: 'Lead Generation'
+      service: 'Lead Generation',
+      niche: 'Corporate',
+      url: 'https://www.deepakbagada.in/'
+    },
+    {
+      id: 'proj-4',
+      title: 'Corporate Website for Junagadh Finance',
+      problem: 'A local finance company needed a professional and trustworthy online presence to attract new clients.',
+      solution: 'We designed and developed a secure, informative corporate website that highlights their services and expertise.',
+      results: 'Increased client inquiries by 40% and established a strong local online brand.',
+      image: getImage('portfolio4'),
+      service: 'Web Development',
+      niche: 'Corporate',
+      url: 'https://www.deepakbagada.in/'
+    },
+    {
+      id: 'proj-5',
+      title: 'Booking System for Local Tourism',
+      problem: 'A Junagadh-based tour operator had no online booking capabilities, relying on phone calls and manual tracking.',
+      solution: 'We built a custom booking and reservation system integrated directly into their new website.',
+      results: 'Automated 90% of bookings and increased yearly revenue by 35%.',
+      image: getImage('portfolio5'),
+      service: 'Web Development',
+      niche: 'E-commerce',
+      url: 'https://www.deepakbagada.in/'
     },
   ];
 

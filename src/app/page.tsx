@@ -1,4 +1,5 @@
 
+
 import Link from "next/link";
 import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ import {
 } from "@/components/ui/carousel";
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-card";
+import { PortfolioGallery } from "@/components/portfolio-gallery";
 
 const whyChooseUsItems = [
   {
@@ -166,29 +168,17 @@ export default function Home() {
             </div>
         </div>
       </section>
-
-      <section id="demo-showcase" className="py-20 md:py-28">
+      
+      <section id="portfolio-showcase" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">Demo Website Showcase</h2>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Work Showcase</h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              Explore a live demo of a website we can build for you. This showcases our design, functionality, and the user experience we can deliver.
+              Explore some of the live websites we've built. This showcases our design, functionality, and the user experience we can deliver.
             </p>
           </div>
           <div className="mt-16">
-            <Card className="overflow-hidden">
-              <CardContent className="p-0">
-                <div className="aspect-[16/9] w-full bg-muted">
-                  <iframe
-                    src="https://www.deepakbagada.in/"
-                    className="w-full h-full border-0"
-                    title="Demo Website"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </CardContent>
-            </Card>
+            <PortfolioGallery items={portfolioItems} />
           </div>
           <div className="text-center mt-12">
             <Button asChild size="lg" variant="outline">
