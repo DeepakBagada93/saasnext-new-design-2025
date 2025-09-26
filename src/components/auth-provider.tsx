@@ -18,21 +18,15 @@ function LoadingScreen() {
     )
 }
 
-
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
-    const [isMounted, setIsMounted] = useState(false);
-
+    
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (!loading && isMounted) {
+        if (!loading) {
             const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
             const isClientRoute = pathname.startsWith('/client');
             const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
@@ -55,9 +49,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 }
             }
         }
-    }, [user, loading, pathname, router, isMounted]);
+    }, [user, loading, pathname, router]);
 
-    if (!isMounted || loading) {
+    if (loading) {
         return <LoadingScreen />;
     }
 
