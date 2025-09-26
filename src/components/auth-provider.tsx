@@ -2,50 +2,22 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useUser } from '@/firebase';
-import { AppLayout } from './app-layout';
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
-
-type LayoutType = 'public' | 'admin' | 'client' | 'auth';
-
-const getLayoutType = (pathname: string): LayoutType => {
-  if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
-    return 'admin';
-  }
-  if (pathname.startsWith('/client')) {
-    return 'client';
-  }
-  if (['/login', '/register', '/admin-login'].includes(pathname)) {
-    return 'auth';
-  }
-  return 'public';
-};
-
-function LoadingScreen() {
-    return (
-        <div className="flex min-h-screen items-center justify-center p-4 bg-background" />
-    );
-}
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
-    const [isMounted, setIsMounted] = useState(false);
     
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
+        if (loading) return;
 
-    useEffect(() => {
-        if (loading || !isMounted) return;
-
-        const layout = getLayoutType(pathname);
-        const isAdminRoute = layout === 'admin';
-        const isClientRoute = layout === 'client';
-        const isAuthRoute = layout === 'auth';
+        const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
+        const isClientRoute = pathname.startsWith('/client');
+        const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
 
         if (!user) {
             if (isAdminRoute) {
@@ -63,17 +35,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 router.replace('/admin/dashboard');
             }
         }
-    }, [user, loading, pathname, router, isMounted]);
+    }, [user, loading, pathname, router]);
 
-    if (!isMounted || loading) {
-        return <LoadingScreen />;
-    }
-    
-    const layout = getLayoutType(pathname);
-
-    if (!user && (layout === 'admin' || layout === 'client')) {
-        return <LoadingScreen />;
-    }
-
-    return <AppLayout>{children}</AppLayout>;
+    // Immediately render children to match server render.
+    // The useEffect hook will handle redirects after hydration.
+    return <>{children}</>;
 }
