@@ -27,37 +27,6 @@ export default function AboutPage() {
             </p>
         </div>
       </section>
-
-      <section className="mt-20">
-        <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-headline text-3xl md:text-4xl font-bold">Meet the Junagadh Team</h2>
-            <p className="mt-4 text-muted-foreground">
-                The local experts behind our success.
-            </p>
-        </div>
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member) => (
-                <Card key={member.name} className="text-center">
-                    <CardHeader>
-                        <div className="relative h-32 w-32 mx-auto">
-                            <Image
-                                src={member.image.imageUrl}
-                                alt={member.name}
-                                data-ai-hint={member.image.imageHint}
-                                width={128}
-                                height={128}
-                                className="rounded-full object-cover"
-                            />
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <CardTitle className="text-xl font-headline">{member.name}</CardTitle>
-                        <p className="text-primary">{member.role}</p>
-                    </CardContent>
-                </Card>
-            ))}
-        </div>
-      </section>
       
       <section className="mt-20 text-center bg-card p-12 rounded-lg">
         <h2 className="font-headline text-3xl font-bold">Why Choose SaaSNext in Junagadh?</h2>
