@@ -1,7 +1,8 @@
+
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUser } from '@/firebase';
 import { AppLayout } from './app-layout';
 
@@ -11,13 +12,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
     const isClientRoute = pathname.startsWith('/client');
     const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
 
     useEffect(() => {
-        if (!loading) {
+        if (!loading && isMounted) {
             if (isAdminRoute && (!user || user.email?.toLowerCase() !== ADMIN_EMAIL)) {
                 router.replace('/admin-login');
             } 
@@ -25,8 +31,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 router.replace('/login');
             }
         }
-    }, [user, loading, isAdminRoute, isClientRoute, router, pathname]);
+    }, [user, loading, isAdminRoute, isClientRoute, router, pathname, isMounted]);
 
+    if (!isMounted) {
+        // On the server and initial client render, render the public layout shell
+        // to avoid hydration mismatch. The actual content will be protected by the useEffect.
+        return <AppLayout layout="public">{children}</AppLayout>;
+    }
+    
     if (loading && (isAdminRoute || isClientRoute)) {
         return (
             <div className="flex min-h-screen items-center justify-center">

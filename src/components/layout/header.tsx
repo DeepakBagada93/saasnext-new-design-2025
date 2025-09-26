@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Sun, Moon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
 import { cn } from "@/lib/utils";
@@ -22,6 +22,16 @@ const navLinks = [
 
 function ThemeToggleButton() {
     const { setTheme, theme } = useTheme();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) {
+        // Render a placeholder or null on the server and initial client render
+        return <Button variant="ghost" size="icon" className="h-[1.2rem] w-[1.2rem]"></Button>;
+    }
   
     return (
       <Button
