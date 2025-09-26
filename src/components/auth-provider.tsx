@@ -5,8 +5,21 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useUser } from '@/firebase';
 import { AppLayout } from './app-layout';
+import { Skeleton } from './ui/skeleton';
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
+
+function LoadingScreen() {
+    return (
+        <div className="flex min-h-screen items-center justify-center p-4 bg-background">
+            <div className='w-full max-w-sm space-y-4'>
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-10 w-full" />
+            </div>
+        </div>
+    )
+}
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -18,12 +31,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsMounted(true);
     }, []);
 
-    const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
-    const isClientRoute = pathname.startsWith('/client');
-    const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
-
     useEffect(() => {
         if (!loading && isMounted) {
+            const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
+            const isClientRoute = pathname.startsWith('/client');
+
             if (isAdminRoute && (!user || user.email?.toLowerCase() !== ADMIN_EMAIL)) {
                 router.replace('/admin-login');
             } 
@@ -31,22 +43,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 router.replace('/login');
             }
         }
-    }, [user, loading, isAdminRoute, isClientRoute, router, pathname, isMounted]);
+    }, [user, loading, pathname, router, isMounted]);
 
     if (!isMounted || loading) {
-        // On the server and during initial client load, render the public layout shell
-        // to avoid hydration mismatch. The actual content will be protected by the useEffect.
-        return <AppLayout layout="public">{children}</AppLayout>;
-    }
-    
-    let layout: 'public' | 'admin' | 'client' | 'auth' = 'public';
-    if (isAdminRoute && user && user.email?.toLowerCase() === ADMIN_EMAIL) {
-        layout = 'admin';
-    } else if (isClientRoute && user) {
-        layout = 'client';
-    } else if (isAuthRoute) {
-        layout = 'auth';
+        return <LoadingScreen />;
     }
 
-    return <AppLayout layout={layout}>{children}</AppLayout>;
+    return <>{children}</>;
 }
