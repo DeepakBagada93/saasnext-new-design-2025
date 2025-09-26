@@ -36,18 +36,20 @@ export function ScrollSection() {
     offset: ['start end', 'end start'],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scrollOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
   const x = useTransform(scrollYProgress, [0.3, 0.7], ['0%', '-75%']);
 
-  const SolutionOpacity = useTransform(scrollYProgress, [0.75, 0.85], [0, 1]);
-  const SolutionScale = useTransform(scrollYProgress, [0.8, 1], [0.8, 1]);
+  const SolutionOpacity = useTransform(scrollYProgress, [0.7, 0.8], [0, 1]);
+  const SolutionScale = useTransform(scrollYProgress, [0.7, 0.8], [0.8, 1]);
+  const problemOpacity = useTransform(scrollYProgress, [0.65, 0.7], [1, 0]);
+
 
   return (
     <section ref={targetRef} className="relative h-[300vh] bg-background">
       <div className="sticky top-0 h-screen flex items-center justify-start overflow-hidden">
-        <motion.div style={{ opacity }} className="w-full px-4">
-            <motion.div style={{ scale }} className="max-w-7xl mx-auto">
+        <motion.div style={{ opacity: scrollOpacity }} className="w-full px-4">
+            <motion.div style={{ scale, opacity: problemOpacity }} className="max-w-7xl mx-auto">
                 <motion.div style={{ x }} className="flex items-start gap-8 w-[400%]">
                     <div className="w-1/4 p-8 rounded-2xl border text-center space-y-4 bg-card">
                         <h2 className="font-headline text-4xl md:text-5xl font-bold">Your Digital Problems, Solved.</h2>
