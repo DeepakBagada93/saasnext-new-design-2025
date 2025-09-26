@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useActionState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, Send } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
-import { useEffect } from 'react';
 import { sendContactEmail } from './actions';
 
 export default function ContactPage() {
@@ -20,7 +19,7 @@ export default function ContactPage() {
     success: false,
   };
 
-  const [state, formAction] = useFormState(sendContactEmail, initialState);
+  const [state, formAction] = useActionState(sendContactEmail, initialState);
 
   useEffect(() => {
     if (state.message) {
