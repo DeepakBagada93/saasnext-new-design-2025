@@ -167,44 +167,36 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="success-stories" className="py-20 md:py-28">
+      <section id="demo-showcase" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div className="text-center max-w-3xl mx-auto">
-                <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Junagadh Success Stories</h2>
-                <p className="mt-4 text-muted-foreground text-lg">We've helped businesses just like yours in the Junagadh area achieve incredible results. Here's a glimpse of our work.</p>
-            </div>
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-                {portfolioItems.slice(0, 2).map((item) => (
-                    <Card key={item.id} className="flex flex-col group overflow-hidden bg-card">
-                        <div className="relative aspect-[16/9] w-full overflow-hidden">
-                             <Image
-                                src={item.image.imageUrl}
-                                alt={item.title}
-                                data-ai-hint={item.image.imageHint}
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                        </div>
-                        <div className="p-6 flex flex-col flex-grow">
-                            <CardTitle className="font-headline text-xl">{item.title}</CardTitle>
-                            <CardDescription className="mt-2 flex-grow">{item.solution}</CardDescription>
-                            <CardFooter className="p-0 mt-4">
-                                <div className="flex items-center gap-2 text-primary font-bold">
-                                    <TrendingUp className="h-5 w-5"/>
-                                    <p className="text-lg">{item.results}</p>
-                                </div>
-                            </CardFooter>
-                        </div>
-                    </Card>
-                ))}
-            </div>
-            <div className="text-center mt-12">
-                <Button asChild size="lg" variant="outline">
-                    <Link href="/portfolio">
-                        See More Case Studies <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                </Button>
-            </div>
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">Demo Website Showcase</h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+              Explore a live demo of a website we can build for you. This showcases our design, functionality, and the user experience we can deliver.
+            </p>
+          </div>
+          <div className="mt-16">
+            <Card className="overflow-hidden">
+              <CardContent className="p-0">
+                <div className="aspect-[16/9] w-full bg-muted">
+                  <iframe
+                    src="https://www.deepakbagada.in/"
+                    className="w-full h-full border-0"
+                    title="Demo Website"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="text-center mt-12">
+            <Button asChild size="lg" variant="outline">
+              <Link href="/portfolio">
+                See More Case Studies <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
