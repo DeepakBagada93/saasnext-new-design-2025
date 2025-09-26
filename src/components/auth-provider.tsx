@@ -4,10 +4,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useUser } from '@/firebase';
-import { AppLayout } from './app-layout';
 import { Skeleton } from './ui/skeleton';
-
-const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
 function LoadingScreen() {
     return (
@@ -20,6 +17,9 @@ function LoadingScreen() {
         </div>
     )
 }
+
+
+const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -35,12 +35,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (!loading && isMounted) {
             const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
             const isClientRoute = pathname.startsWith('/client');
+            const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
 
-            if (isAdminRoute && (!user || user.email?.toLowerCase() !== ADMIN_EMAIL)) {
-                router.replace('/admin-login');
-            } 
-            else if (isClientRoute && !user) {
-                router.replace('/login');
+            if (isAdminRoute) {
+                if (!user) {
+                    router.replace('/admin-login');
+                } else if (user.email?.toLowerCase() !== ADMIN_EMAIL) {
+                    router.replace('/admin-login');
+                }
+            } else if (isClientRoute) {
+                if (!user) {
+                    router.replace('/login');
+                }
+            } else if (isAuthRoute && user) {
+                if (user.email?.toLowerCase() === ADMIN_EMAIL) {
+                    router.replace('/admin/dashboard');
+                } else {
+                    router.replace('/client/dashboard');
+                }
             }
         }
     }, [user, loading, pathname, router, isMounted]);
