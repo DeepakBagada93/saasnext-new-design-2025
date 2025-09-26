@@ -1,10 +1,11 @@
+
 import { services } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
 
 export default function ServicesPage() {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <div className="px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-12 md:pb-20">
       <section className="text-center max-w-3xl mx-auto">
         <h1 className="font-headline text-4xl md:text-5xl font-bold">Our Digital Services in Junagadh</h1>
         <p className="mt-4 text-lg text-muted-foreground">
