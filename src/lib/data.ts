@@ -153,36 +153,6 @@ export const teamMembers = [
     { name: 'Sam Chen', role: 'Lead AI Engineer', image: getImage('team3') },
 ];
 
-export const blogPosts = [
-    {
-        slug: 'the-future-of-web-development',
-        title: 'The Future of Web Development: Trends to Watch in 2024',
-        author: 'Maria Garcia',
-        date: '2024-05-15',
-        image: getImage('blog1'),
-        excerpt: 'From AI-driven development to the rise of meta-frameworks, we explore the key trends shaping the future of the web...',
-        content: '<p>The web development landscape is in a constant state of flux. In this post, we delve into the most impactful trends that developers and businesses should be paying attention to in 2024 and beyond.</p><h3>1. The Rise of AI</h3><p>AI is not just a buzzword; it\'s revolutionizing how we build for the web...</p>'
-    },
-    {
-        slug: 'mastering-lead-generation',
-        title: 'Mastering Lead Generation: A 5-Step Guide',
-        author: 'John Smith',
-        date: '2024-05-10',
-        image: getImage('blog2'),
-        excerpt: 'Struggling to fill your sales pipeline? This comprehensive guide breaks down lead generation into 5 actionable steps...',
-        content: '<p>A steady stream of qualified leads is the lifeblood of any successful business. This guide provides a repeatable framework for attracting and converting your ideal customers.</p><h3>Step 1: Define Your Ideal Customer Profile (ICP)</h3><p>Before you can find your customers, you need to know who you\'re looking for...</p>'
-    },
-    {
-        slug: 'is-your-business-ready-for-ai',
-        title: 'Is Your Business Ready for AI? A Checklist',
-        author: 'Sam Chen',
-        date: '2024-05-05',
-        image: getImage('blog3'),
-        excerpt: 'AI can be a powerful tool, but implementation requires preparation. Use this checklist to see if your business is ready to take the leap...',
-        content: '<p>Integrating AI can unlock immense value, but it\'s not a magic bullet. Success depends on having the right data, processes, and goals in place. Here\'s what you need to consider.</p><h3>1. Data Infrastructure</h3><p>Is your data clean, accessible, and sufficient for training a model?...</p>'
-    }
-];
-
 export const faqs = [
     {
       question: 'What types of businesses do you work with?',
