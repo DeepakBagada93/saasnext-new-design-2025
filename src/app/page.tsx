@@ -325,25 +325,6 @@ export default function Home() {
             </div>
         </div>
       </section>
-
-      <section id="faq" className="py-20 md:py-28 bg-card">
-          <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-              <div className="text-center">
-                  <h2 className="font-headline text-4xl md:text-5xl font-bold">Junagadh Web Design FAQs</h2>
-                  <p className="mt-4 text-muted-foreground text-lg">Got questions? We've got answers.</p>
-              </div>
-              <Accordion type="single" collapsible className="w-full mt-12">
-                  {faqs.map((faq, index) => (
-                      <AccordionItem value={`item-${index}`} key={index}>
-                          <AccordionTrigger className="text-lg font-headline text-left">{faq.question}</AccordionTrigger>
-                          <AccordionContent className="text-muted-foreground text-base">
-                              {faq.answer}
-                          </AccordionContent>
-                      </AccordionItem>
-                  ))}
-              </Accordion>
-          </div>
-      </section>
       
       <section id="cta" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 animate-fade-in-up">
@@ -365,5 +346,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
