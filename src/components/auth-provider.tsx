@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useUser } from '@/firebase';
 import { Skeleton } from './ui/skeleton';
+import { AppLayout } from './app-layout';
 
 function LoadingScreen() {
     return (
@@ -20,13 +21,20 @@ function LoadingScreen() {
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
+type LayoutType = 'public' | 'admin' | 'client' | 'auth';
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
     const { user, loading } = useUser();
-    
+    const [isMounted, setIsMounted] = useState(false);
+
     useEffect(() => {
-        if (!loading) {
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!loading && isMounted) {
             const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin-login';
             const isClientRoute = pathname.startsWith('/client');
             const isAuthRoute = ['/login', '/register', '/admin-login'].includes(pathname);
@@ -49,11 +57,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 }
             }
         }
-    }, [user, loading, pathname, router]);
+    }, [user, loading, pathname, router, isMounted]);
 
-    if (loading) {
+    const getLayout = (): LayoutType => {
+        if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
+            return 'admin';
+        }
+        if (pathname.startsWith('/client')) {
+            return 'client';
+        }
+        if (['/login', '/register', '/admin-login'].includes(pathname)) {
+            return 'auth';
+        }
+        return 'public';
+    }
+
+    const layout = getLayout();
+    
+    // While loading or before mounting on the client, render a static loading screen
+    // or a layout that matches the server-rendered output to avoid hydration mismatch.
+    if (loading || !isMounted) {
         return <LoadingScreen />;
     }
 
-    return <>{children}</>;
+    return <AppLayout layout={layout}>{children}</AppLayout>;
 }
