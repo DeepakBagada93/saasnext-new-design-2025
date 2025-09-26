@@ -24,6 +24,7 @@ import {
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-card";
 import { PortfolioGallery } from "@/components/portfolio-gallery";
+import { ScrollSection } from "@/components/scroll-section";
 
 const whyChooseUsItems = [
   {
@@ -157,17 +158,19 @@ export default function Home() {
                 </div>
                  <div className="space-y-4 p-8 border rounded-lg bg-background/50 animate-fade-in-up animation-delay-200">
                     <div className="text-5xl font-bold font-headline text-primary">2</div>
-                    <h3 className="text-2xl font-headline font-bold">Execution & Build</h3>
+                    <h3 className="text-2xl font-headline font-bold">Execution &amp; Build</h3>
                     <p className="text-muted-foreground">Our expert Junagadh-based team gets to work, building your high-performance website with full transparency.</p>
                 </div>
                  <div className="space-y-4 p-8 border rounded-lg bg-background/50 animate-fade-in-up animation-delay-400">
                     <div className="text-5xl font-bold font-headline text-primary">3</div>
-                    <h3 className="text-2xl font-headline font-bold">Launch & Optimize</h3>
+                    <h3 className="text-2xl font-headline font-bold">Launch &amp; Optimize</h3>
                     <p className="text-muted-foreground">We don't just launch and leave. We monitor performance, analyze data, and continuously optimize for local conversions.</p>
                 </div>
             </div>
         </div>
       </section>
+
+      <ScrollSection />
       
       <section id="portfolio-showcase" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
