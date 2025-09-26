@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -60,7 +61,7 @@ export default function LoginPage() {
     <Card className="w-full max-w-sm">
       <CardHeader className="text-center">
         <Logo className="mx-auto mb-4" />
-        <CardTitle className="font-headline text-2xl">Client Portal</CardTitle>
+        <CardTitle className="font-headline text-2xl">Client Hub</CardTitle>
         <CardDescription>Enter your credentials to access your dashboard.</CardDescription>
       </CardHeader>
       <CardContent>

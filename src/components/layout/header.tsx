@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -75,7 +76,7 @@ export default function Header() {
                   <div className="flex-grow"></div>
                   <div className="space-y-2">
                     <Button variant="outline" className="w-full" asChild>
-                        <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>Client Portal</Link>
+                        <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>Client Hub</Link>
                     </Button>
                     <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" asChild>
                         <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
@@ -107,7 +108,7 @@ export default function Header() {
           <ThemeToggleButton />
           <nav className="flex items-center space-x-2">
             <Button variant="ghost" asChild>
-                <Link href="/login">Client Portal</Link>
+                <Link href="/login">Client Hub</Link>
             </Button>
             <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full" asChild>
                 <Link href="/register">Register</Link>
