@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { testimonials, portfolioItems, faqs, services } from "@/lib/data";
+import { portfolioItems, faqs, services } from "@/lib/data";
 import Image from "next/image";
 import {
   Accordion,
@@ -249,17 +249,20 @@ export default function Home() {
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-96 w-full">
                 {techStackImage && (
-                    <Image src={techStackImage.imageUrl} alt="Technology stack logos" data-ai-hint={techStackImage.imageHint} fill className="object-contain" />
+                    <Image src={techStackImage.imageUrl} alt="Technology stack logos" data-ai-hint={techStackImage.imageHint} fill className="object-cover rounded-lg" />
                 )}
             </div>
             <div className="space-y-6">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
                 <p className="text-lg text-muted-foreground">We leverage the best tools and technologies in the industry to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-x-6 gap-y-8">
                     {techStack.map((tech) => (
-                        <div key={tech.name}>
-                            <h3 className="font-headline font-bold text-lg">{tech.name}</h3>
-                            <p className="text-sm text-muted-foreground">{tech.description}</p>
+                        <div key={tech.name} className="flex items-start gap-3">
+                            <div className="flex-shrink-0 mt-1"><Check className="h-5 w-5 text-primary" /></div>
+                            <div>
+                                <h3 className="font-headline font-bold text-lg">{tech.name}</h3>
+                                <p className="text-sm text-muted-foreground">{tech.description}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -290,7 +293,7 @@ export default function Home() {
         </div>
       </section>
 
-    <section id="target-audience" className="py-20 md:py-28 bg-card">
+    <section id="target-audience" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Digital Solutions for Every Business in Junagadh</h2>
@@ -298,7 +301,7 @@ export default function Home() {
             </div>
             <div className="mt-16 grid md:grid-cols-3 gap-8">
                 {targetAudiences.map((audience) => (
-                    <Card key={audience.title} className="text-center p-8">
+                    <Card key={audience.title} className="text-center p-8 bg-card">
                         {audience.icon}
                         <h3 className="mt-4 font-headline text-2xl font-bold">{audience.title}</h3>
                         <p className="mt-2 text-muted-foreground">{audience.description}</p>
@@ -308,7 +311,7 @@ export default function Home() {
         </div>
       </section>
       
-      <section id="junagadh-focus" className="py-20 md:py-28">
+      <section id="junagadh-focus" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Why a Strong Digital Presence in Junagadh Matters</h2>
@@ -316,7 +319,7 @@ export default function Home() {
             </div>
             <div className="mt-16 grid md:grid-cols-3 gap-8">
                 {digitalPresenceBenefits.map((benefit) => (
-                    <Card key={benefit.title} className="text-center p-8 bg-card border-t-4 border-primary">
+                    <Card key={benefit.title} className="text-center p-8 border-t-4 border-primary">
                         {benefit.icon}
                         <h3 className="mt-4 font-headline text-2xl font-bold">{benefit.title}</h3>
                         <p className="mt-2 text-muted-foreground">{benefit.description}</p>
@@ -326,7 +329,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="local-seo" className="py-20 md:py-28 bg-card">
+      <section id="local-seo" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Dominate Local Search with Junagadh SEO</h2>
@@ -365,7 +368,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="faq" className="py-20 md:py-28">
+      <section id="faq" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
             <div className="text-center">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Frequently Asked Questions</h2>
@@ -404,4 +407,3 @@ export default function Home() {
     </div>
   );
 }
-
