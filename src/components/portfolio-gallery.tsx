@@ -18,7 +18,7 @@ type PortfolioItem = {
     url: string;
 };
 
-export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
+export function PortfolioGallery({ items, showFilters = true }: { items: PortfolioItem[], showFilters?: boolean }) {
     const [filter, setFilter] = useState('All');
     
     const niches = ['All', ...Array.from(new Set(items.map(item => item.niche)))];
@@ -26,18 +26,20 @@ export function PortfolioGallery({ items }: { items: PortfolioItem[] }) {
 
     return (
         <div>
-            <div className="flex justify-center flex-wrap gap-2 mb-8">
-                {niches.map(niche => (
-                    <Button
-                        key={niche}
-                        variant={filter === niche ? 'default' : 'outline'}
-                        onClick={() => setFilter(niche)}
-                        className="capitalize"
-                    >
-                        {niche}
-                    </Button>
-                ))}
-            </div>
+            {showFilters && (
+                <div className="flex justify-center flex-wrap gap-2 mb-8">
+                    {niches.map(niche => (
+                        <Button
+                            key={niche}
+                            variant={filter === niche ? 'default' : 'outline'}
+                            onClick={() => setFilter(niche)}
+                            className="capitalize"
+                        >
+                            {niche}
+                        </Button>
+                    ))}
+                </div>
+            )}
 
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <AnimatePresence>

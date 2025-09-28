@@ -226,7 +226,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="tech-stack" className="pb-20 md:pb-28">
+      <section id="tech-stack" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-96 w-full">
                 {techStackImage && (
@@ -250,7 +250,7 @@ export default function Home() {
 
       <ScrollSection />
       
-      <section id="portfolio-showcase" className="pt-20 md:pt-28">
+      <section id="portfolio-showcase" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Work Showcase</h2>
@@ -259,7 +259,7 @@ export default function Home() {
             </p>
           </div>
           <div className="mt-16">
-            <PortfolioGallery items={portfolioItems} />
+            <PortfolioGallery items={portfolioItems.filter(item => !['Branding', 'Social Media'].includes(item.niche))} showFilters={true} />
           </div>
           <div className="text-center mt-12">
             <Button asChild size="lg" variant="outline">
@@ -271,7 +271,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="testimonials" className="py-20 md:py-28 bg-card">
+      <section id="testimonials" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
             <div className="text-center">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">What Our Junagadh Clients Say</h2>
@@ -313,7 +313,7 @@ export default function Home() {
         </div>
     </section>
 
-    <section id="target-audience" className="py-20 md:py-28">
+    <section id="target-audience" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Digital Solutions for Every Business in Junagadh</h2>
