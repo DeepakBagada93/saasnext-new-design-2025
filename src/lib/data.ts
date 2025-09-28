@@ -68,6 +68,33 @@ export const services = [
   },
 ];
 
+export const techStack = {
+    frontend: [
+        { name: "Next.js", description: "For performant, server-rendered React applications.", image: getImage('techNext') },
+        { name: "React", description: "To build dynamic and interactive user interfaces.", image: getImage('techReact') },
+        { name: "TypeScript", description: "For robust, scalable, and maintainable code.", image: getImage('techTypeScript') },
+        { name: "Tailwind CSS", description: "For rapid, utility-first styling and design.", image: getImage('techTailwind') },
+        { name: "Framer Motion", description: "For creating beautiful and complex animations.", image: getImage('techFramer') },
+        { name: "Shadcn UI", description: "For a set of accessible and composable components.", image: getImage('techShadcn') },
+    ],
+    backend: [
+        { name: "Node.js", description: "For building fast and scalable server-side applications.", image: getImage('techNode') },
+        { name: "Firebase", description: "For backend services like auth, database, and storage.", image: getImage('techFirebase') },
+        { name: "Firestore", description: "A flexible, scalable NoSQL cloud database.", image: getImage('techFirestore') },
+        { name: "Server Actions", description: "For seamless data mutations from the client.", image: getImage('techNext') },
+        { name: "REST APIs", description: "Designing and consuming RESTful services.", image: getImage('techAPI') },
+        { name: "GraphQL", description: "For more efficient and flexible data fetching.", image: getImage('techGraphQL') },
+    ],
+    aiAndDeployment: [
+        { name: "Genkit", description: "For integrating powerful generative AI features.", image: getImage('techGenkit') },
+        { name: "Google AI", description: "Leveraging state-of-the-art models like Gemini.", image: getImage('techGoogleAI') },
+        { name: "Vercel", description: "For optimized hosting and serverless functions.", image: getImage('techVercel') },
+        { name: "Docker", description: "For containerizing applications for consistency.", image: getImage('techDocker') },
+        { name: "CI/CD", description: "Automating build, test, and deployment pipelines.", image: getImage('techCICD') },
+        { name: "GitHub", description: "For version control and collaborative development.", image: getImage('techGitHub') },
+    ]
+  };
+
 export const testimonials = [
   {
     quote: "SaaSNext transformed our online presence. Their team is professional, responsive, and delivered a product that exceeded our expectations.",

@@ -111,7 +111,7 @@
     {
       "id": "portfolio9",
       "description": "An engaging social media ad creative",
-      "imageUrl": "https://images.unsplash.com/photo-1526958938731-27f1ccdb1817?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhZCUyMGNyZWF0aXZlfGVufDB8fHx8MTc1OTA3NDA2OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1526958938731-27f1ccdb1817?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhZCUyMGNyZWF0aXZlfGVufDB8fHx8fDE3NTkwNzQwNjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "ad creative"
     },
     {
@@ -139,10 +139,106 @@
       "imageHint": "team collaboration"
     },
     {
-      "id": "tech-stack",
-      "description": "Code on a dark screen",
-      "imageUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb2Rpbmd8ZW58MHx8fHwxNzYwMTQwMjA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "coding screen"
+      "id": "techNext",
+      "description": "Next.js logo",
+      "imageUrl": "https://images.unsplash.com/photo-1637489981573-e45e9297cb21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxOZXh0LmpzJTIwbG9nb3xlbnwwfHx8fDE3NTkwNzYxNzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Next.js logo"
+    },
+    {
+      "id": "techReact",
+      "description": "React logo",
+      "imageUrl": "https://images.unsplash.com/photo-1758582382490-ae12332fd781?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxSZWFjdCUyMGxvZ298ZW58MHx8fHwxNzU4OTg1OTU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "React logo"
+    },
+    {
+      "id": "techTypeScript",
+      "description": "TypeScript logo",
+      "imageUrl": "https://images.unsplash.com/photo-1689910856455-5012c4ffc181?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8VHlwZVNjcmlwdCUyMGxvZ298ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "TypeScript logo"
+    },
+    {
+      "id": "techTailwind",
+      "description": "Tailwind CSS logo",
+      "imageUrl": "https://images.unsplash.com/photo-1728406970302-8be1af6bda4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxUYWlsd2luZENTUyUyMGxvZ298ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "TailwindCSS logo"
+    },
+    {
+      "id": "techFramer",
+      "description": "Framer Motion logo",
+      "imageUrl": "https://images.unsplash.com/photo-1739055548068-da20348066d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxGcmFtZXIlMjBNb3Rpb24lMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Framer Motion logo"
+    },
+    {
+      "id": "techShadcn",
+      "description": "Shadcn UI logo",
+      "imageUrl": "https://images.unsplash.com/photo-1632074869316-f66f60cea28b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxTaGFkY24lMjBVSSUyMGxvZ298ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Shadcn UI logo"
+    },
+    {
+      "id": "techNode",
+      "description": "Node.js logo",
+      "imageUrl": "https://images.unsplash.com/photo-1650234083227-74c0700b295a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxOb2RlLmpzJTIwbG9nb3xlbnwwfHx8fDE3NTkwNzYxNzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Node.js logo"
+    },
+    {
+      "id": "techFirebase",
+      "description": "Firebase logo",
+      "imageUrl": "https://images.unsplash.com/photo-1707061229453-853fc706b6fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxGaXJlYmFzZSUyMGxvZ298ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Firebase logo"
+    },
+    {
+      "id": "techFirestore",
+      "description": "Firestore logo",
+      "imageUrl": "https://images.unsplash.com/photo-1739055547874-4fe440a2bfea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8RmlyZXN0b3JlJTIwbG9nb3xlbnwwfHx8fDE3NTkwNzYxNzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Firestore logo"
+    },
+    {
+      "id": "techAPI",
+      "description": "REST API graphic",
+      "imageUrl": "https://images.unsplash.com/photo-1699170511883-5915b8f7662b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxBUEklMjBncmFwaGljfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "API graphic"
+    },
+    {
+      "id": "techGraphQL",
+      "description": "GraphQL logo",
+      "imageUrl": "https://images.unsplash.com/photo-1734714555326-d42a7a9f9728?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxHcmFwaFFMJTIwbG9nb3xlbnwwfHx8fDE3NTg5ODU5NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "GraphQL logo"
+    },
+    {
+      "id": "techGenkit",
+      "description": "Genkit logo",
+      "imageUrl": "https://images.unsplash.com/photo-1545601445-9242104e5d79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxHZW5raXQlMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Genkit logo"
+    },
+    {
+      "id": "techGoogleAI",
+      "description": "Google AI logo",
+      "imageUrl": "https://images.unsplash.com/photo-1560968410-4394e1b39724?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxHb29nbGVBSSUyMGxvZ298ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "GoogleAI logo"
+    },
+    {
+      "id": "techVercel",
+      "description": "Vercel logo",
+      "imageUrl": "https://images.unsplash.com/photo-1663992051824-f82c1720785a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxWZXJjZWwlMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Vercel logo"
+    },
+    {
+      "id": "techDocker",
+      "description": "Docker logo",
+      "imageUrl": "https://images.unsplash.com/photo-1700718008794-3db41f8d6c16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxEb2NrZXIlMjBsb2dvfGVufDB8fHx8MTc1ODk4NTk1NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Docker logo"
+    },
+    {
+      "id": "techCICD",
+      "description": "CI/CD pipeline graphic",
+      "imageUrl": "https://images.unsplash.com/photo-1747666303792-e9bf6ee7efc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Q0klMkZDRCUyMGdyYXBoaWN8ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "CI/CD graphic"
+    },
+    {
+      "id": "techGitHub",
+      "description": "GitHub logo",
+      "imageUrl": "https://images.unsplash.com/photo-1635220035691-9473364b4476?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxHaXRIdWIlMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "GitHub logo"
     }
   ]
 }
