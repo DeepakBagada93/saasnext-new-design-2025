@@ -32,7 +32,7 @@ const BentoCard = ({
   background,
 }: {
   title: string;
-  description: string;
+  description:string;
   href: string;
   icon: React.ReactNode;
   className?: string;
