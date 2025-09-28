@@ -40,9 +40,9 @@ export function ScrollSection() {
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
   const x = useTransform(scrollYProgress, [0.3, 0.7], ['0%', '-75%']);
 
-  const SolutionOpacity = useTransform(scrollYProgress, [0.7, 0.8], [0, 1]);
-  const SolutionScale = useTransform(scrollYProgress, [0.7, 0.8], [0.8, 1]);
-  const problemOpacity = useTransform(scrollYProgress, [0.65, 0.7], [1, 0]);
+  const SolutionOpacity = useTransform(scrollYProgress, [0.8, 0.9], [0, 1]);
+  const SolutionScale = useTransform(scrollYProgress, [0.8, 0.9], [0.8, 1]);
+  const problemOpacity = useTransform(scrollYProgress, [0.75, 0.8], [1, 0]);
 
 
   return (
