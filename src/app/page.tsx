@@ -265,9 +265,9 @@ export default function Home() {
             </div>
             <Tabs defaultValue="frontend" className="mt-12 w-full">
                 <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
-                    <TabsTrigger value="frontend"><Smartphone className="mr-2" />Frontend</TabsTrigger>
-                    <TabsTrigger value="backend"><Server className="mr-2" />Backend</TabsTrigger>
-                    <TabsTrigger value="ai-deployment"><Wand2 className="mr-2" />AI & Deployment</TabsTrigger>
+                    <TabsTrigger value="frontend"><Smartphone className="mr-2 h-4 w-4" />Frontend</TabsTrigger>
+                    <TabsTrigger value="backend"><Server className="mr-2 h-4 w-4" />Backend</TabsTrigger>
+                    <TabsTrigger value="ai-deployment"><Wand2 className="mr-2 h-4 w-4" />AI & Deployment</TabsTrigger>
                 </TabsList>
                 <TabsContent value="frontend" className="mt-8">
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
