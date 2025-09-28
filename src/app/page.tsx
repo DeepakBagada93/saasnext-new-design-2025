@@ -23,6 +23,13 @@ import { ScrollSection } from "@/components/scroll-section";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 const whyChooseUsItems = [
   {
@@ -110,9 +117,10 @@ const processSteps = [
     }
   ]
 
+const allTech = [...techStack.frontend, ...techStack.backend, ...techStack.aiAndDeployment];
+
 
 export default function Home() {
-  const [activeTech, setActiveTech] = useState(techStack.frontend[0]);
 
   return (
     <div className="flex flex-col">
@@ -230,71 +238,47 @@ export default function Home() {
             </div>
         </div>
       </section>
-
+      
       <section id="tech-stack" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
             <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
           </div>
-          <div className="mt-16 grid lg:grid-cols-2 gap-12 items-start">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div>
-                <h3 className="font-headline text-xl font-bold mb-4">Frontend</h3>
-                <div className="flex flex-col gap-1">
-                  {techStack.frontend.map(tech => (
-                    <button key={tech.name} onClick={() => setActiveTech(tech)} className={cn("text-left p-2 rounded-md transition-colors", activeTech.name === tech.name ? "bg-primary/10 text-primary" : "hover:bg-muted/50")}>
-                      <p className="font-semibold">{tech.name}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h3 className="font-headline text-xl font-bold mb-4">Backend</h3>
-                <div className="flex flex-col gap-1">
-                  {techStack.backend.map(tech => (
-                    <button key={tech.name} onClick={() => setActiveTech(tech)} className={cn("text-left p-2 rounded-md transition-colors", activeTech.name === tech.name ? "bg-primary/10 text-primary" : "hover:bg-muted/50")}>
-                      <p className="font-semibold">{tech.name}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-               <div className="sm:col-span-2">
-                <h3 className="font-headline text-xl font-bold mb-4">AI & Deployment</h3>
-                <div className="grid grid-cols-2 gap-1">
-                  {techStack.aiAndDeployment.map(tech => (
-                    <button key={tech.name} onClick={() => setActiveTech(tech)} className={cn("text-left p-2 rounded-md transition-colors", activeTech.name === tech.name ? "bg-primary/10 text-primary" : "hover:bg-muted/50")}>
-                      <p className="font-semibold">{tech.name}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="sticky top-28">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeTech.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
+          <div className="mt-16">
+            <Carousel
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+                className="w-full"
                 >
-                  <Card className="flex flex-col h-full">
-                    <CardHeader className="flex-row gap-4 items-start">
-                        {activeTech.image && 
-                            <div className="relative h-32 w-32 aspect-square">
-                                <Image src={activeTech.image.imageUrl} alt={activeTech.name} data-ai-hint={activeTech.name} fill className="object-contain" />
-                            </div>
-                        }
-                       <div className="space-y-1">
-                            <CardTitle className="font-headline text-2xl">{activeTech.name}</CardTitle>
-                            <CardDescription>{activeTech.description}</CardDescription>
-                       </div>
-                    </CardHeader>
-                  </Card>
-                </motion.div>
-              </AnimatePresence>
-            </div>
+                <CarouselContent>
+                    {allTech.map((tech) => (
+                    <CarouselItem key={tech.name} className="md:basis-1/2 lg:basis-1/3">
+                        <Card className="h-full">
+                        <CardContent className="flex flex-col items-center justify-center p-6 text-center">
+                            {tech.image && (
+                                <div className="relative h-20 w-20 mb-4">
+                                <Image
+                                    src={tech.image.imageUrl}
+                                    alt={tech.name}
+                                    data-ai-hint={tech.name}
+                                    fill
+                                    className="object-contain"
+                                />
+                                </div>
+                            )}
+                            <h3 className="font-headline text-xl font-bold">{tech.name}</h3>
+                            <p className="text-sm text-muted-foreground mt-1">{tech.description}</p>
+                        </CardContent>
+                        </Card>
+                    </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious className="hidden md:flex" />
+                <CarouselNext className="hidden md:flex" />
+            </Carousel>
           </div>
         </div>
       </section>
