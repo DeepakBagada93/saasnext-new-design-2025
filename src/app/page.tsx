@@ -1,7 +1,7 @@
 
 
 import Link from "next/link";
-import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale } from "lucide-react";
+import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale, MapPin, BadgeCheck, BarChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -103,11 +103,30 @@ const processSteps = [
       description: "You require a robust, scalable, and secure digital platform. We have the expertise to handle complex requirements, integrate with existing systems, and deliver enterprise-grade solutions that drive efficiency and growth."
     }
   ];
+  
+  const digitalPresenceBenefits = [
+    {
+        icon: <MapPin className="h-8 w-8 text-primary" />,
+        title: "Capture the Local Market",
+        description: "Connect with customers right here in Junagadh who are actively searching for your products and services online."
+    },
+    {
+        icon: <BadgeCheck className="h-8 w-8 text-primary" />,
+        title: "Build Trust & Credibility",
+        description: "A professional website and strong online presence build trust and make you the go-to choice in the local community."
+    },
+    {
+        icon: <BarChart className="h-8 w-8 text-primary" />,
+        title: "Stay Ahead of Competition",
+        description: "Many local competitors have a weak online game. A strong digital strategy puts you miles ahead from day one."
+    }
+  ]
 
 
 export default function Home() {
   const whyChooseUsImage = PlaceHolderImages.find(img => img.id === 'why-choose-us');
   const techStackImage = PlaceHolderImages.find(img => img.id === 'tech-stack');
+  const seoImage = PlaceHolderImages.find(img => img.id === 'serviceSEO');
 
   return (
     <div className="flex flex-col">
@@ -289,6 +308,82 @@ export default function Home() {
         </div>
       </section>
       
+      <section id="junagadh-focus" className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Why a Strong Digital Presence in Junagadh Matters</h2>
+                <p className="mt-4 text-muted-foreground text-lg">In today's market, your online presence is your most valuable asset. Here's why it's critical for success in Junagadh.</p>
+            </div>
+            <div className="mt-16 grid md:grid-cols-3 gap-8">
+                {digitalPresenceBenefits.map((benefit) => (
+                    <Card key={benefit.title} className="text-center p-8 bg-card border-t-4 border-primary">
+                        {benefit.icon}
+                        <h3 className="mt-4 font-headline text-2xl font-bold">{benefit.title}</h3>
+                        <p className="mt-2 text-muted-foreground">{benefit.description}</p>
+                    </Card>
+                ))}
+            </div>
+        </div>
+      </section>
+
+      <section id="local-seo" className="py-20 md:py-28 bg-card">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Dominate Local Search with Junagadh SEO</h2>
+                <p className="text-lg text-muted-foreground">
+                    Being on the first page of Google isn't a luxury; it's a necessity. We specialize in local SEO strategies that put your Junagadh business in front of the customers who matter most.
+                </p>
+                <ul className="space-y-4">
+                    <li className="flex items-start">
+                        <Check className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
+                        <div>
+                            <h3 className="font-semibold">Google My Business Optimization</h3>
+                            <p className="text-muted-foreground text-sm">We'll optimize your GMB profile to maximize visibility in local map packs and search results.</p>
+                        </div>
+                    </li>
+                    <li className="flex items-start">
+                        <Check className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
+                        <div>
+                            <h3 className="font-semibold">Local Keyword Targeting</h3>
+                            <p className="text-muted-foreground text-sm">We identify and target the exact phrases Junagadh customers use to find businesses like yours.</p>
+                        </div>
+                    </li>
+                     <li className="flex items-start">
+                        <Check className="h-6 w-6 text-primary mr-3 mt-1 flex-shrink-0" />
+                        <div>
+                            <h3 className="font-semibold">Location-Specific Content</h3>
+                            <p className="text-muted-foreground text-sm">We create content that speaks directly to the Junagadh community, building local relevance and authority.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div className="relative h-96 w-full">
+                {seoImage && (
+                    <Image src={seoImage.imageUrl} alt="SEO analysis" data-ai-hint={seoImage.imageHint} fill className="object-cover rounded-lg shadow-lg"/>
+                )}
+            </div>
+        </div>
+      </section>
+
+      <section id="faq" className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+            <div className="text-center">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Frequently Asked Questions</h2>
+                <p className="mt-4 text-muted-foreground text-lg">Have questions? We've got answers. Here are some of the most common things we're asked.</p>
+            </div>
+            <Accordion type="single" collapsible className="w-full mt-12">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-lg font-semibold">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-base text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+        </div>
+      </section>
+      
       <section id="cta" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <div className="bg-gradient-to-r from-primary to-orange-400 text-primary-foreground p-12 rounded-lg text-center max-w-5xl mx-auto shadow-2xl shadow-primary/20">
@@ -309,3 +404,4 @@ export default function Home() {
     </div>
   );
 }
+
