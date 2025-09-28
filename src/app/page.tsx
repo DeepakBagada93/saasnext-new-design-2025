@@ -85,7 +85,7 @@ const processSteps = [
     {
       icon: <Rocket className="h-8 w-8 text-primary" />,
       title: "Ambitious Startups",
-      description: "You need to move fast and make a big impact. We provide the agile development and go-to-market strategies to help you launch, iterate, and scale quickly, securing your position in the market."
+      description: "You need to move fast and make a big impact. We provide the agile development and go-to-market strategies to help you launch, iterate, and scale quickly, securing your position in a competitive market."
     },
     {
       icon: <Building className="h-8 w-8 text-primary" />,
@@ -147,6 +147,77 @@ export default function Home() {
             <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
               <Link href="/services">Our Junagadh Services</Link>
             </Button>
+          </div>
+            <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto animate-fade-in-up animation-delay-600">
+            <div className="flex flex-col items-center gap-2">
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-primary"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.5, ease: "easeInOut" }}
+              >
+                <path d="m18 16 4-4-4-4" />
+                <path d="m6 8-4 4 4 4" />
+                <path d="m14.5 4-5 16" />
+              </motion.svg>
+              <h3 className="text-lg font-semibold">Web Development</h3>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-primary"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 1, delay: 0.8, ease: "easeInOut" }}
+              >
+                <path d="M12 12c-2 0-5.5 1-5.5 3.5v2" />
+                <path d="M12 12c2 0 5.5 1 5.5 3.5v2" />
+                <circle cx="12" cy="7" r="3" />
+                <path d="m7.5 17.5 2-2" />
+                <path d="m14.5 15.5 2 2" />
+              </motion.svg>
+              <h3 className="text-lg font-semibold">Lead Generation</h3>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <motion.svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-primary"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 1, delay: 1.1, ease: "easeInOut" }}
+              >
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                <path d="M2 8c0-2.2.7-4.3 2-6" />
+                <path d="M22 8c0-2.2-.7-4.3-2-6" />
+              </motion.svg>
+              <h3 className="text-lg font-semibold">Marketing</h3>
+            </div>
           </div>
         </div>
       </section>
