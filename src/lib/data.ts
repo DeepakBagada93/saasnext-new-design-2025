@@ -145,6 +145,50 @@ export const portfolioItems = [
       niche: 'E-commerce',
       url: 'https://www.deepakbagada.in/'
     },
+    {
+      id: 'proj-6',
+      title: 'Brand Identity for a Startup',
+      problem: 'A new tech startup needed a strong, memorable brand identity to stand out in a crowded market.',
+      solution: 'We developed a complete brand package, including a modern logo, color palette, and comprehensive style guide.',
+      results: 'Successfully launched with a professional brand that resonated with their target audience and attracted initial investors.',
+      image: getImage('portfolio6'),
+      service: 'Logo & Branding',
+      niche: 'Branding',
+      url: 'https://www.deepakbagada.in/'
+    },
+    {
+      id: 'proj-7',
+      title: 'Social Media Campaign for a Cafe',
+      problem: 'A local cafe wanted to increase foot traffic and engagement with younger customers.',
+      solution: 'We designed and executed a visually striking social media campaign with engaging posts and targeted ads.',
+      results: 'Increased Instagram followers by 300% in two months and saw a 25% rise in weekday foot traffic.',
+      image: getImage('portfolio8'),
+      service: 'Performance Marketing',
+      niche: 'Social Media',
+      url: 'https://www.deepakbagada.in/'
+    },
+    {
+      id: 'proj-8',
+      title: 'Rebranding for a Real Estate Agency',
+      problem: 'An established real estate agency felt their brand was outdated and not appealing to luxury clients.',
+      solution: 'We conducted a full rebrand, including a new sophisticated logo, and high-end marketing materials.',
+      results: 'The agency successfully repositioned itself in the luxury market, attracting higher-value listings.',
+      image: getImage('portfolio7'),
+      service: 'Logo & Branding',
+      niche: 'Branding',
+      url: 'https://www.deepakbagada.in/'
+    },
+    {
+      id: 'proj-9',
+      title: 'Ad Creatives for Fashion Brand',
+      problem: 'An online fashion brand needed compelling ad creatives for their new collection launch.',
+      solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
+      results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
+      image: getImage('portfolio9'),
+      service: 'Performance Marketing',
+      niche: 'Social Media',
+      url: 'https://www.deepakbagada.in/'
+    }
   ];
 
 export const teamMembers = [

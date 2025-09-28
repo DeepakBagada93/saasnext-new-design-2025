@@ -91,6 +91,30 @@
       "imageHint": "travel booking"
     },
     {
+      "id": "portfolio6",
+      "description": "A minimalist logo design on a mockup",
+      "imageUrl": "https://images.unsplash.com/photo-1655717654884-4af00003e957?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bG9nbyUyMG1vY2t1cHxlbnwwfHx8fDE3NTkwNzQwNjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "logo mockup"
+    },
+    {
+      "id": "portfolio7",
+      "description": "Pages from a brand identity guide",
+      "imageUrl": "https://images.unsplash.com/photo-1674664985250-4d023c679b39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxicmFuZCUyMGd1aWRlfGVufDB8fHx8MTc1OTA3NDA2OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "brand guide"
+    },
+    {
+      "id": "portfolio8",
+      "description": "A collection of social media post designs",
+      "imageUrl": "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzb2NpYWwlMjBtZWRpYXxlbnwwfHx8fDE3NTg5ODY4Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "social media"
+    },
+    {
+      "id": "portfolio9",
+      "description": "An engaging social media ad creative",
+      "imageUrl": "https://images.unsplash.com/photo-1526958938731-27f1ccdb1817?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhZCUyMGNyZWF0aXZlfGVufDB8fHx8MTc1OTA3NDA2OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "ad creative"
+    },
+    {
       "id": "team1",
       "description": "Team member portrait",
       "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdHxlbnwwfHx8fDE3NTg4MDYxNDh8MA&ixlib=rb-4.1.0&q=80&w=1080",
