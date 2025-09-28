@@ -245,41 +245,52 @@ export default function Home() {
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
             <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
           </div>
-          <div className="mt-16">
-            <Carousel
-                opts={{
-                    align: "start",
-                    loop: true,
-                }}
-                className="w-full"
-                >
-                <CarouselContent>
-                    {allTech.map((tech) => (
-                    <CarouselItem key={tech.name} className="md:basis-1/2 lg:basis-1/3">
-                        <Card className="h-full">
-                        <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                            {tech.image && (
-                                <div className="relative h-20 w-20 mb-4">
-                                <Image
-                                    src={tech.image.imageUrl}
-                                    alt={tech.name}
-                                    data-ai-hint={tech.name}
-                                    fill
-                                    className="object-contain"
-                                />
-                                </div>
-                            )}
-                            <h3 className="font-headline text-xl font-bold">{tech.name}</h3>
-                            <p className="text-sm text-muted-foreground mt-1">{tech.description}</p>
-                        </CardContent>
-                        </Card>
-                    </CarouselItem>
-                    ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-            </Carousel>
-          </div>
+            <Tabs defaultValue="frontend" className="mt-12">
+                <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto h-auto">
+                    <TabsTrigger value="frontend" className="py-3 text-base flex items-center gap-2"><Smartphone /> Frontend</TabsTrigger>
+                    <TabsTrigger value="backend" className="py-3 text-base flex items-center gap-2"><Server /> Backend</TabsTrigger>
+                    <TabsTrigger value="ai-deployment" className="py-3 text-base flex items-center gap-2"><Wand2 /> AI & Deployment</TabsTrigger>
+                </TabsList>
+                <TabsContent value="frontend" className="mt-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {techStack.frontend.map((tech) => (
+                            <Card key={tech.name} className="p-4 text-center items-center justify-center flex flex-col">
+                                {tech.image && <div className="relative h-12 w-12 mx-auto mb-3">
+                                    <Image src={tech.image.imageUrl} alt={tech.name} fill className="object-contain" />
+                                </div>}
+                                <h3 className="font-semibold">{tech.name}</h3>
+                                <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
+                <TabsContent value="backend" className="mt-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {techStack.backend.map((tech) => (
+                             <Card key={tech.name} className="p-4 text-center items-center justify-center flex flex-col">
+                                {tech.image && <div className="relative h-12 w-12 mx-auto mb-3">
+                                    <Image src={tech.image.imageUrl} alt={tech.name} fill className="object-contain" />
+                                </div>}
+                                <h3 className="font-semibold">{tech.name}</h3>
+                                <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
+                <TabsContent value="ai-deployment" className="mt-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {techStack.aiAndDeployment.map((tech) => (
+                             <Card key={tech.name} className="p-4 text-center items-center justify-center flex flex-col">
+                                {tech.image && <div className="relative h-12 w-12 mx-auto mb-3">
+                                    <Image src={tech.image.imageUrl} alt={tech.name} fill className="object-contain" />
+                                </div>}
+                                <h3 className="font-semibold">{tech.name}</h3>
+                                <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
+            </Tabs>
         </div>
       </section>
 
