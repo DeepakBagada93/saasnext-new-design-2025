@@ -1,7 +1,7 @@
 
 
 import Link from "next/link";
-import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale, MapPin, BadgeCheck, BarChart } from "lucide-react";
+import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale, MapPin, BadgeCheck, BarChart, Server, Smartphone, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -14,13 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-card";
 import { PortfolioGallery } from "@/components/portfolio-gallery";
@@ -77,14 +71,32 @@ const processSteps = [
     }
   ];
 
-  const techStack = [
-    { name: "Next.js", description: "For performant, server-rendered React applications." },
-    { name: "React", description: "To build dynamic and interactive user interfaces." },
-    { name: "TypeScript", description: "For robust, scalable, and maintainable code." },
-    { name: "Tailwind CSS", "description": "For rapid, utility-first styling and design." },
-    { name: "Firebase", description: "For scalable backend services like auth and database." },
-    { name: "Genkit", description: "For integrating powerful AI and generative features." },
-  ];
+  const techStack = {
+    frontend: [
+        { name: "Next.js", description: "For performant, server-rendered React applications." },
+        { name: "React", description: "To build dynamic and interactive user interfaces." },
+        { name: "TypeScript", description: "For robust, scalable, and maintainable code." },
+        { name: "Tailwind CSS", "description": "For rapid, utility-first styling and design." },
+        { name: "Framer Motion", "description": "For creating beautiful and complex animations." },
+        { name: "Shadcn UI", "description": "For a set of accessible and composable components." },
+    ],
+    backend: [
+        { name: "Node.js", description: "For building fast and scalable server-side applications." },
+        { name: "Firebase", description: "For backend services like auth, database, and storage." },
+        { name: "Firestore", description: "A flexible, scalable NoSQL cloud database." },
+        { name: "Server Actions", description: "For seamless data mutations from the client." },
+        { name: "REST APIs", description: "Designing and consuming RESTful services." },
+        { name: "GraphQL", description: "For more efficient and flexible data fetching." },
+    ],
+    aiAndDeployment: [
+        { name: "Genkit", description: "For integrating powerful generative AI features." },
+        { name: "Google AI", description: "Leveraging state-of-the-art models like Gemini." },
+        { name: "Vercel", description: "For optimized hosting and serverless functions." },
+        { name: "Docker", description: "For containerizing applications for consistency." },
+        { name: "CI/CD", description: "Automating build, test, and deployment pipelines." },
+        { name: "GitHub", description: "For version control and collaborative development." },
+    ]
+  };
 
   const targetAudiences = [
     {
@@ -246,27 +258,48 @@ export default function Home() {
       </section>
 
       <section id="tech-stack" className="py-20 md:py-28">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-96 w-full">
-                {techStackImage && (
-                    <Image src={techStackImage.imageUrl} alt="Technology stack logos" data-ai-hint={techStackImage.imageHint} fill className="object-cover rounded-lg" />
-                )}
-            </div>
-            <div className="space-y-6">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
-                <p className="text-lg text-muted-foreground">We leverage the best tools and technologies in the industry to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
-                <div className="grid grid-cols-2 gap-x-6 gap-y-8">
-                    {techStack.map((tech) => (
-                        <div key={tech.name} className="flex items-start gap-3">
-                            <div className="flex-shrink-0 mt-1"><Check className="h-5 w-5 text-primary" /></div>
-                            <div>
+                <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
+            </div>
+            <Tabs defaultValue="frontend" className="mt-12 w-full">
+                <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
+                    <TabsTrigger value="frontend"><Smartphone className="mr-2" />Frontend</TabsTrigger>
+                    <TabsTrigger value="backend"><Server className="mr-2" />Backend</TabsTrigger>
+                    <TabsTrigger value="ai-deployment"><Wand2 className="mr-2" />AI & Deployment</TabsTrigger>
+                </TabsList>
+                <TabsContent value="frontend" className="mt-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                        {techStack.frontend.map((tech) => (
+                            <div key={tech.name} className="flex flex-col items-center text-center">
                                 <h3 className="font-headline font-bold text-lg">{tech.name}</h3>
                                 <p className="text-sm text-muted-foreground">{tech.description}</p>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+                        ))}
+                    </div>
+                </TabsContent>
+                <TabsContent value="backend" className="mt-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                        {techStack.backend.map((tech) => (
+                            <div key={tech.name} className="flex flex-col items-center text-center">
+                                <h3 className="font-headline font-bold text-lg">{tech.name}</h3>
+                                <p className="text-sm text-muted-foreground">{tech.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </TabsContent>
+                <TabsContent value="ai-deployment" className="mt-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                        {techStack.aiAndDeployment.map((tech) => (
+                            <div key={tech.name} className="flex flex-col items-center text-center">
+                                <h3 className="font-headline font-bold text-lg">{tech.name}</h3>
+                                <p className="text-sm text-muted-foreground">{tech.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </TabsContent>
+            </Tabs>
         </div>
       </section>
 
