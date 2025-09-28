@@ -271,48 +271,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="testimonials" className="py-20 md:py-28">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-            <div className="text-center">
-                <h2 className="font-headline text-4xl md:text-5xl font-bold">What Our Junagadh Clients Say</h2>
-                <p className="mt-4 text-muted-foreground text-lg">We're proud of the relationships we've built and the results we've delivered.</p>
-            </div>
-            <Carousel
-                opts={{
-                    align: "start",
-                    loop: true,
-                }}
-                className="w-full mt-16"
-            >
-                <CarouselContent>
-                    {testimonials.map((testimonial, index) => (
-                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                            <Card className="h-full">
-                                <CardContent className="p-6 flex flex-col h-full">
-                                    <div className="flex-grow">
-                                        <p className="text-muted-foreground">"{testimonial.quote}"</p>
-                                    </div>
-                                    <div className="flex items-center gap-4 mt-6 pt-6 border-t">
-                                        <Avatar>
-                                            <AvatarImage src={testimonial.image.imageUrl} alt={testimonial.name} data-ai-hint={testimonial.image.imageHint} />
-                                            <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                                        </Avatar>
-                                        <div>
-                                            <p className="font-semibold">{testimonial.name}</p>
-                                            <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </CarouselItem>
-                    ))}
-                </CarouselContent>
-                <CarouselPrevious className="hidden md:flex" />
-                <CarouselNext className="hidden md:flex" />
-            </Carousel>
-        </div>
-    </section>
-
     <section id="target-audience" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
