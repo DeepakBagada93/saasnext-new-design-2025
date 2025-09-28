@@ -1,9 +1,11 @@
 
+
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { PortfolioGallery } from "@/components/portfolio-gallery";
 import { portfolioItems } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PortfolioPage() {
   
@@ -42,7 +44,7 @@ export default function PortfolioPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {brandingItems.map(item => (
                  <Card key={item.id} className="overflow-hidden group">
-                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    <Link href={`/portfolio/${item.id}`}>
                         <CardContent className="p-0">
                             <div className="aspect-[4/3] w-full bg-muted overflow-hidden">
                                 <Image
@@ -59,7 +61,7 @@ export default function PortfolioPage() {
                                 <p className="text-sm text-primary">{item.service}</p>
                             </div>
                         </CardContent>
-                    </a>
+                    </Link>
                 </Card>
             ))}
         </div>
@@ -73,7 +75,7 @@ export default function PortfolioPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
              {socialItems.map(item => (
                  <Card key={item.id} className="overflow-hidden group">
-                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    <Link href={`/portfolio/${item.id}`}>
                         <CardContent className="p-0">
                             <div className="aspect-square w-full bg-muted overflow-hidden">
                                 <Image
@@ -86,7 +88,7 @@ export default function PortfolioPage() {
                                 />
                             </div>
                         </CardContent>
-                    </a>
+                    </Link>
                 </Card>
             ))}
         </div>
