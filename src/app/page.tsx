@@ -278,12 +278,13 @@ export default function Home() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
+                  className="h-full"
                 >
-                  <Card>
+                  <Card className="flex flex-col h-full">
                     <CardHeader className="flex-row gap-4 items-start">
                         {activeTech.image && 
                             <div className="relative h-32 w-32 aspect-square">
-                                <Image src={activeTech.image.imageUrl} alt={activeTech.name} fill className="object-contain" />
+                                <Image src={activeTech.image.imageUrl} alt={activeTech.name} data-ai-hint={activeTech.name} fill className="object-contain" />
                             </div>
                         }
                        <div className="space-y-1">
