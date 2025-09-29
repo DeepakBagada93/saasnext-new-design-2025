@@ -126,7 +126,7 @@ export const portfolioItems = [
       image: getImage('portfolio1'),
       service: 'Web Development',
       niche: 'E-commerce',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://saasnext-ecom.vercel.app/'
     },
     {
       id: 'proj-2',
