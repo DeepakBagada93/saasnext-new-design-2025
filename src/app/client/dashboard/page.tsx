@@ -56,14 +56,14 @@ export default function ClientDashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-headline text-3xl font-bold">Welcome Back!</h1>
           <p className="text-muted-foreground">
             Here's a summary of your projects and requests.
           </p>
         </div>
-        <Button asChild className="bg-accent hover:bg-accent/90">
+        <Button asChild className="bg-accent hover:bg-accent/90 w-full sm:w-auto">
           <Link href="/client/requests/new">
             <PlusCircle className="mr-2 h-4 w-4" />
             New Service Request
@@ -84,8 +84,8 @@ export default function ClientDashboardPage() {
               <TableRow>
                 <TableHead>Service Type</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Requested On</TableHead>
-                <TableHead></TableHead>
+                <TableHead className="hidden md:table-cell">Requested On</TableHead>
+                <TableHead className="text-right">Details</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -114,13 +114,13 @@ export default function ClientDashboardPage() {
                   <TableCell>
                     <Badge variant='outline'>{request.status}</Badge>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden md:table-cell">
                     {new Date(request.requestedAt.toDate()).toLocaleDateString()}
                   </TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="sm" asChild>
                       <Link href={`/client/requests`}>
-                        View Details <ArrowRight className="ml-2 h-4 w-4" />
+                        View <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
                   </TableCell>
@@ -144,9 +144,9 @@ export default function ClientDashboardPage() {
               <TableRow>
                 <TableHead>Project Name</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Budget</TableHead>
-                <TableHead>End Date</TableHead>
-                <TableHead></TableHead>
+                <TableHead className="hidden sm:table-cell">Budget</TableHead>
+                <TableHead className="hidden md:table-cell">End Date</TableHead>
+                <TableHead className="text-right">Details</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -181,14 +181,14 @@ export default function ClientDashboardPage() {
                       {project.status}
                     </Badge>
                   </TableCell>
-                  <TableCell>{formatCurrency(project.budget || 0, project.currency || 'USD')}</TableCell>
-                  <TableCell>
+                  <TableCell className="hidden sm:table-cell">{formatCurrency(project.budget || 0, project.currency || 'USD')}</TableCell>
+                  <TableCell className="hidden md:table-cell">
                     {new Date(project.timeline.end).toLocaleDateString()}
                   </TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="sm" asChild>
                       <Link href={`/client/projects/${project.id}`}>
-                        View Details <ArrowRight className="ml-2 h-4 w-4" />
+                        View <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
                   </TableCell>
