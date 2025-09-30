@@ -46,7 +46,6 @@ export default function PortfolioPage() {
             {brandingItems.map((item, index) => (
                  <Card key={item.id} className={cn(
                     "overflow-hidden group",
-                    index === 0 || index === 3 ? "lg:col-span-2" : "",
                  )}>
                     <Link href={`/portfolio/${item.id}`}>
                         <CardContent className="p-0">

@@ -119,34 +119,9 @@ const processSteps = [
 
 const allTech = [...techStack.frontend, ...techStack.backend, ...techStack.aiAndDeployment];
 
-const animatedHeroServices = [
-  {
-    title: 'Web Development',
-    image: services.find(s => s.slug === 'web-development')?.image,
-  },
-  {
-    title: 'Lead Generation',
-    image: services.find(s => s.slug === 'seo')?.image,
-  },
-  {
-    title: 'Marketing',
-    image: services.find(s => s.slug === 'performance-marketing')?.image,
-  },
-];
-
 
 export default function Home() {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % animatedHeroServices.length);
-        }, 3000); // Change image every 3 seconds
-
-        return () => clearInterval(interval);
-    }, []);
-
-
+    
   return (
     <div className="flex flex-col">
       <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center pt-32 md:pt-40 lg:pt-48 pb-20 md:pb-32 lg:pb-40 text-center overflow-hidden">
@@ -447,12 +422,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-
-
-
-    

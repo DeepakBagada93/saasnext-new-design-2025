@@ -28,14 +28,16 @@ export default function PortfolioItemDetails({ portfolioItemId }: { portfolioIte
                 <Card className="overflow-hidden">
                     <CardContent className="p-0">
                         <div className="aspect-[16/9] w-full bg-muted overflow-hidden">
-                             <Image
-                                src={item.image.imageUrl}
-                                alt={item.title}
-                                data-ai-hint={item.image.imageHint}
-                                width={1200}
-                                height={675}
-                                className="w-full h-full object-cover"
-                            />
+                             {item.image && (
+                                <Image
+                                    src={item.image.imageUrl}
+                                    alt={item.title}
+                                    data-ai-hint={item.image.imageHint}
+                                    width={1200}
+                                    height={675}
+                                    className="w-full h-full object-cover"
+                                />
+                             )}
                         </div>
                          <div className="p-6 md:p-8 space-y-4">
                             <p className="text-sm font-semibold text-primary">{item.service}</p>
@@ -54,7 +56,7 @@ export default function PortfolioItemDetails({ portfolioItemId }: { portfolioIte
                                     <p className="text-muted-foreground">{item.results}</p>
                                 </div>
                             </div>
-                            {item.url && (
+                            {item.url && item.url !== '#' && (
                                 <div className="pt-6">
                                     <Button asChild>
                                         <a href={item.url} target="_blank" rel="noopener noreferrer">

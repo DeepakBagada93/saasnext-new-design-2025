@@ -91,8 +91,8 @@ export const techStack = {
     ],
     backend: [
         { name: "Node.js", description: "For building fast and scalable server-side applications.", image: { imageUrl: "https://images.unsplash.com/photo-1650234083227-74c0700b295a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxOb2RlLmpzJTIwbG9nb3xlbnwwfHx8fDE3NTkwNzYxNzh8MA&ixlib=rb-4.1.0&q=80&w=1080", imageHint: "Node.js logo" } },
-        { name: "Firebase", description: "For backend services like auth, database, and storage.", image: { imageUrl: "https://images.unsplash.com/photo-1707061229453-853fc706b6fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxGaXJlYmFzZSUyMGxvZ298ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib-rb-4.1.0&q=80&w=1080", imageHint: "Firebase logo" } },
-        { name: "Firestore", description: "A flexible, scalable NoSQL cloud database.", image: { imageUrl: "https://images.unsplash.com/photo-1739055547874-4fe440a2bfea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8RmlyZXN0b3JlJTIwbG9nb3xlbnwwfHx8fDE3NTkwNzYxNzd8MA&ixlib-rb-4.1.0&q=80&w=1080", imageHint: "Firestore logo" } },
+        { name: "Firebase", description: "For backend services like auth, database, and storage.", image: { imageUrl: "https://images.unsplash.com/photo-1707061229453-853fc706b6fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxGaXJlYmFzZSUyMGxvZ298ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib=rb-4.1.0&q=80&w=1080", imageHint: "Firebase logo" } },
+        { name: "Firestore", description: "A flexible, scalable NoSQL cloud database.", image: { imageUrl: "https://images.unsplash.com/photo-1739055547874-4fe440a2bfea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8RmlyZXN0b3JlJTIwbG9nb3xlbnwwfHx8fDE3NTkwNzYxNzd8MA&ixlib=rb-4.1.0&q=80&w=1080", imageHint: "Firestore logo" } },
         { name: "Server Actions", description: "For seamless data mutations from the client.", image: { imageUrl: "/saasnext-website.png", imageHint: "Next.js logo" } },
         { name: "REST APIs", description: "Designing and consuming RESTful services.", image: { imageUrl: "https://images.unsplash.com/photo-1699170511883-5915b8f7662b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxBUEklMjBncmFwaGljfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib-rb-4.1.0&q=80&w=1080", imageHint: "API graphic" } },
         { name: "GraphQL", description: "For more efficient and flexible data fetching.", image: { imageUrl: "https://images.unsplash.com/photo-1734714555326-d42a7a9f9728?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxHcmFwaFFMJTIwbG9nb3xlbnwwfHx8fDE3NTg5ODU5NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080", imageHint: "GraphQL logo" } },
@@ -100,10 +100,10 @@ export const techStack = {
     aiAndDeployment: [
         { name: "Genkit", description: "For integrating powerful generative AI features.", image: { imageUrl: "https://images.unsplash.com/photo-1545601445-9242104e5d79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxHZW5raXQlMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib=rb-4.1.0&q=80&w=1080", imageHint: "Genkit logo" } },
         { name: "Google AI", description: "Leveraging state-of-the-art models like Gemini.", image: { imageUrl: "https://images.unsplash.com/photo-1560968410-4394e1b39724?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxHb29nbGVBSSUyMGxvZ298ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib-rb-4.1.0&q=80&w=1080", imageHint: "GoogleAI logo" } },
-        { name: "Vercel", description: "For optimized hosting and serverless functions.", image: { imageUrl: "https://images.unsplash.com/photo-1663992051824-f82c1720785a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxWZXJjZWwlMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib-rb-4.1.0&q=80&w=1080", imageHint: "Vercel logo" } },
+        { name: "Vercel", description: "For optimized hosting and serverless functions.", image: { imageUrl: "https://images.unsplash.com/photo-1663992051824-f82c1720785a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxWZXJjZWwlMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib=rb-4.1.0&q=80&w=1080", imageHint: "Vercel logo" } },
         { name: "Docker", description: "For containerizing applications for consistency.", image: { imageUrl: "https://images.unsplash.com/photo-1700718008794-3db41f8d6c16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxEb2NrZXIlMjBsb2dvfGVufDB8fHx8MTc1ODk4NTk1NXww&ixlib-rb-4.1.0&q=80&w=1080", imageHint: "Docker logo" } },
         { name: "CI/CD", description: "Automating build, test, and deployment pipelines.", image: { imageUrl: "https://images.unsplash.com/photo-1747666303792-e9bf6ee7efc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Q0klMkZDRCUyMGdyYXBoaWN8ZW58MHx8fHwxNzU5MDc2MTc3fDA&ixlib-rb-4.1.0&q=80&w=1080", imageHint: "CI/CD graphic" } },
-        { name: "GitHub", description: "For version control and collaborative development.", image: { imageUrl: "https://images.unsplash.com/photo-1635220035691-9473364b4476?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxHaXRIdWIlMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib-rb-4.1.0&q=80&w=1080", imageHint: "GitHub logo" } },
+        { name: "GitHub", description: "For version control and collaborative development.", image: { imageUrl: "https://images.unsplash.com/photo-1635220035691-9473364b4476?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxHaXRIdWIlMjBsb2dvfGVufDB8fHx8MTc1OTA3NjE3N3ww&ixlib=rb-4.1.0&q=80&w=1080", imageHint: "GitHub logo" } },
     ]
   };
 
@@ -121,14 +121,14 @@ export const testimonials = [
     quote: "The lead generation campaign they ran for us was a game-changer. We've never had such a full pipeline of qualified leads.",
     name: "John Smith",
     title: "Marketing Director, Innovate Ltd.",
-    image: { imageUrl: "", imageHint: "professional portrait" },
+    image: { imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg3OTgwOTZ8MA&ixlib=rb-4.1.0&q=80&w=1080", imageHint: "professional portrait" },
   },
   {
     quote: "Working with SaaSNext on our AI integration was seamless. They are true experts in their field.",
     name: "Emily White",
     title: "COO, Future Solutions",
     image: {
-      imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHBlcnNvbnxlbnwwfHx8fDE3NTg3OTc5ODd8MA&ixlibrb-4.1.0&q=80&w=1080",
+      imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHBlcnNvbnxlbnwwfHx8fDE3NTg3OTc5ODd8MA&ixlib-rb-4.1.0&q=80&w=1080",
       imageHint: "business person"
     },
   },
@@ -268,7 +268,7 @@ export const portfolioItems = [
       image: { imageUrl: "/social/ads1.png", imageHint: "ad creative" },
       service: 'Web Development',
       niche: 'Social Media',
-      url: ''
+      url: '#'
     },
    
   ];
@@ -301,11 +301,3 @@ export const faqs = [
       answer: "Yes, we offer a variety of ongoing support and maintenance packages to ensure your website or application remains secure, updated, and performing optimally post-launch. We can also provide retainers for ongoing feature development or marketing."
     }
   ];
-
-    
-
-
-
-
-
-
