@@ -199,9 +199,11 @@ export default function Home() {
                  <div className="flex flex-col items-center gap-4">
                     <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border flex items-center justify-center">
                         <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <motion.path d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }}/>
-                            <motion.path d="M16 8L8 16" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.5, duration: 0.5, repeat: Infinity, repeatType: "mirror" }} />
-                            <motion.path d="M8 8L16 16" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.5, duration: 0.5, repeat: Infinity, repeatType: "mirror" }} />
+                            <motion.rect x="4" y="12" width="4" height="8" rx="1" fill="hsl(var(--primary))" initial={{ height: 4, y: 16 }} animate={{ height: [8, 12, 8], y: [12, 8, 12] }} transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }} />
+                            <motion.rect x="10" y="8" width="4" height="12" rx="1" fill="hsl(var(--primary))" initial={{ height: 12, y: 8 }} animate={{ height: [12, 6, 12], y: [8, 14, 8] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }} />
+                            <motion.rect x="16" y="4" width="4" height="16" rx="1" fill="hsl(var(--primary))" initial={{ height: 8, y: 12 }} animate={{ height: [16, 8, 16], y: [4, 12, 4] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.6 }} />
+                            <motion.path d="M4 20H20" stroke="hsl(var(--foreground))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <motion.path d="M16 4L20 8L16 12" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ y: 5 }} animate={{ y: -5 }} transition={{ duration: 1, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }} />
                         </svg>
                     </div>
                     <h3 className="text-lg font-semibold">Marketing</h3>
@@ -304,52 +306,31 @@ export default function Home() {
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
             <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
           </div>
-            <Tabs defaultValue="frontend" className="mt-12">
-                <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto h-auto">
-                    <TabsTrigger value="frontend" className="py-3 text-base flex items-center gap-2"><Smartphone /> Frontend</TabsTrigger>
-                    <TabsTrigger value="backend" className="py-3 text-base flex items-center gap-2"><Server /> Backend</TabsTrigger>
-                    <TabsTrigger value="ai-deployment" className="py-3 text-base flex items-center gap-2"><Wand2 /> AI & Deployment</TabsTrigger>
-                </TabsList>
-                <TabsContent value="frontend" className="mt-8">
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {techStack.frontend.map((tech) => (
-                            <Card key={tech.name} className="p-4 text-center items-center justify-center flex flex-col">
-                                {tech.image && <div className="relative h-12 w-12 mx-auto mb-3">
-                                    <Image src={tech.image.imageUrl} alt={tech.name} fill className="object-contain" />
+            <Carousel
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+                className="w-full max-w-6xl mx-auto mt-12"
+                >
+                <CarouselContent>
+                    {allTech.map((tech) => (
+                    <CarouselItem key={tech.name} className="md:basis-1/2 lg:basis-1/4">
+                        <div className="p-1">
+                           <Card className="p-6 text-center items-center justify-center flex flex-col h-48">
+                                {tech.image && <div className="relative h-16 w-16 mx-auto mb-4">
+                                    <Image src={tech.image.imageUrl} alt={tech.name} data-ai-hint={tech.image.imageHint} fill className="object-contain" />
                                 </div>}
-                                <h3 className="font-semibold">{tech.name}</h3>
-                                <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
+                                <h3 className="font-semibold text-lg">{tech.name}</h3>
+                                <p className="text-sm text-muted-foreground mt-1">{tech.description}</p>
                             </Card>
-                        ))}
-                    </div>
-                </TabsContent>
-                <TabsContent value="backend" className="mt-8">
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {techStack.backend.map((tech) => (
-                             <Card key={tech.name} className="p-4 text-center items-center justify-center flex flex-col">
-                                {tech.image && <div className="relative h-12 w-12 mx-auto mb-3">
-                                    <Image src={tech.image.imageUrl} alt={tech.name} fill className="object-contain" />
-                                </div>}
-                                <h3 className="font-semibold">{tech.name}</h3>
-                                <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
-                            </Card>
-                        ))}
-                    </div>
-                </TabsContent>
-                <TabsContent value="ai-deployment" className="mt-8">
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {techStack.aiAndDeployment.map((tech) => (
-                             <Card key={tech.name} className="p-4 text-center items-center justify-center flex flex-col">
-                                {tech.image && <div className="relative h-12 w-12 mx-auto mb-3">
-                                    <Image src={tech.image.imageUrl} alt={tech.name} fill className="object-contain" />
-                                </div>}
-                                <h3 className="font-semibold">{tech.name}</h3>
-                                <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
-                            </Card>
-                        ))}
-                    </div>
-                </TabsContent>
-            </Tabs>
+                        </div>
+                    </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
         </div>
       </section>
 
@@ -451,25 +432,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="faq" className="py-20 md:py-28 bg-card">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-            <div className="text-center">
-                <h2 className="font-headline text-4xl md:text-5xl font-bold">Frequently Asked Questions</h2>
-                <p className="mt-4 text-muted-foreground text-lg">Have questions? We've got answers. Here are some of the most common things we're asked.</p>
-            </div>
-            <Accordion type="single" collapsible className="w-full mt-12">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-lg font-semibold">{faq.question}</AccordionTrigger>
-                  <AccordionContent className="text-base text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-        </div>
-      </section>
-
       <section id="testimonials" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
@@ -500,6 +462,25 @@ export default function Home() {
         </div>
       </section>
       
+      <section id="faq" className="py-20 md:py-28 bg-card">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+            <div className="text-center">
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Frequently Asked Questions</h2>
+                <p className="mt-4 text-muted-foreground text-lg">Have questions? We've got answers. Here are some of the most common things we're asked.</p>
+            </div>
+            <Accordion type="single" collapsible className="w-full mt-12">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-lg font-semibold">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-base text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+        </div>
+      </section>
+
       <section id="cta" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <div className="bg-gradient-to-r from-primary to-orange-400 text-primary-foreground p-12 rounded-lg text-center max-w-5xl mx-auto shadow-2xl shadow-primary/20">
@@ -520,5 +501,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
