@@ -225,7 +225,7 @@ export const portfolioItems = [
       problem: 'A tech startup required a logo that was both modern and scalable for various digital platforms.',
       solution: 'We designed a clean, geometric logo that reflects their innovative approach to technology.',
       results: 'The new logo provided a strong foundation for their brand identity as they secured their first round of funding.',
-      image: { imageUrl: '/brand/3.webp', imageHint: 'tech logo' },
+      image: { imageUrl: '/brand/logo 3.png', imageHint: 'tech logo' },
       service: 'Logo & Branding',
       niche: 'Branding',
       url: '#'
@@ -273,5 +273,6 @@ export const faqs = [
   ];
 
     
+
 
 
