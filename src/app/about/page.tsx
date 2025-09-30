@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { ArrowRight, Handshake, Target, CheckCircle } from "lucide-react";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { AnimatedHeadline } from "@/components/animated-headline";
 
 
@@ -43,8 +42,8 @@ const whyChooseUsItems = [
 
 
 export default function AboutPage() {
-    const aboutHeroImage = PlaceHolderImages.find(img => img.id === 'team1');
-    const missionImage = PlaceHolderImages.find(img => img.id === 'team2');
+    const aboutHeroImage = { imageUrl: 'https://picsum.photos/seed/team1/800/600', imageHint: 'team photo' };
+    const missionImage = { imageUrl: 'https://picsum.photos/seed/team2/800/600', imageHint: 'team working' };
 
   return (
     <div className="flex flex-col">
