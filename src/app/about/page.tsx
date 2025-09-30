@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { ArrowRight, Handshake, Target, CheckCircle, Search, Drafting, Code, Rocket } from "lucide-react";
+import { ArrowRight, Handshake, Target, CheckCircle, Search, DraftingCompass, Code, Rocket } from "lucide-react";
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
@@ -69,7 +69,7 @@ const processSteps = [
       description: "We dive deep into your goals and market to build a data-driven strategy."
     },
     {
-      icon: <Drafting className="h-8 w-8 text-primary" />,
+      icon: <DraftingCompass className="h-8 w-8 text-primary" />,
       title: "Design & Prototyping",
       description: "We create intuitive, user-centric designs and mockups for your approval."
     },
