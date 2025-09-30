@@ -4,6 +4,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useUser } from '@/firebase';
 import { AppLayout } from './app-layout';
+import React, { useEffect } from 'react';
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
@@ -27,41 +28,50 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const { user, loading: userLoading } = useUser();
     
-    if (userLoading) {
-        return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
-    }
-
     const currentLayout = getLayoutType(pathname);
 
-    // --- AUTHENTICATION LOGIC ---
-    if (currentLayout === 'admin') {
-        if (!user) {
-            router.replace('/admin-login');
-            return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
+    useEffect(() => {
+        if (userLoading) {
+            return; // Don't do anything while loading
         }
-        if (user.email?.toLowerCase() !== ADMIN_EMAIL) {
-            router.replace('/client/dashboard');
-             return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
-        }
-    } else if (currentLayout === 'client') {
-        if (!user) {
-            router.replace('/login');
-            return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
-        }
-        if (user.email?.toLowerCase() === ADMIN_EMAIL) {
-            router.replace('/admin/dashboard');
-            return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
-        }
-    } else if (currentLayout === 'auth') {
-        if (user) {
-             if (user.email?.toLowerCase() === ADMIN_EMAIL) {
-                router.replace('/admin/dashboard');
-            } else {
+
+        // --- AUTHENTICATION LOGIC ---
+        if (currentLayout === 'admin') {
+            if (!user) {
+                router.replace('/admin-login');
+            } else if (user.email?.toLowerCase() !== ADMIN_EMAIL) {
                 router.replace('/client/dashboard');
             }
-            return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
+        } else if (currentLayout === 'client') {
+            if (!user) {
+                router.replace('/login');
+            } else if (user.email?.toLowerCase() === ADMIN_EMAIL) {
+                router.replace('/admin/dashboard');
+            }
+        } else if (currentLayout === 'auth') {
+            if (user) {
+                if (user.email?.toLowerCase() === ADMIN_EMAIL) {
+                    router.replace('/admin/dashboard');
+                } else {
+                    router.replace('/client/dashboard');
+                }
+            }
         }
+    }, [user, userLoading, pathname, router, currentLayout]);
+
+
+    if (userLoading || (currentLayout !== 'public' && !user && currentLayout !== 'auth') || (currentLayout === 'auth' && user)) {
+        return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
     }
+    
+    if (currentLayout === 'admin' && user && user.email?.toLowerCase() !== ADMIN_EMAIL) {
+       return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
+    }
+
+    if (currentLayout === 'client' && user && user.email?.toLowerCase() === ADMIN_EMAIL) {
+       return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
+    }
+
 
     return <AppLayout layout={currentLayout}>{children}</AppLayout>;
 }
