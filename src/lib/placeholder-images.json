@@ -147,13 +147,13 @@
     {
       "id": "techNext",
       "description": "Next.js logo",
-      "imageUrl": "https://images.unsplash.com/photo-1637489981573-e45e9297cb21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxOZXh0LmpzJTIwbG9nb3xlbnwwfHx8fDE3NTkwNzYxNzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/saasnext-nextjs.png",
       "imageHint": "Next.js logo"
     },
     {
       "id": "techReact",
       "description": "React logo",
-      "imageUrl": "https://images.unsplash.com/photo-1758582382490-ae12332fd781?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxSZWFjdCUyMGxvZ298ZW58MHx8fHwxNzU4OTg1OTU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/saasnext-react.png",
       "imageHint": "React logo"
     },
     {

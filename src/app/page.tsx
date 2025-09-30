@@ -270,31 +270,43 @@ export default function Home() {
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
             <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
           </div>
-            <Carousel
-                opts={{
-                    align: "start",
-                    loop: true,
-                }}
-                className="w-full max-w-6xl mx-auto mt-12"
-                >
-                <CarouselContent>
-                    {allTech.map((tech) => (
-                    <CarouselItem key={tech.name} className="md:basis-1/2 lg:basis-1/4">
-                        <div className="p-1">
-                           <Card className="p-6 text-center items-center justify-center flex flex-col h-48">
-                                {tech.image && <div className="relative h-16 w-16 mx-auto mb-4">
-                                    <Image src={tech.image.imageUrl} alt={tech.name} data-ai-hint={tech.image.imageHint} fill className="object-contain" />
-                                </div>}
-                                <h3 className="font-semibold text-lg">{tech.name}</h3>
-                                <p className="text-sm text-muted-foreground mt-1">{tech.description}</p>
-                            </Card>
-                        </div>
-                    </CarouselItem>
+          <Tabs defaultValue="frontend" className="mt-12">
+            <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
+                <TabsTrigger value="frontend">Frontend</TabsTrigger>
+                <TabsTrigger value="backend">Backend</TabsTrigger>
+                <TabsTrigger value="ai-and-deployment">AI & Deployment</TabsTrigger>
+            </TabsList>
+            <TabsContent value="frontend" className="mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {techStack.frontend.map((tech) => (
+                        <Card key={tech.name} className="p-6">
+                            <CardTitle className="text-xl font-headline">{tech.name}</CardTitle>
+                            <CardDescription className="mt-2">{tech.description}</CardDescription>
+                        </Card>
                     ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-            </Carousel>
+                </div>
+            </TabsContent>
+            <TabsContent value="backend" className="mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {techStack.backend.map((tech) => (
+                        <Card key={tech.name} className="p-6">
+                            <CardTitle className="text-xl font-headline">{tech.name}</CardTitle>
+                            <CardDescription className="mt-2">{tech.description}</CardDescription>
+                        </Card>
+                    ))}
+                </div>
+            </TabsContent>
+            <TabsContent value="ai-and-deployment" className="mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {techStack.aiAndDeployment.map((tech) => (
+                        <Card key={tech.name} className="p-6">
+                            <CardTitle className="text-xl font-headline">{tech.name}</CardTitle>
+                            <CardDescription className="mt-2">{tech.description}</CardDescription>
+                        </Card>
+                    ))}
+                </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
@@ -396,7 +408,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="testimonials" className="py-20 md:py-28">
+      <section id="testimonials" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl md:text-5xl font-bold">What Our Clients Say</h2>
@@ -426,7 +438,7 @@ export default function Home() {
         </div>
       </section>
       
-      <section id="faq" className="py-20 md:py-28 bg-card">
+      <section id="faq" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
             <div className="text-center">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Frequently Asked Questions</h2>
@@ -469,4 +481,5 @@ export default function Home() {
     
 
     
+
 
