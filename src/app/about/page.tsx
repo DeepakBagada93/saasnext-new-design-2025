@@ -41,27 +41,6 @@ const whyChooseUsItems = [
     }
 ];
 
-const teamMembers = [
-    {
-        name: "Deepak Bagada",
-        role: "Founder & Lead Developer",
-        image: { imageUrl: 'https://picsum.photos/seed/person1/400/400', imageHint: 'male founder' },
-        bio: "The visionary behind SaaSNext, with a passion for crafting elegant code and driving digital innovation in Junagadh."
-    },
-    {
-        name: "Pooja Sharma",
-        role: "Head of Design",
-        image: { imageUrl: 'https://picsum.photos/seed/person2/400/400', imageHint: 'female designer' },
-        bio: "The creative force who ensures every project is not only functional but also beautiful and user-friendly."
-    },
-    {
-        name: "Raj Patel",
-        role: "Marketing & SEO Strategist",
-        image: { imageUrl: 'https://picsum.photos/seed/person3/400/400', imageHint: 'male marketer' },
-        bio: "The growth hacker dedicated to putting our clients on the map and driving measurable results."
-    }
-];
-
 const processSteps = [
     {
       icon: <Search className="h-8 w-8 text-primary" />,
@@ -161,28 +140,6 @@ export default function AboutPage() {
             </div>
         </section>
 
-        <section className="py-20 md:py-28">
-            <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-                <div className="text-center max-w-3xl mx-auto">
-                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Meet Our Junagadh Team</h2>
-                    <p className="mt-4 text-muted-foreground text-lg">We are a small, passionate, and dedicated team of experts ready to bring your vision to life.</p>
-                </div>
-                <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12">
-                    {teamMembers.map((member) => (
-                        <div key={member.name} className="text-center">
-                            <Avatar className="w-32 h-32 mx-auto ring-4 ring-primary/50">
-                                <AvatarImage src={member.image.imageUrl} alt={member.name} data-ai-hint={member.image.imageHint} />
-                                <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                            </Avatar>
-                            <h3 className="mt-6 font-headline text-2xl font-bold">{member.name}</h3>
-                            <p className="text-primary font-semibold">{member.role}</p>
-                            <p className="mt-2 text-muted-foreground">{member.bio}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-        
         <section className="py-20 md:py-28 bg-card">
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="text-center max-w-3xl mx-auto">
