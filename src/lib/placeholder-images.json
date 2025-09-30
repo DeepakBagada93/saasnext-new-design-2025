@@ -15,7 +15,7 @@
     {
       "id": "testimonial2",
       "description": "Portrait of a satisfied customer",
-      "imageUrl": "https://images.unsplash.com/photo-1655249493799-9cee4fe983bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg3OTg4OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "",
       "imageHint": "professional portrait"
     },
     {
@@ -27,7 +27,7 @@
     {
       "id": "serviceWeb",
       "description": "Modern web development interface",
-      "imageUrl": "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3ZWIlMjBkZXNpZ258ZW58MHx8fHwxNzU4ODA1MDA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/saasnext-web-development.jpg",
       "imageHint": "web design"
     },
     {
@@ -51,7 +51,7 @@
     {
       "id": "serviceSEO",
       "description": "A magnifying glass over a search results page",
-      "imageUrl": "https://images.unsplash.com/photo-1599658880335-b659634d2325?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZW98ZW58MHx8fHwxNzU5NjcwODU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "/saasnext-seo.jpg",
       "imageHint": "SEO analysis"
     },
     {
