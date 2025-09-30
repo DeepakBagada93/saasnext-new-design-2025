@@ -152,28 +152,29 @@ export default function Home() {
       </section>
 
       <section id="why-choose-us" className="py-20 md:py-28 bg-card">
-        <div className="px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-            <div className="space-y-8 animate-fade-in-up">
-                <h2 className="font-headline text-4xl md:text-5xl font-bold">The Top Web Design Agency in Junagadh</h2>
-                <p className="text-lg text-muted-foreground">
-                    You've been burned by slow timelines, unmet promises, and a lack of tangible results. We're different. We're a performance-focused partner in Junagadh, dedicated to your growth.
-                </p>
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
+                    <h2 className="font-headline text-4xl md:text-5xl font-bold">The Top Web Design Agency in Junagadh</h2>
+                    <p className="text-lg text-muted-foreground">
+                        You've been burned by slow timelines, unmet promises, and a lack of tangible results. We're different. We're a performance-focused partner in Junagadh, dedicated to your growth.
+                    </p>
+                    <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
+                        <Image src="/saasnext-team.jpg" alt="SaaSNext Team" data-ai-hint="team working" fill className="object-cover"/>
+                    </div>
+                </div>
+
+                <div className="grid sm:grid-cols-1 gap-8">
                     {whyChooseUsItems.map((item) => (
-                        <div key={item.title} className="flex items-start gap-4">
-                            <div className="flex-shrink-0">{item.icon}</div>
+                        <div key={item.title} className="flex items-start gap-6 p-6 border rounded-lg bg-background">
+                            <div className="flex-shrink-0 mt-1">{item.icon}</div>
                             <div>
                                 <h3 className="text-xl font-headline font-bold">{item.title}</h3>
-                                <p className="text-muted-foreground">{item.description}</p>
+                                <p className="text-muted-foreground mt-1">{item.description}</p>
                             </div>
                         </div>
                     ))}
                 </div>
-            </div>
-            <div className="relative h-96 w-full animate-fade-in-up animation-delay-200">
-                {techStack.frontend[0].image && (
-                    <Image src={techStack.frontend[0].image.imageUrl} alt="Team collaborating" data-ai-hint={techStack.frontend[0].image.imageHint} fill className="object-cover rounded-lg shadow-lg"/>
-                )}
             </div>
         </div>
       </section>
@@ -422,3 +423,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
