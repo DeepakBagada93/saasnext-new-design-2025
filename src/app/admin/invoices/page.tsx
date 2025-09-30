@@ -401,10 +401,10 @@ export default function AdminQuotationsPage() {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Quotation ID</TableHead>
+                                <TableHead className="hidden sm:table-cell">Quotation ID</TableHead>
                                 <TableHead>Client Name</TableHead>
                                 <TableHead>Amount</TableHead>
-                                <TableHead>Due Date</TableHead>
+                                <TableHead className="hidden md:table-cell">Due Date</TableHead>
                                 <TableHead>Status</TableHead>
                                 <TableHead className="text-right">Actions</TableHead>
                             </TableRow>
@@ -422,10 +422,10 @@ export default function AdminQuotationsPage() {
                             )}
                             {quotations?.map(quotation => (
                                 <TableRow key={quotation.id}>
-                                    <TableCell className="font-mono text-xs">{quotation.id}</TableCell>
+                                    <TableCell className="font-mono text-xs hidden sm:table-cell">{quotation.id}</TableCell>
                                     <TableCell>{quotation.clientName}</TableCell>
                                     <TableCell>{formatCurrency(quotation.amount, quotation.currency || 'INR')}</TableCell>
-                                    <TableCell>{new Date(quotation.dueDate).toLocaleDateString()}</TableCell>
+                                    <TableCell className="hidden md:table-cell">{new Date(quotation.dueDate).toLocaleDateString()}</TableCell>
                                     <TableCell>
                                         <Badge 
                                             variant={quotation.status === 'Paid' ? 'secondary' : (quotation.status === 'Overdue' ? 'destructive' : 'default')}
