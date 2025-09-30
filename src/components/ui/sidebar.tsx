@@ -9,7 +9,7 @@ import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTitle, SheetTrigger, VisuallyHidden } from "@/components/ui/sheet"
 import {
   Tooltip,
   TooltipContent,
@@ -131,6 +131,9 @@ const Sidebar = React.forwardRef<
             side="left"
             className="w-[18rem] p-0 flex flex-col"
           >
+            <VisuallyHidden asChild>
+              <SheetTitle>Sidebar Navigation</SheetTitle>
+            </VisuallyHidden>
             {children}
           </SheetContent>
         </Sheet>
