@@ -6,6 +6,7 @@ import { portfolioItems } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function PortfolioPage() {
   
@@ -42,11 +43,17 @@ export default function PortfolioPage() {
             <p className="mt-2 text-muted-foreground text-lg">Crafting memorable brands that stand out from the competition.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {brandingItems.map(item => (
-                 <Card key={item.id} className="overflow-hidden group lg:col-span-2">
+            {brandingItems.map((item, index) => (
+                 <Card key={item.id} className={cn(
+                    "overflow-hidden group",
+                    index === 0 || index === 3 ? "lg:col-span-2" : "",
+                 )}>
                     <Link href={`/portfolio/${item.id}`}>
                         <CardContent className="p-0">
-                            <div className="aspect-[16/9] w-full bg-muted overflow-hidden">
+                            <div className={cn(
+                                "w-full bg-muted overflow-hidden",
+                                 (index === 0 || index === 3) ? "aspect-[16/9]" : "aspect-square",
+                                )}>
                                 <Image
                                     src={item.image.imageUrl}
                                     alt={item.title}
