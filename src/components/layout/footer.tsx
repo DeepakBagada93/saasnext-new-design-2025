@@ -1,4 +1,5 @@
-import { Github, Twitter, Linkedin } from "lucide-react";
+
+import { Instagram, Facebook, Twitter, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,8 @@ export default function Footer() {
                     Your partner in digital excellence. We build, market, and grow.
                 </p>
                 <div className="flex space-x-2">
-                    <Button variant="ghost" size="icon" asChild><Link href="#"><Github className="h-4 w-4" /></Link></Button>
+                    <Button variant="ghost" size="icon" asChild><Link href="#"><Instagram className="h-4 w-4" /></Link></Button>
+                    <Button variant="ghost" size="icon" asChild><Link href="#"><Facebook className="h-4 w-4" /></Link></Button>
                     <Button variant="ghost" size="icon" asChild><Link href="#"><Twitter className="h-4 w-4" /></Link></Button>
                     <Button variant="ghost" size="icon" asChild><Link href="#"><Linkedin className="h-4 w-4" /></Link></Button>
                 </div>
