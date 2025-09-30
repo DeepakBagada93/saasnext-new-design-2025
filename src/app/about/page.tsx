@@ -66,7 +66,7 @@ const processSteps = [
 
 
 export default function AboutPage() {
-    const aboutHeroImage = { imageUrl: 'https://picsum.photos/seed/about1/800/600', imageHint: 'team photo' };
+    const aboutHeroImage = { imageUrl: '/saasnext-website-development.png', imageHint: 'team photo' };
 
   return (
     <div className="flex flex-col">
