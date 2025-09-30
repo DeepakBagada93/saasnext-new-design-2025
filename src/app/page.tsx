@@ -174,34 +174,38 @@ export default function Home() {
             </Button>
           </div>
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto animate-fade-in-up animation-delay-600">
-            {animatedHeroServices.map((service, index) => (
-                <div key={service.title} className="flex flex-col items-center gap-4">
-                    <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border">
-                         <AnimatePresence>
-                            {index === currentImageIndex && service.image && (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.8 }}
-                                    className="absolute inset-0"
-                                >
-                                    <Image
-                                        src={service.image.imageUrl}
-                                        alt={service.title}
-                                        fill
-                                        className="object-cover"
-                                        data-ai-hint={service.image.imageHint}
-                                        priority
-                                    />
-                                     <div className="absolute inset-0 bg-black/20" />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                <div className="flex flex-col items-center gap-4">
+                    <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border flex items-center justify-center">
+                         <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <motion.path d="M7 8L3 12L7 16" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, repeat: Infinity, repeatType: "loop", repeatDelay: 2 }} />
+                            <motion.path d="M17 8L21 12L17 16" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, repeat: Infinity, repeatType: "loop", repeatDelay: 2 }} />
+                            <motion.path d="M14 4L10 20" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop", repeatDelay: 1.5 }}/>
+                        </svg>
                     </div>
-                    <h3 className="text-lg font-semibold">{service.title}</h3>
+                    <h3 className="text-lg font-semibold">Web Development</h3>
                 </div>
-            ))}
+                 <div className="flex flex-col items-center gap-4">
+                    <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border flex items-center justify-center">
+                         <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <motion.path d="M12 20V14" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ y: -5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }} />
+                            <motion.path d="M12 10V4" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ y: 5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}/>
+                            <motion.path d="M20 12H14" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ x: -5, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}/>
+                            <motion.path d="M10 12H4" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ x: 5, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}/>
+                            <circle cx="12" cy="12" r="3" stroke="hsl(var(--primary))" strokeWidth="1.5"/>
+                        </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold">Lead Generation</h3>
+                </div>
+                 <div className="flex flex-col items-center gap-4">
+                    <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border flex items-center justify-center">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <motion.path d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 2, repeat: Infinity, ease: "linear" }}/>
+                            <motion.path d="M16 8L8 16" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.5, duration: 0.5, repeat: Infinity, repeatType: "mirror" }} />
+                            <motion.path d="M8 8L16 16" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.5, duration: 0.5, repeat: Infinity, repeatType: "mirror" }} />
+                        </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold">Marketing</h3>
+                </div>
             </div>
         </div>
       </section>
