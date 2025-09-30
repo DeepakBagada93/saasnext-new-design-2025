@@ -137,7 +137,7 @@ export const portfolioItems = [
       image: getImage('portfolio2'),
       service: 'AI Solutions',
       niche: 'AI',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://styleonart1.vercel.app/'
     },
     {
       id: 'proj-3',
@@ -148,7 +148,7 @@ export const portfolioItems = [
       image: getImage('portfolio3'),
       service: 'Lead Generation',
       niche: 'Corporate',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://saasnext-medical.vercel.app/'
     },
     {
       id: 'proj-4',
@@ -159,7 +159,7 @@ export const portfolioItems = [
       image: getImage('portfolio4'),
       service: 'Web Development',
       niche: 'Corporate',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://resort-pied.vercel.app/'
     },
     {
       id: 'proj-5',
@@ -170,7 +170,7 @@ export const portfolioItems = [
       image: getImage('portfolio5'),
       service: 'Web Development',
       niche: 'E-commerce',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://styleonart.vercel.app/'
     },
     {
       id: 'proj-6',
@@ -181,7 +181,7 @@ export const portfolioItems = [
       image: getImage('portfolio6'),
       service: 'Logo & Branding',
       niche: 'Branding',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://educ-kappa.vercel.app/'
     },
     {
       id: 'proj-7',
@@ -192,7 +192,7 @@ export const portfolioItems = [
       image: getImage('portfolio8'),
       service: 'Performance Marketing',
       niche: 'Social Media',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://fintech-three-sigma.vercel.app/'
     },
     {
       id: 'proj-8',
@@ -203,7 +203,7 @@ export const portfolioItems = [
       image: getImage('portfolio7'),
       service: 'Logo & Branding',
       niche: 'Branding',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://folio-three-chi.vercel.app/'
     },
     {
       id: 'proj-9',
@@ -214,7 +214,7 @@ export const portfolioItems = [
       image: getImage('portfolio9'),
       service: 'Performance Marketing',
       niche: 'Social Media',
-      url: 'https://www.deepakbagada.in/'
+      url: 'https://construction-flax.vercel.app/'
     }
   ];
 
