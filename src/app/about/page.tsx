@@ -1,10 +1,11 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { ArrowRight, Handshake, Target, CheckCircle } from "lucide-react";
+import { ArrowRight, Handshake, Target, CheckCircle, Search, Drafting, Code, Rocket } from "lucide-react";
 import { AnimatedHeadline } from "@/components/animated-headline";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 
 const coreValues = [
@@ -40,10 +41,53 @@ const whyChooseUsItems = [
     }
 ];
 
+const teamMembers = [
+    {
+        name: "Deepak Bagada",
+        role: "Founder & Lead Developer",
+        image: { imageUrl: 'https://picsum.photos/seed/person1/400/400', imageHint: 'male founder' },
+        bio: "The visionary behind SaaSNext, with a passion for crafting elegant code and driving digital innovation in Junagadh."
+    },
+    {
+        name: "Pooja Sharma",
+        role: "Head of Design",
+        image: { imageUrl: 'https://picsum.photos/seed/person2/400/400', imageHint: 'female designer' },
+        bio: "The creative force who ensures every project is not only functional but also beautiful and user-friendly."
+    },
+    {
+        name: "Raj Patel",
+        role: "Marketing & SEO Strategist",
+        image: { imageUrl: 'https://picsum.photos/seed/person3/400/400', imageHint: 'male marketer' },
+        bio: "The growth hacker dedicated to putting our clients on the map and driving measurable results."
+    }
+];
+
+const processSteps = [
+    {
+      icon: <Search className="h-8 w-8 text-primary" />,
+      title: "Discovery & Strategy",
+      description: "We dive deep into your goals and market to build a data-driven strategy."
+    },
+    {
+      icon: <Drafting className="h-8 w-8 text-primary" />,
+      title: "Design & Prototyping",
+      description: "We create intuitive, user-centric designs and mockups for your approval."
+    },
+    {
+      icon: <Code className="h-8 w-8 text-primary" />,
+      title: "Development & QA",
+      description: "We build your project using modern tech, with rigorous testing for quality."
+    },
+    {
+      icon: <Rocket className="h-8 w-8 text-primary" />,
+      title: "Launch & Optimization",
+      description: "We deploy your project and monitor its performance for continuous improvement."
+    }
+  ];
+
 
 export default function AboutPage() {
-    const aboutHeroImage = { imageUrl: 'https://picsum.photos/seed/team1/800/600', imageHint: 'team photo' };
-    const missionImage = { imageUrl: 'https://picsum.photos/seed/team2/800/600', imageHint: 'team working' };
+    const aboutHeroImage = { imageUrl: 'https://picsum.photos/seed/about1/800/600', imageHint: 'team photo' };
 
   return (
     <div className="flex flex-col">
@@ -114,6 +158,46 @@ export default function AboutPage() {
                     Work With Us <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
                 </Button>
+            </div>
+        </section>
+
+        <section className="py-20 md:py-28">
+            <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+                <div className="text-center max-w-3xl mx-auto">
+                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Meet Our Junagadh Team</h2>
+                    <p className="mt-4 text-muted-foreground text-lg">We are a small, passionate, and dedicated team of experts ready to bring your vision to life.</p>
+                </div>
+                <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12">
+                    {teamMembers.map((member) => (
+                        <div key={member.name} className="text-center">
+                            <Avatar className="w-32 h-32 mx-auto ring-4 ring-primary/50">
+                                <AvatarImage src={member.image.imageUrl} alt={member.name} data-ai-hint={member.image.imageHint} />
+                                <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <h3 className="mt-6 font-headline text-2xl font-bold">{member.name}</h3>
+                            <p className="text-primary font-semibold">{member.role}</p>
+                            <p className="mt-2 text-muted-foreground">{member.bio}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+        
+        <section className="py-20 md:py-28 bg-card">
+            <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div className="text-center max-w-3xl mx-auto">
+                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Proven Process</h2>
+                    <p className="mt-4 text-muted-foreground text-lg">We follow a transparent, four-step process to ensure project success and keep you involved at every stage.</p>
+                </div>
+                <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {processSteps.map((step) => (
+                        <Card key={step.title} className="p-6 text-center">
+                            {step.icon}
+                            <h3 className="mt-4 font-headline text-xl font-bold">{step.title}</h3>
+                            <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
+                        </Card>
+                    ))}
+                </div>
             </div>
         </section>
     </div>
