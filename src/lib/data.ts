@@ -181,7 +181,7 @@ export const portfolioItems = [
       problem: 'A new wellness brand needed a strong, memorable brand identity to stand out in a crowded market.',
       solution: 'We developed a complete brand package, including a modern logo, color palette, and comprehensive style guide.',
       results: 'Successfully launched with a professional brand that resonated with their target audience and attracted initial investors.',
-      image: { imageUrl: '/brand/1.webp', imageHint: 'branding design' },
+      image: { imageUrl: '/brand/logo4.png', imageHint: 'branding design' },
       service: 'Logo & Branding',
       niche: 'Branding',
       url: '#'
@@ -203,7 +203,7 @@ export const portfolioItems = [
       problem: 'An established real estate agency felt their brand was outdated and not appealing to luxury clients.',
       solution: 'We conducted a full rebrand, including a new sophisticated logo, and high-end marketing materials.',
       results: 'The agency successfully repositioned itself in the luxury market, attracting higher-value listings.',
-      image: { imageUrl: '/brand/2.webp', imageHint: 'real estate branding' },
+      image: { imageUrl: '/brand/logo22.png', imageHint: 'real estate branding' },
       service: 'Logo & Branding',
       niche: 'Branding',
       url: '#'
