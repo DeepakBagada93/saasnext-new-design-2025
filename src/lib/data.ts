@@ -194,7 +194,7 @@ export const portfolioItems = [
       results: 'Increased Instagram followers by 300% in two months and saw a 25% rise in weekday foot traffic.',
       image: getImage('portfolio8'),
       service: 'Web Development',
-      niche: 'Social Media',
+      niche: 'Web Development',
       url: 'https://fintech-three-sigma.vercel.app/'
     },
     {
@@ -216,7 +216,7 @@ export const portfolioItems = [
       results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
       image: getImage('portfolio9'),
       service: 'Web Development',
-      niche: 'Social Media',
+      niche: 'Web Development',
       url: 'https://construction-flax.vercel.app/'
     },
      {
@@ -240,6 +240,17 @@ export const portfolioItems = [
       service: 'Logo & Branding',
       niche: 'Branding',
       url: '#'
+    },
+    {
+      id: 'proj-12',
+      title: 'Ad Creatives for Fashion Brand',
+      problem: 'An online fashion brand needed compelling ad creatives for their new collection launch.',
+      solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
+      results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
+      image: getImage('portfolio12'),
+      service: 'Web Development',
+      niche: 'Social Media',
+      url: ''
     },
    
   ];
