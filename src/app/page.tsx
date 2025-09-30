@@ -7,7 +7,7 @@ import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Co
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { portfolioItems, faqs, services, techStack, testimonials } from "@/lib/data";
+import { portfolioItems, faqs, services, techStack } from "@/lib/data";
 import Image from "next/image";
 import {
   Accordion,
@@ -407,36 +407,6 @@ export default function Home() {
             </div>
         </div>
       </section>
-
-      <section id="testimonials" className="py-20 md:py-28 bg-card">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">What Our Clients Say</h2>
-            <p className="mt-4 text-muted-foreground text-lg">
-              We're proud of the relationships we've built and the results we've delivered.
-            </p>
-          </div>
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <Card key={testimonial.name} className="flex flex-col">
-                <CardContent className="p-6 flex-grow">
-                  <p className="text-muted-foreground">"{testimonial.quote}"</p>
-                </CardContent>
-                <CardFooter className="p-6 bg-muted/50 flex items-center gap-4">
-                  <Avatar>
-                    <AvatarImage src={testimonial.image.imageUrl} alt={testimonial.name} />
-                    <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                  </div>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
       
       <section id="faq" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
@@ -483,3 +453,6 @@ export default function Home() {
     
 
 
+
+
+    
