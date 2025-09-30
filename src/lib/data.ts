@@ -123,7 +123,10 @@ export const portfolioItems = [
       problem: 'Innovate Ltd. needed a scalable e-commerce solution to handle their growing product line and customer base.',
       solution: 'We built a custom web application using Next.js and integrated a headless CMS for easy content management.',
       results: 'Achieved a 50% increase in online sales and a 30% improvement in page load times.',
-      image: getImage('portfolio1'),
+      image: {
+        imageUrl: "/saasnextecom1.webp",
+        imageHint: "e-commerce screenshot"
+      },
       service: 'Web Development',
       niche: 'E-commerce',
       url: 'https://saasnext-ecom.vercel.app/'
@@ -174,14 +177,14 @@ export const portfolioItems = [
     },
     {
       id: 'proj-6',
-      title: 'Brand Identity for a Startup',
-      problem: 'A new tech startup needed a strong, memorable brand identity to stand out in a crowded market.',
+      title: 'Brand Identity for Aura',
+      problem: 'A new wellness brand needed a strong, memorable brand identity to stand out in a crowded market.',
       solution: 'We developed a complete brand package, including a modern logo, color palette, and comprehensive style guide.',
       results: 'Successfully launched with a professional brand that resonated with their target audience and attracted initial investors.',
-      image: getImage('portfolio6'),
+      image: { imageUrl: '/brand/1.webp', imageHint: 'branding design' },
       service: 'Logo & Branding',
       niche: 'Branding',
-      url: 'https://educ-kappa.vercel.app/'
+      url: '#'
     },
     {
       id: 'proj-7',
@@ -190,7 +193,7 @@ export const portfolioItems = [
       solution: 'We designed and executed a visually striking social media campaign with engaging posts and targeted ads.',
       results: 'Increased Instagram followers by 300% in two months and saw a 25% rise in weekday foot traffic.',
       image: getImage('portfolio8'),
-      service: 'Performance Marketing',
+      service: 'Web Development',
       niche: 'Social Media',
       url: 'https://fintech-three-sigma.vercel.app/'
     },
@@ -200,10 +203,10 @@ export const portfolioItems = [
       problem: 'An established real estate agency felt their brand was outdated and not appealing to luxury clients.',
       solution: 'We conducted a full rebrand, including a new sophisticated logo, and high-end marketing materials.',
       results: 'The agency successfully repositioned itself in the luxury market, attracting higher-value listings.',
-      image: getImage('portfolio7'),
+      image: { imageUrl: '/brand/2.webp', imageHint: 'real estate branding' },
       service: 'Logo & Branding',
       niche: 'Branding',
-      url: 'https://folio-three-chi.vercel.app/'
+      url: '#'
     },
     {
       id: 'proj-9',
@@ -212,9 +215,31 @@ export const portfolioItems = [
       solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
       results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
       image: getImage('portfolio9'),
-      service: 'Performance Marketing',
+      service: 'Web Development',
       niche: 'Social Media',
       url: 'https://construction-flax.vercel.app/'
+    },
+     {
+      id: 'proj-10',
+      title: 'Modern Logo for Nexus',
+      problem: 'A tech startup required a logo that was both modern and scalable for various digital platforms.',
+      solution: 'We designed a clean, geometric logo that reflects their innovative approach to technology.',
+      results: 'The new logo provided a strong foundation for their brand identity as they secured their first round of funding.',
+      image: { imageUrl: '/brand/3.webp', imageHint: 'tech logo' },
+      service: 'Logo & Branding',
+      niche: 'Branding',
+      url: '#'
+    },
+    {
+      id: 'proj-11',
+      title: 'Brand Identity for a Food Blogger',
+      problem: 'A food blogger wanted a fresh and vibrant brand identity to grow her online presence.',
+      solution: 'We created a playful logo and a warm color palette that reflects her personality and cooking style.',
+      results: 'The new branding helped her double her social media following and secure a book deal.',
+      image: { imageUrl: '/brand/4.webp', imageHint: 'food blog branding' },
+      service: 'Logo & Branding',
+      niche: 'Branding',
+      url: '#'
     }
   ];
 
@@ -248,4 +273,5 @@ export const faqs = [
   ];
 
     
+
 

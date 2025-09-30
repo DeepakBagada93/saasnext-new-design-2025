@@ -41,17 +41,17 @@ export default function PortfolioPage() {
             <h2 className="font-headline text-3xl md:text-4xl font-bold">Logo & Brand Identity</h2>
             <p className="mt-2 text-muted-foreground text-lg">Crafting memorable brands that stand out from the competition.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {brandingItems.map(item => (
-                 <Card key={item.id} className="overflow-hidden group">
+                 <Card key={item.id} className="overflow-hidden group lg:col-span-2">
                     <Link href={`/portfolio/${item.id}`}>
                         <CardContent className="p-0">
-                            <div className="aspect-[4/3] w-full bg-muted overflow-hidden">
+                            <div className="aspect-[16/9] w-full bg-muted overflow-hidden">
                                 <Image
                                     src={item.image.imageUrl}
                                     alt={item.title}
                                     data-ai-hint={item.image.imageHint}
-                                    width={600}
+                                    width={800}
                                     height={450}
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
