@@ -21,7 +21,7 @@ import { BentoCard, BentoGrid } from "@/components/ui/bento-card";
 import { PortfolioGallery } from "@/components/portfolio-gallery";
 import { ScrollSection } from "@/components/scroll-section";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Carousel,
@@ -119,8 +119,33 @@ const processSteps = [
 
 const allTech = [...techStack.frontend, ...techStack.backend, ...techStack.aiAndDeployment];
 
+const animatedHeroServices = [
+  {
+    title: 'Web Development',
+    image: services.find(s => s.slug === 'web-development')?.image,
+  },
+  {
+    title: 'Lead Generation',
+    image: services.find(s => s.slug === 'seo')?.image,
+  },
+  {
+    title: 'Marketing',
+    image: services.find(s => s.slug === 'performance-marketing')?.image,
+  },
+];
+
 
 export default function Home() {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % animatedHeroServices.length);
+        }, 3000); // Change image every 3 seconds
+
+        return () => clearInterval(interval);
+    }, []);
+
 
   return (
     <div className="flex flex-col">
@@ -149,76 +174,35 @@ export default function Home() {
             </Button>
           </div>
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto animate-fade-in-up animation-delay-600">
-            <div className="flex flex-col items-center gap-2">
-              <motion.svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-primary"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.5, ease: "easeInOut" }}
-              >
-                <path d="m18 16 4-4-4-4" />
-                <path d="m6 8-4 4 4 4" />
-                <path d="m14.5 4-5 16" />
-              </motion.svg>
-              <h3 className="text-lg font-semibold">Web Development</h3>
+            {animatedHeroServices.map((service, index) => (
+                <div key={service.title} className="flex flex-col items-center gap-4">
+                    <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border">
+                         <AnimatePresence>
+                            {index === currentImageIndex && service.image && (
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.8 }}
+                                    className="absolute inset-0"
+                                >
+                                    <Image
+                                        src={service.image.imageUrl}
+                                        alt={service.title}
+                                        fill
+                                        className="object-cover"
+                                        data-ai-hint={service.image.imageHint}
+                                        priority
+                                    />
+                                     <div className="absolute inset-0 bg-black/20" />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                    <h3 className="text-lg font-semibold">{service.title}</h3>
+                </div>
+            ))}
             </div>
-            <div className="flex flex-col items-center gap-2">
-              <motion.svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-primary"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.8, ease: "easeInOut" }}
-              >
-                <path d="M12 12c-2 0-5.5 1-5.5 3.5v2" />
-                <path d="M12 12c2 0 5.5 1 5.5 3.5v2" />
-                <circle cx="12" cy="7" r="3" />
-                <path d="m7.5 17.5 2-2" />
-                <path d="m14.5 15.5 2 2" />
-              </motion.svg>
-              <h3 className="text-lg font-semibold">Lead Generation</h3>
-            </div>
-            <div className="flex flex-col items-center gap-2">
-              <motion.svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-primary"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1, delay: 1.1, ease: "easeInOut" }}
-              >
-                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                <path d="M2 8c0-2.2.7-4.3 2-6" />
-                <path d="M22 8c0-2.2-.7-4.3-2-6" />
-              </motion.svg>
-              <h3 className="text-lg font-semibold">Marketing</h3>
-            </div>
-          </div>
         </div>
       </section>
 
