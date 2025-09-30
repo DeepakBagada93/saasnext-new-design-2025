@@ -225,7 +225,7 @@ export const portfolioItems = [
       problem: 'A tech startup required a logo that was both modern and scalable for various digital platforms.',
       solution: 'We designed a clean, geometric logo that reflects their innovative approach to technology.',
       results: 'The new logo provided a strong foundation for their brand identity as they secured their first round of funding.',
-      image: { imageUrl: '/brand/logo 3.png', imageHint: 'tech logo' },
+      image: { imageUrl: '/brand/logo3.png', imageHint: 'tech logo' },
       service: 'Logo & Branding',
       niche: 'Branding',
       url: '#'
@@ -236,11 +236,12 @@ export const portfolioItems = [
       problem: 'A food blogger wanted a fresh and vibrant brand identity to grow her online presence.',
       solution: 'We created a playful logo and a warm color palette that reflects her personality and cooking style.',
       results: 'The new branding helped her double her social media following and secure a book deal.',
-      image: { imageUrl: '/brand/4.webp', imageHint: 'food blog branding' },
+      image: { imageUrl: '/brand/logo1.png', imageHint: 'food blog branding' },
       service: 'Logo & Branding',
       niche: 'Branding',
       url: '#'
-    }
+    },
+   
   ];
 
 export const teamMembers = [
@@ -273,6 +274,7 @@ export const faqs = [
   ];
 
     
+
 
 
 
