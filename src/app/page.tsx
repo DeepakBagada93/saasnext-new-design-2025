@@ -173,41 +173,6 @@ export default function Home() {
               <Link href="/services">Our Junagadh Services</Link>
             </Button>
           </div>
-            <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto animate-fade-in-up animation-delay-600">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border flex items-center justify-center">
-                        <svg width="80" height="80" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M64 128C99.3462 128 128 99.3462 128 64C128 28.6538 99.3462 0 64 0C28.6538 0 0 28.6538 0 64C0 99.3462 28.6538 128 64 128Z" fill="black"/>
-                            <path d="M101.996 48.3375L69.957 88.0833C67.587 91.0775 62.137 88.9458 62.137 84.9025V33.2208C62.137 31.4283 64.062 30.5 65.412 31.6258L101.996 61.2725C103.412 62.4642 103.412 44.5425 101.996 48.3375Z" fill="white"/>
-                            <path d="M62.1375 25.1667L28.3117 84.5833C26.5858 87.4167 31.0691 90.0208 34.1858 87.9875L94.9458 44.4042C97.1958 42.8792 98.0591 39.8192 96.6433 37.5692L89.6525 26.6542C88.2367 24.4042 85.2425 24.2442 83.6667 26.3792L65.4125 48.6542" fill="white"/>
-                        </svg>
-                    </div>
-                    <h3 className="text-lg font-semibold">Web Development</h3>
-                </div>
-                 <div className="flex flex-col items-center gap-4">
-                    <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border flex items-center justify-center">
-                         <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <motion.path d="M12 20V14" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ y: -5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }} />
-                            <motion.path d="M12 10V4" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ y: 5, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}/>
-                            <motion.path d="M20 12H14" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ x: -5, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}/>
-                            <motion.path d="M10 12H4" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" initial={{ x: 5, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}/>
-                            <circle cx="12" cy="12" r="3" stroke="hsl(var(--primary))" strokeWidth="1.5"/>
-                        </svg>
-                    </div>
-                    <h3 className="text-lg font-semibold">Lead Generation</h3>
-                </div>
-                 <div className="flex flex-col items-center gap-4">
-                    <div className="relative h-40 w-full rounded-lg overflow-hidden bg-card border flex items-center justify-center">
-                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <motion.rect x="4" y="12" width="4" height="8" rx="1" fill="hsl(var(--primary))" initial={{ height: 4, y: 16 }} animate={{ height: [8, 12, 8], y: [12, 8, 12] }} transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }} />
-                            <motion.rect x="10" y="8" width="4" height="12" rx="1" fill="hsl(var(--primary))" initial={{ height: 12, y: 8 }} animate={{ height: [12, 6, 12], y: [8, 14, 8] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }} />
-                            <motion.rect x="16" y="4" width="4" height="16" rx="1" fill="hsl(var(--primary))" initial={{ height: 8, y: 12 }} animate={{ height: [16, 8, 16], y: [4, 12, 4] }} transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.6 }} />
-                            <motion.path d="M4 20H20" stroke="hsl(var(--foreground))" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                    <h3 className="text-lg font-semibold">Marketing</h3>
-                </div>
-            </div>
         </div>
       </section>
 
@@ -504,3 +469,4 @@ export default function Home() {
     
 
     
+
