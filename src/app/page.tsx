@@ -255,7 +255,7 @@ export default function Home() {
                 >
                 <CarouselContent>
                     {allTech.map((tech, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <CarouselItem key={index} className="basis-full sm:basis-1/2 lg:basis-1/3">
                         <div className="p-1">
                             <Card className="h-full">
                                 <CardHeader>
@@ -269,8 +269,8 @@ export default function Home() {
                     </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                <CarouselPrevious className="hidden sm:inline-flex" />
+                <CarouselNext className="hidden sm:inline-flex" />
             </Carousel>
         </div>
       </section>
