@@ -81,30 +81,34 @@ export const services = [
 ];
 
 export const techStack = {
-    frontend: [
-        { name: "Next.js", description: "For performant, server-rendered React applications."},
-        { name: "React", description: "To build dynamic and interactive user interfaces." },
-        { name: "TypeScript", description: "For robust, scalable, and maintainable code." },
-        { name: "Tailwind CSS", description: "For rapid, utility-first styling and design." },
-        { name: "Framer Motion", description: "For creating beautiful and complex animations." },
-        { name: "Shadcn UI", description: "For a set of accessible and composable components." },
-    ],
-    backend: [
-        { name: "Node.js", description: "For building fast and scalable server-side applications." },
-        { name: "Firebase", description: "For backend services like auth, database, and storage." },
-        { name: "Firestore", description: "A flexible, scalable NoSQL cloud database." },
-        { name: "Server Actions", description: "For seamless data mutations from the client." },
-        { name: "REST APIs", description: "Designing and consuming RESTful services." },
-        { name: "GraphQL", description: "For more efficient and flexible data fetching." },
-    ],
-    aiAndDeployment: [
-        { name: "Genkit", description: "For integrating powerful generative AI features." },
-        { name: "Google AI", description: "Leveraging state-of-the-art models like Gemini." },
-        { name: "Vercel", description: "For optimized hosting and serverless functions." },
-        { name: "Docker", description: "For containerizing applications for consistency." },
-        { name: "CI/CD", description: "Automating build, test, and deployment pipelines." },
-        { name: "GitHub", description: "For version control and collaborative development." },
-    ]
+  frontend: [
+    { name: "HTML5 & CSS3", description: "Core building blocks for structuring and styling modern web applications." },
+    { name: "JavaScript (ES6+)", description: "For dynamic, interactive, and responsive UI development." },
+    { name: "React", description: "For building reusable and dynamic user interfaces." },
+    { name: "Vue.js", description: "A progressive framework for creating flexible frontends." },
+    { name: "Tailwind CSS", description: "Utility-first CSS framework for responsive and modern styling." },
+    { name: "Framer Motion", description: "For smooth and interactive frontend animations." },
+],
+
+backend: [
+    { name: "Django", description: "A high-level Python web framework for scalable and secure backends." },
+    { name: "Node.js", description: "Event-driven JavaScript runtime for fast server-side apps." },
+    { name: "Express.js", description: "Minimal and flexible Node.js framework for APIs and backends." },
+    { name: "PostgreSQL", description: "A powerful open-source relational database system." },
+    { name: "MongoDB", description: "A NoSQL database for flexible and scalable data storage." },
+    { name: "n8n", description: "Workflow automation tool to connect APIs and services seamlessly." },
+],
+
+aiAndDeployment: [
+    { name: "LangChain", description: "For building AI-driven applications with LLM orchestration." },
+    { name: "OpenAI API", description: "For integrating GPT-based natural language capabilities." },
+    { name: "TensorFlow", description: "An open-source library for machine learning and deep learning." },
+    { name: "Docker", description: "For containerization and portable deployments." },
+    { name: "Kubernetes", description: "For orchestration of containers at scale." },
+    { name: "CI/CD Pipelines", description: "Automating integration, testing, and deployment workflows." },
+    { name: "Vercel", description: "Optimized hosting and serverless deployment for frontend apps." }
+]
+
   };
 
 export const testimonials = [
