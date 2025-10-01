@@ -160,7 +160,7 @@ export default function Home() {
                         You've been burned by slow timelines, unmet promises, and a lack of tangible results. We're different. We're a performance-focused partner in Junagadh, dedicated to your growth.
                     </p>
                     <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
-                        <Image src="/saasnext-team.jpg" alt="SaaSNext Team" data-ai-hint="team working" fill className="object-cover"/>
+                        <Image src="/saasnext-marketing-leadgeneration.png" alt="SaaSNext Team" data-ai-hint="team working" fill className="object-cover"/>
                     </div>
                 </div>
 
