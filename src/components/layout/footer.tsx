@@ -9,7 +9,6 @@ const navLinks = [
     { href: "/services", label: "What We Do" },
     { href: "/portfolio", label: "Portfolio" },
     { href: "/contact", label: "Connect" },
-    { href: "/insights", label: "Insights" },
 ];
 
 export default function Footer() {
@@ -41,7 +40,7 @@ export default function Footer() {
                 <div>
                     <h4 className="font-headline font-semibold mb-2">Resources</h4>
                     <ul className="space-y-2">
-                        {navLinks.slice(3, 5).map(link => (
+                        {navLinks.slice(3, 4).map(link => (
                             <li key={link.href}><Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">{link.label}</Link></li>
                         ))}
                     </ul>
