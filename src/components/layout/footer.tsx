@@ -23,7 +23,7 @@ export default function Footer() {
                 </p>
                 <div className="flex space-x-2">
                     <Button variant="ghost" size="icon" asChild><Link href="#"><Instagram className="h-4 w-4" /></Link></Button>
-                    <Button variant="ghost" size="icon" asChild><Link href="#"><Facebook className="h-4 w-4" /></Link></Button>
+                    <Button variant="ghost" size="icon" asChild><Link href="https://www.facebook.com/profile.php?id=100095196226560"><Facebook className="h-4 w-4" /></Link></Button>
                     <Button variant="ghost" size="icon" asChild><Link href="#"><Twitter className="h-4 w-4" /></Link></Button>
                     <Button variant="ghost" size="icon" asChild><Link href="#"><Linkedin className="h-4 w-4" /></Link></Button>
                 </div>
