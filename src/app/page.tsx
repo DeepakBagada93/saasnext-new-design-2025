@@ -160,7 +160,7 @@ export default function Home() {
                         You've been burned by slow timelines, unmet promises, and a lack of tangible results. We're different. We're a performance-focused partner in Junagadh, dedicated to your growth.
                     </p>
                     <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
-                        <Image src="/saasnext-marketing-leadgeneration.png" alt="SaaSNext Team" data-ai-hint="team working" fill className="object-cover"/>
+                        <Image src="/saasnext-team.jpg" alt="SaaSNext Team" data-ai-hint="team working" fill className="object-cover"/>
                     </div>
                 </div>
 
@@ -246,43 +246,32 @@ export default function Home() {
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
             <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
           </div>
-          <Tabs defaultValue="frontend" className="mt-12">
-            <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
-                <TabsTrigger value="frontend">Frontend</TabsTrigger>
-                <TabsTrigger value="backend">Backend</TabsTrigger>
-                <TabsTrigger value="ai-and-deployment">AI & Deployment</TabsTrigger>
-            </TabsList>
-            <TabsContent value="frontend" className="mt-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {techStack.frontend.map((tech) => (
-                        <Card key={tech.name} className="p-6">
-                            <CardTitle className="text-xl font-headline">{tech.name}</CardTitle>
-                            <CardDescription className="mt-2">{tech.description}</CardDescription>
-                        </Card>
+            <Carousel
+                opts={{
+                    align: "start",
+                    loop: true,
+                }}
+                className="w-full mt-12"
+                >
+                <CarouselContent>
+                    {allTech.map((tech, index) => (
+                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                        <div className="p-1">
+                            <Card className="h-full">
+                                <CardHeader>
+                                    <CardTitle className="font-headline text-xl">{tech.name}</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <p className="text-muted-foreground">{tech.description}</p>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </CarouselItem>
                     ))}
-                </div>
-            </TabsContent>
-            <TabsContent value="backend" className="mt-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {techStack.backend.map((tech) => (
-                        <Card key={tech.name} className="p-6">
-                            <CardTitle className="text-xl font-headline">{tech.name}</CardTitle>
-                            <CardDescription className="mt-2">{tech.description}</CardDescription>
-                        </Card>
-                    ))}
-                </div>
-            </TabsContent>
-            <TabsContent value="ai-and-deployment" className="mt-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {techStack.aiAndDeployment.map((tech) => (
-                        <Card key={tech.name} className="p-6">
-                            <CardTitle className="text-xl font-headline">{tech.name}</CardTitle>
-                            <CardDescription className="mt-2">{tech.description}</CardDescription>
-                        </Card>
-                    ))}
-                </div>
-            </TabsContent>
-          </Tabs>
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
         </div>
       </section>
 
@@ -423,5 +412,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
