@@ -275,6 +275,72 @@ export const portfolioItems = [
       niche: 'Social Media',
       url: '#'
     },
+    {
+      id: 'proj-13',
+      title: 'Ad Creatives for Fashion Brand',
+      problem: 'An online fashion brand needed compelling ad creatives for their new collection launch.',
+      solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
+      results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
+      image: { imageUrl: "/social/p1.png", imageHint: "ad creative" },
+      service: 'Web Development',
+      niche: 'Social Media',
+      url: '#'
+    },
+    {
+      id: 'proj-14',
+      title: 'Ad Creatives for Fashion Brand',
+      problem: 'An online fashion brand needed compelling ad creatives for their new collection launch.',
+      solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
+      results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
+      image: { imageUrl: "/social/p2.png", imageHint: "ad creative" },
+      service: 'Web Development',
+      niche: 'Social Media',
+      url: '#'
+    },
+    {
+      id: 'proj-15',
+      title: 'Ad Creatives for Fashion Brand',
+      problem: 'An online fashion brand needed compelling ad creatives for their new collection launch.',
+      solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
+      results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
+      image: { imageUrl: "/social/p3.png", imageHint: "ad creative" },
+      service: 'Web Development',
+      niche: 'Social Media',
+      url: '#'
+    },
+    {
+      id: 'proj-16',
+      title: 'Ad Creatives for Fashion Brand',
+      problem: 'An online fashion brand needed compelling ad creatives for their new collection launch.',
+      solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
+      results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
+      image: { imageUrl: "/social/p4.png", imageHint: "ad creative" },
+      service: 'Web Development',
+      niche: 'Social Media',
+      url: '#'
+    },
+    {
+      id: 'proj-17',
+      title: 'Ad Creatives for Fashion Brand',
+      problem: 'An online fashion brand needed compelling ad creatives for their new collection launch.',
+      solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
+      results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
+      image: { imageUrl: "/social/p5.png", imageHint: "ad creative" },
+      service: 'Web Development',
+      niche: 'Social Media',
+      url: '#'
+    },
+    {
+      id: 'proj-18',
+      title: 'Ad Creatives for Fashion Brand',
+      problem: 'An online fashion brand needed compelling ad creatives for their new collection launch.',
+      solution: 'We produced a series of dynamic and stylish ad graphics and short videos for Facebook and Instagram.',
+      results: 'The ad campaign achieved a 4x return on ad spend (ROAS) and sold out the new collection.',
+      image: { imageUrl: "/social/p6.png", imageHint: "ad creative" },
+      service: 'Web Development',
+      niche: 'Social Media',
+      url: '#'
+    },
    
   ];
 
