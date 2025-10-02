@@ -41,7 +41,7 @@ export default function ServicesPage() {
                     className="font-headline text-4xl md:text-6xl font-bold tracking-tighter"
                 />
                 <p className="mt-6 text-lg md:text-xl text-muted-foreground">
-                    We offer a comprehensive suite of digital services in Junagadh, designed to elevate your brand and accelerate your growth in the local market.
+                    We offer a comprehensive suite of digital services in Junagadh, including web development, SEO, and lead generation services, designed to elevate your brand and accelerate your growth in the local market.
                 </p>
             </section>
 

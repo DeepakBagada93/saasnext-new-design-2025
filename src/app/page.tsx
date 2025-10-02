@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import Link from "next/link";
@@ -35,7 +34,7 @@ const whyChooseUsItems = [
   {
     icon: <Award className="h-10 w-10 text-primary" />,
     title: "Results-Driven",
-    description: "We're not just about pretty designs. We're a business-focused agency in Junagadh that delivers measurable results and a tangible ROI for our clients."
+    description: "We're not just about pretty designs. We're a business-focused digital marketing company in Junagadh that delivers measurable results and a tangible ROI for our clients."
   },
   {
     icon: <Users className="h-10 w-10 text-primary" />,
@@ -45,7 +44,7 @@ const whyChooseUsItems = [
   {
     icon: <Zap className="h-10 w-10 text-primary" />,
     title: "Agile & Efficient",
-    description: "Our agile process means we move fast, iterate quickly, and get your project to market faster without sacrificing quality."
+    description: "Our agile process means we move fast, iterate quickly, and get your project to market faster without sacrificing the quality of our website development services in Junagadh."
   }
 ];
 
@@ -72,7 +71,7 @@ const processSteps = [
     {
       step: "03",
       title: "Development & QA",
-      description: "Using the latest technologies, we build a high-performance, scalable website. Throughout the process, we conduct rigorous quality assurance testing to ensure everything is bug-free and pixel-perfect."
+      description: "As a premier web design company in Junagadh, we use the latest technologies to build a high-performance, scalable website. We conduct rigorous QA testing to ensure everything is bug-free and pixel-perfect."
     },
     {
       step: "04",
@@ -95,7 +94,7 @@ const processSteps = [
     {
       icon: <Scale className="h-8 w-8 text-primary" />,
       title: "SMEs & Enterprises",
-      description: "You require a robust, scalable, and secure digital platform. We have the expertise to handle complex requirements, integrate with existing systems, and deliver enterprise-grade solutions that drive efficiency and growth."
+      description: "You require a robust, scalable, and secure digital platform. We offer custom website development in Junagadh to handle complex requirements and deliver enterprise-grade solutions."
     }
   ];
   
@@ -108,12 +107,12 @@ const processSteps = [
     {
         icon: <BadgeCheck className="h-8 w-8 text-primary" />,
         title: "Build Trust & Credibility",
-        description: "A professional website and strong online presence build trust and make you the go-to choice in the local community."
+        description: "A professional website from a trusted web design company in Junagadh builds trust and makes you the go-to choice in the local community."
     },
     {
         icon: <BarChart className="h-8 w-8 text-primary" />,
         title: "Stay Ahead of Competition",
-        description: "Many local competitors have a weak online game. A strong digital strategy puts you miles ahead from day one."
+        description: "Many local competitors have a weak online game. A strong digital strategy for your small business in Junagadh puts you miles ahead."
     }
   ]
 
@@ -131,17 +130,17 @@ export default function Home() {
         <div className="relative z-10 px-4 sm:px-6 lg:px-8">
            <AnimatedHeadline
               words={['Customers', 'Revenue', 'Momentum']}
-              prefix={<>Stop <span className="text-foreground">Losing</span></>}
+              prefix={<>The Top <span className="text-foreground">Web Design Company</span> in</>}
               suffix={<>. Start <span className="text-green-500">Winning</span>.</>}
               className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter animate-fade-in-up"
             />
           <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground animate-fade-in-up animation-delay-200">
-            Is your website failing to attract local customers in Junagadh? We build high-performance web experiences that turn visitors into loyal customers.
+            Is your website failing to attract local customers in Junagadh? As the best digital marketing agency in Junagadh, we build high-performance web experiences that turn visitors into loyal customers.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 animate-fade-in-up animation-delay-400">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto shadow-lg shadow-primary/20">
               <Link href="/contact">
-                Grow My Junagadh Business <ArrowRight className="ml-2 h-5 w-5" />
+                Get Your Free Quote <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
@@ -157,10 +156,10 @@ export default function Home() {
                 <div className="space-y-6">
                     <h2 className="font-headline text-4xl md:text-5xl font-bold">The Top Web Design Agency in Junagadh</h2>
                     <p className="text-lg text-muted-foreground">
-                        You've been burned by slow timelines, unmet promises, and a lack of tangible results. We're different. We're a performance-focused partner in Junagadh, dedicated to your growth.
+                        You've been burned by slow timelines and unmet promises. We're different. We're a performance-focused digital marketing agency in Junagadh, dedicated to your growth and providing powerful online lead generation solutions.
                     </p>
                     <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
-                        <Image src="/saasnext-marketing-leadgeneration.png" alt="SaaSNext Team" data-ai-hint="team working" fill className="object-cover"/>
+                        <Image src="/saasnext-marketing-leadgeneration.png" alt="SaaSNext Team providing digital marketing for lead generation Junagadh" data-ai-hint="team working" fill className="object-cover"/>
                     </div>
                 </div>
 
@@ -183,7 +182,7 @@ export default function Home() {
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Core Services</h2>
-                <p className="mt-4 text-muted-foreground text-lg">We provide a complete suite of digital services to help your Junagadh business thrive online.</p>
+                <p className="mt-4 text-muted-foreground text-lg">We provide a complete suite of digital services including web development and SEO services in Junagadh to help your business thrive online.</p>
             </div>
             <BentoGrid className="mt-16">
               {services.slice(0,4).map((service, idx) => (
@@ -244,7 +243,7 @@ export default function Home() {
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
-            <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh.</p>
+            <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh. From a WordPress developer in Junagadh to complex custom apps, we have you covered.</p>
           </div>
             <Carousel
                 opts={{
@@ -282,7 +281,7 @@ export default function Home() {
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Work Showcase</h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              Explore some of the live websites we've built. This showcases our design, functionality, and the user experience we can deliver.
+              Explore some of the affordable web design Junagadh projects we've built. This showcases our design, functionality, and the user experience we can deliver.
             </p>
           </div>
           <div className="mt-16">
@@ -302,7 +301,7 @@ export default function Home() {
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Digital Solutions for Every Business in Junagadh</h2>
-                <p className="mt-4 text-muted-foreground text-lg">Whether you're a budding startup or an established local enterprise, our services are tailored to meet your unique business needs and goals.</p>
+                <p className="mt-4 text-muted-foreground text-lg">Whether you're a budding startup or an established local enterprise, our website development services in Junagadh are tailored to meet your unique business needs and goals.</p>
             </div>
             <div className="mt-16 grid md:grid-cols-3 gap-8">
                 {targetAudiences.map((audience) => (
@@ -339,7 +338,7 @@ export default function Home() {
             <div className="space-y-6">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Dominate Local Search with Junagadh SEO</h2>
                 <p className="text-lg text-muted-foreground">
-                    Being on the first page of Google isn't a luxury; it's a necessity. We specialize in local SEO strategies that put your Junagadh business in front of the customers who matter most.
+                    Being on the first page of Google isn't a luxury; it's a necessity. Our web development and SEO services in Junagadh put your business in front of the customers who matter most.
                 </p>
                 <ul className="space-y-4">
                     <li className="flex items-start">
@@ -367,7 +366,7 @@ export default function Home() {
             </div>
             <div className="relative h-96 w-full">
                 {services[1].image && (
-                    <Image src={services[1].image.imageUrl} alt="SEO analysis" data-ai-hint={services[1].image.imageHint} fill className="object-cover rounded-lg shadow-lg"/>
+                    <Image src={services[1].image.imageUrl} alt="SEO analysis for local Junagadh businesses" data-ai-hint={services[1].image.imageHint} fill className="object-cover rounded-lg shadow-lg"/>
                 )}
             </div>
         </div>
@@ -377,7 +376,7 @@ export default function Home() {
         <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
             <div className="text-center">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Frequently Asked Questions</h2>
-                <p className="mt-4 text-muted-foreground text-lg">Have questions? We've got answers. Here are some of the most common things we're asked.</p>
+                <p className="mt-4 text-muted-foreground text-lg">Have questions about our lead generation or SMM services in Junagadh? We've got answers.</p>
             </div>
             <Accordion type="single" collapsible className="w-full mt-12">
               {faqs.map((faq, index) => (
@@ -397,7 +396,7 @@ export default function Home() {
           <div className="bg-gradient-to-r from-primary to-orange-400 text-primary-foreground p-12 rounded-lg text-center max-w-5xl mx-auto shadow-2xl shadow-primary/20">
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Ready to Grow Your Business in Junagadh?</h2>
             <p className="mt-4 max-w-3xl mx-auto text-lg opacity-90">
-              Let's talk about how we can help you achieve your goals. Get a free, no-obligation strategy session with Junagadh's top web agency today.
+              Let's talk about how we can help you achieve your goals. Get a free, no-obligation strategy session with Junagadh's top lead generation agency today.
             </p>
             <div className="mt-8">
               <Button asChild size="lg" variant="secondary" className="bg-background text-foreground hover:bg-background/80 scale-105 hover:scale-110 transition-transform">
@@ -412,7 +411,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    

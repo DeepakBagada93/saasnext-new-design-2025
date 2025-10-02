@@ -8,8 +8,8 @@ import { ClientOnly } from '@/components/client-only';
 import { AuthProvider } from '@/components/auth-provider';
 
 export const metadata: Metadata = {
-  title: 'SaaSNext | Web Design & Digital Marketing in Junagadh',
-  description: 'Top web design, development, and SEO agency in Junagadh. We help local businesses grow with high-performance websites and marketing solutions.',
+  title: 'SaaSNext: Web Design Company & Digital Marketing in Junagadh',
+  description: 'Top web design company in Junagadh offering affordable and custom website development, ecommerce solutions, SEO, and SMM services. Grow your small business with the best digital marketing agency in Junagadh.',
   icons: {
     icon: '/icon.png',
     shortcut: '/icon.png',

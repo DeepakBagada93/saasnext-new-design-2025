@@ -3,41 +3,41 @@ export const services = [
   {
     icon: 'Code',
     title: 'Web Development',
-    description: 'Building responsive, high-performance websites and web applications tailored to your business needs.',
+    description: 'As a top web design company in Junagadh, we build responsive, high-performance websites tailored to your business needs, including ecommerce and WordPress solutions.',
     image: {
       imageUrl: "/saasnext-web-development.jpg",
       imageHint: "web design"
     },
     slug: 'web-development',
-    process: 'We follow an agile development process, from discovery and design to deployment and maintenance, ensuring a product that exceeds expectations.',
-    benefits: 'A professional online presence, improved user engagement, and a scalable platform for growth.',
-    results: 'Increased traffic, higher conversion rates, and a stronger brand identity.'
+    process: 'We follow an agile development process, from discovery and design to deployment and maintenance, ensuring a product that exceeds expectations for our clients seeking website development services in Junagadh.',
+    benefits: 'A professional online presence, improved user engagement, and a scalable platform for growth. Our affordable web design in Junagadh doesn\'t compromise on quality.',
+    results: 'Increased traffic, higher conversion rates, and a stronger brand identity with our custom website development in Junagadh.'
   },
   {
     icon: 'Search',
-    title: 'SEO',
-    description: 'Dominating search engine rankings to drive organic traffic and capture high-intent customers.',
+    title: 'SEO & Lead Generation',
+    description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
     image: {
       imageUrl: "https://images.unsplash.com/photo-1614091473310-072faa6a091c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb29nbGUlMjBzZWFyY2glMjBjb25zb2xlfGVufDB8fHx8MTc1OTE5OTQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
       imageHint: "SEO analysis"
     },
     slug: 'seo',
-    process: 'We perform in-depth keyword research, on-page optimization, technical SEO audits, and build high-quality backlinks to establish your authority.',
+    process: 'We perform in-depth keyword research, on-page optimization, and technical SEO audits to establish your authority. This is a core part of our digital marketing for lead generation in Junagadh.',
     benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
-    results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads.'
+    results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.'
   },
   {
     icon: 'Megaphone',
-    title: 'Performance Marketing',
-    description: 'A data-driven approach to paid advertising, focusing on maximizing your return on investment through PPC, and social media ads.',
+    title: 'Social Media Marketing',
+    description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through PPC, Facebook, and Instagram marketing services.',
     image: {
       imageUrl: "/saasnext-marketing.png",
       imageHint: "analytics dashboard"
     },
     slug: 'performance-marketing',
-    process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI.',
+    process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI with our SMM services in Junagadh.',
     benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
-    results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS).'
+    results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.'
   },
   {
     icon: 'Feather',
@@ -48,7 +48,7 @@ export const services = [
       imageHint: "content writing"
     },
     slug: 'content-writing',
-    process: 'We develop a content strategy, create a content calendar, and produce high-quality blog posts, articles, and website copy that speaks to your audience.',
+    process: 'We develop a content strategy aligned with your Junagadh web design and SMM goals, creating high-quality blog posts, articles, and website copy.',
     benefits: 'Improved SEO rankings, stronger brand voice, and valuable resources that attract and nurture leads.',
     results: 'Higher engagement rates, increased organic traffic, and a library of assets that supports sales and marketing efforts.'
   },
@@ -68,7 +68,7 @@ export const services = [
   {
     icon: 'BrainCircuit',
     title: 'AI Solutions',
-    description: 'Integrating artificial intelligence to automate processes, gain insights, and create intelligent products.',
+    description: 'Integrating artificial intelligence to automate processes, gain insights, and create intelligent products for our B2B lead generation company in Junagadh.',
     image: {
       imageUrl: "https://images.unsplash.com/photo-1694903110330-cc64b7e1d21d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc1ODc5NDU3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
       imageHint: "artificial intelligence"
@@ -82,12 +82,12 @@ export const services = [
 
 export const techStack = {
   frontend: [
-    { name: "HTML5 & CSS3", description: "Core building blocks for structuring and styling modern web applications." },
-    { name: "JavaScript (ES6+)", description: "For dynamic, interactive, and responsive UI development." },
-    { name: "React", description: "For building reusable and dynamic user interfaces." },
-    { name: "Vue.js", description: "A progressive framework for creating flexible frontends." },
-    { name: "Tailwind CSS", description: "Utility-first CSS framework for responsive and modern styling." },
-    { name: "Framer Motion", description: "For smooth and interactive frontend animations." },
+    { name: "Next.js", description: "The foundation for our performant, server-rendered React applications, crucial for SEO." },
+    { name: "React", description: "Building dynamic, interactive user interfaces for custom website development in Junagadh." },
+    { name: "TypeScript", description: "Ensuring robust, scalable, and maintainable code for all projects." },
+    { name: "Tailwind CSS", description: "Our go-to for rapid, utility-first styling, perfect for affordable web design in Junagadh." },
+    { name: "Framer Motion", description: "Creating beautiful and complex animations to enhance user experience." },
+    { name: "Shadcn UI", description: "A set of accessible and composable components for modern UIs." },
 ],
 
 backend: [
@@ -132,7 +132,7 @@ export const testimonials = [
     name: "Emily White",
     title: "COO, Future Solutions",
     image: {
-      imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHBlcnNvbnxlbnwwfHx8fDE3NTg3OTc5ODd8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHBlcnNvbnxlbnwwfHx8fDE3NTg3OTc5ODd8MA&ixlib=rb-4.1.0&q=80&w=1080",
       imageHint: "business person"
     },
   },
@@ -142,7 +142,7 @@ export const portfolioItems = [
     {
       id: 'proj-1',
       title: 'E-commerce Platform for Innovate Ltd.',
-      problem: 'Innovate Ltd. needed a scalable e-commerce solution to handle their growing product line and customer base.',
+      problem: 'Innovate Ltd. needed a scalable ecommerce website development in Junagadh to handle their growing product line and customer base.',
       solution: 'We built a custom web application using Next.js and integrated a headless CMS for easy content management.',
       results: 'Achieved a 50% increase in online sales and a 30% improvement in page load times.',
       image: {
@@ -353,22 +353,22 @@ export const teamMembers = [
 export const faqs = [
     {
       question: 'What types of businesses do you work with?',
-      answer: 'We work with a wide range of businesses, from early-stage startups to established enterprise companies. Our core expertise lies in helping technology, SaaS, and e-commerce businesses scale, but our strategies are adaptable to any industry.'
+      answer: 'We work with a wide range of businesses in Junagadh, from early-stage startups to established local companies. Our digital marketing for small business in Junagadh is particularly effective.'
     },
     {
       question: 'How much does a typical project cost?',
-      answer: "Project costs vary greatly depending on the scope and complexity. We provide custom quotes after an initial discovery call. For a rough estimate, a standard website redesign starts around $10,000, while ongoing marketing retainers begin at $2,500/month."
+      answer: "Project costs vary depending on the scope. We provide custom quotes after an initial discovery call. Our goal is to offer affordable web design in Junagadh that delivers a high return on investment."
     },
     {
       question: 'How long does a project usually take?',
-      answer: "A typical website project takes 8-12 weeks from kick-off to launch. Smaller projects can be faster, and more complex builds may take longer. We establish a clear timeline at the beginning of every project."
+      answer: "A typical website project takes 8-12 weeks from kick-off to launch. Smaller projects can be faster, and more complex ecommerce website development in Junagadh may take longer. We establish a clear timeline at the beginning of every project."
     },
     {
       question: "What's your process for working with new clients?",
-      answer: "Our process begins with a free discovery call to understand your goals. From there, we move to a detailed proposal, project kick-off, and then into our agile design and development sprints, with regular check-ins to ensure we're aligned every step of the way."
+      answer: "Our process begins with a free discovery call to understand your goals. From there, we move to a detailed proposal, project kick-off, and then into our agile design and development sprints, with regular check-ins."
     },
     {
       question: 'Do you offer ongoing support and maintenance?',
-      answer: "Yes, we offer a variety of ongoing support and maintenance packages to ensure your website or application remains secure, updated, and performing optimally post-launch. We can also provide retainers for ongoing feature development or marketing."
+      answer: "Yes, we offer a variety of ongoing support packages to ensure your website remains secure and updated. We also provide retainers for social media management in Junagadh and other ongoing marketing needs."
     }
   ];
