@@ -1,29 +1,40 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+  } from "@/components/ui/accordion"
 import { CheckCircle } from "lucide-react";
 
 const documentationSteps = [
     {
+        id: "item-1",
         title: "1. Accessing Your Dashboard",
         content: "After logging in, you'll land on your personal dashboard. This is your command center for all your projects and requests with SaaSNext. You'll get a quick overview of your active projects, pending service requests, and recent notifications.",
     },
     {
+        id: "item-2",
         title: "2. Managing Your Projects",
         content: "Navigate to the 'Projects' tab to see a detailed list of all your projects. You can click on any project to view its status, timeline, recent updates from our team, and access important files or links.",
     },
     {
+        id: "item-3",
         title: "3. Submitting Service Requests",
         content: "Need something new? Go to 'New Service Request' to submit your requirements. Fill in the details about the service you need, your budget, and any specific goals. Our team will review it and get back to you with a proposal.",
     },
     {
+        id: "item-4",
         title: "4. Viewing Invoices",
         content: "The 'Quotations' section contains all your billing information. You can view past and current invoices, check their status (Paid, Due, Overdue), and download PDF copies for your records.",
     },
     {
+        id: "item-5",
         title: "5. Scheduling a Meeting",
         content: "If you need to discuss something with our team, use the 'Schedule a Meeting' feature. You can propose a topic, preferred date, and time. We'll confirm the meeting and add it to our calendars.",
     },
      {
+        id: "item-6",
         title: "6. Updating Your Profile",
         content: "Keep your contact information up-to-date in the 'Profile' section. This ensures we can always reach you with important updates about your projects.",
     }
@@ -40,21 +51,21 @@ export default function DocumentationPage() {
       </section>
 
       <section className="mt-16 max-w-4xl mx-auto">
-        <div className="space-y-8">
+        <Accordion type="single" collapsible defaultValue="item-1" className="w-full space-y-4">
             {documentationSteps.map(step => (
-                <Card key={step.title}>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-3 font-headline text-2xl">
-                            <CheckCircle className="h-6 w-6 text-primary" />
-                            {step.title}
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
+                <AccordionItem key={step.id} value={step.id} className="border rounded-lg bg-card px-6">
+                    <AccordionTrigger className="text-left font-headline text-xl hover:no-underline">
+                       <span className="flex items-center gap-3">
+                         <CheckCircle className="h-6 w-6 text-primary shrink-0" />
+                         {step.title}
+                       </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-2 pb-4">
                         <p className="text-muted-foreground">{step.content}</p>
-                    </CardContent>
-                </Card>
+                    </AccordionContent>
+                </AccordionItem>
             ))}
-        </div>
+        </Accordion>
       </section>
     </div>
   );
