@@ -341,6 +341,28 @@ export const portfolioItems = [
       niche: 'Social Media',
       url: '#'
     },
+    {
+      id: 'proj-19',
+      title: 'MOdular Furniture Website- Pinnacle Modular Kitchen',
+      problem: 'A growing construction firm needed a strong online presence to showcase their projects and attract new clients.',
+      solution: 'We built a professional, responsive website highlighting their services, portfolio of completed projects, and easy contact options for inquiries.',
+      results: 'Improved brand credibility, generated steady client leads, and boosted local market visibility by 45% within six months.',
+      image: { imageUrl: "/pinnacle-website.jpg", imageHint: "construction website" },
+      service: 'Web Development',
+      niche: 'Furniture',
+      url: 'https://wooden-eta.vercel.app/'
+    },
+    {
+      id: 'proj-20',
+      title: 'Ecommerce Marketplace- Tooldocker',
+      problem: 'A growing construction firm needed a strong online presence to showcase their projects and attract new clients.',
+      solution: 'We built a professional, responsive website highlighting their services, portfolio of completed projects, and easy contact options for inquiries.',
+      results: 'Improved brand credibility, generated steady client leads, and boosted local market visibility by 45% within six months.',
+      image: { imageUrl: "/tooldocker-website.jpg", imageHint: "construction website" },
+      service: 'Web Development',
+      niche: 'E-commerce',
+      url: 'https://studio-taupe-delta.vercel.app/'
+    },
    
   ];
 
