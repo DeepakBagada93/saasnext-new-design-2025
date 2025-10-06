@@ -249,7 +249,7 @@ export default function Home() {
                     align: "start",
                     loop: true,
                 }}
-                className="w-full mt-12"
+                className="w-full max-w-xs sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto mt-12"
                 >
                 <CarouselContent>
                     {allTech.map((tech, index) => (
@@ -267,8 +267,8 @@ export default function Home() {
                     </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious className="hidden sm:inline-flex" />
-                <CarouselNext className="hidden sm:inline-flex" />
+                <CarouselPrevious className="-left-4 sm:-left-8 md:-left-12" />
+                <CarouselNext className="-right-4 sm:-right-8 md:-right-12" />
             </Carousel>
         </div>
       </section>
@@ -408,6 +408,25 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="pb-20 md:pb-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+                <div className="p-8 border rounded-lg bg-card space-y-4">
+                    <h3 className="font-headline text-2xl font-bold text-destructive">The Problem: Lost in the Digital Noise</h3>
+                    <p className="text-muted-foreground">
+                        Your business offers incredible value, but potential clients can't find you online. Competitors with weaker services but better SEO dominate the search results, leaving you invisible to customers actively looking for a web developer near me in Junagadh.
+                    </p>
+                </div>
+                 <div className="p-8 border rounded-lg bg-emerald-950 border-emerald-500/30 space-y-4">
+                    <h3 className="font-headline text-2xl font-bold text-emerald-400">The Solution: Strategic Digital Dominance</h3>
+                    <p className="text-muted-foreground">
+                        As a top digital marketing company in Junagadh, we implement a targeted strategy. Through expert web development and SEO services, we elevate your website's ranking, turning it into a powerful tool for online lead generation. We make sure you're seen.
+                    </p>
+                </div>
+            </div>
+        </div>
+      </section>
+
       <section id="cta" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <div className="bg-gradient-to-r from-primary to-orange-400 text-primary-foreground p-12 rounded-lg text-center max-w-5xl mx-auto shadow-2xl shadow-primary/20">
@@ -428,5 +447,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
