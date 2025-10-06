@@ -117,6 +117,69 @@ const processSteps = [
 
 const allTech = [...techStack.frontend, ...techStack.backend, ...techStack.aiAndDeployment];
 
+const problemsAndSolutions = [
+    {
+        problem: {
+            title: "Lost in the Digital Noise",
+            description: "Your business offers incredible value, but potential clients can't find you online. Competitors with weaker services but better SEO dominate search results, leaving you invisible to customers actively looking for a web developer near me in Junagadh."
+        },
+        solution: {
+            title: "Strategic Digital Dominance",
+            description: "As a top digital marketing company in Junagadh, we implement a targeted strategy. Through expert web development and SEO services, we elevate your website's ranking, turning it into a powerful tool for online lead generation. We make sure you're seen."
+        }
+    },
+    {
+        problem: {
+            title: "Outdated Website is Hurting Your Brand",
+            description: "Your website looks like it's from a decade ago. It's slow, not mobile-friendly, and doesn't reflect the quality of your business. This outdated design is costing you credibility and customers."
+        },
+        solution: {
+            title: "Modern, High-Performance Web Design",
+            description: "We provide custom website development in Junagadh that is not only visually stunning but also fast, secure, and fully responsive. We build modern web experiences that convert visitors into customers and build brand trust."
+        }
+    },
+    {
+        problem: {
+            title: "Inconsistent and Unprofessional Branding",
+            description: "Your logo, color scheme, and messaging are all over the place. This lack of a cohesive brand identity confuses customers and makes your business look amateur, especially in a competitive market."
+        },
+        solution: {
+            title: "Cohesive and Memorable Brand Identity",
+            description: "Our branding and SMM services in Junagadh create a consistent and professional brand identity. We craft a unique logo, define your brand voice, and ensure all your marketing materials are aligned, making your brand instantly recognizable."
+        }
+    },
+    {
+        problem: {
+            title: "No Real Return on Your Ad Spend",
+            description: "You're spending money on digital ads, but you're not seeing a clear return. Your campaigns are attracting clicks but not qualified leads, making it impossible to justify the investment."
+        },
+        solution: {
+            title: "ROI-Focused Digital Advertising",
+            description: "As a leading digital advertising agency in Junagadh, we focus on performance. We run highly targeted campaigns on Facebook and Google, constantly optimizing for conversions to ensure every dollar you spend generates measurable results."
+        }
+    },
+    {
+        problem: {
+            title: "Struggling to Attract High-Value B2B Clients",
+            description: "Your current marketing efforts are attracting small, one-off clients, but you're struggling to connect with the larger B2B clients that will truly grow your business. Your messaging isn't reaching decision-makers."
+        },
+        solution: {
+            title: "Targeted B2B Lead Generation",
+            description: "As a B2B lead generation company in Junagadh, we specialize in connecting you with high-value business clients. We use a combination of LinkedIn marketing, targeted content, and professional web design to attract and nurture qualified B2B leads."
+        }
+    },
+    {
+        problem: {
+            title: "Manual, Repetitive Tasks Are Draining Your Resources",
+            description: "Your team is spending too much time on repetitive, manual tasks like data entry, customer follow-ups, and report generation. This inefficiency is limiting your ability to focus on growth and innovation."
+        },
+        solution: {
+            title: "Intelligent Automation & AI Solutions",
+            description: "We implement custom AI and automation solutions to streamline your operations. From AI-powered chatbots to automated workflows, we help you save time, reduce costs, and free up your team to focus on high-impact activities."
+        }
+    }
+];
+
 
 export default function Home() {
     
@@ -244,16 +307,16 @@ export default function Home() {
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
             <p className="mt-4 text-muted-foreground text-lg">We leverage a modern, battle-tested tech stack to build fast, secure, and scalable solutions for our clients in Junagadh. From a WordPress developer in Junagadh to complex custom apps, we have you covered.</p>
           </div>
-            <Carousel
+             <Carousel
                 opts={{
                     align: "start",
                     loop: true,
                 }}
-                className="w-full max-w-xs sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto mt-12"
+                className="w-full max-w-[20rem] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto mt-12"
                 >
-                <CarouselContent>
+                <CarouselContent className="-ml-2 md:-ml-4">
                     {allTech.map((tech, index) => (
-                    <CarouselItem key={index} className="basis-full sm:basis-1/2 lg:basis-1/3">
+                    <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
                         <div className="p-1">
                             <Card className="h-full">
                                 <CardHeader>
@@ -267,8 +330,8 @@ export default function Home() {
                     </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious className="-left-4 sm:-left-8 md:-left-12" />
-                <CarouselNext className="-right-4 sm:-right-8 md:-right-12" />
+                <CarouselPrevious className="hidden sm:flex -left-4 sm:-left-8 md:-left-12" />
+                <CarouselNext className="hidden sm:flex -right-4 sm:-right-8 md:-right-12" />
             </Carousel>
         </div>
       </section>
@@ -410,19 +473,19 @@ export default function Home() {
 
       <section className="pb-20 md:pb-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-                <div className="p-8 border rounded-lg bg-card space-y-4">
-                    <h3 className="font-headline text-2xl font-bold text-destructive">The Problem: Lost in the Digital Noise</h3>
-                    <p className="text-muted-foreground">
-                        Your business offers incredible value, but potential clients can't find you online. Competitors with weaker services but better SEO dominate the search results, leaving you invisible to customers actively looking for a web developer near me in Junagadh.
-                    </p>
-                </div>
-                 <div className="p-8 border rounded-lg bg-emerald-950 border-emerald-500/30 space-y-4">
-                    <h3 className="font-headline text-2xl font-bold text-emerald-400">The Solution: Strategic Digital Dominance</h3>
-                    <p className="text-muted-foreground">
-                        As a top digital marketing company in Junagadh, we implement a targeted strategy. Through expert web development and SEO services, we elevate your website's ranking, turning it into a powerful tool for online lead generation. We make sure you're seen.
-                    </p>
-                </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {problemsAndSolutions.map((item, index) => (
+                    <React.Fragment key={index}>
+                        <div className="p-8 border rounded-lg bg-card space-y-4">
+                            <h3 className="font-headline text-2xl font-bold text-destructive">The Problem: {item.problem.title}</h3>
+                            <p className="text-muted-foreground">{item.problem.description}</p>
+                        </div>
+                        <div className="p-8 border rounded-lg bg-emerald-950 border-emerald-500/30 space-y-4">
+                            <h3 className="font-headline text-2xl font-bold text-emerald-400">The Solution: {item.solution.title}</h3>
+                            <p className="text-muted-foreground">{item.solution.description}</p>
+                        </div>
+                    </React.Fragment>
+                ))}
             </div>
         </div>
       </section>
@@ -447,6 +510,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
