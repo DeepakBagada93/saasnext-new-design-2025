@@ -1,6 +1,6 @@
 
 'use client';
-
+import React from 'react';
 import Link from "next/link";
 import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale, MapPin, BadgeCheck, BarChart, Server, Smartphone, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -312,17 +312,17 @@ export default function Home() {
                     align: "start",
                     loop: true,
                 }}
-                className="w-full max-w-[20rem] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto mt-12"
+                className="w-full max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl mx-auto mt-12"
                 >
-                <CarouselContent className="-ml-2 md:-ml-4">
+                <CarouselContent className="-ml-4">
                     {allTech.map((tech, index) => (
-                    <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
-                        <div className="p-1">
-                            <Card className="h-full">
+                    <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                        <div className="p-1 h-full">
+                            <Card className="h-full flex flex-col">
                                 <CardHeader>
                                     <CardTitle className="font-headline text-xl">{tech.name}</CardTitle>
                                 </CardHeader>
-                                <CardContent>
+                                <CardContent className="flex-grow">
                                     <p className="text-muted-foreground">{tech.description}</p>
                                 </CardContent>
                             </Card>
@@ -510,9 +510,5 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
 
     
