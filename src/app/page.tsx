@@ -14,7 +14,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-card";
 import { PortfolioGallery } from "@/components/portfolio-gallery";
@@ -391,6 +390,24 @@ export default function Home() {
         </div>
       </section>
 
+       <section id="b2b-focus" className="py-20 md:py-28 bg-card">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">Your B2B Lead Generation Company in Junagadh</h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+                SaaSNext specializes in B2B lead generation, connecting you with high-value business clients in Junagadh and beyond. We combine targeted digital marketing strategies with our custom website development to create powerful online lead generation solutions. Our team understands the nuances of the B2B market, ensuring your message reaches the right decision-makers.
+            </p>
+        </div>
+      </section>
+
+      <section id="small-business-partner" className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">The Digital Partner for Small Business in Junagadh</h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+                We are more than just a vendor; we are your digital partner. We understand the challenges faced by small businesses in Junagadh. That's why we offer affordable web design and scalable digital marketing for small businesses, helping you compete with larger players without breaking the bank. Let us be the web developer near me in Junagadh that you can trust.
+            </p>
+        </div>
+      </section>
+
       <section id="cta" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <div className="bg-gradient-to-r from-primary to-orange-400 text-primary-foreground p-12 rounded-lg text-center max-w-5xl mx-auto shadow-2xl shadow-primary/20">
@@ -411,3 +428,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
