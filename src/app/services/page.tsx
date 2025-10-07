@@ -69,6 +69,18 @@ export default function ServicesPage() {
                     As a premier digital marketing company in Junagadh, we offer end-to-end solutions. From custom website development to targeted B2B lead generation, our services are designed to deliver results. Whether you need a WordPress developer, ecommerce solutions, or a comprehensive social media strategy, our team is the best digital marketing agency in Junagadh to help your small business succeed.
                 </p>
             </section>
+            <section className="mt-16 max-w-4xl mx-auto text-center">
+                <h2 className="font-headline text-3xl md:text-4xl font-bold">Local Presence, Global Standards</h2>
+                <p className="mt-4 text-muted-foreground text-lg">
+                    When you search for a "web developer near me in Junagadh," you're looking for a local team that understands the market. As a top web design company in Junagadh, we provide that local expertise combined with world-class website development services. We build custom websites that are not only affordable but also powerful enough to compete on a global scale.
+                </p>
+            </section>
+             <section className="mt-16 max-w-4xl mx-auto text-center">
+                <h2 className="font-headline text-3xl md:text-4xl font-bold">Driving Growth with Performance Marketing</h2>
+                <p className="mt-4 text-muted-foreground text-lg">
+                    Our SMM services in Junagadh are built for performance. As a data-driven social media marketing agency, we go beyond simple posting. We manage targeted Facebook and Instagram marketing campaigns that deliver real, measurable results, making us the digital advertising agency Junagadh businesses trust for growth.
+                </p>
+            </section>
         </div>
     );
 }
