@@ -63,6 +63,12 @@ export default function ServicesPage() {
                     ))}
                 </div>
             </div>
+             <section className="mt-24 max-w-4xl mx-auto text-center">
+                <h2 className="font-headline text-3xl md:text-4xl font-bold">Your Full-Service Digital Partner in Junagadh</h2>
+                <p className="mt-4 text-muted-foreground text-lg">
+                    As a premier digital marketing company in Junagadh, we offer end-to-end solutions. From custom website development to targeted B2B lead generation, our services are designed to deliver results. Whether you need a WordPress developer, ecommerce solutions, or a comprehensive social media strategy, our team is the best digital marketing agency in Junagadh to help your small business succeed.
+                </p>
+            </section>
         </div>
     );
 }
