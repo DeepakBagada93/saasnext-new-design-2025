@@ -201,8 +201,8 @@ export default function Home() {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 animate-fade-in-up animation-delay-400">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto shadow-lg shadow-primary/20">
-              <Link href="/contact">
-                Get Your Free Quote <ArrowRight className="ml-2 h-5 w-5" />
+              <Link href="/login">
+                Client Hub <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
@@ -510,5 +510,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
