@@ -1,0 +1,207 @@
+{
+  "entities": {
+    "Client": {
+      "title": "Client",
+      "description": "Represents a client in the system.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The client's full name."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The client's email address."
+        },
+        "userId": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the client."
+        },
+        "companyName": {
+          "type": "string",
+          "description": "The client's company name."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The client's phone number."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the client was created."
+        }
+      },
+      "required": ["name", "email", "userId"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Represents a project for a client.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "clientName": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "budget": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "end": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "milestones": {
+          "type": "array"
+        },
+        "updates": {
+          "type": "array"
+        }
+      }
+    },
+    "ServiceRequest": {
+      "title": "Service Request",
+      "description": "A service request from a client.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "clientName": {
+          "type": "string"
+        },
+        "clientEmail": {
+          "type": "string"
+        },
+        "serviceType": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "budget": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "requestedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Quotation": {
+      "title": "Quotation",
+      "description": "A quotation for a client.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "clientId": {
+          "type": "string"
+        },
+        "clientName": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array"
+        }
+      }
+    },
+    "MeetingRequest": {
+      "title": "Meeting Request",
+      "description": "A meeting request from a client.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "clientName": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "preferredDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "preferredTime": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["email"]
+  },
+  "firestore": {
+    "/clients/{clientId}": {
+      "schema": {
+        "$ref": "#/entities/Client"
+      },
+      "description": "Stores client user information."
+    },
+    "/projects/{projectId}": {
+      "schema": {
+        "$ref": "#/entities/Project"
+      },
+      "description": "Stores project details for clients."
+    },
+    "/serviceRequests/{requestId}": {
+      "schema": {
+        "$ref": "#/entities/ServiceRequest"
+      },
+      "description": "Stores service requests submitted by clients."
+    },
+    "/quotations/{quotationId}": {
+      "schema": {
+        "$ref": "#/entities/Quotation"
+      },
+      "description": "Stores quotations for clients."
+    },
+    "/meetingRequests/{meetingId}": {
+      "schema": {
+        "$ref": "#/entities/MeetingRequest"
+      },
+      "description": "Stores meeting requests from clients."
+    }
+  }
+}
