@@ -2,7 +2,7 @@
 'use client';
 import React from 'react';
 import Link from "next/link";
-import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale, MapPin, BadgeCheck, BarChart, Server, Smartphone, Wand2 } from "lucide-react";
+import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale, MapPin, BadgeCheck, BarChart, Server, Smartphone, Wand2, LayoutDashboard, MessageSquare, FileText, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -46,6 +46,30 @@ const whyChooseUsItems = [
     description: "Our agile process means we move fast, iterate quickly, and get your project to market faster without sacrificing the quality of our website development services in Junagadh."
   }
 ];
+
+const clientHubFeatures = [
+    {
+      icon: <LayoutDashboard className="h-8 w-8 text-primary" />,
+      title: "Project Dashboard",
+      description: "Track the real-time status of all your projects, from milestones and timelines to recent updates from our team."
+    },
+    {
+      icon: <MessageSquare className="h-8 w-8 text-primary" />,
+      title: "Seamless Communication",
+      description: "Schedule meetings, request support, and get in touch with our team directly through your dedicated portal."
+    },
+    {
+      icon: <FileText className="h-8 w-8 text-primary" />,
+      title: "Invoice Management",
+      description: "View, download, and manage all your quotations and invoices in one organized place. No more lost emails."
+    },
+    {
+      icon: <PlusCircle className="h-8 w-8 text-primary" />,
+      title: "New Service Requests",
+      description: "Have a new idea or need additional services? Submit a new request directly through the hub in just a few clicks."
+    }
+];
+
 
 const serviceIcons: { [key: string]: React.ReactNode } = {
     Code: <Code />,
@@ -240,7 +264,33 @@ export default function Home() {
         </div>
       </section>
       
-      <section id="services" className="py-20 md:py-28">
+       <section id="client-hub" className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">Your Personal Client Hub</h2>
+            <p className="mt-4 text-muted-foreground text-lg">We believe in full transparency. Our client hub gives you a 24/7 window into your projects, eliminating guesswork and ensuring you're always in the loop.</p>
+          </div>
+          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {clientHubFeatures.map((feature) => (
+              <Card key={feature.title} className="text-center p-8 bg-card border-t-4 border-primary/50">
+                {feature.icon}
+                <h3 className="mt-4 font-headline text-xl font-bold">{feature.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{feature.description}</p>
+              </Card>
+            ))}
+          </div>
+          <div className="mt-12 text-center flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href="/login">Access Your Hub</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
+              <Link href="/register">Become a Client</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Core Services</h2>
@@ -276,7 +326,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="our-process" className="py-20 md:py-28 bg-card">
+      <section id="our-process" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Proven Path to Success</h2>
@@ -301,7 +351,7 @@ export default function Home() {
         </div>
       </section>
       
-      <section id="tech-stack" className="py-20 md:py-28">
+      <section id="tech-stack" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Built with Cutting-Edge Technology</h2>
