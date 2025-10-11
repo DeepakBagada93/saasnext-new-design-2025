@@ -24,8 +24,10 @@ import { useUser, useFirestore } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { cn } from '@/lib/utils';
+import { CheckCircle } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function NewRequestPage() {
   const { user } = useUser();
@@ -42,7 +44,7 @@ export default function NewRequestPage() {
   const [websiteType, setWebsiteType] = useState('');
   const [aiRequirements, setAiRequirements] = useState('');
 
-  const handleServiceChange = (serviceTitle: string) => {
+  const handleServiceToggle = (serviceTitle: string) => {
     setSelectedServices((prev) =>
       prev.includes(serviceTitle)
         ? prev.filter((s) => s !== serviceTitle)
@@ -66,7 +68,7 @@ export default function NewRequestPage() {
         variant: 'destructive',
         title: 'Missing Information',
         description:
-          'Please select at least one service type and provide a description.',
+          'Please select at least one service type and provide a project description.',
       });
       return;
     }
@@ -121,70 +123,88 @@ export default function NewRequestPage() {
         <CardHeader>
           <CardTitle>Request Details</CardTitle>
           <CardDescription>
-            Provide as much detail as possible for a more accurate quote.
+            Select the services you're interested in and provide as much detail as possible.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
-            <div className="space-y-3">
-              <Label>Service Type(s)</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-md border p-4">
-                {services.map((service) => (
-                  <div key={service.slug} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={service.slug}
-                      checked={selectedServices.includes(service.title)}
-                      onCheckedChange={() => handleServiceChange(service.title)}
-                    />
-                    <Label htmlFor={service.slug} className="font-normal">
-                      {service.title}
-                    </Label>
-                  </div>
-                ))}
+          <form onSubmit={handleSubmit} className="space-y-8 max-w-3xl">
+            <div className="space-y-4">
+              <Label className="text-base font-semibold">Which service(s) are you interested in?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {services.map((service) => {
+                  const isSelected = selectedServices.includes(service.title);
+                  return (
+                    <div key={service.slug}>
+                      <motion.div
+                        onClick={() => handleServiceToggle(service.title)}
+                        className={cn(
+                          'p-4 border rounded-lg cursor-pointer transition-all duration-300 relative',
+                          isSelected
+                            ? 'border-primary ring-2 ring-primary bg-primary/10'
+                            : 'bg-card hover:bg-muted/50'
+                        )}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        {isSelected && (
+                           <CheckCircle className="h-5 w-5 text-primary absolute top-2 right-2"/>
+                        )}
+                        <h4 className="font-semibold">{service.title}</h4>
+                        <p className="text-xs text-muted-foreground mt-1">{service.description.substring(0, 70)}...</p>
+                      </motion.div>
+                      
+                       <AnimatePresence>
+                        {isSelected && service.title === 'Web Development' && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                animate={{ opacity: 1, height: 'auto', marginTop: '16px' }}
+                                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                            >
+                                <div className="space-y-3 p-4 rounded-lg bg-muted/50">
+                                    <Label>What type of website do you need?</Label>
+                                    <RadioGroup value={websiteType} onValueChange={setWebsiteType} className="gap-3">
+                                        <div className="flex items-center space-x-2"><RadioGroupItem value="e-commerce" id="e-commerce" /><Label htmlFor="e-commerce">E-commerce</Label></div>
+                                        <div className="flex items-center space-x-2"><RadioGroupItem value="corporate" id="corporate" /><Label htmlFor="corporate">Corporate/Brochure</Label></div>
+                                        <div className="flex items-center space-x-2"><RadioGroupItem value="portfolio" id="portfolio" /><Label htmlFor="portfolio">Portfolio/Personal</Label></div>
+                                        <div className="flex items-center space-x-2"><RadioGroupItem value="other" id="other" /><Label htmlFor="other">Other</Label></div>
+                                    </RadioGroup>
+                                </div>
+                            </motion.div>
+                        )}
+                        {isSelected && service.title === 'AI Solutions' && (
+                             <motion.div
+                                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                animate={{ opacity: 1, height: 'auto', marginTop: '16px' }}
+                                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                            >
+                                <div className="space-y-2 p-4 rounded-lg bg-muted/50">
+                                    <Label htmlFor="ai-requirements">What are your AI requirements?</Label>
+                                    <Textarea
+                                        id="ai-requirements"
+                                        placeholder="e.g., Customer service chatbot, data analysis model..."
+                                        value={aiRequirements}
+                                        onChange={(e) => setAiRequirements(e.target.value)}
+                                        className="bg-background"
+                                    />
+                                </div>
+                            </motion.div>
+                        )}
+                       </AnimatePresence>
+
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            {selectedServices.includes('Web Development') && (
-                <div className="space-y-3 pt-2">
-                    <Label>Website Type</Label>
-                    <RadioGroup value={websiteType} onValueChange={setWebsiteType} className="flex flex-col sm:flex-row gap-4">
-                         <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="e-commerce" id="e-commerce" />
-                            <Label htmlFor="e-commerce">E-commerce Store</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="corporate" id="corporate" />
-                            <Label htmlFor="corporate">Corporate / Brochure</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="portfolio" id="portfolio" />
-                            <Label htmlFor="portfolio">Portfolio / Personal</Label>
-                        </div>
-                         <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="other" id="other" />
-                            <Label htmlFor="other">Other</Label>
-                        </div>
-                    </RadioGroup>
-                </div>
-            )}
-
-            {selectedServices.includes('AI Solutions') && (
-                <div className="space-y-2 pt-2">
-                    <Label htmlFor="ai-requirements">Specific AI Requirements</Label>
-                    <Textarea
-                        id="ai-requirements"
-                        placeholder="e.g., Customer service chatbot, data analysis model, image generation feature..."
-                        value={aiRequirements}
-                        onChange={(e) => setAiRequirements(e.target.value)}
-                    />
-                </div>
-            )}
-
             <div className="space-y-2">
-              <Label htmlFor="description">Project Description</Label>
+              <Label htmlFor="description" className="text-base font-semibold">Tell us about your project</Label>
               <Textarea
                 id="description"
-                placeholder="Describe your project, goals, and requirements."
+                placeholder="Describe your goals, requirements, target audience, and any other important details."
                 rows={6}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
@@ -193,7 +213,7 @@ export default function NewRequestPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="budget">Preferred Budget</Label>
+                <Label htmlFor="budget" className="font-semibold">What's your estimated budget?</Label>
                 <Input
                   id="budget"
                   type="number"
@@ -203,7 +223,7 @@ export default function NewRequestPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="currency">Preferred Currency</Label>
+                <Label htmlFor="currency" className="font-semibold">Currency</Label>
                 <Select value={currency} onValueChange={setCurrency}>
                   <SelectTrigger id="currency">
                     <SelectValue placeholder="Select currency" />
@@ -218,7 +238,7 @@ export default function NewRequestPage() {
               </div>
             </div>
             <div className="pt-2">
-              <Button type="submit" className="bg-accent hover:bg-accent/90">
+              <Button type="submit" size="lg" className="bg-accent hover:bg-accent/90">
                 Submit Request
               </Button>
             </div>
@@ -228,3 +248,5 @@ export default function NewRequestPage() {
     </div>
   );
 }
+
+    
