@@ -49,25 +49,51 @@ const whyChooseUsItems = [
 
 const clientHubFeatures = [
     {
-      icon: <LayoutDashboard className="h-8 w-8 text-primary" />,
+      Icon: LayoutDashboard,
       title: "Project Dashboard",
-      description: "Track the real-time status of all your projects, from milestones and timelines to recent updates from our team."
+      description: "Track the real-time status of all your projects, from milestones and timelines to recent updates from our team.",
+      href: "/login",
+      cta: "View Dashboard",
+      background: <Image src="/saasnext-dashboard.png" alt="Project Dashboard" data-ai-hint="dashboard" fill className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center opacity-20" />,
+      className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
     },
     {
-      icon: <MessageSquare className="h-8 w-8 text-primary" />,
+      Icon: MessageSquare,
       title: "Seamless Communication",
-      description: "Schedule meetings, request support, and get in touch with our team directly through your dedicated portal."
+      description: "Schedule meetings, request support, and get in touch with our team directly through your dedicated portal.",
+      href: "/login",
+      cta: "Contact Team",
+      background: null,
+      className: "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2",
     },
-    {
-      icon: <FileText className="h-8 w-8 text-primary" />,
-      title: "Invoice Management",
-      description: "View, download, and manage all your quotations and invoices in one organized place. No more lost emails."
-    },
-    {
-      icon: <PlusCircle className="h-8 w-8 text-primary" />,
+     {
+      Icon: PlusCircle,
       title: "New Service Requests",
-      description: "Have a new idea or need additional services? Submit a new request directly through the hub in just a few clicks."
-    }
+      description: "Have a new idea or need additional services? Submit a new request directly through the hub in just a few clicks.",
+      href: "/register",
+      cta: "Submit Request",
+      background: null,
+      className: "lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3",
+    },
+    {
+      Icon: FileText,
+      title: "Invoice Management",
+      description: "View, download, and manage all your quotations and invoices in one organized place. No more lost emails.",
+      href: "/login",
+      cta: "View Invoices",
+      background: null,
+      className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
+    },
+   
+     {
+      Icon: CheckCircle,
+      title: "Register and Take Control",
+      description: "Register today to get access to all these features and streamline your project management experience. It’s free to sign up!",
+      href: "/register",
+      cta: "Register Now",
+      background: null,
+      className: "lg:col-start-2 lg:col-end-3 lg:row-start-3 lg:row-end-4",
+    },
 ];
 
 
@@ -267,24 +293,27 @@ export default function Home() {
        <section id="client-hub" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">Your Personal Client Hub</h2>
-            <p className="mt-4 text-muted-foreground text-lg">We believe in full transparency. Our client hub gives you a 24/7 window into your projects, eliminating guesswork and ensuring you're always in the loop.</p>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">Your Command Center for Digital Growth</h2>
+            <p className="mt-4 text-muted-foreground text-lg">Stop juggling emails and spreadsheets. Our client hub gives you a 24/7, transparent view of your projects. Register to take control and streamline communication.</p>
           </div>
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {clientHubFeatures.map((feature) => (
-              <Card key={feature.title} className="text-center p-8 bg-card border-t-4 border-primary/50">
-                {feature.icon}
-                <h3 className="mt-4 font-headline text-xl font-bold">{feature.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{feature.description}</p>
-              </Card>
-            ))}
-          </div>
-          <div className="mt-12 text-center flex flex-col sm:flex-row justify-center items-center gap-4">
-            <Button asChild size="lg" className="w-full sm:w-auto">
-              <Link href="/login">Access Your Hub</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-              <Link href="/register">Become a Client</Link>
+          <BentoGrid className="mt-16 auto-rows-[16rem] lg:auto-rows-[14rem]">
+              {clientHubFeatures.map((feature) => (
+                <BentoCard
+                  key={feature.title}
+                  title={feature.title}
+                  description={feature.description}
+                  href={feature.href}
+                  icon={<feature.Icon />}
+                  background={feature.background}
+                  className={feature.className}
+                />
+              ))}
+            </BentoGrid>
+          <div className="mt-12 text-center">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90">
+              <Link href="/register">
+                Register for Free <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -560,5 +589,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
