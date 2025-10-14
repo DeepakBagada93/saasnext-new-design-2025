@@ -2,7 +2,7 @@
 'use client';
 import React from 'react';
 import Link from "next/link";
-import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale, MapPin, BadgeCheck, BarChart, Server, Smartphone, Wand2, LayoutDashboard, MessageSquare, FileText, PlusCircle } from "lucide-react";
+import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Code, Search, Megaphone, Feather, Palette, BrainCircuit, Rocket, Building, Scale, MapPin, BadgeCheck, BarChart, Server, Smartphone, Wand2, LayoutDashboard, MessageSquare, FileText, PlusCircle, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
