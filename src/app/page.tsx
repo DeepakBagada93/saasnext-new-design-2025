@@ -359,6 +359,24 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
+      <section className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+          <div className="text-center space-y-6">
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">
+              Stop Guessing, Start Managing.
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Tired of endless email chains and wondering about project status? Register for your free Client Hub account and take control. Track progress, manage invoices, and communicate with our team—all in one place.
+            </p>
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Link href="/register">
+                    Create Your Free Account <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
     <section id="target-audience" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -511,15 +529,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-    
-
-
-
-    
-
-    
