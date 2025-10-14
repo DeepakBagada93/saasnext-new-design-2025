@@ -11,7 +11,8 @@ export const services = [
     slug: 'web-development',
     process: 'We follow an agile development process, from discovery and design to deployment and maintenance, ensuring a product that exceeds expectations for our clients seeking website development services in Junagadh.',
     benefits: 'A professional online presence, improved user engagement, and a scalable platform for growth. Our affordable web design in Junagadh doesn\'t compromise on quality.',
-    results: 'Increased traffic, higher conversion rates, and a stronger brand identity with our custom website development in Junagadh.'
+    results: 'Increased traffic, higher conversion rates, and a stronger brand identity with our custom website development in Junagadh.',
+    startingPrice: 8000,
   },
   {
     icon: 'Search',
@@ -24,7 +25,8 @@ export const services = [
     slug: 'seo',
     process: 'We perform in-depth keyword research, on-page optimization, and technical SEO audits to establish your authority. This is a core part of our digital marketing for lead generation in Junagadh.',
     benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
-    results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.'
+    results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.',
+    startingPrice: 2000,
   },
   {
     icon: 'Megaphone',
@@ -37,7 +39,8 @@ export const services = [
     slug: 'performance-marketing',
     process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI with our SMM services in Junagadh.',
     benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
-    results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.'
+    results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.',
+    startingPrice: 8000,
   },
   {
     icon: 'Feather',
@@ -50,7 +53,8 @@ export const services = [
     slug: 'content-writing',
     process: 'We develop a content strategy aligned with your Junagadh web design and SMM goals, creating high-quality blog posts, articles, and website copy.',
     benefits: 'Improved SEO rankings, stronger brand voice, and valuable resources that attract and nurture leads.',
-    results: 'Higher engagement rates, increased organic traffic, and a library of assets that supports sales and marketing efforts.'
+    results: 'Higher engagement rates, increased organic traffic, and a library of assets that supports sales and marketing efforts.',
+    startingPrice: 2000,
   },
   {
     icon: 'Palette',
@@ -63,7 +67,8 @@ export const services = [
     slug: 'logo-branding',
     process: 'Our process involves deep-diving into your brand\'s essence, exploring visual concepts, and delivering a comprehensive brand guide.',
     benefits: 'A strong, recognizable brand that builds trust and loyalty with your customers.',
-    results: 'Increased brand recognition and a professional image that attracts high-value clients.'
+    results: 'Increased brand recognition and a professional image that attracts high-value clients.',
+    startingPrice: 2000,
   },
   {
     icon: 'BrainCircuit',
@@ -76,7 +81,8 @@ export const services = [
     slug: 'ai-solutions',
     process: 'We analyze your business challenges, develop custom AI models, and integrate them seamlessly into your existing workflows.',
     benefits: 'Increased efficiency, data-driven decision-making, and a competitive edge in your industry.',
-    results: 'Measurable improvements in operational efficiency and the creation of innovative, AI-powered features.'
+    results: 'Measurable improvements in operational efficiency and the creation of innovative, AI-powered features.',
+    startingPrice: 8000,
   },
 ];
 
@@ -394,3 +400,5 @@ export const faqs = [
       answer: "Yes, we offer a variety of ongoing support packages to ensure your website remains secure and updated. We also provide retainers for social media management in Junagadh and other ongoing marketing needs."
     }
   ];
+
+    

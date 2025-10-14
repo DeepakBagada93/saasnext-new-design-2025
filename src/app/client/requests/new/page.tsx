@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -29,6 +28,23 @@ import { cn } from '@/lib/utils';
 import { CheckCircle } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
+// Rough conversion rates, consider using an API for live rates in a real application
+const conversionRates: { [key: string]: number } = {
+  INR: 1,
+  USD: 1 / 83.5,
+  EUR: 1 / 90,
+  GBP: 1 / 105,
+};
+
+const formatCurrency = (amount: number, currency: string) => {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 0,
+  }).format(amount);
+};
+
+
 export default function NewRequestPage() {
   const { user } = useUser();
   const firestore = useFirestore();
@@ -37,39 +53,19 @@ export default function NewRequestPage() {
 
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [description, setDescription] = useState('');
-  const [budget, setBudget] = useState('');
   const [currency, setCurrency] = useState('INR');
-
+  
   // State for conditional fields
   const [websiteType, setWebsiteType] = useState('');
   const [aiRequirements, setAiRequirements] = useState('');
 
-  useEffect(() => {
-    if (selectedServices.length === 0) {
-        // Optional: clear budget if no services are selected
-        // setBudget(''); 
-        return;
-    }
+  const calculateTotalBudget = () => {
+    return selectedServices.reduce((total, serviceTitle) => {
+        const service = services.find(s => s.title === serviceTitle);
+        return total + (service?.startingPrice || 0);
+    }, 0);
+  }
 
-    const highTierServices = ['Web Development', 'AI Solutions', 'Social Media Marketing'];
-    const isHighTierSelected = selectedServices.some(service => highTierServices.includes(service));
-
-    const currentBudget = Number(budget);
-    const minBudget = isHighTierSelected ? 8000 : 2000;
-
-    if (!budget || currentBudget < minBudget) {
-        setBudget(String(minBudget));
-    }
-  }, [selectedServices, budget]);
-
-
-  const handleServiceToggle = (serviceTitle: string) => {
-    setSelectedServices((prev) =>
-      prev.includes(serviceTitle)
-        ? prev.filter((s) => s !== serviceTitle)
-        : [...prev, serviceTitle]
-    );
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,6 +88,8 @@ export default function NewRequestPage() {
       return;
     }
     
+    const totalBudget = calculateTotalBudget();
+
     // Construct additional details object
     const additionalDetails: any = {};
     if (selectedServices.includes('Web Development') && websiteType) {
@@ -108,7 +106,7 @@ export default function NewRequestPage() {
         clientEmail: user.email,
         serviceType: selectedServices.join(', '), // Join selected services into a string
         description,
-        budget: Number(budget) || null,
+        budget: totalBudget, // Use calculated budget
         currency,
         status: 'Pending',
         requestedAt: serverTimestamp(),
@@ -120,7 +118,7 @@ export default function NewRequestPage() {
           "We've received your request and will get back to you shortly.",
       });
       router.push('/client/dashboard');
-    } catch (error: any) {
+    } catch (error: any) => {
       toast({
         variant: 'destructive',
         title: 'Submission Failed',
@@ -128,6 +126,9 @@ export default function NewRequestPage() {
       });
     }
   };
+  
+  const totalBudgetInr = calculateTotalBudget();
+  const convertedTotalBudget = totalBudgetInr * conversionRates[currency];
 
   return (
     <div className="space-y-6">
@@ -148,16 +149,40 @@ export default function NewRequestPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-8 max-w-3xl">
             <div className="space-y-4">
-              <Label className="text-base font-semibold">Which service(s) are you interested in?</Label>
+              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                  <Label className="text-base font-semibold">Which service(s) are you interested in?</Label>
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="currency" className="font-semibold text-sm">Currency</Label>
+                    <Select value={currency} onValueChange={setCurrency}>
+                      <SelectTrigger id="currency" className="w-[100px]">
+                        <SelectValue placeholder="Currency" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="INR">INR</SelectItem>
+                        <SelectItem value="USD">USD</SelectItem>
+                        <SelectItem value="EUR">EUR</SelectItem>
+                        <SelectItem value="GBP">GBP</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {services.map((service) => {
                   const isSelected = selectedServices.includes(service.title);
+                  const convertedPrice = (service.startingPrice || 0) * conversionRates[currency];
+
                   return (
                     <div key={service.slug}>
                       <motion.div
-                        onClick={() => handleServiceToggle(service.title)}
+                        onClick={() => {
+                            setSelectedServices((prev) =>
+                                prev.includes(service.title)
+                                ? prev.filter((s) => s !== service.title)
+                                : [...prev, service.title]
+                            );
+                        }}
                         className={cn(
-                          'p-4 border rounded-lg cursor-pointer transition-all duration-300 relative',
+                          'p-4 border rounded-lg cursor-pointer transition-all duration-300 relative h-full flex flex-col',
                           isSelected
                             ? 'border-primary ring-2 ring-primary bg-primary/10'
                             : 'bg-card hover:bg-muted/50'
@@ -168,7 +193,11 @@ export default function NewRequestPage() {
                            <CheckCircle className="h-5 w-5 text-primary absolute top-2 right-2"/>
                         )}
                         <h4 className="font-semibold">{service.title}</h4>
-                        <p className="text-xs text-muted-foreground mt-1">{service.description.substring(0, 70)}...</p>
+                        <p className="text-xs text-muted-foreground mt-1 flex-grow">{service.description.substring(0, 70)}...</p>
+                         <div className="mt-4">
+                            <p className="text-xs text-muted-foreground">Starts at</p>
+                            <p className="font-bold text-lg text-primary">{formatCurrency(convertedPrice, currency)}</p>
+                         </div>
                       </motion.div>
                       
                        <AnimatePresence>
@@ -219,6 +248,20 @@ export default function NewRequestPage() {
               </div>
             </div>
 
+            <AnimatePresence>
+                {selectedServices.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="p-4 rounded-lg bg-muted/50 flex flex-col sm:flex-row justify-between items-center"
+                    >
+                        <h4 className="font-semibold text-lg">Estimated Total:</h4>
+                        <p className="font-bold text-2xl text-primary">{formatCurrency(convertedTotalBudget, currency)}</p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             <div className="space-y-2">
               <Label htmlFor="description" className="text-base font-semibold">Tell us about your project</Label>
               <Textarea
@@ -230,34 +273,9 @@ export default function NewRequestPage() {
                 required
               />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="budget" className="font-semibold">What's your estimated budget?</Label>
-                <Input
-                  id="budget"
-                  type="number"
-                  placeholder="e.g., 5000"
-                  value={budget}
-                  onChange={(e) => setBudget(e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="currency" className="font-semibold">Currency</Label>
-                <Select value={currency} onValueChange={setCurrency}>
-                  <SelectTrigger id="currency">
-                    <SelectValue placeholder="Select currency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="INR">INR</SelectItem>
-                    <SelectItem value="USD">USD</SelectItem>
-                    <SelectItem value="EUR">EUR</SelectItem>
-                    <SelectItem value="GBP">GBP</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+            
             <div className="pt-2">
-              <Button type="submit" size="lg" className="bg-accent hover:bg-accent/90">
+              <Button type="submit" size="lg" className="bg-accent hover:bg-accent/90" disabled={selectedServices.length === 0}>
                 Submit Request
               </Button>
             </div>
@@ -267,3 +285,5 @@ export default function NewRequestPage() {
     </div>
   );
 }
+
+    
