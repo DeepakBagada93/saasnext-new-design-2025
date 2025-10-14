@@ -47,56 +47,6 @@ const whyChooseUsItems = [
   }
 ];
 
-const clientHubFeatures = [
-    {
-      Icon: LayoutDashboard,
-      title: "Project Dashboard",
-      description: "Track the real-time status of all your projects, from milestones and timelines to recent updates from our team.",
-      href: "/login",
-      cta: "View Dashboard",
-      background: <Image src="/saasnext-dashboard.png" alt="Project Dashboard" data-ai-hint="dashboard" fill className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center opacity-20" />,
-      className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
-    },
-    {
-      Icon: MessageSquare,
-      title: "Seamless Communication",
-      description: "Schedule meetings, request support, and get in touch with our team directly through your dedicated portal.",
-      href: "/login",
-      cta: "Contact Team",
-      background: null,
-      className: "lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2",
-    },
-     {
-      Icon: PlusCircle,
-      title: "New Service Requests",
-      description: "Have a new idea or need additional services? Submit a new request directly through the hub in just a few clicks.",
-      href: "/register",
-      cta: "Submit Request",
-      background: null,
-      className: "lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-3",
-    },
-    {
-      Icon: FileText,
-      title: "Invoice Management",
-      description: "View, download, and manage all your quotations and invoices in one organized place. No more lost emails.",
-      href: "/login",
-      cta: "View Invoices",
-      background: null,
-      className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
-    },
-   
-     {
-      Icon: CheckCircle,
-      title: "Register and Take Control",
-      description: "Register today to get access to all these features and streamline your project management experience. It’s free to sign up!",
-      href: "/register",
-      cta: "Register Now",
-      background: null,
-      className: "lg:col-start-2 lg:col-end-3 lg:row-start-3 lg:row-end-4",
-    },
-];
-
-
 const serviceIcons: { [key: string]: React.ReactNode } = {
     Code: <Code />,
     Search: <Search />,
@@ -290,36 +240,6 @@ export default function Home() {
         </div>
       </section>
       
-      <section id="client-hub" className="py-20 md:py-28">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto text-center">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold">Your Command Center for Digital Growth</h2>
-          <p className="mt-4 text-muted-foreground text-lg">Stop juggling emails and spreadsheets. Our client hub gives you a 24/7, transparent view of your projects. Register to take control and streamline communication.</p>
-        </div>
-        <div className="mt-16">
-          <BentoGrid className="max-w-7xl mx-auto auto-rows-[16rem] lg:auto-rows-[14rem]">
-            {clientHubFeatures.map((feature) => (
-              <BentoCard
-                key={feature.title}
-                title={feature.title}
-                description={feature.description}
-                href={feature.href}
-                cta={feature.cta}
-                icon={<feature.Icon />}
-                background={feature.title === 'Project Dashboard' ? <Image src="/saasnext-dashboard.png" alt="Project Dashboard" data-ai-hint="dashboard" fill className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center opacity-20" /> : null}
-                className={feature.className}
-              />
-            ))}
-          </BentoGrid>
-        </div>
-        <div className="mt-12 text-center">
-          <Button asChild size="lg" className="bg-accent hover:bg-accent/90">
-            <Link href="/register">
-              Register for Free <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-      </section>
-
       <section id="services" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
@@ -599,5 +519,7 @@ export default function Home() {
     
 
 
+
+    
 
     
