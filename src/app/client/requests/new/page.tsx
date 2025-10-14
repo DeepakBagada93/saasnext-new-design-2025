@@ -1,6 +1,6 @@
 
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -43,6 +43,25 @@ export default function NewRequestPage() {
   // State for conditional fields
   const [websiteType, setWebsiteType] = useState('');
   const [aiRequirements, setAiRequirements] = useState('');
+
+  useEffect(() => {
+    if (selectedServices.length === 0) {
+        // Optional: clear budget if no services are selected
+        // setBudget(''); 
+        return;
+    }
+
+    const highTierServices = ['Web Development', 'AI Solutions', 'Social Media Marketing'];
+    const isHighTierSelected = selectedServices.some(service => highTierServices.includes(service));
+
+    const currentBudget = Number(budget);
+    const minBudget = isHighTierSelected ? 8000 : 2000;
+
+    if (!budget || currentBudget < minBudget) {
+        setBudget(String(minBudget));
+    }
+  }, [selectedServices, budget]);
+
 
   const handleServiceToggle = (serviceTitle: string) => {
     setSelectedServices((prev) =>
@@ -248,5 +267,3 @@ export default function NewRequestPage() {
     </div>
   );
 }
-
-    
