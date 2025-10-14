@@ -172,7 +172,7 @@ export default function NewRequestPage() {
                   const convertedPrice = (service.startingPrice || 0) * conversionRates[currency];
 
                   return (
-                    <div key={service.slug}>
+                    <div key={service.slug} className="flex flex-col">
                       <motion.div
                         onClick={() => {
                             setSelectedServices((prev) =>
@@ -285,5 +285,7 @@ export default function NewRequestPage() {
     </div>
   );
 }
+
+    
 
     
