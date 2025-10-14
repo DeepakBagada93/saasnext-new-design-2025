@@ -1,4 +1,5 @@
 
+
 'use client';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
@@ -28,18 +29,18 @@ import { cn } from '@/lib/utils';
 import { CheckCircle } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-// Rough conversion rates, consider using an API for live rates in a real application
-const conversionRates: { [key: string]: number } = {
-  INR: 1,
-  USD: 1 / 83.5,
-};
-
 const formatCurrency = (amount: number, currency: string) => {
-  return new Intl.NumberFormat('en-IN', {
+  const options: Intl.NumberFormatOptions = {
     style: 'currency',
     currency,
     minimumFractionDigits: 0,
-  }).format(amount);
+  };
+
+  if (currency === 'USD') {
+    options.minimumFractionDigits = 2;
+  }
+
+  return new Intl.NumberFormat(currency === 'INR' ? 'en-IN' : 'en-US', options).format(amount);
 };
 
 
@@ -60,7 +61,13 @@ export default function NewRequestPage() {
   const calculateTotalBudget = () => {
     return selectedServices.reduce((total, serviceTitle) => {
         const service = services.find(s => s.title === serviceTitle);
-        return total + (service?.startingPrice || 0);
+        if (!service) return total;
+        
+        const price = currency === 'USD' 
+            ? (service.startingPriceUsd || 0)
+            : (service.startingPrice || 0);
+            
+        return total + price;
     }, 0);
   }
 
@@ -104,7 +111,7 @@ export default function NewRequestPage() {
         clientEmail: user.email,
         serviceType: selectedServices.join(', '), // Join selected services into a string
         description,
-        budget: totalBudget, // Use calculated budget
+        budget: totalBudget,
         currency,
         status: 'Pending',
         requestedAt: serverTimestamp(),
@@ -125,8 +132,7 @@ export default function NewRequestPage() {
     }
   };
   
-  const totalBudgetInr = calculateTotalBudget();
-  const convertedTotalBudget = totalBudgetInr * conversionRates[currency];
+  const totalBudget = calculateTotalBudget();
 
   return (
     <div className="space-y-6">
@@ -165,7 +171,10 @@ export default function NewRequestPage() {
               <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {services.map((service) => {
                   const isSelected = selectedServices.includes(service.title);
-                  const convertedPrice = (service.startingPrice || 0) * conversionRates[currency];
+                  
+                  const price = currency === 'USD' 
+                    ? (service.startingPriceUsd || 0)
+                    : (service.startingPrice || 0);
 
                   return (
                     <motion.div layout="position" key={service.slug}>
@@ -193,7 +202,7 @@ export default function NewRequestPage() {
                         </div>
                          <div className="mt-4">
                             <p className="text-xs text-muted-foreground">Starts at</p>
-                            <p className="font-bold text-lg text-primary">{formatCurrency(convertedPrice, currency)}</p>
+                            <p className="font-bold text-lg text-primary">{formatCurrency(price, currency)}</p>
                          </div>
                       
                        <AnimatePresence>
@@ -253,7 +262,7 @@ export default function NewRequestPage() {
                         className="p-4 rounded-lg bg-muted/50 flex flex-col sm:flex-row justify-between items-center"
                     >
                         <h4 className="font-semibold text-lg">Estimated Total:</h4>
-                        <p className="font-bold text-2xl text-primary">{formatCurrency(convertedTotalBudget, currency)}</p>
+                        <p className="font-bold text-2xl text-primary">{formatCurrency(totalBudget, currency)}</p>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -281,3 +290,6 @@ export default function NewRequestPage() {
     </div>
   );
 }
+
+
+    

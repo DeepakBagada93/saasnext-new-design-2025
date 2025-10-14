@@ -13,6 +13,7 @@ export const services = [
     benefits: 'A professional online presence, improved user engagement, and a scalable platform for growth. Our affordable web design in Junagadh doesn\'t compromise on quality.',
     results: 'Increased traffic, higher conversion rates, and a stronger brand identity with our custom website development in Junagadh.',
     startingPrice: 8000,
+    startingPriceUsd: 350,
   },
   {
     icon: 'Search',
@@ -27,6 +28,7 @@ export const services = [
     benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
     results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.',
     startingPrice: 2000,
+    startingPriceUsd: 350,
   },
   {
     icon: 'Megaphone',
@@ -41,6 +43,7 @@ export const services = [
     benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
     results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.',
     startingPrice: 8000,
+    startingPriceUsd: 150,
   },
   {
     icon: 'Feather',
@@ -55,6 +58,7 @@ export const services = [
     benefits: 'Improved SEO rankings, stronger brand voice, and valuable resources that attract and nurture leads.',
     results: 'Higher engagement rates, increased organic traffic, and a library of assets that supports sales and marketing efforts.',
     startingPrice: 2000,
+    startingPriceUsd: 150,
   },
   {
     icon: 'Palette',
@@ -69,6 +73,7 @@ export const services = [
     benefits: 'A strong, recognizable brand that builds trust and loyalty with your customers.',
     results: 'Increased brand recognition and a professional image that attracts high-value clients.',
     startingPrice: 2000,
+    startingPriceUsd: 150,
   },
   {
     icon: 'BrainCircuit',
@@ -83,6 +88,7 @@ export const services = [
     benefits: 'Increased efficiency, data-driven decision-making, and a competitive edge in your industry.',
     results: 'Measurable improvements in operational efficiency and the creation of innovative, AI-powered features.',
     startingPrice: 8000,
+    startingPriceUsd: 150,
   },
 ];
 
@@ -400,5 +406,7 @@ export const faqs = [
       answer: "Yes, we offer a variety of ongoing support packages to ensure your website remains secure and updated. We also provide retainers for social media management in Junagadh and other ongoing marketing needs."
     }
   ];
+
+    
 
     
