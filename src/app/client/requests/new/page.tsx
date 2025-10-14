@@ -172,8 +172,8 @@ export default function NewRequestPage() {
                   const convertedPrice = (service.startingPrice || 0) * conversionRates[currency];
 
                   return (
-                    <motion.div layout key={service.slug} className="flex flex-col gap-4">
-                      <motion.div
+                    <motion.div layout key={service.slug}>
+                      <div
                         onClick={() => {
                             setSelectedServices((prev) =>
                                 prev.includes(service.title)
@@ -187,7 +187,6 @@ export default function NewRequestPage() {
                             ? 'border-primary ring-2 ring-primary bg-primary/10'
                             : 'bg-card hover:bg-muted/50'
                         )}
-                        whileTap={{ scale: 0.97 }}
                       >
                         {isSelected && (
                            <CheckCircle className="h-5 w-5 text-primary absolute top-2 right-2"/>
@@ -198,7 +197,7 @@ export default function NewRequestPage() {
                             <p className="text-xs text-muted-foreground">Starts at</p>
                             <p className="font-bold text-lg text-primary">{formatCurrency(convertedPrice, currency)}</p>
                          </div>
-                      </motion.div>
+                      </div>
                       
                        <AnimatePresence>
                         {isSelected && service.title === 'Web Development' && (
@@ -207,7 +206,7 @@ export default function NewRequestPage() {
                                 animate={{ opacity: 1, height: 'auto' }}
                                 exit={{ opacity: 0, height: 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="overflow-hidden"
+                                className="overflow-hidden mt-4"
                             >
                                 <div className="space-y-3 p-4 rounded-lg bg-muted/50">
                                     <Label>What type of website do you need?</Label>
@@ -226,7 +225,7 @@ export default function NewRequestPage() {
                                 animate={{ opacity: 1, height: 'auto' }}
                                 exit={{ opacity: 0, height: 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="overflow-hidden"
+                                className="overflow-hidden mt-4"
                             >
                                 <div className="space-y-2 p-4 rounded-lg bg-muted/50">
                                     <Label htmlFor="ai-requirements">What are your AI requirements?</Label>
