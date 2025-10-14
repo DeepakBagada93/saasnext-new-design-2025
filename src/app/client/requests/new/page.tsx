@@ -172,7 +172,7 @@ export default function NewRequestPage() {
                   const convertedPrice = (service.startingPrice || 0) * conversionRates[currency];
 
                   return (
-                    <div key={service.slug} className="flex flex-col">
+                    <motion.div layout key={service.slug} className="flex flex-col gap-4">
                       <motion.div
                         onClick={() => {
                             setSelectedServices((prev) =>
@@ -203,9 +203,9 @@ export default function NewRequestPage() {
                        <AnimatePresence>
                         {isSelected && service.title === 'Web Development' && (
                             <motion.div
-                                initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                                animate={{ opacity: 1, height: 'auto', marginTop: '16px' }}
-                                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
                                 transition={{ duration: 0.3 }}
                                 className="overflow-hidden"
                             >
@@ -222,9 +222,9 @@ export default function NewRequestPage() {
                         )}
                         {isSelected && service.title === 'AI Solutions' && (
                              <motion.div
-                                initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                                animate={{ opacity: 1, height: 'auto', marginTop: '16px' }}
-                                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
                                 transition={{ duration: 0.3 }}
                                 className="overflow-hidden"
                             >
@@ -242,7 +242,7 @@ export default function NewRequestPage() {
                         )}
                        </AnimatePresence>
 
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -285,7 +285,3 @@ export default function NewRequestPage() {
     </div>
   );
 }
-
-    
-
-    
