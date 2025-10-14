@@ -57,11 +57,8 @@ export default function Header() {
                   </nav>
                   <div className="flex-grow"></div>
                   <div className="space-y-2">
-                    <Button variant="outline" className="w-full" asChild>
-                        <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>Client Hub</Link>
-                    </Button>
                     <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" asChild>
-                        <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
+                        <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
                     </Button>
                   </div>
                 </div>
@@ -87,14 +84,9 @@ export default function Header() {
           ))}
         </nav>
         <div className="flex items-center justify-end space-x-2">
-          <nav className="flex items-center space-x-2">
-            <Button variant="ghost" asChild>
-                <Link href="/login">Client Hub</Link>
-            </Button>
             <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full" asChild>
-                <Link href="/register">Register</Link>
+                <Link href="/register">Get Started</Link>
             </Button>
-          </nav>
         </div>
       </div>
     </header>
