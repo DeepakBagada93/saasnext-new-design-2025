@@ -166,13 +166,13 @@ export default function NewRequestPage() {
                     </Select>
                   </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {services.map((service) => {
                   const isSelected = selectedServices.includes(service.title);
                   const convertedPrice = (service.startingPrice || 0) * conversionRates[currency];
 
                   return (
-                    <motion.div layout key={service.slug}>
+                    <motion.div layout="position" key={service.slug}>
                       <div
                         onClick={() => {
                             setSelectedServices((prev) =>
@@ -188,16 +188,17 @@ export default function NewRequestPage() {
                             : 'bg-card hover:bg-muted/50'
                         )}
                       >
-                        {isSelected && (
-                           <CheckCircle className="h-5 w-5 text-primary absolute top-2 right-2"/>
-                        )}
-                        <h4 className="font-semibold">{service.title}</h4>
-                        <p className="text-xs text-muted-foreground mt-1 flex-grow">{service.description.substring(0, 70)}...</p>
+                        <div className="flex-grow">
+                            {isSelected && (
+                               <CheckCircle className="h-5 w-5 text-primary absolute top-2 right-2"/>
+                            )}
+                            <h4 className="font-semibold">{service.title}</h4>
+                            <p className="text-xs text-muted-foreground mt-1">{service.description.substring(0, 70)}...</p>
+                        </div>
                          <div className="mt-4">
                             <p className="text-xs text-muted-foreground">Starts at</p>
                             <p className="font-bold text-lg text-primary">{formatCurrency(convertedPrice, currency)}</p>
                          </div>
-                      </div>
                       
                        <AnimatePresence>
                         {isSelected && service.title === 'Web Development' && (
@@ -240,11 +241,11 @@ export default function NewRequestPage() {
                             </motion.div>
                         )}
                        </AnimatePresence>
-
+                    </div>
                     </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
             </div>
 
             <AnimatePresence>
