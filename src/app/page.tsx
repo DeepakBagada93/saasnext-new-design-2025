@@ -296,7 +296,7 @@ export default function Home() {
           <p className="mt-4 text-muted-foreground text-lg">Stop juggling emails and spreadsheets. Our client hub gives you a 24/7, transparent view of your projects. Register to take control and streamline communication.</p>
         </div>
         <div className="mt-16">
-          <BentoGrid className="auto-rows-[16rem] lg:auto-rows-[14rem] px-4 md:px-8">
+          <BentoGrid className="max-w-7xl mx-auto auto-rows-[16rem] lg:auto-rows-[14rem] px-4 md:px-8">
             {clientHubFeatures.map((feature) => (
               <BentoCard
                 key={feature.title}
@@ -594,3 +594,6 @@ export default function Home() {
 
     
 
+
+
+    
