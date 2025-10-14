@@ -290,32 +290,32 @@ export default function Home() {
         </div>
       </section>
       
-       <section id="client-hub" className="py-20 md:py-28">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">Your Command Center for Digital Growth</h2>
-            <p className="mt-4 text-muted-foreground text-lg">Stop juggling emails and spreadsheets. Our client hub gives you a 24/7, transparent view of your projects. Register to take control and streamline communication.</p>
-          </div>
-          <BentoGrid className="mt-16 auto-rows-[16rem] lg:auto-rows-[14rem]">
-              {clientHubFeatures.map((feature) => (
-                <BentoCard
-                  key={feature.title}
-                  title={feature.title}
-                  description={feature.description}
-                  href={feature.href}
-                  icon={<feature.Icon />}
-                  background={feature.background}
-                  className={feature.className}
-                />
-              ))}
-            </BentoGrid>
-          <div className="mt-12 text-center">
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90">
-              <Link href="/register">
-                Register for Free <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
+      <section id="client-hub" className="py-20 md:py-28">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto text-center">
+          <h2 className="font-headline text-4xl md:text-5xl font-bold">Your Command Center for Digital Growth</h2>
+          <p className="mt-4 text-muted-foreground text-lg">Stop juggling emails and spreadsheets. Our client hub gives you a 24/7, transparent view of your projects. Register to take control and streamline communication.</p>
+        </div>
+        <div className="mt-16">
+          <BentoGrid className="auto-rows-[16rem] lg:auto-rows-[14rem] px-4 md:px-8">
+            {clientHubFeatures.map((feature) => (
+              <BentoCard
+                key={feature.title}
+                title={feature.title}
+                description={feature.description}
+                href={feature.href}
+                icon={<feature.Icon />}
+                background={feature.background}
+                className={feature.className}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+        <div className="mt-12 text-center">
+          <Button asChild size="lg" className="bg-accent hover:bg-accent/90">
+            <Link href="/register">
+              Register for Free <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
         </div>
       </section>
 
@@ -593,3 +593,4 @@ export default function Home() {
     
 
     
+
