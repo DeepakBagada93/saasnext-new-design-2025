@@ -296,15 +296,16 @@ export default function Home() {
           <p className="mt-4 text-muted-foreground text-lg">Stop juggling emails and spreadsheets. Our client hub gives you a 24/7, transparent view of your projects. Register to take control and streamline communication.</p>
         </div>
         <div className="mt-16">
-          <BentoGrid className="max-w-7xl mx-auto auto-rows-[16rem] lg:auto-rows-[14rem] px-4 md:px-8">
+          <BentoGrid className="max-w-7xl mx-auto auto-rows-[16rem] lg:auto-rows-[14rem]">
             {clientHubFeatures.map((feature) => (
               <BentoCard
                 key={feature.title}
                 title={feature.title}
                 description={feature.description}
                 href={feature.href}
+                cta={feature.cta}
                 icon={<feature.Icon />}
-                background={feature.background}
+                background={feature.title === 'Project Dashboard' ? <Image src="/saasnext-dashboard.png" alt="Project Dashboard" data-ai-hint="dashboard" fill className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center opacity-20" /> : null}
                 className={feature.className}
               />
             ))}
@@ -332,6 +333,7 @@ export default function Home() {
                   title={service.title}
                   description={service.description}
                   href={`/services#${service.slug}`}
+                  cta="Explore Service"
                   icon={serviceIcons[service.icon] || <Zap />}
                   className={idx === 0 || idx === 3 ? "md:col-span-2" : ""}
                   background={service.image && 
@@ -589,6 +591,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 

@@ -1,3 +1,4 @@
+
 "use client"
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
@@ -30,6 +31,7 @@ const BentoCard = ({
   icon,
   className,
   background,
+  cta,
 }: {
   title: string;
   description:string;
@@ -37,6 +39,7 @@ const BentoCard = ({
   icon: React.ReactNode;
   className?: string;
   background?: React.ReactNode;
+  cta: string;
 }) => {
   return (
     <div
@@ -60,7 +63,7 @@ const BentoCard = ({
 
       <div
         className={cn(
-          "pointer-events-none z-10 flex-col items-center justify-center p-6 pt-0 text-sm font-medium text-gray-500 opacity-0 transition-all duration-300 group-hover:flex group-hover:opacity-100",
+          "pointer-events-none z-10 flex-col items-start justify-center p-6 pt-0 text-sm font-medium text-gray-500 opacity-0 transition-all duration-300 group-hover:flex group-hover:opacity-100",
         )}
       >
         <Button
@@ -70,7 +73,7 @@ const BentoCard = ({
             className="pointer-events-auto"
         >
             <Link href={href}>
-                 Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                 {cta} <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
         </Button>
       </div>
