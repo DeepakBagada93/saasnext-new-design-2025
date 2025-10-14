@@ -32,8 +32,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 const conversionRates: { [key: string]: number } = {
   INR: 1,
   USD: 1 / 83.5,
-  EUR: 1 / 90,
-  GBP: 1 / 105,
 };
 
 const formatCurrency = (amount: number, currency: string) => {
@@ -160,8 +158,6 @@ export default function NewRequestPage() {
                       <SelectContent>
                         <SelectItem value="INR">INR</SelectItem>
                         <SelectItem value="USD">USD</SelectItem>
-                        <SelectItem value="EUR">EUR</SelectItem>
-                        <SelectItem value="GBP">GBP</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
