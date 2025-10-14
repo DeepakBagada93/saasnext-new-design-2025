@@ -59,6 +59,8 @@ export default function NewRequestPage() {
   const [aiRequirements, setAiRequirements] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [websiteUrl, setWebsiteUrl] = useState('');
+  const [contactNumber, setContactNumber] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
 
   const calculateTotalBudget = () => {
     return selectedServices.reduce((total, serviceTitle) => {
@@ -110,6 +112,12 @@ export default function NewRequestPage() {
     }
     if (websiteUrl) {
         additionalDetails.websiteUrl = websiteUrl;
+    }
+    if (contactNumber) {
+        additionalDetails.contactNumber = contactNumber;
+    }
+    if (whatsappNumber) {
+        additionalDetails.whatsappNumber = whatsappNumber;
     }
 
     try {
@@ -288,6 +296,29 @@ export default function NewRequestPage() {
                 value={websiteUrl}
                 onChange={(e) => setWebsiteUrl(e.target.value)}
               />
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="contactNumber" className="text-base font-semibold">Contact Number</Label>
+                  <Input
+                    id="contactNumber"
+                    type="tel"
+                    placeholder="+91 12345 67890"
+                    value={contactNumber}
+                    onChange={(e) => setContactNumber(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsappNumber" className="text-base font-semibold">WhatsApp Number</Label>
+                  <Input
+                    id="whatsappNumber"
+                    type="tel"
+                    placeholder="+91 12345 67890"
+                    value={whatsappNumber}
+                    onChange={(e) => setWhatsappNumber(e.target.value)}
+                  />
+                </div>
             </div>
 
             <div className="space-y-2">
