@@ -181,6 +181,42 @@ const problemsAndSolutions = [
     }
 ];
 
+const hubFeatures = [
+    {
+      icon: LayoutDashboard,
+      title: "Project Dashboard",
+      description: "Track real-time status, milestones, and timelines.",
+    },
+    {
+      icon: MessageSquare,
+      title: "Seamless Communication",
+      description: "Schedule meetings and chat with our team directly.",
+    },
+    {
+      icon: FileText,
+      title: "Invoice Management",
+      description: "View, download, and manage all your invoices.",
+    },
+     {
+      icon: PlusCircle,
+      title: "New Service Requests",
+      description: "Submit new ideas or requests in just a few clicks.",
+    },
+  ];
+
+  const featureVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    }),
+  };
+
 
 export default function Home() {
     
@@ -212,20 +248,52 @@ export default function Home() {
       </section>
 
       <section className="py-20 md:py-28">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <div className="text-center space-y-6">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">
-              Stop Guessing, Start Managing.
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Tired of endless email chains and wondering about project status? Register for your free Client Hub account and take control. Track progress, manage invoices, and communicate with our team—all in one place.
-            </p>
-            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                <Link href="/register">
-                    Create Your Free Account <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-            </Button>
-          </div>
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <motion.div
+            className="grid lg:grid-cols-2 gap-12 items-center bg-card border rounded-xl p-8 lg:p-12 overflow-hidden"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ staggerChildren: 0.2 }}
+          >
+            <motion.div
+              className="space-y-6"
+              variants={{
+                hidden: { opacity: 0, x: -50 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+              }}
+            >
+              <h2 className="font-headline text-4xl md:text-5xl font-bold">
+                Stop Guessing. Start Managing.
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Tired of endless email chains and project ambiguity? Your free Client Hub account gives you a 24/7 command center to take control.
+              </p>
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Link href="/register">
+                      Create Your Free Account <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+              </Button>
+            </motion.div>
+            <div className="space-y-6">
+              {hubFeatures.map((feature, i) => (
+                <motion.div
+                  key={feature.title}
+                  custom={i}
+                  variants={featureVariants}
+                  className="flex items-start gap-4 p-4 rounded-lg hover:bg-muted/50 transition-colors"
+                >
+                  <div className="flex-shrink-0 mt-1">
+                    <feature.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">{feature.title}</h3>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
