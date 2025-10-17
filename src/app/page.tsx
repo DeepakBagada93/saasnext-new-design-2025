@@ -28,6 +28,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { HeroAnimation } from '@/components/hero-animation';
 
 const whyChooseUsItems = [
   {
@@ -186,9 +187,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center pt-32 md:pt-40 lg:pt-48 pb-20 md:pb-32 lg:pb-40 text-center overflow-hidden">
-        <div className="absolute inset-0 bg-background/90 z-0">
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
-        </div>
+        <HeroAnimation />
         <div className="relative z-10 px-4 sm:px-6 lg:px-8">
            <AnimatedHeadline
               words={['Customers', 'Revenue', 'Momentum']}
