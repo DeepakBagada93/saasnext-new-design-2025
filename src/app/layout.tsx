@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 import { ClientOnly } from '@/components/client-only';
 import { AuthProvider } from '@/components/auth-provider';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'SaaSNext: Web Design Company & Digital Marketing in Junagadh',
@@ -72,6 +73,18 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+        
+        {/* <!-- Google tag (gtag.js) --> */}
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-16689867019"></Script>
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          
+            gtag('config', 'AW-16689867019');
+          `}
+        </Script>
       </head>
       <body className={cn("min-h-screen font-body antialiased", "bg-background")}>
           <FirebaseClientProvider>
