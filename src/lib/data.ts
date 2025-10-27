@@ -32,7 +32,7 @@ export const services = [
   },
   {
     icon: 'Megaphone',
-    title: 'Social Media Marketing',
+    title: 'Performance & Social Media Marketing',
     description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through PPC, Facebook, and Instagram marketing services.',
     image: {
       imageUrl: "/saasnext-marketing.png",
