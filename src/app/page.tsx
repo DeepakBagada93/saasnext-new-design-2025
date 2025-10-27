@@ -227,12 +227,12 @@ export default function Home() {
         <div className="relative z-10 px-4 sm:px-6 lg:px-8">
            <AnimatedHeadline
               words={['Customers', 'Revenue', 'Momentum']}
-              prefix={<>The Top <span className="text-foreground">Web Design Company</span> in</>}
+              prefix={<>The Top <span className="text-foreground">Web Design & Performance Marketing</span> Agency in Junagadh. We Build</>}
               suffix={<>. Start <span className="text-green-500">Winning</span>.</>}
               className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter animate-fade-in-up"
             />
           <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground animate-fade-in-up animation-delay-200">
-            Is your website failing to attract local customers in Junagadh? As the best digital marketing agency in Junagadh, we build high-performance web experiences that turn visitors into loyal customers.
+            Is your ad spend draining your budget? We build high-performance web experiences and ROI-focused marketing campaigns that turn advertising into profit.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 animate-fade-in-up animation-delay-400">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto shadow-lg shadow-primary/20">
@@ -596,3 +596,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
