@@ -62,13 +62,13 @@ export function PerformanceMarketingChart() {
   return (
     <Card className="w-full">
         <CardHeader>
-            <CardTitle>Recent Campaign Performance</CardTitle>
-            <CardDescription>A snapshot of two recent successful campaigns.</CardDescription>
+            <CardTitle>Client Success: Shreeram Enterprise, Mumbai</CardTitle>
+            <CardDescription>A snapshot of a recent high-performance campaign.</CardDescription>
         </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-                 <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+                 <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
                     <BarChart accessibilityLayer data={campaignData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
@@ -76,7 +76,7 @@ export function PerformanceMarketingChart() {
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
-                            tickFormatter={(value) => value.slice(0, 12)}
+                            tickFormatter={(value) => value.replace(" Campaign", "")}
                         />
                         <YAxis />
                         <ChartTooltip
@@ -93,12 +93,12 @@ export function PerformanceMarketingChart() {
                     </BarChart>
                 </ChartContainer>
             </div>
-            <div className="grid grid-cols-2 gap-6 items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
                  {campaignData.map((campaign) => (
-                    <Card key={campaign.name} className="flex flex-col items-center justify-center p-4 text-center h-full">
+                    <Card key={campaign.name} className="flex flex-col items-center justify-center p-4 text-center h-full bg-muted/50">
                        <h3 className="font-headline text-lg font-bold">{campaign.name}</h3>
                         <p className="text-sm text-muted-foreground mb-2">{campaign.resultType}</p>
-                        <p className="text-4xl font-bold text-primary">{campaign.results}</p>
+                        <p className="text-4xl font-bold text-primary">{campaign.results.toLocaleString()}</p>
                         <p className="text-xs text-muted-foreground mt-2">Cost per Result</p>
                         <p className="font-bold text-lg">₹{campaign.cpr}</p>
                     </Card>
@@ -108,10 +108,10 @@ export function PerformanceMarketingChart() {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Data from last 30 days.
+          Campaign results from last 30 days.
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing key metrics from our recent performance marketing efforts.
+          Showing key metrics from our recent performance marketing efforts for Shreeram Enterprise.
         </div>
       </CardFooter>
     </Card>
