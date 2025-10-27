@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { PerformanceMarketingChart } from "@/components/performance-chart";
 
 export default function PortfolioPage() {
   
@@ -29,7 +30,15 @@ export default function PortfolioPage() {
         </p>
       </section>
 
-      <section id="websites" className="mt-16 max-w-7xl mx-auto">
+      <section id="performance" className="mt-16 max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+            <h2 className="font-headline text-3xl md:text-4xl font-bold">Performance Marketing Showcase</h2>
+            <p className="mt-2 text-muted-foreground text-lg">Data-driven campaigns that deliver measurable ROI.</p>
+        </div>
+        <PerformanceMarketingChart />
+      </section>
+
+      <section id="websites" className="mt-24 max-w-7xl mx-auto">
         <div className="text-center mb-12">
             <h2 className="font-headline text-3xl md:text-4xl font-bold">Web Development Showcase</h2>
             <p className="mt-2 text-muted-foreground text-lg">Interactive and performant websites that drive business goals.</p>
