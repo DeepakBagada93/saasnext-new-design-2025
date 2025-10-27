@@ -29,33 +29,6 @@ export default function PortfolioPage() {
         </p>
       </section>
 
-       <section id="performance-marketing" className="mt-24 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-            <h2 className="font-headline text-3xl md:text-4xl font-bold">Performance Marketing Showcase</h2>
-            <p className="mt-2 text-muted-foreground text-lg">Engaging ad creatives and social media campaigns designed to capture attention and drive action.</p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-             {socialItems.map(item => (
-                 <Card key={item.id} className="overflow-hidden group">
-                    <Link href={`/portfolio/${item.id}`}>
-                        <CardContent className="p-0">
-                            <div className="aspect-square w-full bg-muted overflow-hidden">
-                                <Image
-                                    src={item.image.imageUrl}
-                                    alt={item.title}
-                                    data-ai-hint={item.image.imageHint}
-                                    width={500}
-                                    height={500}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                />
-                            </div>
-                        </CardContent>
-                    </Link>
-                </Card>
-            ))}
-        </div>
-      </section>
-
       <section id="websites" className="mt-16 max-w-7xl mx-auto">
         <div className="text-center mb-12">
             <h2 className="font-headline text-3xl md:text-4xl font-bold">Web Development Showcase</h2>
