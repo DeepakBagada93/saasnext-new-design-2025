@@ -2,7 +2,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, Pie, PieChart, RadialBar, RadialBarChart, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, LabelList, RadialBar, RadialBarChart } from "recharts"
 
 import {
   Card,
@@ -72,13 +72,13 @@ export function PerformanceMarketingChart() {
                     <BarChart accessibilityLayer data={campaignData}>
                         <defs>
                             <linearGradient id="fillReach" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="var(--color-reach)" stopOpacity={0.8}/>
-                                <stop offset="95%" stopColor="var(--color-reach)" stopOpacity={0.1}/>
+                                <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0.1}/>
                                 <animate attributeName="stop-opacity" values="0.1; 0.8; 0.1" dur="4s" repeatCount="indefinite" />
                             </linearGradient>
                             <linearGradient id="fillImpressions" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="var(--color-impressions)" stopOpacity={0.8}/>
-                                <stop offset="95%" stopColor="var(--color-impressions)" stopOpacity={0.1}/>
+                                <stop offset="5%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor="hsl(var(--chart-2))" stopOpacity={0.1}/>
                                 <animate attributeName="stop-opacity" values="0.1; 0.8; 0.1" dur="4s" repeatCount="indefinite" />
                             </linearGradient>
                         </defs>
@@ -107,13 +107,24 @@ export function PerformanceMarketingChart() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
                  {campaignData.map((campaign) => (
-                    <Card key={campaign.name} className="flex flex-col items-center justify-center p-4 text-center h-full bg-muted/50">
-                       <h3 className="font-headline text-lg font-bold">{campaign.name}</h3>
-                        <p className="text-sm text-muted-foreground mb-2">{campaign.resultType}</p>
-                        <p className="text-4xl font-bold text-primary">{campaign.results.toLocaleString()}</p>
-                        <p className="text-xs text-muted-foreground mt-2">Cost per Result</p>
+                    <div key={campaign.name} className="flex flex-col items-center justify-center p-4 text-center h-full">
+                        <ChartContainer config={{ results: { label: campaign.resultType, color: campaign.fill } }} className="h-40 w-40">
+                             <RadialBarChart 
+                                data={[{...campaign, name: 'results'}]} 
+                                startAngle={90} 
+                                endAngle={-270}
+                                innerRadius="70%"
+                                outerRadius="110%"
+                            >
+                                <RadialBar dataKey="results" background cornerRadius={10} />
+                                <ChartTooltip content={<ChartTooltipContent nameKey="results" />} />
+                             </RadialBarChart>
+                        </ChartContainer>
+                       <h3 className="font-headline text-lg font-bold mt-4">{campaign.name}</h3>
+                        <p className="text-sm text-muted-foreground mb-1">{campaign.resultType}: {campaign.results.toLocaleString()}</p>
+                        <p className="text-xs text-muted-foreground">Cost per Result</p>
                         <p className="font-bold text-lg">₹{campaign.cpr}</p>
-                    </Card>
+                    </div>
                  ))}
             </div>
         </div>
