@@ -70,6 +70,18 @@ export function PerformanceMarketingChart() {
             <div>
                  <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
                     <BarChart accessibilityLayer data={campaignData}>
+                        <defs>
+                            <linearGradient id="fillReach" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="var(--color-reach)" stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor="var(--color-reach)" stopOpacity={0.1}/>
+                                <animate attributeName="stop-opacity" values="0.1; 0.8; 0.1" dur="4s" repeatCount="indefinite" />
+                            </linearGradient>
+                            <linearGradient id="fillImpressions" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="var(--color-impressions)" stopOpacity={0.8}/>
+                                <stop offset="95%" stopColor="var(--color-impressions)" stopOpacity={0.1}/>
+                                <animate attributeName="stop-opacity" values="0.1; 0.8; 0.1" dur="4s" repeatCount="indefinite" />
+                            </linearGradient>
+                        </defs>
                         <CartesianGrid vertical={false} />
                         <XAxis
                             dataKey="name"
@@ -84,10 +96,10 @@ export function PerformanceMarketingChart() {
                             content={<ChartTooltipContent indicator="dot" />}
                         />
                          <ChartLegend content={<ChartLegendContent />} />
-                        <Bar dataKey="reach" fill="var(--color-reach)" radius={4}>
+                        <Bar dataKey="reach" fill="url(#fillReach)" radius={4}>
                              <LabelList position="top" offset={10} className="fill-foreground" fontSize={12} />
                         </Bar>
-                        <Bar dataKey="impressions" fill="var(--color-impressions)" radius={4}>
+                        <Bar dataKey="impressions" fill="url(#fillImpressions)" radius={4}>
                              <LabelList position="top" offset={10} className="fill-foreground" fontSize={12} />
                         </Bar>
                     </BarChart>
