@@ -29,7 +29,7 @@ const campaignData = [
     cpr: 0.46,
     results: 1830,
     resultType: "Link Clicks",
-    fill: "var(--color-primary)",
+    fill: "var(--color-cyan)",
   },
   {
     name: "Lead Gen Campaign",
@@ -39,7 +39,7 @@ const campaignData = [
     cpr: 34.89,
     results: 18,
     resultType: "Leads",
-    fill: "var(--color-accent)",
+    fill: "var(--color-lime)",
   },
 ]
 
@@ -55,6 +55,14 @@ const chartConfig = {
   amountSpent: {
       label: "Amount Spent (INR)",
       color: "hsl(var(--chart-3))"
+  },
+  cyan: {
+    label: 'Traffic',
+    color: 'hsl(var(--chart-3))',
+  },
+  lime: {
+    label: 'Lead Gen',
+    color: 'hsl(var(--chart-4))',
   }
 }
 
