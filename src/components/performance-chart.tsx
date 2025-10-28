@@ -2,7 +2,7 @@
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, RadialBar, RadialBarChart } from "recharts"
+import { Bar, BarChart, CartesianGrid, LabelList, RadialBar, RadialBarChart, XAxis, YAxis } from "recharts"
 
 import {
   Card,
