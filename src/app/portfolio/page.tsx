@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { PerformanceMarketingChart } from "@/components/performance-chart";
+import { PerformanceMarketingChartDesignTech } from "@/components/performance-chart-design-tech";
 
 export default function PortfolioPage() {
   
@@ -35,7 +36,10 @@ export default function PortfolioPage() {
             <h2 className="font-headline text-3xl md:text-4xl font-bold">Performance Marketing Showcase</h2>
             <p className="mt-2 text-muted-foreground text-lg">Data-driven campaigns that deliver measurable ROI.</p>
         </div>
-        <PerformanceMarketingChart />
+        <div className="space-y-8">
+            <PerformanceMarketingChart />
+            <PerformanceMarketingChartDesignTech />
+        </div>
       </section>
 
       <section id="websites" className="mt-24 max-w-7xl mx-auto">
