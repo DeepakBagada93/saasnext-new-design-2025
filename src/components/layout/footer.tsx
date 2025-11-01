@@ -12,6 +12,15 @@ const navLinks = [
     { href: "/documentation", label: "Hub Documentation" },
 ];
 
+const legalLinks = [
+    { href: "/privacy-policy", label: "Privacy Policy" },
+    { href: "/terms-of-service", label: "Terms & Conditions" },
+    { href: "/cancellation-and-refund-policy", label: "Cancellation & Refund Policy" },
+    { href: "/shipping-policy", label: "Shipping Policy" },
+    { href: "/contact", label: "Contact Us" },
+    { href: "/admin-login", label: "Admin" },
+];
+
 export default function Footer() {
   return (
     <footer className="border-t">
@@ -49,9 +58,9 @@ export default function Footer() {
                 <div>
                     <h4 className="font-headline font-semibold mb-2">Legal</h4>
                     <ul className="space-y-2">
-                        <li><Link href="/privacy-policy" className="text-sm text-muted-foreground hover:text-primary">Privacy Policy</Link></li>
-                        <li><Link href="/terms-of-service" className="text-sm text-muted-foreground hover:text-primary">Terms of Service</Link></li>
-                         <li><Link href="/admin-login" className="text-sm text-muted-foreground hover:text-primary">Admin</Link></li>
+                        {legalLinks.map(link => (
+                            <li key={link.href}><Link href={link.href} className="text-sm text-muted-foreground hover:text-primary">{link.label}</Link></li>
+                        ))}
                     </ul>
                 </div>
             </div>
