@@ -65,10 +65,11 @@ export default function Footer() {
                 </div>
             </div>
         </div>
-        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground max-w-7xl mx-auto">
+        <div className="mt-8 border-t pt-6 text-center text-sm text-muted-foreground max-w-7xl mx-auto space-y-1">
             <p>
                 Made by <a href="https://deepakbagada.in/" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Deepak Bagada</a>
             </p>
+            <p>Company registered at MSME</p>
         </div>
       </div>
     </footer>
