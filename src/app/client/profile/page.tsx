@@ -22,7 +22,7 @@ export default function ClientProfilePage() {
   const firestore = useFirestore();
   const { toast } = useToast();
 
-  const clientRef = user ? doc(firestore, 'clients', user.uid) : null;
+  const clientRef = user ? doc(firestore, 'client_profiles', user.uid) : null;
   const [clientData, loadingData] = useDocumentData(clientRef);
 
   const [fullName, setFullName] = useState('');

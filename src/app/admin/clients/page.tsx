@@ -44,7 +44,7 @@ export default function AdminClientsPage() {
   const firestore = useFirestore();
   const { toast } = useToast();
   const [clientsSnapshot, loading, error] = useCollection(
-    collection(firestore, 'clients')
+    collection(firestore, 'client_profiles')
   );
 
   const clients = clientsSnapshot?.docs.map(
@@ -53,7 +53,7 @@ export default function AdminClientsPage() {
 
   const handleDeleteClient = async (clientId: string) => {
     try {
-      await deleteDoc(doc(firestore, 'clients', clientId));
+      await deleteDoc(doc(firestore, 'client_profiles', clientId));
       toast({
         title: 'Client Deleted',
         description: 'The client has been successfully deleted.',

@@ -47,13 +47,14 @@ export default function RegisterPage() {
       await updateProfile(user, { displayName: name });
       
       // Create a client document in Firestore
-      const clientRef = doc(firestore, "clients", user.uid);
+      const clientRef = doc(firestore, "client_profiles", user.uid);
       await setDoc(clientRef, {
           name: name,
           email: user.email,
           contact: name, // Default contact to name
           createdAt: serverTimestamp(),
-          userId: user.uid, // Explicitly store the user's UID
+          id: user.uid, // Explicitly store the user's UID
+          clientId: user.uid,
       });
 
       // Send notification email
