@@ -4,7 +4,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useAuth } from "@/firebase";
+import { useAuth, useFirestore } from "@/firebase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
 import { sendNotificationEmail } from "../actions/send-notification-email";
+import { doc, setDoc } from "firebase/firestore";
 
 const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
@@ -20,6 +21,7 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const auth = useAuth();
+  const firestore = useFirestore();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -41,6 +43,11 @@ export default function AdminLoginPage() {
         });
         return;
       }
+      
+      // Ensure the admin role document exists
+      const adminRoleRef = doc(firestore, "roles_admin", userCredential.user.uid);
+      await setDoc(adminRoleRef, { isAdmin: true });
+
 
       // Send notification email
       const subject = "Admin Login on SaaSNext";
