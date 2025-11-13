@@ -11,8 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
+import { sendNotificationEmail } from "../actions/send-notification-email";
 
-const ADMIN_EMAIL = "deeepakbagada25@gmail.com";
+const ADMIN_EMAIL = "deepakbagada25@gmail.com";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -40,6 +41,18 @@ export default function AdminLoginPage() {
         });
         return;
       }
+
+      // Send notification email
+      const subject = "Admin Login on SaaSNext";
+      const htmlBody = `
+        <div style="font-family: sans-serif; line-height: 1.6;">
+          <h2>Admin Login</h2>
+          <p>An administrator has logged into the SaaSNext platform.</p>
+          <hr>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        </div>
+      `;
+      await sendNotificationEmail(subject, htmlBody);
 
       toast({
         title: "Login Successful",

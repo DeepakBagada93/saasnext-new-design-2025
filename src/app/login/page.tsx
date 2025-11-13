@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
+import { sendNotificationEmail } from "../actions/send-notification-email";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -26,7 +27,20 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      
+      // Send notification email
+      const subject = "Client Login on SaaSNext";
+      const htmlBody = `
+        <div style="font-family: sans-serif; line-height: 1.6;">
+          <h2>Client Login</h2>
+          <p>A client has logged into the SaaSNext platform.</p>
+          <hr>
+          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        </div>
+      `;
+      await sendNotificationEmail(subject, htmlBody, email);
+      
       toast({
         title: "Login Successful",
         description: "Redirecting to your dashboard...",
