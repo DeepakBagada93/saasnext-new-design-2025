@@ -76,6 +76,7 @@ service cloud.firestore {
     match /roles_admin/{adminId} {
       // Any signed in user can create their own role document.
       allow create: if isSignedIn() && request.auth.uid == adminId;
+      
       // Any signed in user can read their own role document, and admins can read any.
       allow read: if (isSignedIn() && request.auth.uid == adminId) || isAdmin();
       
@@ -84,4 +85,3 @@ service cloud.firestore {
     }
   }
 }
-
