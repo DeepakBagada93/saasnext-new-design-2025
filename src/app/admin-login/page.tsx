@@ -29,11 +29,7 @@ export default function AdminLoginPage() {
     e.preventDefault();
     setError(null);
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
-      if (userCredential.user.email?.toLowerCase() !== ADMIN_EMAIL) {
-        await auth.signOut(); // Sign out the non-admin user
+    if (email.toLowerCase() !== ADMIN_EMAIL) {
         const authError = "You are not authorized to access the admin portal.";
         setError(authError);
         toast({
@@ -42,11 +38,14 @@ export default function AdminLoginPage() {
             description: authError,
         });
         return;
-      }
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       
       // Ensure the admin role document exists
       const adminRoleRef = doc(firestore, "roles_admin", userCredential.user.uid);
-      await setDoc(adminRoleRef, { isAdmin: true, clientId: userCredential.user.uid }, { merge: true });
+      await setDoc(adminRoleRef, { isAdmin: true }, { merge: true });
 
 
       // Send notification email
