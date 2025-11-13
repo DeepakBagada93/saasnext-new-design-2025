@@ -1,5 +1,4 @@
 
-
 'use client';
 import { useState, useEffect } from 'react';
 import {
@@ -346,7 +345,7 @@ export default function AdminQuotationsPage() {
         collection(firestore, 'quotations')
     );
     const [clientsSnapshot, loadingClients, errorClients] = useCollection(
-        collection(firestore, 'clients')
+        collection(firestore, 'client_profiles')
     );
 
     const quotations = quotationsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Quotation));

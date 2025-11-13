@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
       
       // Ensure the admin role document exists
       const adminRoleRef = doc(firestore, "roles_admin", userCredential.user.uid);
-      await setDoc(adminRoleRef, { isAdmin: true }, { merge: true });
+      await setDoc(adminRoleRef, { isAdmin: true, clientId: userCredential.user.uid }, { merge: true });
 
 
       // Send notification email

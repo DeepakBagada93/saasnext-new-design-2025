@@ -13,7 +13,7 @@ service cloud.firestore {
     
     match /client_profiles/{clientId} {
       // Admins can read, list, create, update, and delete any client profile
-      allow read, write, list: if isAdmin();
+      allow read, list, write: if isAdmin();
       
       // A user can create their own profile
       allow create: if isSignedIn() && request.auth.uid == clientId;
