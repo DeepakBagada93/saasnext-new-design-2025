@@ -1,207 +1,384 @@
 {
   "entities": {
-    "Client": {
-      "title": "Client",
-      "description": "Represents a client in the system.",
+    "ClientProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ClientProfile",
       "type": "object",
+      "description": "Represents a client's profile within the SaaSNext platform.",
       "properties": {
-        "name": {
+        "id": {
           "type": "string",
-          "description": "The client's full name."
-        },
-        "email": {
-          "type": "string",
-          "format": "email",
-          "description": "The client's email address."
-        },
-        "userId": {
-          "type": "string",
-          "description": "The Firebase Auth UID of the client."
+          "description": "Unique identifier for the client profile."
         },
         "companyName": {
           "type": "string",
-          "description": "The client's company name."
+          "description": "The name of the client's company."
         },
-        "phoneNumber": {
+        "contactName": {
           "type": "string",
-          "description": "The client's phone number."
+          "description": "The name of the primary contact person for the client."
+        },
+        "contactEmail": {
+          "type": "string",
+          "description": "The email address of the primary contact person.",
+          "format": "email"
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "The phone number of the primary contact person."
+        },
+        "address": {
+          "type": "string",
+          "description": "The physical address of the client's company."
+        },
+        "websiteUrl": {
+          "type": "string",
+          "description": "The URL of the client's website, if available.",
+          "format": "uri"
         },
         "createdAt": {
           "type": "string",
-          "format": "date-time",
-          "description": "The timestamp when the client was created."
-        }
-      },
-      "required": ["name", "email", "userId"]
-    },
-    "Project": {
-      "title": "Project",
-      "description": "Represents a project for a client.",
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
+          "description": "Timestamp indicating when the client profile was created.",
+          "format": "date-time"
         },
-        "userId": {
-          "type": "string"
-        },
-        "clientName": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "budget": {
-          "type": "number"
-        },
-        "currency": {
-          "type": "string"
-        },
-        "timeline": {
-          "type": "object",
-          "properties": {
-            "start": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "end": {
-              "type": "string",
-              "format": "date-time"
-            }
-          }
-        },
-        "milestones": {
-          "type": "array"
-        },
-        "updates": {
-          "type": "array"
-        }
-      }
-    },
-    "ServiceRequest": {
-      "title": "Service Request",
-      "description": "A service request from a client.",
-      "type": "object",
-      "properties": {
-        "userId": {
-          "type": "string"
-        },
-        "clientName": {
-          "type": "string"
-        },
-        "clientEmail": {
-          "type": "string"
-        },
-        "serviceType": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "budget": {
-          "type": "number"
-        },
-        "currency": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string"
-        },
-        "requestedAt": {
+        "updatedAt": {
           "type": "string",
+          "description": "Timestamp indicating when the client profile was last updated.",
           "format": "date-time"
         }
-      }
+      },
+      "required": [
+        "id",
+        "companyName",
+        "contactName",
+        "contactEmail"
+      ]
     },
-    "Quotation": {
-      "title": "Quotation",
-      "description": "A quotation for a client.",
+    "ServiceRequest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ServiceRequest",
       "type": "object",
+      "description": "Represents a service request submitted by a client.",
       "properties": {
-        "userId": {
-          "type": "string"
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the service request."
         },
         "clientId": {
-          "type": "string"
+          "type": "string",
+          "description": "Reference to the ClientProfile that submitted the request. (Relationship: ClientProfile 1:N ServiceRequest)"
         },
-        "clientName": {
-          "type": "string"
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the requested service."
         },
-        "amount": {
-          "type": "number"
+        "budget": {
+          "type": "number",
+          "description": "The client's budget for the requested service."
+        },
+        "preferredTimeline": {
+          "type": "string",
+          "description": "The client's preferred timeline for completion.",
+          "format": "date-time"
         },
         "status": {
-          "type": "string"
+          "type": "string",
+          "description": "The current status of the service request (e.g., 'Pending', 'Approved', 'Rejected', 'In Progress', 'Completed')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the service request was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the service request was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "clientId",
+        "description",
+        "status"
+      ]
+    },
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a project that fulfills a service request.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the project."
+        },
+        "serviceRequestId": {
+          "type": "string",
+          "description": "Reference to the ServiceRequest associated with this project. (Relationship: ServiceRequest 1:1 Project)"
+        },
+        "clientId": {
+          "type": "string",
+          "description": "Reference to the ClientProfile that owns the project. (Relationship: ClientProfile 1:N Project)"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the project."
+        },
+        "startDate": {
+          "type": "string",
+          "description": "The date on which the project started.",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "The planned or actual end date of the project.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the project (e.g., 'Planning', 'In Progress', 'Completed', 'On Hold')."
+        },
+        "timelineUpdates": {
+          "type": "string",
+          "description": "Updates related to the project timeline."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the project was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the project was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "serviceRequestId",
+        "clientId",
+        "name",
+        "status"
+      ]
+    },
+    "Invoice": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Invoice",
+      "type": "object",
+      "description": "Represents an invoice for a project.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the invoice."
+        },
+        "clientId": {
+          "type": "string",
+          "description": "Reference to the ClientProfile the invoice is for. (Relationship: ClientProfile 1:N Invoice)"
+        },
+        "projectId": {
+          "type": "string",
+          "description": "Reference to the Project the invoice is for. (Relationship: Project 1:N Invoice)"
+        },
+        "invoiceNumber": {
+          "type": "string",
+          "description": "The invoice number."
+        },
+        "issueDate": {
+          "type": "string",
+          "description": "The date the invoice was issued.",
+          "format": "date-time"
         },
         "dueDate": {
           "type": "string",
+          "description": "The date the invoice is due.",
           "format": "date-time"
         },
-        "items": {
-          "type": "array"
-        }
-      }
-    },
-    "MeetingRequest": {
-      "title": "Meeting Request",
-      "description": "A meeting request from a client.",
-      "type": "object",
-      "properties": {
-        "userId": {
-          "type": "string"
-        },
-        "clientName": {
-          "type": "string"
-        },
-        "topic": {
-          "type": "string"
-        },
-        "preferredDate": {
-          "type": "string",
-          "format": "date"
-        },
-        "preferredTime": {
-          "type": "string"
+        "amount": {
+          "type": "number",
+          "description": "The total amount due on the invoice."
         },
         "status": {
-          "type": "string"
+          "type": "string",
+          "description": "The status of the invoice (e.g., 'Sent', 'Paid', 'Overdue')."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Any additional notes or information related to the invoice."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the invoice was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the invoice was last updated.",
+          "format": "date-time"
         }
-      }
+      },
+      "required": [
+        "id",
+        "clientId",
+        "projectId",
+        "invoiceNumber",
+        "issueDate",
+        "dueDate",
+        "amount",
+        "status"
+      ]
+    },
+    "AdminProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AdminProfile",
+      "type": "object",
+      "description": "Represents an administrator's profile within the SaaSNext platform.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the admin profile."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the administrator."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the administrator.",
+          "format": "email"
+        },
+        "role": {
+          "type": "string",
+          "description": "The role of the administrator (e.g., 'Super Admin', 'Project Manager')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the admin profile was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the admin profile was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "role"
+      ]
     }
   },
   "auth": {
-    "providers": ["email"]
+    "providers": [
+      "password",
+      "anonymous"
+    ]
   },
   "firestore": {
-    "/clients/{clientId}": {
-      "schema": {
-        "$ref": "#/entities/Client"
+    "structure": [
+      {
+        "path": "/client_profiles/{clientId}",
+        "definition": {
+          "entityName": "ClientProfile",
+          "schema": {
+            "$ref": "#/backend/entities/ClientProfile"
+          },
+          "description": "Stores client profiles. Uses path-based ownership for client data.  `clientId` is the Firebase Auth UID.",
+          "params": [
+            {
+              "name": "clientId",
+              "description": "The Firebase Auth UID of the client."
+            }
+          ]
+        }
       },
-      "description": "Stores client user information."
-    },
-    "/projects/{projectId}": {
-      "schema": {
-        "$ref": "#/entities/Project"
+      {
+        "path": "/service_requests/{serviceRequestId}",
+        "definition": {
+          "entityName": "ServiceRequest",
+          "schema": {
+            "$ref": "#/backend/entities/ServiceRequest"
+          },
+          "description": "Stores service requests submitted by clients. Includes denormalized `clientId` for authorization independence.",
+          "params": [
+            {
+              "name": "serviceRequestId",
+              "description": "The unique ID of the service request."
+            }
+          ]
+        }
       },
-      "description": "Stores project details for clients."
-    },
-    "/serviceRequests/{requestId}": {
-      "schema": {
-        "$ref": "#/entities/ServiceRequest"
+      {
+        "path": "/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores project information. Includes denormalized `clientId` for authorization independence.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "The unique ID of the project."
+            }
+          ]
+        }
       },
-      "description": "Stores service requests submitted by clients."
-    },
-    "/quotations/{quotationId}": {
-      "schema": {
-        "$ref": "#/entities/Quotation"
+      {
+        "path": "/invoices/{invoiceId}",
+        "definition": {
+          "entityName": "Invoice",
+          "schema": {
+            "$ref": "#/backend/entities/Invoice"
+          },
+          "description": "Stores invoice information. Includes denormalized `clientId` for authorization independence.",
+          "params": [
+            {
+              "name": "invoiceId",
+              "description": "The unique ID of the invoice."
+            }
+          ]
+        }
       },
-      "description": "Stores quotations for clients."
-    },
-    "/meetingRequests/{meetingId}": {
-      "schema": {
-        "$ref": "#/entities/MeetingRequest"
+      {
+        "path": "/admin_profiles/{adminId}",
+        "definition": {
+          "entityName": "AdminProfile",
+          "schema": {
+            "$ref": "#/backend/entities/AdminProfile"
+          },
+          "description": "Stores administrator profiles. `adminId` is the Firebase Auth UID.",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The Firebase Auth UID of the administrator."
+            }
+          ]
+        }
       },
-      "description": "Stores meeting requests from clients."
-    }
+      {
+        "path": "/roles_admin/{adminId}",
+        "definition": {
+          "entityName": "roles_admin",
+          "schema": {
+            "$ref": "#/backend/entities/AdminProfile"
+          },
+          "description": "Collection for admin roles. Existence of a document grants admin privileges. `adminId` is the Firebase Auth UID.",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The Firebase Auth UID of the administrator."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to ensure security, scalability, and ease of debugging, adhering to the core design principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters). It leverages denormalization, structural segregation, and consistent access modeling to achieve these goals.\n\n**Authorization Independence:**\nAuthorization independence is achieved by avoiding `get()` calls in security rules. Specifically, `ServiceRequest`, `Project`, and `Invoice` collections denormalize the `clientId` field, which allows security rules to validate access based solely on the `request.auth.uid` and the document's data, without needing to fetch parent `ClientProfile` data. This is crucial for maintaining atomic operations and simplifying debugging.\n\n**Structural Segregation:**\nThe structure segregates data with different access needs into separate collections. For instance, client profiles are stored in `/client_profiles/{clientId}` and admin profiles in `/admin_profiles/{adminId}`, enforcing distinct security postures for each. Additionally, `/roles_admin/{uid}` is a dedicated collection for global admin roles, enabling existence-based authorization rules.\n\n**Access Modeling:**\nPath-based ownership is used for client-owned data (`/client_profiles/{clientId}`). The `ServiceRequest`, `Project`, and `Invoice` are created as top-level collections for simple querying by admins. The `clientId` field enables admins to query by client and is the base for the security rules. This structure models the `ClientProfile 1:N ServiceRequest, Project, Invoice` relationship.\n\n**QAPs (Rules are not Filters):**\nSecure list operations are supported through structural segregation and denormalization. Admins can list service requests, projects, and invoices across all clients and clients can only list the ones they have created. The security rules ensure that only authorized data is returned.\n\n**Invariants:**\nThe structure supports the integrity of ownership. The `clientId` field in `ServiceRequest`, `Project`, and `Invoice` maintains a clear link to the owner.\n\n**Admin Roles:**\nThe design uses a dedicated `/roles_admin/{uid}` collection for admins. The presence of a document in this collection grants admin privileges, avoiding complex data lookups and custom claims."
   }
 }
