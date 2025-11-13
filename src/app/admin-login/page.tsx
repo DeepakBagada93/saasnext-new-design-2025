@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { sendNotificationEmail } from "../actions/send-notification-email";
 import { doc, setDoc } from "firebase/firestore";
 
-const ADMIN_EMAIL = "deepakbagada25@gmail.com";
+const ADMIN_EMAIL = "deeepakbagada25@gmail.com";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
