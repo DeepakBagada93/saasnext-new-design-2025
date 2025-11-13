@@ -76,7 +76,7 @@ service cloud.firestore {
     match /roles_admin/{adminId} {
       // Any signed in user can create their own role document.
       allow create: if isSignedIn() && request.auth.uid == adminId;
-      // Any signed in user can read their own role document, admins can read any.
+      // Any signed in user can read their own role document, and admins can read any.
       allow read: if (isSignedIn() && request.auth.uid == adminId) || isAdmin();
       
       // No one can list, update or delete role documents for security.

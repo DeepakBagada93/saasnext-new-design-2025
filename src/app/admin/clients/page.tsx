@@ -35,16 +35,16 @@ import { useToast } from '@/hooks/use-toast';
 
 type Client = {
   id: string;
-  name: string;
-  contact: string;
-  email: string;
+  companyName: string;
+  contactName: string;
+  contactEmail: string;
 };
 
 export default function AdminClientsPage() {
   const firestore = useFirestore();
   const { toast } = useToast();
   const [clientsSnapshot, loading, error] = useCollection(
-    collection(firestore, 'client_profiles')
+    firestore ? collection(firestore, 'client_profiles') : null
   );
 
   const clients = clientsSnapshot?.docs.map(
@@ -52,6 +52,7 @@ export default function AdminClientsPage() {
   );
 
   const handleDeleteClient = async (clientId: string) => {
+    if (!firestore) return;
     try {
       await deleteDoc(doc(firestore, 'client_profiles', clientId));
       toast({
@@ -83,7 +84,7 @@ export default function AdminClientsPage() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Client Name</TableHead>
+                <TableHead>Company Name</TableHead>
                 <TableHead>Contact Person</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -109,9 +110,9 @@ export default function AdminClientsPage() {
               )}
               {clients?.map((client) => (
                 <TableRow key={client.id}>
-                  <TableCell className="font-medium">{client.name}</TableCell>
-                  <TableCell>{client.contact}</TableCell>
-                  <TableCell>{client.email}</TableCell>
+                  <TableCell className="font-medium">{client.companyName}</TableCell>
+                  <TableCell>{client.contactName}</TableCell>
+                  <TableCell>{client.contactEmail}</TableCell>
                   <TableCell className="text-right">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
