@@ -5,7 +5,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     
     function isAdmin() {
-      return request.auth.token.email == "deeepakbagada25@gmail.com";
+      return request.auth.token.email == "deepakbagada25@gmail.com";
     }
 
     // CLIENTS: Admins can manage all clients. Clients can read and update their own profiles.
