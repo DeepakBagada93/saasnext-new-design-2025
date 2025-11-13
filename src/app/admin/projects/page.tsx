@@ -42,7 +42,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
-import { format, addDays } from 'date-fns';
+import { format, addDays, addMonths } from 'date-fns';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -54,7 +54,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, Trash2 } from 'lucide-react';
 
 type Client = {
   id: string;
@@ -95,6 +95,27 @@ function formatCurrency(amount: number, currency: string) {
     }).format(amount);
 }
 
+function generateDefaultMilestones(projectName: string): Milestone[] {
+    const today = new Date();
+    const lowerCaseName = projectName.toLowerCase();
+
+    if (lowerCaseName.includes('lead gen') || lowerCaseName.includes('ads') || lowerCaseName.includes('marketing') || lowerCaseName.includes('seo')) {
+        return [
+            { name: 'Month 1', date: addMonths(today, 1), status: 'Upcoming' },
+            { name: 'Month 2', date: addMonths(today, 2), status: 'Upcoming' },
+            { name: 'Month 3', date: addMonths(today, 3), status: 'Upcoming' },
+        ];
+    }
+
+    // Default for website projects or others
+    return [
+        { name: 'Project Kick-off', date: addDays(today, 2), status: 'Upcoming' },
+        { name: 'Design Phase', date: addDays(today, 15), status: 'Upcoming' },
+        { name: 'Development Phase', date: addDays(today, 45), status: 'Upcoming' },
+        { name: 'Final Delivery', date: addDays(today, 60), status: 'Upcoming' },
+    ];
+}
+
 
 function ProjectDialog({
   project,
@@ -122,19 +143,40 @@ function ProjectDialog({
   const [newUpdate, setNewUpdate] = useState('');
   
   const [milestones, setMilestones] = useState<Milestone[]>(
-    project?.milestones ? project.milestones.map(m => ({...m, date: new Date(m.date as string)})) : [
-        { name: 'Project Kick-off', date: addDays(new Date(), 2), status: 'Upcoming' },
-        { name: 'Final Delivery', date: addDays(new Date(), 30), status: 'Upcoming' },
-    ]
+    project?.milestones ? project.milestones.map(m => ({...m, date: new Date(m.date as string)})) : generateDefaultMilestones(projectName)
   );
+
+  useState(() => {
+    if (!isEditing && projectName) {
+        setMilestones(generateDefaultMilestones(projectName));
+    }
+  });
   
 
-  const handleMilestoneDateChange = (index: number, date: Date | undefined) => {
-    if (!date) return;
+  const handleMilestoneChange = (index: number, field: 'name' | 'date', value: string | Date | undefined) => {
+    if (value === undefined) return;
     const newMilestones = [...milestones];
-    newMilestones[index].date = date;
+    if (field === 'date') {
+        newMilestones[index].date = value as Date;
+    } else {
+        newMilestones[index].name = value as string;
+    }
     setMilestones(newMilestones);
   };
+  
+  const handleAddMilestone = () => {
+    const lastDate = milestones.length > 0 ? new Date(milestones[milestones.length - 1].date) : new Date();
+    setMilestones([
+      ...milestones,
+      { name: `New Phase ${milestones.length + 1}`, date: addDays(lastDate, 15), status: 'Upcoming' }
+    ]);
+  };
+
+  const handleRemoveMilestone = (index: number) => {
+    const newMilestones = milestones.filter((_, i) => i !== index);
+    setMilestones(newMilestones);
+  };
+
 
   const handleSave = async () => {
     if (!firestore) return;
@@ -231,7 +273,13 @@ function ProjectDialog({
                 <Input
                     id="project-name"
                     value={projectName}
-                    onChange={(e) => setProjectName(e.target.value)}
+                    onChange={(e) => {
+                        const newName = e.target.value;
+                        setProjectName(newName);
+                        if (!isEditing) {
+                            setMilestones(generateDefaultMilestones(newName));
+                        }
+                    }}
                 />
             </div>
 
@@ -301,12 +349,15 @@ function ProjectDialog({
              <div className="space-y-2">
                 {milestones.map((milestone, index) => (
                     <div key={index} className="flex items-center gap-4">
-                        <Input value={milestone.name} readOnly className="flex-grow bg-muted"/>
+                        <Input 
+                            value={milestone.name}
+                            onChange={(e) => handleMilestoneChange(index, 'name', e.target.value)}
+                            className="flex-grow"/>
                         <Popover>
                             <PopoverTrigger asChild>
                                 <Button
                                     variant={"outline"}
-                                    className={cn("w-[280px] justify-start text-left font-normal")}
+                                    className={cn("w-[180px] justify-start text-left font-normal")}
                                 >
                                     {format(new Date(milestone.date), "PPP")}
                                 </Button>
@@ -315,14 +366,21 @@ function ProjectDialog({
                                 <Calendar
                                     mode="single"
                                     selected={new Date(milestone.date)}
-                                    onSelect={(date) => handleMilestoneDateChange(index, date)}
+                                    onSelect={(date) => handleMilestoneChange(index, 'date', date)}
                                     initialFocus
                                 />
                             </PopoverContent>
                         </Popover>
+                        <Button variant="ghost" size="icon" onClick={() => handleRemoveMilestone(index)}>
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
                     </div>
                 ))}
             </div>
+            <Button variant="outline" size="sm" onClick={handleAddMilestone}>
+                <PlusCircle className="mr-2 h-4 w-4"/>
+                Add Milestone
+            </Button>
           </div>
           
           {isEditing && (
@@ -518,3 +576,5 @@ export default function AdminProjectsPage() {
     </div>
   );
 }
+
+    
