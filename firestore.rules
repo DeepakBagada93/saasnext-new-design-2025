@@ -74,11 +74,12 @@ service cloud.firestore {
     }
     
     match /roles_admin/{adminId} {
-      // Only the admin themselves can create their role document, and admins can read any role doc.
+      // Any signed in user can create their own role document.
       allow create: if isSignedIn() && request.auth.uid == adminId;
-      allow read: if isAdmin();
+      // Any signed in user can read their own role document, admins can read any.
+      allow read: if (isSignedIn() && request.auth.uid == adminId) || isAdmin();
       
-      // No one can list, update or delete role documents
+      // No one can list, update or delete role documents for security.
       allow list, update, delete: if false;
     }
   }
