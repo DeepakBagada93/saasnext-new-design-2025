@@ -26,6 +26,7 @@ export default function AdminLoginPage() {
   const { toast } = useToast();
 
   const handleSuccessfulLogin = async (user: any) => {
+    if (!firestore) return;
     // Ensure the admin role document exists
     const adminRoleRef = doc(firestore, "roles_admin", user.uid);
     await setDoc(adminRoleRef, { isAdmin: true }, { merge: true });
