@@ -18,7 +18,7 @@ export const services = [
   {
     icon: 'Search',
     title: 'SEO & Social Media Marketing',
-    description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through SEO, PPC, Facebook, and Instagram marketing services.',
+    description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
     image: {
       imageUrl: "https://images.unsplash.com/photo-1614091473310-072faa6a091c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb29nbGUlMjBzZWFyY2glMjBjb25zb2xlfGVufDB8fHx8MTc1OTE5OTQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
       imageHint: "SEO analysis"
@@ -27,13 +27,13 @@ export const services = [
     process: 'We perform in-depth keyword research, on-page optimization, and technical SEO audits to establish your authority. This is a core part of our digital marketing for lead generation in Junagadh.',
     benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
     results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.',
-    startingPrice: 2000,
-    startingPriceUsd: 1500,
+    startingPrice: 6000,
+    startingPriceUsd: 1000,
   },
   {
     icon: 'Megaphone',
     title: 'Performance & Lead Generation',
-    description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
+    description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through SEO, PPC, Facebook, and Instagram marketing services.',
     image: {
       imageUrl: "/saasnext-marketing.png",
       imageHint: "analytics dashboard"
@@ -57,7 +57,7 @@ export const services = [
     process: 'We develop a content strategy aligned with your Junagadh web design and SMM goals, creating high-quality blog posts, articles, and website copy.',
     benefits: 'Improved SEO rankings, stronger brand voice, and valuable resources that attract and nurture leads.',
     results: 'Higher engagement rates, increased organic traffic, and a library of assets that supports sales and marketing efforts.',
-    startingPrice: 2000,
+    startingPrice: 6000,
     startingPriceUsd: 1000,
   },
   {
@@ -72,7 +72,7 @@ export const services = [
     process: 'Our process involves deep-diving into your brand\'s essence, exploring visual concepts, and delivering a comprehensive brand guide.',
     benefits: 'A strong, recognizable brand that builds trust and loyalty with your customers.',
     results: 'Increased brand recognition and a professional image that attracts high-value clients.',
-    startingPrice: 2000,
+    startingPrice: 6000,
     startingPriceUsd: 1000,
   },
   {
@@ -406,6 +406,8 @@ export const faqs = [
       answer: "Yes, we offer a variety of ongoing support packages to ensure your website remains secure and updated. We also provide retainers for social media management in Junagadh and other ongoing marketing needs."
     }
   ];
+
+    
 
     
 
