@@ -29,8 +29,8 @@ service cloud.firestore {
       // Clients can create requests for themselves
       allow create: if isSignedIn() && request.resource.data.clientId == request.auth.uid;
       
-      // Clients can read requests where their UID matches the clientId field
-      allow get: if isSignedIn() && resource.data.clientId == request.auth.uid;
+      // Clients can read and list requests where their UID matches the clientId field
+      allow get, list: if isSignedIn() && resource.data.clientId == request.auth.uid;
     }
 
     match /projects/{projectId} {
@@ -40,8 +40,8 @@ service cloud.firestore {
       // Clients can create projects for themselves
       allow create: if isSignedIn() && request.resource.data.clientId == request.auth.uid;
 
-      // Clients can read projects where their UID matches the clientId field
-      allow get: if isSignedIn() && resource.data.clientId == request.auth.uid;
+      // Clients can read and list projects where their UID matches the clientId field
+      allow get, list: if isSignedIn() && resource.data.clientId == request.auth.uid;
     }
 
     match /invoices/{invoiceId} {
@@ -51,19 +51,19 @@ service cloud.firestore {
       // Clients can create invoices for themselves
       allow create: if isSignedIn() && request.resource.data.clientId == request.auth.uid;
 
-      // Clients can read invoices where their UID matches the clientId field
-      allow get: if isSignedIn() && resource.data.clientId == request.auth.uid;
+      // Clients can read and list invoices where their UID matches the clientId field
+      allow get, list: if isSignedIn() && resource.data.clientId == request.auth.uid;
     }
     
     match /quotations/{quotationId} {
        allow read, write, list: if isAdmin();
-       allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+       allow get, list: if isSignedIn() && resource.data.userId == request.auth.uid;
     }
     
     match /meetingRequests/{requestId} {
         allow read, write, list: if isAdmin();
         allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
-        allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+        allow get, list: if isSignedIn() && resource.data.userId == request.auth.uid;
     }
 
     match /admin_profiles/{adminId} {
