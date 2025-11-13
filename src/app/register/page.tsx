@@ -17,6 +17,7 @@ import { sendNotificationEmail } from "../actions/send-notification-email";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +52,7 @@ export default function RegisterPage() {
       await setDoc(clientRef, {
           contactName: name,
           contactEmail: user.email,
-          companyName: '',
+          companyName: companyName,
           createdAt: serverTimestamp(),
           id: user.uid,
       });
@@ -64,6 +65,7 @@ export default function RegisterPage() {
           <p>A new user has created an account on the SaaSNext platform.</p>
           <hr>
           <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Company:</strong> ${companyName}</p>
           <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
         </div>
       `;
@@ -117,6 +119,16 @@ export default function RegisterPage() {
               required 
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="companyName">Company Name</Label>
+            <Input 
+              id="companyName" 
+              placeholder="Your Company Inc." 
+              required 
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
             />
           </div>
           <div className="space-y-2">

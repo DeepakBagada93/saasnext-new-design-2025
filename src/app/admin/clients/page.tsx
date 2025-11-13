@@ -31,6 +31,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from '@/hooks/use-toast';
+import { Trash2 } from 'lucide-react';
 
 
 type Client = {
@@ -116,7 +117,9 @@ export default function AdminClientsPage() {
                   <TableCell className="text-right">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button variant="destructive" size="sm">Delete</Button>
+                        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
@@ -128,7 +131,9 @@ export default function AdminClientsPage() {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction onClick={() => handleDeleteClient(client.id)}>
+                          <AlertDialogAction 
+                            className="bg-destructive hover:bg-destructive/90"
+                            onClick={() => handleDeleteClient(client.id)}>
                             Delete
                           </AlertDialogAction>
                         </AlertDialogFooter>
