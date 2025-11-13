@@ -17,6 +17,7 @@ import {
   addDoc,
   deleteDoc,
   serverTimestamp,
+  setDoc,
 } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -119,6 +120,17 @@ function ApproveRequestDialog({ request, isOpen, onClose }: { request: ServiceRe
         }
 
         try {
+            // Ensure a client profile exists, create one if not
+            const clientRef = doc(firestore, 'client_profiles', request.clientId);
+            await setDoc(clientRef, {
+                id: request.clientId,
+                contactName: request.clientName,
+                companyName: request.clientName, // Default to contact name
+                contactEmail: request.clientEmail,
+                createdAt: serverTimestamp(),
+            }, { merge: true });
+
+
             const start = milestones.length > 0 ? milestones[0].date : new Date();
             const end = milestones.length > 0 ? milestones[milestones.length - 1].date : addDays(new Date(), 30);
 
