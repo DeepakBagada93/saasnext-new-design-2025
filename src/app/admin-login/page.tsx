@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
 
-const ADMIN_EMAIL = "deeeepakbagada25@gmail.com";
+const ADMIN_EMAIL = "deeepakbagada25@gmail.com";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");

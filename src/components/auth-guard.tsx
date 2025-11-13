@@ -6,7 +6,7 @@ import { useUser } from '@/firebase';
 import { AppLayout } from './app-layout';
 import React, { useEffect } from 'react';
 
-const ADMIN_EMAIL = "deeeepakbagada25@gmail.com";
+const ADMIN_EMAIL = "deeepakbagada25@gmail.com";
 
 type LayoutType = 'public' | 'admin' | 'client' | 'auth';
 
