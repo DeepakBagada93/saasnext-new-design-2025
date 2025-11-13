@@ -12,8 +12,8 @@ service cloud.firestore {
     }
     
     match /client_profiles/{clientId} {
-      // Admins can read, list, and delete any client profile
-      allow read, list, delete: if isAdmin();
+      // Admins can read, list, create, update, and delete any client profile
+      allow read, write, list: if isAdmin();
       
       // A user can create their own profile
       allow create: if isSignedIn() && request.auth.uid == clientId;
@@ -74,8 +74,10 @@ service cloud.firestore {
     }
     
     match /roles_admin/{adminId} {
-      // Only the admin themselves can create their role document
-      allow create, read: if isSignedIn() && request.auth.uid == adminId;
+      // Only the admin themselves can create their role document, and admins can read any role doc.
+      allow create: if isSignedIn() && request.auth.uid == adminId;
+      allow read: if isAdmin();
+      
       // No one can list, update or delete role documents
       allow list, update, delete: if false;
     }
