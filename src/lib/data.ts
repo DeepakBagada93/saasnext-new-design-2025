@@ -17,8 +17,8 @@ export const services = [
   },
   {
     icon: 'Search',
-    title: 'SEO & Lead Generation',
-    description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
+    title: 'SEO & Social Media Marketing',
+    description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through SEO, PPC, Facebook, and Instagram marketing services.',
     image: {
       imageUrl: "https://images.unsplash.com/photo-1614091473310-072faa6a091c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb29nbGUlMjBzZWFyY2glMjBjb25zb2xlfGVufDB8fHx8MTc1OTE5OTQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
       imageHint: "SEO analysis"
@@ -32,8 +32,8 @@ export const services = [
   },
   {
     icon: 'Megaphone',
-    title: 'Performance & Social Media Marketing',
-    description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through PPC, Facebook, and Instagram marketing services.',
+    title: 'Performance & Lead Generation',
+    description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
     image: {
       imageUrl: "/saasnext-marketing.png",
       imageHint: "analytics dashboard"
@@ -406,6 +406,8 @@ export const faqs = [
       answer: "Yes, we offer a variety of ongoing support packages to ensure your website remains secure and updated. We also provide retainers for social media management in Junagadh and other ongoing marketing needs."
     }
   ];
+
+    
 
     
 
