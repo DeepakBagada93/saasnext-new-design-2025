@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, doc, updateDoc, arrayUnion, deleteDoc } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import {
@@ -42,6 +42,17 @@ import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 type Milestone = {
     name: string;
@@ -258,6 +269,7 @@ function EditProjectDialog({
 
 export default function AdminProjectsPage() {
   const firestore = useFirestore();
+  const { toast } = useToast();
   const [projectsSnapshot, loading, error] = useCollection(
     collection(firestore, 'projects')
   );
@@ -266,6 +278,23 @@ export default function AdminProjectsPage() {
   const projects = projectsSnapshot?.docs.map(
     (doc) => ({ id: doc.id, ...doc.data() } as Project)
   );
+  
+  const handleDeleteProject = async (projectId: string) => {
+    if (!firestore) return;
+    try {
+      await deleteDoc(doc(firestore, 'projects', projectId));
+      toast({
+        title: 'Project Deleted',
+        description: 'The project has been successfully deleted.',
+      });
+    } catch (e: any) {
+      toast({
+        variant: 'destructive',
+        title: 'Deletion Failed',
+        description: e.message,
+      });
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -288,7 +317,7 @@ export default function AdminProjectsPage() {
                 <TableHead>Budget</TableHead>
                 <TableHead>Timeline</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead></TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -325,13 +354,35 @@ export default function AdminProjectsPage() {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setEditingProject(project)}
-                    >
-                      Edit
-                    </Button>
+                    <div className="flex items-center justify-end gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setEditingProject(project)}
+                      >
+                        Edit
+                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="destructive" size="sm">Delete</Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will permanently delete the project
+                              and all its associated data.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDeleteProject(project.id)}>
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}
