@@ -121,8 +121,8 @@ export default function NewRequestPage() {
     }
 
     try {
-      await addDoc(collection(firestore, 'serviceRequests'), {
-        userId: user.uid,
+      await addDoc(collection(firestore, 'service_requests'), {
+        clientId: user.uid,
         clientName: user.displayName,
         clientEmail: user.email,
         serviceType: selectedServices.join(', '), // Join selected services into a string
@@ -130,7 +130,7 @@ export default function NewRequestPage() {
         budget: totalBudget,
         currency,
         status: 'Pending',
-        requestedAt: serverTimestamp(),
+        createdAt: serverTimestamp(),
         ...additionalDetails
       });
       toast({

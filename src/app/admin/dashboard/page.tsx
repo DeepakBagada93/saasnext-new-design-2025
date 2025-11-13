@@ -18,8 +18,8 @@ export default function AdminDashboardPage() {
   const firestore = useFirestore();
 
   const [projectsSnapshot, loadingProjects] = useCollection(collection(firestore, 'projects'));
-  const [clientsSnapshot, loadingClients] = useCollection(collection(firestore, 'clients'));
-  const [requestsSnapshot, loadingRequests] = useCollection(collection(firestore, 'serviceRequests'));
+  const [clientsSnapshot, loadingClients] = useCollection(collection(firestore, 'client_profiles'));
+  const [requestsSnapshot, loadingRequests] = useCollection(collection(firestore, 'service_requests'));
   
   const loading = loadingProjects || loadingClients || loadingRequests;
 

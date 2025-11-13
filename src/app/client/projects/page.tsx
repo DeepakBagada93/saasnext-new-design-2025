@@ -1,3 +1,4 @@
+
 'use client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -20,7 +21,7 @@ export default function ClientProjectsPage() {
 
   const projectsQuery =
     user?.uid &&
-    query(collection(firestore, 'projects'), where('userId', '==', user.uid));
+    query(collection(firestore, 'projects'), where('clientId', '==', user.uid));
 
   const [projectsSnapshot, loading, error] = useCollection(projectsQuery || null);
 
@@ -73,6 +74,13 @@ export default function ClientProjectsPage() {
             </CardContent>
           </Card>
         ))}
+         {clientProjects && clientProjects.length === 0 && !loading && (
+            <Card>
+                <CardContent className="p-6 text-center text-muted-foreground">
+                    You don't have any projects yet.
+                </CardContent>
+            </Card>
+        )}
       </div>
     </div>
   );

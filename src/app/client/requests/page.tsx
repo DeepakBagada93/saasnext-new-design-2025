@@ -19,8 +19,8 @@ export default function ClientRequestsPage() {
   const requestsQuery =
     user?.uid &&
     query(
-      collection(firestore, 'serviceRequests'),
-      where('userId', '==', user.uid)
+      collection(firestore, 'service_requests'),
+      where('clientId', '==', user.uid)
     );
 
   const [requestsSnapshot, loading, error] = useCollection(requestsQuery || null);
@@ -57,7 +57,7 @@ export default function ClientRequestsPage() {
                       {request.description}
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
-                        Requested on: {new Date(request.requestedAt.toDate()).toLocaleDateString()}
+                        Requested on: {request.createdAt ? new Date(request.createdAt.toDate()).toLocaleDateString() : 'N/A'}
                     </p>
                      <div className="text-sm text-muted-foreground mt-2 space-x-4">
                         {request.budget && <span>Budget: {request.budget} {request.currency}</span>}

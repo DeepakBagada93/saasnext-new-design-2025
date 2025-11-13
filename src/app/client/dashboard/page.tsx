@@ -37,12 +37,12 @@ export default function ClientDashboardPage() {
 
   const projectsQuery =
     user?.uid &&
-    query(collection(firestore, 'projects'), where('userId', '==', user.uid));
+    query(collection(firestore, 'projects'), where('clientId', '==', user.uid));
   const [projectsSnapshot, loadingProjects, errorProjects] = useCollection(projectsQuery || null);
   
   const requestsQuery =
     user?.uid &&
-    query(collection(firestore, 'serviceRequests'), where('userId', '==', user.uid));
+    query(collection(firestore, 'service_requests'), where('clientId', '==', user.uid));
   const [requestsSnapshot, loadingRequests, errorRequests] = useCollection(requestsQuery || null);
 
   const clientProjects = projectsSnapshot?.docs.map((doc) => ({
@@ -116,7 +116,7 @@ export default function ClientDashboardPage() {
                     <Badge variant='outline'>{request.status}</Badge>
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
-                    {new Date(request.requestedAt.toDate()).toLocaleDateString()}
+                    {request.createdAt ? new Date(request.createdAt.toDate()).toLocaleDateString() : 'N/A'}
                   </TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="sm" asChild>

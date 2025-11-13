@@ -43,7 +43,7 @@ type ServiceRequest = {
   currency?: string;
   clientName: string;
   clientEmail: string;
-  userId: string;
+  clientId: string;
 };
 
 type Milestone = {
@@ -125,7 +125,7 @@ function ApproveRequestDialog({ request, isOpen, onClose }: { request: ServiceRe
             await addDoc(collection(firestore, 'projects'), {
                 name: projectName,
                 clientName: request.clientName,
-                userId: request.userId,
+                clientId: request.clientId,
                 status: 'Planning',
                 budget: request.budget || 0,
                 currency: request.currency || 'INR',
@@ -138,7 +138,7 @@ function ApproveRequestDialog({ request, isOpen, onClose }: { request: ServiceRe
                 updates: [],
             });
 
-            await deleteDoc(doc(firestore, 'serviceRequests', request.id));
+            await deleteDoc(doc(firestore, 'service_requests', request.id));
 
             toast({
                 title: 'Project Approved',
@@ -214,7 +214,7 @@ export default function AdminRequestsPage() {
   const firestore = useFirestore();
   const { toast } = useToast();
   const [requestsSnapshot, loading, error] = useCollection(
-    collection(firestore, 'serviceRequests')
+    collection(firestore, 'service_requests')
   );
   const [selectedRequest, setSelectedRequest] = useState<ServiceRequest | null>(null);
 
@@ -224,7 +224,7 @@ export default function AdminRequestsPage() {
 
   const handleReject = async (requestId: string) => {
      try {
-      await deleteDoc(doc(firestore, 'serviceRequests', requestId));
+      await deleteDoc(doc(firestore, 'service_requests', requestId));
        toast({
         variant: 'secondary',
         title: 'Request Rejected',
