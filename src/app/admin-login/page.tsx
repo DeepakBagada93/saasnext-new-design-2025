@@ -3,7 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { useAuth, useFirestore } from "@/firebase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,6 +25,30 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const { toast } = useToast();
 
+  const handleSuccessfulLogin = async (user: any) => {
+    // Ensure the admin role document exists
+    const adminRoleRef = doc(firestore, "roles_admin", user.uid);
+    await setDoc(adminRoleRef, { isAdmin: true }, { merge: true });
+
+    // Send notification email
+    const subject = "Admin Login on SaaSNext";
+    const htmlBody = `
+      <div style="font-family: sans-serif; line-height: 1.6;">
+        <h2>Admin Login</h2>
+        <p>An administrator has logged into the SaaSNext platform.</p>
+        <hr>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+      </div>
+    `;
+    await sendNotificationEmail(subject, htmlBody);
+
+    toast({
+      title: "Login Successful",
+      description: "Redirecting to dashboard...",
+    });
+    router.push("/admin/dashboard");
+  };
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -42,52 +66,51 @@ export default function AdminLoginPage() {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
-      // Ensure the admin role document exists
-      const adminRoleRef = doc(firestore, "roles_admin", userCredential.user.uid);
-      await setDoc(adminRoleRef, { isAdmin: true }, { merge: true });
-
-
-      // Send notification email
-      const subject = "Admin Login on SaaSNext";
-      const htmlBody = `
-        <div style="font-family: sans-serif; line-height: 1.6;">
-          <h2>Admin Login</h2>
-          <p>An administrator has logged into the SaaSNext platform.</p>
-          <hr>
-          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-        </div>
-      `;
-      await sendNotificationEmail(subject, htmlBody);
-
-      toast({
-        title: "Login Successful",
-        description: "Redirecting to dashboard...",
-      });
-      router.push("/admin/dashboard");
-
+      await handleSuccessfulLogin(userCredential.user);
     } catch (error: any) {
-      let errorMessage = "An unknown error occurred.";
-      switch (error.code) {
-        case 'auth/wrong-password':
-          errorMessage = 'Incorrect password. Please try again.';
-          break;
-        case 'auth/user-not-found':
-          errorMessage = 'No user found with this email.';
-          break;
-        case 'auth/invalid-email':
-            errorMessage = 'Please enter a valid email address.';
+      // If user not found, try to create it.
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+        try {
+          const newUserCredential = await createUserWithEmailAndPassword(auth, email, password);
+          toast({
+            title: "Admin Account Created",
+            description: "Your admin account has been set up. Logging you in...",
+          });
+          await handleSuccessfulLogin(newUserCredential.user);
+        } catch (createError: any) {
+            let errorMessage = "An unknown error occurred during signup.";
+            if (createError.code === 'auth/weak-password') {
+                errorMessage = "Password is too weak. It must be at least 6 characters long.";
+            } else {
+                errorMessage = createError.message;
+            }
+            setError(errorMessage);
+            toast({
+                variant: "destructive",
+                title: "Admin Creation Failed",
+                description: errorMessage,
+            });
+        }
+      } else {
+        let errorMessage = "An unknown error occurred.";
+        switch (error.code) {
+          case 'auth/wrong-password':
+            errorMessage = 'Incorrect password. Please try again.';
             break;
-        default:
-          errorMessage = error.message;
-          break;
+          case 'auth/invalid-email':
+              errorMessage = 'Please enter a valid email address.';
+              break;
+          default:
+            errorMessage = error.message;
+            break;
+        }
+        setError(errorMessage);
+        toast({
+          variant: "destructive",
+          title: "Login Failed",
+          description: errorMessage,
+        });
       }
-      setError(errorMessage);
-       toast({
-        variant: "destructive",
-        title: "Login Failed",
-        description: errorMessage,
-      });
     }
   };
 
