@@ -1,4 +1,52 @@
 
+export const pricingPlans = [
+    {
+      title: 'Basic',
+      price: '8,000',
+      priceUsd: '100',
+      description: 'Ideal for startups and small businesses needing a professional online presence.',
+      features: [
+        '5-Page Custom Website',
+        'Basic SEO Setup',
+        'Social Media Account Setup',
+        'Contact Form Integration',
+        'Mobile Responsive Design',
+      ],
+      cta: 'Get Started',
+    },
+    {
+      title: 'Business',
+      price: '25,000',
+      priceUsd: '300',
+      description: 'The perfect package for growing businesses aiming to increase leads and sales.',
+      features: [
+        '10-15 Page Custom Website',
+        'Advanced On-Page & Technical SEO',
+        'Social Media Management (2 platforms)',
+        'Basic Lead Generation Campaign',
+        'Client Dashboard Access',
+        'Priority Email Support',
+      ],
+      cta: 'Choose Business Plan',
+      popular: true,
+    },
+    {
+      title: 'Enterprise',
+      price: 'Custom',
+      priceUsd: 'Custom',
+      description: 'Tailored solutions for established businesses with specific, large-scale needs.',
+      features: [
+        'Unlimited Pages & Custom Features',
+        'Full-Scale SEO & Content Strategy',
+        'Comprehensive Social Media & Ad Management',
+        'AI & Automation Solutions',
+        'Dedicated Account Manager',
+        '24/7 Priority Support',
+      ],
+cta: 'Contact Sales',
+    },
+];
+
 export const services = [
   {
     icon: 'Code',
@@ -17,13 +65,13 @@ export const services = [
   },
   {
     icon: 'Search',
-    title: 'SEO & Social Media Marketing',
+    title: 'Performance & Lead Generation',
     description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
     image: {
       imageUrl: "https://images.unsplash.com/photo-1614091473310-072faa6a091c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb29nbGUlMjBzZWFyY2glMjBjb25zb2xlfGVufDB8fHx8MTc1OTE5OTQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
       imageHint: "SEO analysis"
     },
-    slug: 'seo',
+    slug: 'performance-marketing',
     process: 'We perform in-depth keyword research, on-page optimization, and technical SEO audits to establish your authority. This is a core part of our digital marketing for lead generation in Junagadh.',
     benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
     results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.',
@@ -32,13 +80,13 @@ export const services = [
   },
   {
     icon: 'Megaphone',
-    title: 'Performance & Lead Generation',
+    title: 'SEO & Social Media Marketing',
     description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through SEO, PPC, Facebook, and Instagram marketing services.',
     image: {
       imageUrl: "/saasnext-marketing.png",
       imageHint: "analytics dashboard"
     },
-    slug: 'performance-marketing',
+    slug: 'seo',
     process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI with our SMM services in Junagadh.',
     benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
     results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.',

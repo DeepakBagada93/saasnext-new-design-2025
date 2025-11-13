@@ -6,7 +6,7 @@ import { ArrowRight, Star, Award, Zap, Users, ShieldCheck, TrendingUp, Check, Co
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { portfolioItems, faqs, services, techStack } from "@/lib/data";
+import { portfolioItems, faqs, services, techStack, pricingPlans } from "@/lib/data";
 import Image from "next/image";
 import {
   Accordion,
@@ -219,6 +219,7 @@ const hubFeatures = [
 
 
 export default function Home() {
+    const [currency, setCurrency] = useState('INR');
     
   return (
     <div className="flex flex-col">
@@ -325,33 +326,55 @@ export default function Home() {
         </div>
       </section>
       
-      <section id="services" className="py-20 md:py-28 bg-card">
+      <section id="pricing" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
-                <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Core Services</h2>
-                <p className="mt-4 text-muted-foreground text-lg">We provide a complete suite of digital services including web development and SEO services in Junagadh to help your business thrive online.</p>
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Simple, Transparent Pricing</h2>
+                <p className="mt-4 text-muted-foreground text-lg">Choose the plan that's right for your business. No hidden fees, no surprises.</p>
+                <div className="mt-6 flex justify-center">
+                    <div className="inline-flex items-center p-1 rounded-full bg-muted">
+                        <Button onClick={() => setCurrency('INR')} variant={currency === 'INR' ? 'default' : 'ghost'} size="sm" className="rounded-full">INR</Button>
+                        <Button onClick={() => setCurrency('USD')} variant={currency === 'USD' ? 'default' : 'ghost'} size="sm" className="rounded-full">USD</Button>
+                    </div>
+                </div>
             </div>
-            <BentoGrid className="mt-16">
-              {services.slice(0,4).map((service, idx) => (
-                <BentoCard
-                  key={service.title}
-                  title={service.title}
-                  description={service.description}
-                  href={`/services#${service.slug}`}
-                  cta="Explore Service"
-                  icon={serviceIcons[service.icon] || <Zap />}
-                  className={idx === 0 || idx === 3 ? "md:col-span-2" : ""}
-                  background={service.image && 
-                    <Image 
-                      src={service.image.imageUrl} 
-                      alt={service.title}
-                      data-ai-hint={service.image.imageHint}
-                      fill 
-                      className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover object-center opacity-10" 
-                    />}
-                />
-              ))}
-            </BentoGrid>
+
+            <div className="mt-16 grid lg:grid-cols-3 gap-8 items-start">
+                {pricingPlans.map(plan => (
+                    <Card key={plan.title} className={cn(
+                        "flex flex-col h-full",
+                        plan.popular ? "border-primary ring-2 ring-primary" : "border"
+                    )}>
+                        {plan.popular && <div className="text-center py-1 px-4 bg-primary text-primary-foreground text-sm font-semibold rounded-t-lg">Most Popular</div>}
+                        <CardHeader className="text-center">
+                            <CardTitle className="text-3xl font-headline">{plan.title}</CardTitle>
+                            <CardDescription>{plan.description}</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex-grow space-y-6">
+                            <div className="text-center">
+                                <span className="text-4xl font-bold">
+                                    {plan.price === 'Custom' ? 'Custom' : `${currency === 'INR' ? '₹' : '$'}${currency === 'INR' ? plan.price : plan.priceUsd}`}
+                                </span>
+                                {plan.price !== 'Custom' && <span className="text-muted-foreground">/mo</span>}
+                            </div>
+                            <ul className="space-y-3 text-muted-foreground">
+                                {plan.features.map(feature => (
+                                    <li key={feature} className="flex items-start">
+                                        <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 shrink-0" />
+                                        <span>{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                        <CardFooter>
+                            <Button asChild className={cn("w-full", !plan.popular && "bg-accent hover:bg-accent/90")} variant={plan.popular ? 'default' : 'secondary'}>
+                                <Link href={plan.cta === 'Contact Sales' ? '/contact' : '/register'}>{plan.cta}</Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+
             <div className="text-center mt-12">
                 <Button asChild size="lg">
                     <Link href="/services">
