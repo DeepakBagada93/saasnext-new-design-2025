@@ -23,6 +23,7 @@ type Quotation = {
     }[];
     clientName?: string;
     clientEmail?: string;
+    upiId?: string;
 };
 
 const formatCurrency = (amount: number, currency: string) => {
@@ -140,6 +141,7 @@ export default function QuotationDetails({ quotationId }: { quotationId: string 
                 <footer className="mt-auto pt-10 text-center text-xs text-gray-500 border-t">
                     <p>Thank you for your business!</p>
                     <p>Please send payments to SaaSNext. Payment terms are 15 days.</p>
+                    {quotation.upiId && <p className="mt-2 font-semibold">UPI ID: {quotation.upiId}</p>}
                 </footer>
             </div>
         </div>

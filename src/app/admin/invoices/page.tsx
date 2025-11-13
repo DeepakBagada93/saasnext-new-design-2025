@@ -77,6 +77,7 @@ type Quotation = {
   dueDate: string;
   date: string;
   items: QuotationItem[];
+  upiId?: string;
 };
 
 const formatCurrency = (amount: number, currency: string) => {
@@ -103,6 +104,7 @@ function QuotationDialog({
   const [dueDate, setDueDate] = useState<Date>();
   const [status, setStatus] = useState<'Paid' | 'Due' | 'Overdue'>('Due');
   const [currency, setCurrency] = useState('INR');
+  const [upiId, setUpiId] = useState('');
   const [items, setItems] = useState<QuotationItem[]>([
     { description: '', quantity: 1, price: 0 },
   ]);
@@ -117,6 +119,7 @@ function QuotationDialog({
         setDueDate(new Date(quotation.dueDate));
         setStatus(quotation.status);
         setCurrency(quotation.currency);
+        setUpiId(quotation.upiId || '');
         setItems(quotation.items);
     } else {
         // Reset form for new quotation
@@ -124,6 +127,7 @@ function QuotationDialog({
         setDueDate(undefined);
         setStatus('Due');
         setCurrency('INR');
+        setUpiId('');
         setItems([{ description: '', quantity: 1, price: 0 }]);
     }
   }, [quotation, isEditing, isOpen]);
@@ -173,6 +177,7 @@ function QuotationDialog({
         status,
         dueDate: dueDate.toISOString(),
         items,
+        upiId,
     };
 
     try {
@@ -283,6 +288,16 @@ function QuotationDialog({
                     </SelectContent>
                     </Select>
                 </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="upiId">UPI ID</Label>
+              <Input
+                id="upiId"
+                placeholder="your-upi-id@okhdfcbank"
+                value={upiId}
+                onChange={(e) => setUpiId(e.target.value)}
+              />
             </div>
             
             <div className="space-y-2 pt-4">
