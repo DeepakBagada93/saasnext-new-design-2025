@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useUser, useFirestore } from '@/firebase';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -52,10 +52,12 @@ export default function ClientProfilePage() {
 
     try {
       await setDoc(clientRef, {
+        id: user.uid,
         contactName: contactName,
-        contactEmail: user.email,
         companyName: companyName,
+        contactEmail: user.email,
         contactPhone: phoneNumber,
+        updatedAt: serverTimestamp(),
       }, { merge: true });
 
       toast({
