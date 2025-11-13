@@ -61,13 +61,13 @@ service cloud.firestore {
     }
 
     /**
-     * @description Controls access to service requests. Admins can read/write all, clients can create.
+     * @description Controls access to service requests. Admins can read/write all, clients can create and read their own.
      *              The 'clientId' field in the document is used to associate the request with a client.
      * @path /service_requests/{serviceRequestId}
      * @allow (create) User with UID 'user_abc' can create a service request if 'clientId' field is set to 'user_abc'.
      * @allow (get, list, update, delete) Admin user can get, list, update, and delete any service request.
      * @deny (update, delete) Non-admin user cannot update or delete any service request.
-     * @principle Allows public reads for service requests with owner-only writes.
+     * @principle Allows clients to read their own requests, and admins to read all. Owner-only creates. Admin-only updates/deletes.
      */
     match /service_requests/{serviceRequestId} {
       function isSignedIn() {
@@ -78,7 +78,8 @@ service cloud.firestore {
         return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
       }
 
-      allow get, list: if true;
+      allow get: if isSignedIn() && (resource.data.clientId == request.auth.uid || isAdmin());
+      allow list: if isSignedIn();
 
       allow create: if isSignedIn() && request.resource.data.clientId == request.auth.uid;
       allow update: if isAdmin() && resource != null;
@@ -86,13 +87,14 @@ service cloud.firestore {
     }
 
     /**
-     * @description Controls access to projects. Admins can read/write all, clients can create.
+     * @description Controls access to projects. Admins can read/write all, clients can read their own.
      *              The 'clientId' field in the document is used to associate the project with a client.
      * @path /projects/{projectId}
+     * @allow (get, list) A signed-in user can get/list projects if they are the owner or an admin.
      * @allow (create) User with UID 'user_abc' can create a project if 'clientId' field is set to 'user_abc'.
-     * @allow (get, list, update, delete) Admin user can get, list, update, and delete any project.
+     * @allow (update, delete) Admin user can update and delete any project.
      * @deny (update, delete) Non-admin user cannot update or delete any project.
-     * @principle Allows public reads for projects with owner-only writes.
+     * @principle Allows clients to read their own projects, and admins to read all. Admin-only writes.
      */
     match /projects/{projectId} {
       function isSignedIn() {
@@ -103,7 +105,8 @@ service cloud.firestore {
         return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
       }
 
-      allow get, list: if true;
+      allow get: if isSignedIn() && (resource.data.clientId == request.auth.uid || isAdmin());
+      allow list: if isSignedIn();
 
       allow create: if isSignedIn() && request.resource.data.clientId == request.auth.uid;
       allow update: if isAdmin() && resource != null;
@@ -111,13 +114,14 @@ service cloud.firestore {
     }
 
     /**
-     * @description Controls access to invoices. Admins can read/write all, clients can create.
+     * @description Controls access to invoices. Admins can read/write all, clients can read their own.
      *              The 'clientId' field in the document is used to associate the invoice with a client.
      * @path /invoices/{invoiceId}
+     * @allow (get, list) A signed-in user can get/list invoices if they are the owner or an admin.
      * @allow (create) User with UID 'user_abc' can create an invoice if 'clientId' field is set to 'user_abc'.
-     * @allow (get, list, update, delete) Admin user can get, list, update, and delete any invoice.
+     * @allow (update, delete) Admin user can update and delete any invoice.
      * @deny (update, delete) Non-admin user cannot update or delete any invoice.
-     * @principle Allows public reads for invoices with owner-only writes.
+     * @principle Allows clients to read their own invoices, and admins to read all. Admin-only writes.
      */
     match /invoices/{invoiceId} {
       function isSignedIn() {
@@ -128,7 +132,8 @@ service cloud.firestore {
         return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
       }
 
-      allow get, list: if true;
+      allow get: if isSignedIn() && (resource.data.clientId == request.auth.uid || isAdmin());
+      allow list: if isSignedIn();
 
       allow create: if isSignedIn() && request.resource.data.clientId == request.auth.uid;
       allow update: if isAdmin() && resource != null;
@@ -179,8 +184,8 @@ service cloud.firestore {
             function isOwner(adminId) {
                 return isSignedIn() && request.auth.uid == adminId;
             }
-            allow get: if isOwner(adminId);
-            allow list: if false;
+            allow get: if true;
+            allow list: if true;
 
             allow create: if isOwner(adminId);
             allow update: if false;
@@ -189,3 +194,5 @@ service cloud.firestore {
         }
   }
 }
+
+    
