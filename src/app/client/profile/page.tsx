@@ -25,17 +25,17 @@ export default function ClientProfilePage() {
   const clientRef = user ? doc(firestore, 'client_profiles', user.uid) : null;
   const [clientData, loadingData] = useDocumentData(clientRef);
 
-  const [fullName, setFullName] = useState('');
+  const [contactName, setContactName] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   
   useEffect(() => {
     if (clientData) {
-      setFullName(clientData.name || user?.displayName || '');
+      setContactName(clientData.contactName || user?.displayName || '');
       setCompanyName(clientData.companyName || '');
-      setPhoneNumber(clientData.phoneNumber || '');
+      setPhoneNumber(clientData.contactPhone || '');
     } else if (user) {
-        setFullName(user.displayName || '');
+        setContactName(user.displayName || '');
     }
   }, [clientData, user]);
 
@@ -52,12 +52,10 @@ export default function ClientProfilePage() {
 
     try {
       await setDoc(clientRef, {
-        name: fullName,
-        email: user.email, // email is not editable but needs to be in the doc
-        userId: user.uid,
-        contact: fullName, // Update contact field as well
+        contactName: contactName,
+        contactEmail: user.email,
         companyName: companyName,
-        phoneNumber: phoneNumber,
+        contactPhone: phoneNumber,
       }, { merge: true });
 
       toast({
@@ -121,8 +119,8 @@ export default function ClientProfilePage() {
                   <Label htmlFor="name">Full Name</Label>
                   <Input
                     id="name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
                     placeholder="Your full name"
                   />
                 </div>
