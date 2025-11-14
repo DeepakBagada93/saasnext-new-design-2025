@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Phone } from 'lucide-react';
+import { Calendar, Clock, Phone, FileText } from 'lucide-react';
 import { ProjectProgress } from './project-progress';
 import { useFirestore } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -42,6 +42,20 @@ function WhatsappIcon(props: any) {
         </svg>
     )
 }
+
+function NotionIcon(props: any) {
+    return (
+        <svg 
+            {...props}
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            fill="currentColor"
+        >
+            <path d="M13.633 21.026L12 18.053V2.974h8.333v13.567l-2.018-3.026L19.528 17.5l-5.895 3.526zM5.333 2.974h5.667v18.052H5.333V2.974zm1.112 1.111v15.83h3.443V4.085H6.445z"/>
+        </svg>
+    )
+}
+
 
 export default function ProjectDetails({ id }: { id: string }) {
   const firestore = useFirestore();
@@ -173,6 +187,33 @@ export default function ProjectDetails({ id }: { id: string }) {
                     )}
                 </CardContent>
             </Card>
+             <Card>
+                <CardHeader>
+                    <CardTitle>Project Resources</CardTitle>
+                    <CardDescription>Essential documents and links.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                    {project.notionLink && (
+                         <Button asChild variant="outline" className="w-full justify-start">
+                            <Link href={project.notionLink} target="_blank">
+                                <NotionIcon className="mr-2 h-4 w-4" />
+                                Open Notion Page
+                            </Link>
+                        </Button>
+                    )}
+                    {project.googleDocLink && (
+                        <Button asChild variant="outline" className="w-full justify-start">
+                            <Link href={project.googleDocLink} target="_blank">
+                                <FileText className="mr-2 h-4 w-4" />
+                                Open Google Doc
+                            </Link>
+                        </Button>
+                    )}
+                    {(!project.notionLink && !project.googleDocLink) && (
+                        <p className="text-sm text-muted-foreground text-center py-4">No resources have been added for this project yet.</p>
+                    )}
+                </CardContent>
+            </Card>
             <Card>
             <CardHeader>
                 <CardTitle>Recent Updates</CardTitle>
@@ -220,3 +261,5 @@ export default function ProjectDetails({ id }: { id: string }) {
     </div>
   );
 }
+
+    

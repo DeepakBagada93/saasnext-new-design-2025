@@ -85,6 +85,8 @@ type Project = {
   updates?: any[];
   quickCallNumber?: string;
   whatsappLink?: string;
+  notionLink?: string;
+  googleDocLink?: string;
 };
 
 function formatCurrency(amount: number, currency: string) {
@@ -140,6 +142,8 @@ function ProjectDialog({
   const [currency, setCurrency] = useState(project?.currency || 'INR');
   const [quickCallNumber, setQuickCallNumber] = useState(project?.quickCallNumber || '');
   const [whatsappLink, setWhatsappLink] = useState(project?.whatsappLink || '');
+  const [notionLink, setNotionLink] = useState(project?.notionLink || '');
+  const [googleDocLink, setGoogleDocLink] = useState(project?.googleDocLink || '');
   const [newUpdate, setNewUpdate] = useState('');
   
   const [milestones, setMilestones] = useState<Milestone[]>(
@@ -207,6 +211,8 @@ function ProjectDialog({
         milestones: sortedMilestones.map(m => ({...m, date: new Date(m.date).toISOString()})),
         quickCallNumber,
         whatsappLink,
+        notionLink,
+        googleDocLink,
       };
 
       if (isEditing && project) {
@@ -339,6 +345,27 @@ function ProjectDialog({
                         placeholder="https://chat.whatsapp.com/..."
                         value={whatsappLink}
                         onChange={(e) => setWhatsappLink(e.target.value)}
+                    />
+                </div>
+          </div>
+          
+           <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label htmlFor="notionLink">Notion Link</Label>
+                    <Input
+                        id="notionLink"
+                        placeholder="https://www.notion.so/..."
+                        value={notionLink}
+                        onChange={(e) => setNotionLink(e.target.value)}
+                    />
+                </div>
+                <div className="space-y-2">
+                    <Label htmlFor="googleDocLink">Google Doc Link</Label>
+                    <Input
+                        id="googleDocLink"
+                        placeholder="https://docs.google.com/..."
+                        value={googleDocLink}
+                        onChange={(e) => setGoogleDocLink(e.target.value)}
                     />
                 </div>
           </div>
@@ -577,4 +604,5 @@ export default function AdminProjectsPage() {
   );
 }
 
+    
     
