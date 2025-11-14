@@ -69,6 +69,7 @@ export default function Footer() {
             <p>
                 Made by <a href="https://deepakbagada.in/" target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">Deepak Bagada</a>
             </p>
+            <p>UDYAM REGISTRATION NUMBER: UDYAM-GJ-11-0050439</p>
             <p>Company registered at MSME</p>
         </div>
       </div>

@@ -72,7 +72,7 @@ export default function QuotationDetails({ quotationId }: { quotationId: string 
                 <header className="flex justify-between items-start pb-6 border-b">
                     <div>
                         <Logo className="text-primary" />
-                        <p className="text-xs text-gray-500 mt-1">123 Digital Ave, Tech City, 54321</p>
+                        <p className="text-xs text-gray-500 mt-1">Junagadh, Gujarat</p>
                         <p className="text-xs text-gray-500">connect@saasnext.in</p>
                     </div>
                     <div className="text-right">
@@ -142,6 +142,7 @@ export default function QuotationDetails({ quotationId }: { quotationId: string 
                     <p>Thank you for your business!</p>
                     <p>Please send payments to SaaSNext. Payment terms are 15 days.</p>
                     {quotation.upiId && <p className="mt-2 font-semibold">UPI ID: {quotation.upiId}</p>}
+                    <p className="mt-2 font-semibold">UDYAM REGISTRATION NUMBER: UDYAM-GJ-11-0050439</p>
                 </footer>
             </div>
         </div>
