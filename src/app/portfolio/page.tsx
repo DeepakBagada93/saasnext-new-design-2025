@@ -1,14 +1,16 @@
 
 
 import { AnimatedHeadline } from "@/components/animated-headline";
-import { PortfolioGallery } from "@/components/portfolio-gallery";
 import { portfolioItems } from "@/lib/data";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { PerformanceMarketingChart } from "@/components/performance-chart";
-import { PerformanceMarketingChartDesignTech } from "@/components/performance-chart-design-tech";
+import dynamic from "next/dynamic";
+
+const PortfolioGallery = dynamic(() => import('@/components/portfolio-gallery').then(mod => mod.PortfolioGallery));
+const PerformanceMarketingChart = dynamic(() => import('@/components/performance-chart').then(mod => mod.PerformanceMarketingChart));
+const PerformanceMarketingChartDesignTech = dynamic(() => import('@/components/performance-chart-design-tech').then(mod => mod.PerformanceMarketingChartDesignTech));
 
 export default function PortfolioPage() {
   
