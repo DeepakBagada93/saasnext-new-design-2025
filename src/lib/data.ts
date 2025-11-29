@@ -1,7 +1,7 @@
 
 export const pricingPlans = [
   {
-    category: "Website Development & Maintenance",
+    category: "Web Development",
     plans: [
       {
         title: "Basic",
@@ -204,7 +204,7 @@ export const services = [
   {
     icon: 'Search',
     title: 'SEO & Social Media Marketing',
-    description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
+    description: 'Our SMM services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
     image: {
       imageUrl: "https://images.unsplash.com/photo-1614091473310-072faa6a091c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb29nbGUlMjBzZWFyY2glMjBjb25zb2xlfGVufDB8fHx8MTc1OTE5OTQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
       imageHint: "SEO analysis"
@@ -224,8 +224,8 @@ export const services = [
       imageUrl: "/saasnext-marketing.png",
       imageHint: "analytics dashboard"
     },
-    slug: 'performance-marketing',
-    process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI with our SMM services in Junagadh.',
+slug: 'performance-marketing',
+    process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI with our lead generation services in Junagadh.',
     benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
     results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.',
     startingPrice: 8000,

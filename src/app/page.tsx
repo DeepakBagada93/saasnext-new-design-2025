@@ -30,6 +30,7 @@ import {
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { HeroAnimation } from '@/components/hero-animation';
 import dynamic from 'next/dynamic';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const PortfolioGallery = dynamic(() => import('@/components/portfolio-gallery').then(mod => mod.PortfolioGallery));
 const PerformanceMarketingChart = dynamic(() => import('@/components/performance-chart').then(mod => mod.PerformanceMarketingChart));
@@ -248,7 +249,7 @@ export default function Home() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-              <Link href="/services">Our Junagadh Services</Link>
+              <Link href="/login">Client Login</Link>
             </Button>
           </div>
         </div>
@@ -339,96 +340,71 @@ export default function Home() {
             <p className="mt-4 text-muted-foreground text-lg">From standalone services to all-in-one bundles, find the perfect fit for your business goals and budget.</p>
           </div>
 
-          <Tabs defaultValue="standalone" className="mt-12">
-            <div className="flex justify-center">
-              <TabsList className="grid w-full max-w-md grid-cols-2">
-                <TabsTrigger value="standalone">Standalone Packages</TabsTrigger>
-                <TabsTrigger value="bundles">Bundled Packages</TabsTrigger>
+          <Tabs defaultValue="web-dev" className="mt-12">
+            <div className="flex justify-center mb-8">
+              <TabsList className="grid w-full max-w-2xl grid-cols-2 md:grid-cols-4">
+                <TabsTrigger value="web-dev">Web Development</TabsTrigger>
+                <TabsTrigger value="marketing">Marketing</TabsTrigger>
+                <TabsTrigger value="ai-dev">AI Agents</TabsTrigger>
+                <TabsTrigger value="bundles">Bundles</TabsTrigger>
               </TabsList>
             </div>
             
-            <TabsContent value="standalone">
-              <div className='space-y-12 mt-12'>
-                {pricingPlans.filter(p => p.category !== 'Bundled Packages').map(category => (
-                  <div key={category.category}>
-                      <h3 className="font-headline text-2xl md:text-3xl font-bold text-center mb-8">{category.category}</h3>
-                      <div className="grid lg:grid-cols-3 gap-8 items-start">
-                          {category.plans.map(plan => (
-                              <Card key={plan.title} className={cn(
-                                  "flex flex-col h-full",
-                                  plan.popular ? "border-primary ring-2 ring-primary" : "border"
-                              )}>
-                                  {plan.popular && <div className="text-center py-1 px-4 bg-primary text-primary-foreground text-sm font-semibold rounded-t-lg">Most Popular</div>}
-                                  <CardHeader className="text-center">
-                                      <CardTitle className="text-3xl font-headline">{plan.title}</CardTitle>
-                                      <CardDescription>{plan.description}</CardDescription>
-                                  </CardHeader>
-                                  <CardContent className="flex-grow space-y-6">
-                                      <div className="text-center">
-                                          <span className="text-4xl font-bold">
-                                              {plan.price.includes('Custom') ? 'Custom' : (currency === 'INR' ? plan.price : plan.priceUsd)}
-                                          </span>
-                                          {!plan.price.includes('Custom') && <span className="text-muted-foreground">/mo</span>}
-                                      </div>
-                                      <ul className="space-y-3 text-muted-foreground">
-                                          {plan.features.map(feature => (
-                                              <li key={feature} className="flex items-start">
-                                                  <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 shrink-0" />
-                                                  <span>{feature}</span>
-                                              </li>
-                                          ))}
-                                      </ul>
-                                  </CardContent>
-                                  <CardFooter>
-                                      <Button asChild className={cn("w-full", !plan.popular && "bg-accent hover:bg-accent/90")} variant={plan.popular ? 'default' : 'secondary'}>
-                                          <Link href={plan.cta === 'Contact Sales' ? '/contact' : '/register'}>{plan.cta}</Link>
-                                      </Button>
-                                  </CardFooter>
-                              </Card>
-                          ))}
-                      </div>
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="bundles">
-                <div className="mt-16 grid lg:grid-cols-3 gap-8 items-start">
-                    {pricingPlans.find(p => p.category === 'Bundled Packages')?.plans.map(plan => (
-                        <Card key={plan.title} className={cn(
-                            "flex flex-col h-full",
-                            plan.popular ? "border-primary ring-2 ring-primary" : "border"
-                        )}>
-                            {plan.popular && <div className="text-center py-1 px-4 bg-primary text-primary-foreground text-sm font-semibold rounded-t-lg">Most Popular</div>}
-                            <CardHeader className="text-center">
-                                <CardTitle className="text-3xl font-headline">{plan.title}</CardTitle>
-                                <CardDescription>{plan.description}</CardDescription>
-                            </CardHeader>
-                            <CardContent className="flex-grow space-y-6">
-                                <div className="text-center">
-                                    <span className="text-4xl font-bold">
-                                        {plan.price.includes('Custom') ? 'Custom' : (currency === 'INR' ? plan.price : plan.priceUsd)}
-                                    </span>
-                                    {!plan.price.includes('Custom') && <span className="text-muted-foreground">/mo</span>}
-                                </div>
-                                <ul className="space-y-3 text-muted-foreground">
-                                    {plan.features.map(feature => (
-                                        <li key={feature} className="flex items-start">
-                                            <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 shrink-0" />
-                                            <span>{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardContent>
-                            <CardFooter>
-                                <Button asChild className={cn("w-full", !plan.popular && "bg-accent hover:bg-accent/90")} variant={plan.popular ? 'default' : 'secondary'}>
-                                    <Link href={plan.cta === 'Contact Sales' ? '/contact' : '/register'}>{plan.cta}</Link>
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    ))}
+            <div className="flex justify-end mb-6">
+                <div className="flex items-center gap-2">
+                    <label htmlFor="currency-select" className="text-sm font-medium">Currency:</label>
+                    <Select value={currency} onValueChange={setCurrency}>
+                        <SelectTrigger id="currency-select" className="w-[80px]">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="INR">INR</SelectItem>
+                            <SelectItem value="USD">USD</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
-            </TabsContent>
+            </div>
+
+            {pricingPlans.map(category => (
+                <TabsContent key={category.category} value={category.category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}>
+                    <div className="grid lg:grid-cols-3 gap-8 items-start">
+                        {category.plans.map(plan => (
+                            <Card key={plan.title} className={cn(
+                                "flex flex-col h-full",
+                                plan.popular ? "border-primary ring-2 ring-primary" : "border"
+                            )}>
+                                {plan.popular && <div className="text-center py-1 px-4 bg-primary text-primary-foreground text-sm font-semibold rounded-t-lg">Most Popular</div>}
+                                <CardHeader className="text-center">
+                                    <CardTitle className="text-3xl font-headline">{plan.title}</CardTitle>
+                                    <CardDescription>{plan.description}</CardDescription>
+                                </CardHeader>
+                                <CardContent className="flex-grow space-y-6">
+                                    <div className="text-center">
+                                        <span className="text-4xl font-bold">
+                                            {plan.price.includes('Custom') ? 'Custom' : (currency === 'INR' ? plan.price : plan.priceUsd)}
+                                        </span>
+                                        {!plan.price.includes('Custom') && <span className="text-muted-foreground">/mo</span>}
+                                    </div>
+                                    <ul className="space-y-3 text-muted-foreground">
+                                        {plan.features.map(feature => (
+                                            <li key={feature} className="flex items-start">
+                                                <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-1 shrink-0" />
+                                                <span>{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+                                <CardFooter>
+                                    <Button asChild className={cn("w-full", !plan.popular && "bg-accent hover:bg-accent/90")} variant={plan.popular ? 'default' : 'secondary'}>
+                                        <Link href={plan.cta === 'Contact Sales' ? '/contact' : '/register'}>{plan.cta}</Link>
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        ))}
+                    </div>
+                </TabsContent>
+            ))}
+
           </Tabs>
 
         </div>
