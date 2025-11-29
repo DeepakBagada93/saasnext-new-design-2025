@@ -340,13 +340,13 @@ export default function Home() {
             <p className="mt-4 text-muted-foreground text-lg">From standalone services to all-in-one bundles, find the perfect fit for your business goals and budget.</p>
           </div>
 
-          <Tabs defaultValue="web-dev" className="mt-12">
+          <Tabs defaultValue="web-development" className="mt-12">
             <div className="flex justify-center mb-8">
               <TabsList className="grid w-full max-w-2xl grid-cols-2 md:grid-cols-4">
-                <TabsTrigger value="web-dev">Web Development</TabsTrigger>
-                <TabsTrigger value="marketing">Marketing</TabsTrigger>
-                <TabsTrigger value="ai-dev">AI Agents</TabsTrigger>
-                <TabsTrigger value="bundles">Bundles</TabsTrigger>
+                <TabsTrigger value="web-development">Web Development</TabsTrigger>
+                <TabsTrigger value="performance-marketing">Marketing</TabsTrigger>
+                <TabsTrigger value="ai-agent-development">AI Agents</TabsTrigger>
+                <TabsTrigger value="bundled-packages">Bundles</TabsTrigger>
               </TabsList>
             </div>
             
