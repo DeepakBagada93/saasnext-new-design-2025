@@ -35,7 +35,7 @@ export const pricingPlans = [
       {
         title: "Pro",
         price: "₹15,000 – ₹30,000+",
-        priceUsd: "$2,500 - $5,000+",
+        priceUsd: "$5,000 - $10,000+",
         description: "For advanced needs and integrations.",
         features: [
           "Full site rebuilds",
@@ -81,7 +81,7 @@ export const pricingPlans = [
       {
         title: "Pro",
         price: "₹30,000 – ₹60,000+",
-        priceUsd: "$4,000 - $8,000+",
+        priceUsd: "$5,000 - $10,000+",
         description: "For multi-platform dominance.",
         features: [
           "4–6 active multi-platform campaigns",
@@ -119,13 +119,13 @@ export const pricingPlans = [
           "CRM integration (HubSpot, Zoho)",
           "Email notification workflows",
         ],
-cta: "Choose Growth Plan",
+        cta: "Choose Growth Plan",
         popular: true,
       },
       {
         title: "Pro",
         price: "₹50,000+",
-        priceUsd: "$6,000+",
+        priceUsd: "$5,000+",
         description: "Custom end-to-end automation.",
         features: [
           "Custom LLM solutions",
@@ -171,7 +171,7 @@ cta: "Choose Growth Plan",
       {
         title: "Pro Brand Bundle",
         price: "₹30,000 – ₹50,000+",
-        priceUsd: "$4,500 - $8,000+",
+        priceUsd: "$5,000 - $10,000+",
         description: "Pro site + 4-6 marketing campaigns.",
         features: [
           "Full Site Rebuilds / Unlimited Pages",
@@ -202,33 +202,33 @@ export const services = [
     startingPriceUsd: 1500,
   },
   {
-    icon: 'Megaphone',
-    title: 'SEO & Social Media Marketing',
-    description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through SEO, PPC, Facebook, and Instagram marketing services.',
-    image: {
-      imageUrl: "/saasnext-marketing.png",
-      imageHint: "analytics dashboard"
-    },
-    slug: 'seo',
-    process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI with our SMM services in Junagadh.',
-    benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
-    results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.',
-    startingPrice: 8000,
-    startingPriceUsd: 1000,
-  },
-  {
     icon: 'Search',
-    title: 'Performance & Lead Generation',
+    title: 'SEO & Social Media Marketing',
     description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
     image: {
       imageUrl: "https://images.unsplash.com/photo-1614091473310-072faa6a091c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb29nbGUlMjBzZWFyY2glMjBjb25zb2xlfGVufDB8fHx8MTc1OTE5OTQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
       imageHint: "SEO analysis"
     },
-    slug: 'performance-marketing',
+    slug: 'seo',
     process: 'We perform in-depth keyword research, on-page optimization, and technical SEO audits to establish your authority. This is a core part of our digital marketing for lead generation in Junagadh.',
     benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
     results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.',
     startingPrice: 6000,
+    startingPriceUsd: 1000,
+  },
+  {
+    icon: 'Megaphone',
+    title: 'Performance & Lead Generation',
+    description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through SEO, PPC, Facebook, and Instagram marketing services.',
+    image: {
+      imageUrl: "/saasnext-marketing.png",
+      imageHint: "analytics dashboard"
+    },
+    slug: 'performance-marketing',
+    process: 'We analyze your market, develop a comprehensive strategy, execute targeted campaigns, and continuously optimize for maximum ROI with our SMM services in Junagadh.',
+    benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
+    results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.',
+    startingPrice: 8000,
     startingPriceUsd: 1000,
   },
   {
