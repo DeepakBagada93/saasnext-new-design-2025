@@ -27,7 +27,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { HeroAnimation } from '@/components/hero-animation';
 import dynamic from 'next/dynamic';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -342,12 +342,13 @@ export default function Home() {
 
           <Tabs defaultValue="web-development" className="mt-12">
             <div className="flex justify-center mb-8">
-              <TabsList className="grid w-full max-w-2xl grid-cols-2 md:grid-cols-4">
-                <TabsTrigger value="web-development">Web Development</TabsTrigger>
-                <TabsTrigger value="performance-marketing">Marketing</TabsTrigger>
-                <TabsTrigger value="ai-agent-development">AI Agents</TabsTrigger>
-                <TabsTrigger value="bundled-packages">Bundles</TabsTrigger>
-              </TabsList>
+                <TabsList className="grid w-full max-w-2xl grid-cols-2 md:grid-cols-4">
+                    {pricingPlans.map((category) => (
+                        <TabsTrigger key={category.category} value={category.category.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}>
+                            {category.category}
+                        </TabsTrigger>
+                    ))}
+                </TabsList>
             </div>
             
             <div className="flex justify-end mb-6">
@@ -404,9 +405,7 @@ export default function Home() {
                     </div>
                 </TabsContent>
             ))}
-
           </Tabs>
-
         </div>
       </section>
 
@@ -644,3 +643,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
