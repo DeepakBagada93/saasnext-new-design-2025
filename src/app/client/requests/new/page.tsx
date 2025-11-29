@@ -57,6 +57,7 @@ export default function NewRequestPage() {
 
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [description, setDescription] = useState('');
+  const [customServiceDescription, setCustomServiceDescription] = useState('');
   const [currency, setCurrency] = useState('INR');
   
   // State for conditional fields
@@ -93,12 +94,25 @@ export default function NewRequestPage() {
       return;
     }
 
-    if (selectedServices.length === 0 || !description) {
+    const finalDescription = customServiceDescription ? `Custom Request: ${customServiceDescription}\n\nAdditional Project Details:\n${description}` : description;
+    const finalServiceType = selectedServices.length > 0 ? selectedServices.join(', ') : 'Custom Service';
+
+    if (finalServiceType === 'Custom Service' && !customServiceDescription) {
+        toast({
+            variant: 'destructive',
+            title: 'Missing Information',
+            description: 'Please describe your custom service need or select a package.',
+        });
+        return;
+    }
+
+
+    if (selectedServices.length === 0 && !customServiceDescription) {
       toast({
         variant: 'destructive',
         title: 'Missing Information',
         description:
-          'Please select at least one service and provide a project description.',
+          'Please select at least one service or describe your custom need.',
       });
       return;
     }
@@ -131,9 +145,9 @@ export default function NewRequestPage() {
         clientId: user.uid,
         clientName: user.displayName,
         clientEmail: user.email,
-        serviceType: selectedServices.join(', '), // Join selected services into a string
-        description,
-        budget: totalBudget,
+        serviceType: finalServiceType,
+        description: finalDescription,
+        budget: totalBudget > 0 ? totalBudget : undefined,
         currency,
         status: 'Pending',
         createdAt: serverTimestamp(),
@@ -169,7 +183,7 @@ export default function NewRequestPage() {
         <CardHeader>
           <CardTitle>Request Details</CardTitle>
           <CardDescription>
-            Select the services you're interested in and provide as much detail as possible.
+            Select the services you're interested in, or describe a custom need.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -285,6 +299,18 @@ export default function NewRequestPage() {
                     </motion.div>
                 )}
             </AnimatePresence>
+            
+            <div className="space-y-2">
+                <Label className="text-base font-semibold">Need Something Else? (Custom Service)</Label>
+                <Textarea
+                    id="custom-description"
+                    placeholder="If our packages don't fit your needs, please describe your project here..."
+                    rows={4}
+                    value={customServiceDescription}
+                    onChange={(e) => setCustomServiceDescription(e.target.value)}
+                />
+            </div>
+
 
             <div className="space-y-2">
               <Label htmlFor="companyName" className="text-base font-semibold">Company Name</Label>
@@ -331,19 +357,18 @@ export default function NewRequestPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description" className="text-base font-semibold">Tell us about your project</Label>
+              <Label htmlFor="description" className="text-base font-semibold">Additional Project Details</Label>
               <Textarea
                 id="description"
-                placeholder="Describe your goals, requirements, target audience, and any other important details."
+                placeholder="Describe your goals, target audience, and any other important details..."
                 rows={6}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                required
               />
             </div>
             
             <div className="pt-2">
-              <Button type="submit" size="lg" className="bg-accent hover:bg-accent/90" disabled={selectedServices.length === 0}>
+              <Button type="submit" size="lg" className="bg-accent hover:bg-accent/90" disabled={selectedServices.length === 0 && !customServiceDescription}>
                 Submit Request
               </Button>
             </div>

@@ -6,7 +6,7 @@ export const pricingPlans = [
       {
         title: "Basic",
         price: "₹1,999 – ₹4,999",
-        priceUsd: "$25 - $65",
+        priceUsd: "$1,000 - $1,500",
         description: "For a professional online presence.",
         features: [
           "1–5 page site",
@@ -20,7 +20,7 @@ export const pricingPlans = [
       {
         title: "Growth",
         price: "₹6,999 – ₹12,999",
-        priceUsd: "$85 - $155",
+        priceUsd: "$1,500 - $2,500",
         description: "For businesses aiming to increase leads.",
         features: [
           "5–15 page site",
@@ -35,7 +35,7 @@ export const pricingPlans = [
       {
         title: "Pro",
         price: "₹15,000 – ₹30,000+",
-        priceUsd: "$180 - $360+",
+        priceUsd: "$2,500 - $5,000+",
         description: "For advanced needs and integrations.",
         features: [
           "Full site rebuilds",
@@ -55,7 +55,7 @@ export const pricingPlans = [
       {
         title: "Starter",
         price: "₹8,000 – ₹15,000",
-        priceUsd: "$100 - $180",
+        priceUsd: "$1,000 - $2,000",
         description: "Launch your first campaign.",
         features: [
           "1 active campaign per month",
@@ -67,7 +67,7 @@ export const pricingPlans = [
       {
         title: "Growth",
         price: "₹18,000 – ₹30,000",
-        priceUsd: "$215 - $360",
+        priceUsd: "$2,000 - $4,000",
         description: "Manage multiple campaigns.",
         features: [
           "2–3 active campaigns monthly",
@@ -81,7 +81,7 @@ export const pricingPlans = [
       {
         title: "Pro",
         price: "₹30,000 – ₹60,000+",
-        priceUsd: "$360 - $720+",
+        priceUsd: "$4,000 - $8,000+",
         description: "For multi-platform dominance.",
         features: [
           "4–6 active multi-platform campaigns",
@@ -99,7 +99,7 @@ export const pricingPlans = [
       {
         title: "Starter",
         price: "₹10,000 – ₹20,000",
-        priceUsd: "$120 - $240",
+        priceUsd: "$1,200 - $2,500",
         description: "Automate basic customer support.",
         features: [
           "Basic FAQ agent (trained on your data)",
@@ -112,7 +112,7 @@ export const pricingPlans = [
       {
         title: "Growth",
         price: "₹25,000 – ₹45,000",
-        priceUsd: "$300 - $540",
+        priceUsd: "$3,000 - $5,500",
         description: "For lead qualification and booking.",
         features: [
           "Advanced conversational agents",
@@ -125,7 +125,7 @@ cta: "Choose Growth Plan",
       {
         title: "Pro",
         price: "₹50,000+",
-        priceUsd: "$600+",
+        priceUsd: "$6,000+",
         description: "Custom end-to-end automation.",
         features: [
           "Custom LLM solutions",
@@ -144,7 +144,7 @@ cta: "Choose Growth Plan",
       {
         title: "Starter Business Bundle",
         price: "₹9,000 – ₹14,000",
-        priceUsd: "$110 - $170",
+        priceUsd: "$1,500 - $2,500",
         description: "Basic site + 1 marketing campaign.",
         features: [
           "5-Page Custom Website",
@@ -157,7 +157,7 @@ cta: "Choose Growth Plan",
       {
         title: "Growth Business Bundle",
         price: "₹18,000 – ₹25,000",
-        priceUsd: "$215 - $300",
+        priceUsd: "$2,500 - $4,500",
         description: "Growth site + 2-3 marketing campaigns.",
         features: [
           "10-15 Page Site",
@@ -171,7 +171,7 @@ cta: "Choose Growth Plan",
       {
         title: "Pro Brand Bundle",
         price: "₹30,000 – ₹50,000+",
-        priceUsd: "$360 - $600+",
+        priceUsd: "$4,500 - $8,000+",
         description: "Pro site + 4-6 marketing campaigns.",
         features: [
           "Full Site Rebuilds / Unlimited Pages",
@@ -202,21 +202,6 @@ export const services = [
     startingPriceUsd: 1500,
   },
   {
-    icon: 'Search',
-    title: 'Performance & Lead Generation',
-    description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
-    image: {
-      imageUrl: "https://images.unsplash.com/photo-1614091473310-072faa6a091c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb29nbGUlMjBzZWFyY2glMjBjb25zb2xlfGVufDB8fHx8MTc1OTE5OTQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
-      imageHint: "SEO analysis"
-    },
-    slug: 'performance-marketing',
-    process: 'We perform in-depth keyword research, on-page optimization, and technical SEO audits to establish your authority. This is a core part of our digital marketing for lead generation in Junagadh.',
-    benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
-    results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.',
-    startingPrice: 6000,
-    startingPriceUsd: 1000,
-  },
-  {
     icon: 'Megaphone',
     title: 'SEO & Social Media Marketing',
     description: 'As a leading social media marketing agency in Junagadh, we focus on maximizing your ROI through SEO, PPC, Facebook, and Instagram marketing services.',
@@ -229,6 +214,21 @@ export const services = [
     benefits: 'A consistent flow of qualified leads, increased brand visibility, and a direct impact on your bottom line.',
     results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.',
     startingPrice: 8000,
+    startingPriceUsd: 1000,
+  },
+  {
+    icon: 'Search',
+    title: 'Performance & Lead Generation',
+    description: 'Our lead generation services in Junagadh are designed to dominate search rankings, drive organic traffic, and capture high-intent customers.',
+    image: {
+      imageUrl: "https://images.unsplash.com/photo-1614091473310-072faa6a091c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb29nbGUlMjBzZWFyY2glMjBjb25zb2xlfGVufDB8fHx8MTc1OTE5OTQ4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      imageHint: "SEO analysis"
+    },
+    slug: 'performance-marketing',
+    process: 'We perform in-depth keyword research, on-page optimization, and technical SEO audits to establish your authority. This is a core part of our digital marketing for lead generation in Junagadh.',
+    benefits: 'Sustainable, long-term organic traffic, increased brand credibility, and a higher conversion rate from organic visitors.',
+    results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.',
+    startingPrice: 6000,
     startingPriceUsd: 1000,
   },
   {
