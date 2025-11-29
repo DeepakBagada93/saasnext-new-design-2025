@@ -12,6 +12,7 @@ import {
   Bell,
   LogOut,
   CalendarClock,
+  Package,
 } from "lucide-react";
 
 import {
@@ -39,6 +40,7 @@ const menuItems = [
   { href: "/admin/projects", label: "Project Management", icon: Briefcase },
   { href: "/admin/invoices", label: "Quotation Management", icon: FileText },
   { href: "/admin/meetings", label: "Meeting Requests", icon: CalendarClock },
+  { href: "/admin/packages", label: "Packages", icon: Package },
 ];
 
 export default function AdminSidebar() {
