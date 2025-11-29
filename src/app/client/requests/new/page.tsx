@@ -1,6 +1,6 @@
 
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { services } from '@/lib/data';
+import { pricingPlans } from '@/lib/data';
 import { useUser, useFirestore } from '@/firebase';
 import { useToast } from '@/hooks/use-toast';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
@@ -34,10 +34,15 @@ const formatCurrency = (amount: number, currency: string) => {
     style: 'currency',
     currency,
     minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   };
 
   if (currency === 'USD') {
-    options.minimumFractionDigits = 2;
+    options.minimumFractionDigits = 0;
+  }
+  
+  if (amount > 100000 && currency === 'INR') {
+    return new Intl.NumberFormat('en-IN', options).format(amount / 100000) + ' Lakh';
   }
 
   return new Intl.NumberFormat(currency === 'INR' ? 'en-IN' : 'en-US', options).format(amount);
@@ -62,16 +67,17 @@ export default function NewRequestPage() {
   const [contactNumber, setContactNumber] = useState('');
   const [whatsappNumber, setWhatsappNumber] = useState('');
 
+  const allPlans = pricingPlans.flatMap(category => category.plans.map(plan => ({...plan, category: category.category})));
+
   const calculateTotalBudget = () => {
     return selectedServices.reduce((total, serviceTitle) => {
-        const service = services.find(s => s.title === serviceTitle);
-        if (!service) return total;
+        const plan = allPlans.find(p => p.title === serviceTitle);
+        if (!plan || plan.price.toLowerCase().includes('custom')) return total;
         
-        const price = currency === 'USD' 
-            ? (service.startingPriceUsd || 0)
-            : (service.startingPrice || 0);
+        const priceString = currency === 'USD' ? plan.priceUsd : plan.price;
+        const priceValue = parseInt(priceString.replace(/[^0-9]/g, ''), 10) || 0;
             
-        return total + price;
+        return total + priceValue;
     }, 0);
   }
 
@@ -92,7 +98,7 @@ export default function NewRequestPage() {
         variant: 'destructive',
         title: 'Missing Information',
         description:
-          'Please select at least one service type and provide a project description.',
+          'Please select at least one service and provide a project description.',
       });
       return;
     }
@@ -101,10 +107,10 @@ export default function NewRequestPage() {
 
     // Construct additional details object
     const additionalDetails: any = {};
-    if (selectedServices.includes('Web Development') && websiteType) {
+    if (selectedServices.some(s => allPlans.find(p => p.title === s)?.category.includes('Website')) && websiteType) {
         additionalDetails.websiteType = websiteType;
     }
-    if (selectedServices.includes('AI Solutions') && aiRequirements) {
+    if (selectedServices.some(s => allPlans.find(p => p.title === s)?.category.includes('AI')) && aiRequirements) {
         additionalDetails.aiRequirements = aiRequirements;
     }
      if (companyName) {
@@ -167,7 +173,7 @@ export default function NewRequestPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-8 max-w-3xl">
+          <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl">
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                   <Label className="text-base font-semibold">Which service(s) are you interested in?</Label>
@@ -184,83 +190,86 @@ export default function NewRequestPage() {
                     </Select>
                   </div>
               </div>
-              <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {services.map((service) => {
-                  const isSelected = selectedServices.includes(service.title);
-                  
-                  const price = currency === 'USD' 
-                    ? (service.startingPriceUsd || 0)
-                    : (service.startingPrice || 0);
-
-                  return (
-                    <motion.div
-                      layout
-                      key={service.slug}
-                      onClick={() => {
-                          setSelectedServices((prev) =>
-                              prev.includes(service.title)
-                              ? prev.filter((s) => s !== service.title)
-                              : [...prev, service.title]
-                          );
-                      }}
-                      className={cn(
-                        'p-4 border rounded-lg cursor-pointer transition-all duration-300 relative flex flex-col',
-                        isSelected
-                          ? 'border-primary ring-2 ring-primary bg-primary/10'
-                          : 'bg-card hover:bg-muted/50'
-                      )}
-                    >
-                      <div className="flex-grow">
-                          {isSelected && (
-                             <CheckCircle className="h-5 w-5 text-primary absolute top-2 right-2"/>
-                          )}
-                          <h4 className="font-semibold">{service.title}</h4>
-                          <p className="text-xs text-muted-foreground mt-1">{service.description.substring(0, 70)}...</p>
-                      </div>
-                       <div className="mt-4">
-                          <p className="text-xs text-muted-foreground">Starts at</p>
-                          <p className="font-bold text-lg text-primary">{formatCurrency(price, currency)}</p>
-                       </div>
-                    
-                     <AnimatePresence>
-                      {isSelected && (service.title === 'Web Development' || service.title === 'AI Solutions') && (
-                          <motion.div
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="overflow-hidden mt-4"
-                          >
-                            {service.title === 'Web Development' && (
-                              <div className="space-y-3 p-4 rounded-lg bg-muted/50">
-                                  <Label>What type of website do you need?</Label>
-                                  <RadioGroup value={websiteType} onValueChange={setWebsiteType} className="gap-3">
-                                      <div className="flex items-center space-x-2"><RadioGroupItem value="e-commerce" id="e-commerce" /><Label htmlFor="e-commerce">E-commerce</Label></div>
-                                      <div className="flex items-center space-x-2"><RadioGroupItem value="corporate" id="corporate" /><Label htmlFor="corporate">Corporate/Brochure</Label></div>
-                                      <div className="flex items-center space-x-2"><RadioGroupItem value="portfolio" id="portfolio" /><Label htmlFor="portfolio">Portfolio/Personal</Label></div>
-                                      <div className="flex items-center space-x-2"><RadioGroupItem value="other" id="other" /><Label htmlFor="other">Other</Label></div>
-                                  </RadioGroup>
-                              </div>
-                            )}
-                            {service.title === 'AI Solutions' && (
-                              <div className="space-y-2 p-4 rounded-lg bg-muted/50">
-                                  <Label htmlFor="ai-requirements">What are your AI requirements?</Label>
-                                  <Textarea
-                                      id="ai-requirements"
-                                      placeholder="e.g., Customer service chatbot, data analysis model..."
-                                      value={aiRequirements}
-                                      onChange={(e) => setAiRequirements(e.target.value)}
-                                      className="bg-background"
-                                  />
-                              </div>
-                            )}
-                          </motion.div>
-                      )}
-                     </AnimatePresence>
-                  </motion.div>
-                  );
-                })}
-              </motion.div>
+              <div className="space-y-8">
+                {pricingPlans.filter(cat => cat.category !== 'Bundled Packages').map((category) => (
+                    <div key={category.category}>
+                        <h3 className="font-headline text-xl font-bold mb-4">{category.category}</h3>
+                         <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {category.plans.map((plan) => {
+                            const isSelected = selectedServices.includes(plan.title);
+                            
+                            return (
+                                <motion.div
+                                layout
+                                key={plan.title}
+                                onClick={() => {
+                                    setSelectedServices((prev) =>
+                                        prev.includes(plan.title)
+                                        ? prev.filter((s) => s !== plan.title)
+                                        : [...prev, plan.title]
+                                    );
+                                }}
+                                className={cn(
+                                    'p-4 border rounded-lg cursor-pointer transition-all duration-300 relative flex flex-col',
+                                    isSelected
+                                    ? 'border-primary ring-2 ring-primary bg-primary/10'
+                                    : 'bg-card hover:bg-muted/50'
+                                )}
+                                >
+                                <div className="flex-grow">
+                                    {isSelected && (
+                                        <CheckCircle className="h-5 w-5 text-primary absolute top-2 right-2"/>
+                                    )}
+                                    <h4 className="font-semibold">{plan.title}</h4>
+                                    <p className="text-xs text-muted-foreground mt-1">{plan.description}</p>
+                                </div>
+                                <div className="mt-4">
+                                    <p className="text-xs text-muted-foreground">Starts at</p>
+                                    <p className="font-bold text-lg text-primary">{currency === 'INR' ? plan.price : plan.priceUsd}</p>
+                                </div>
+                                
+                                <AnimatePresence>
+                                {isSelected && (category.category.includes('Website') || category.category.includes('AI')) && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="overflow-hidden mt-4"
+                                    >
+                                        {category.category.includes('Website') && (
+                                        <div className="space-y-3 p-4 rounded-lg bg-muted/50">
+                                            <Label>What type of website do you need?</Label>
+                                            <RadioGroup value={websiteType} onValueChange={setWebsiteType} className="gap-3">
+                                                <div className="flex items-center space-x-2"><RadioGroupItem value="e-commerce" id="e-commerce" /><Label htmlFor="e-commerce">E-commerce</Label></div>
+                                                <div className="flex items-center space-x-2"><RadioGroupItem value="corporate" id="corporate" /><Label htmlFor="corporate">Corporate</Label></div>
+                                                <div className="flex items-center space-x-2"><RadioGroupItem value="portfolio" id="portfolio" /><Label htmlFor="portfolio">Portfolio</Label></div>
+                                                <div className="flex items-center space-x-2"><RadioGroupItem value="other" id="other" /><Label htmlFor="other">Other</Label></div>
+                                            </RadioGroup>
+                                        </div>
+                                        )}
+                                        {category.category.includes('AI') && (
+                                        <div className="space-y-2 p-4 rounded-lg bg-muted/50">
+                                            <Label htmlFor="ai-requirements">What are your AI requirements?</Label>
+                                            <Textarea
+                                                id="ai-requirements"
+                                                placeholder="e.g., Customer service chatbot..."
+                                                value={aiRequirements}
+                                                onChange={(e) => setAiRequirements(e.target.value)}
+                                                className="bg-background"
+                                            />
+                                        </div>
+                                        )}
+                                    </motion.div>
+                                )}
+                                </AnimatePresence>
+                                </motion.div>
+                            );
+                            })}
+                        </motion.div>
+                    </div>
+                ))}
+              </div>
             </div>
 
             <AnimatePresence>
@@ -271,7 +280,7 @@ export default function NewRequestPage() {
                         exit={{ opacity: 0, y: -10 }}
                         className="p-4 rounded-lg bg-muted/50 flex flex-col sm:flex-row justify-between items-center"
                     >
-                        <h4 className="font-semibold text-lg">Estimated Total:</h4>
+                        <h4 className="font-semibold text-lg">Estimated Starting Total:</h4>
                         <p className="font-bold text-2xl text-primary">{formatCurrency(totalBudget, currency)}</p>
                     </motion.div>
                 )}
