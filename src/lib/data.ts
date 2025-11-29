@@ -1,50 +1,188 @@
 
 export const pricingPlans = [
-    {
-      title: 'Basic',
-      price: '8,000',
-      priceUsd: '100',
-      description: 'Ideal for startups and small businesses needing a professional online presence.',
-      features: [
-        '5-Page Custom Website',
-        'Basic SEO Setup',
-        'Social Media Account Setup',
-        'Contact Form Integration',
-        'Mobile Responsive Design',
-      ],
-      cta: 'Get Started',
-    },
-    {
-      title: 'Business',
-      price: '25,000',
-      priceUsd: '300',
-      description: 'The perfect package for growing businesses aiming to increase leads and sales.',
-      features: [
-        '10-15 Page Custom Website',
-        'Advanced On-Page & Technical SEO',
-        'Social Media Management (2 platforms)',
-        'Basic Lead Generation Campaign',
-        'Client Dashboard Access',
-        'Priority Email Support',
-      ],
-      cta: 'Choose Business Plan',
-      popular: true,
-    },
-    {
-      title: 'Enterprise',
-      price: 'Custom',
-      priceUsd: 'Custom',
-      description: 'Tailored solutions for established businesses with specific, large-scale needs.',
-      features: [
-        'Unlimited Pages & Custom Features',
-        'Full-Scale SEO & Content Strategy',
-        'Comprehensive Social Media & Ad Management',
-        'AI & Automation Solutions',
-        'Dedicated Account Manager',
-        '24/7 Priority Support',
-      ],
-cta: 'Contact Sales',
-    },
+  {
+    category: "Website Development & Maintenance",
+    plans: [
+      {
+        title: "Basic",
+        price: "₹1,999 – ₹4,999",
+        priceUsd: "$25 - $65",
+        description: "For a professional online presence.",
+        features: [
+          "1–5 page site",
+          "Hosting/domain options",
+          "Monthly minor updates",
+          "Security & backups",
+          "Basic analytics",
+        ],
+        cta: "Get Started",
+      },
+      {
+        title: "Growth",
+        price: "₹6,999 – ₹12,999",
+        priceUsd: "$85 - $155",
+        description: "For businesses aiming to increase leads.",
+        features: [
+          "5–15 page site",
+          "Priority updates",
+          "Speed optimization",
+          "Conversion tweaks",
+          "Monthly performance reports",
+        ],
+        cta: "Choose Growth Plan",
+        popular: true,
+      },
+      {
+        title: "Pro",
+        price: "₹15,000 – ₹30,000+",
+        priceUsd: "$180 - $360+",
+        description: "For advanced needs and integrations.",
+        features: [
+          "Full site rebuilds",
+          "Unlimited updates",
+          "Dedicated project manager",
+          "Advanced SEO",
+          "Custom integrations (CRM, bookings)",
+          "A/B testing",
+        ],
+        cta: "Contact Sales",
+      },
+    ],
+  },
+  {
+    category: "Performance Marketing",
+    plans: [
+      {
+        title: "Starter",
+        price: "₹8,000 – ₹15,000",
+        priceUsd: "$100 - $180",
+        description: "Launch your first campaign.",
+        features: [
+          "1 active campaign per month",
+          "Setup and management",
+          "Basic reporting",
+        ],
+        cta: "Get Started",
+      },
+      {
+        title: "Growth",
+        price: "₹18,000 – ₹30,000",
+        priceUsd: "$215 - $360",
+        description: "Manage multiple campaigns.",
+        features: [
+          "2–3 active campaigns monthly",
+          "Weekly monitoring",
+          "Landing page support",
+          "Results reporting",
+        ],
+        cta: "Choose Growth Plan",
+        popular: true,
+      },
+      {
+        title: "Pro",
+        price: "₹30,000 – ₹60,000+",
+        priceUsd: "$360 - $720+",
+        description: "For multi-platform dominance.",
+        features: [
+          "4–6 active multi-platform campaigns",
+          "Full management (creative, copy, testing)",
+          "Conversion tracking",
+          "Strategy consultation",
+        ],
+        cta: "Contact Sales",
+      },
+    ],
+  },
+  {
+    category: "AI Agent Development",
+    plans: [
+      {
+        title: "Starter",
+        price: "₹10,000 – ₹20,000",
+        priceUsd: "$120 - $240",
+        description: "Automate basic customer support.",
+        features: [
+          "Basic FAQ agent (trained on your data)",
+          "Website embedding",
+          "24/7 automated responses",
+          "Simple lead capture",
+        ],
+        cta: "Get Started",
+      },
+      {
+        title: "Growth",
+        price: "₹25,000 – ₹45,000",
+        priceUsd: "$300 - $540",
+        description: "For lead qualification and booking.",
+        features: [
+          "Advanced conversational agents",
+          "CRM integration (HubSpot, Zoho)",
+          "Email notification workflows",
+        ],
+cta: "Choose Growth Plan",
+        popular: true,
+      },
+      {
+        title: "Pro",
+        price: "₹50,000+",
+        priceUsd: "$600+",
+        description: "Custom end-to-end automation.",
+        features: [
+          "Custom LLM solutions",
+          "Multi-agent systems",
+          "Voice capabilities",
+          "API integrations for full automation",
+          "Detailed conversation analytics",
+        ],
+        cta: "Contact Sales",
+      },
+    ],
+  },
+  {
+    category: "Bundled Packages",
+    plans: [
+      {
+        title: "Starter Business Bundle",
+        price: "₹9,000 – ₹14,000",
+        priceUsd: "$110 - $170",
+        description: "Basic site + 1 marketing campaign.",
+        features: [
+          "5-Page Custom Website",
+          "Basic SEO Setup",
+          "1 Active Marketing Campaign",
+          "Monthly Reporting",
+        ],
+        cta: "Get Started",
+      },
+      {
+        title: "Growth Business Bundle",
+        price: "₹18,000 – ₹25,000",
+        priceUsd: "$215 - $300",
+        description: "Growth site + 2-3 marketing campaigns.",
+        features: [
+          "10-15 Page Site",
+          "Advanced SEO",
+          "2-3 Active Marketing Campaigns",
+          "Priority Support",
+        ],
+        cta: "Choose Bundle",
+        popular: true,
+      },
+      {
+        title: "Pro Brand Bundle",
+        price: "₹30,000 – ₹50,000+",
+        priceUsd: "$360 - $600+",
+        description: "Pro site + 4-6 marketing campaigns.",
+        features: [
+          "Full Site Rebuilds / Unlimited Pages",
+          "Dedicated Project Manager",
+          "4-6 Multi-Platform Campaigns",
+          "Full Conversion Tracking & Strategy",
+        ],
+        cta: "Contact Sales",
+      },
+    ]
+  }
 ];
 
 export const services = [
