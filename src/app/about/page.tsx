@@ -29,15 +29,15 @@ const coreValues = [
 const whyChooseUsItems = [
     {
         title: "Local Junagadh Expertise",
-        description: "Our team consists of industry veterans with proven track records in the Junagadh market. As a leading web design company in Junagadh, we understand the local landscape."
+        description: "Our team consists of industry veterans with proven track records in the Junagadh market. As a leading AI and web design company in Junagadh, we understand the local landscape."
     },
     {
         title: "Custom-Tailored Solutions",
-        description: "We don't do one-size-fits-all. Every custom website development Junagadh project is tailored to your unique business needs."
+        description: "We don't do one-size-fits-all. Every custom AI and website development Junagadh project is tailored to your unique business needs."
     },
     {
         title: "Dedicated Long-Term Support",
-        description: "We're with you every step of the way, from initial concept to post-launch support and beyond for all our website development services in Junagadh."
+        description: "We're with you every step of the way, from initial concept to post-launch support and beyond for all our services in Junagadh."
     }
 ];
 
@@ -74,13 +74,13 @@ export default function AboutPage() {
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
                     <AnimatedHeadline
-                        words={['Grow', 'Innovate', 'Succeed']}
+                        words={['Automate', 'Innovate', 'Grow']}
                         prefix="We're SaaSNext. We help you"
                         suffix="."
                         className="font-headline text-5xl md:text-7xl font-bold tracking-tighter"
                     />
                     <p className="text-xl md:text-2xl text-muted-foreground">
-                        A passionate, Junagadh-based digital marketing company dedicated to crafting solutions that drive growth for businesses just like yours.
+                        A passionate, Junagadh-based AI and Automation company dedicated to crafting solutions that drive growth for businesses just like yours.
                     </p>
                 </div>
                  <div className="relative h-96 w-full">
@@ -93,9 +93,9 @@ export default function AboutPage() {
 
         <section className="py-20 md:py-28 bg-card">
             <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center space-y-6">
-                <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Story: From Junagadh to the Digital Frontier</h2>
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Story: From Junagadh to the AI Frontier</h2>
                 <p className="text-lg text-muted-foreground">
-                    Founded in the heart of Junagadh, SaaSNext was born from a simple observation: local businesses deserved world-class digital tools to compete and thrive. We started as a small team with a big vision—to bridge the gap between ambition and technology. Today, we're proud to be the trusted digital partner for companies in our hometown and beyond, offering the best digital marketing and web development services Junagadh has to offer.
+                    Founded in the heart of Junagadh, SaaSNext was born from a simple observation: local businesses deserved world-class digital tools to compete and thrive. We started as a small team with a big vision—to bridge the gap between ambition and technology. Today, we're proud to be the trusted AI and digital partner for companies in our hometown and beyond.
                 </p>
             </div>
         </section>
@@ -104,7 +104,7 @@ export default function AboutPage() {
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                  <div className="text-center max-w-3xl mx-auto">
                     <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Core Values</h2>
-                    <p className="mt-4 text-muted-foreground text-lg">These are the principles that guide every project, partnership, and decision we make as the best digital marketing agency in Junagadh.</p>
+                    <p className="mt-4 text-muted-foreground text-lg">These are the principles that guide every project, partnership, and decision we make as the best AI and digital marketing agency in Junagadh.</p>
                 </div>
                 <div className="mt-16 grid md:grid-cols-3 gap-8">
                     {coreValues.map((value) => (
@@ -160,3 +160,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    

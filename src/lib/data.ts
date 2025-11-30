@@ -1,6 +1,51 @@
 
 export const pricingPlans = [
   {
+    category: "AI Agent Development",
+    plans: [
+      {
+        title: "Starter",
+        price: "₹10,000 – ₹20,000",
+        priceUsd: "$1,200 - $2,500",
+        description: "Automate basic customer support.",
+        features: [
+          "Basic FAQ agent (trained on your data)",
+          "Website embedding",
+          "24/7 automated responses",
+          "Simple lead capture",
+        ],
+        cta: "Get Started",
+      },
+      {
+        title: "Growth",
+        price: "₹25,000 – ₹45,000",
+        priceUsd: "$3,000 - $5,500",
+        description: "For lead qualification and booking.",
+        features: [
+          "Advanced conversational agents",
+          "CRM integration (HubSpot, Zoho)",
+          "Email notification workflows",
+        ],
+        cta: "Choose Growth Plan",
+        popular: true,
+      },
+      {
+        title: "Pro",
+        price: "₹50,000+",
+        priceUsd: "$5,000+",
+        description: "Custom end-to-end automation.",
+        features: [
+          "Custom LLM solutions",
+          "Multi-agent systems",
+          "Voice capabilities",
+          "API integrations for full automation",
+          "Detailed conversation analytics",
+        ],
+        cta: "Contact Sales",
+      },
+    ],
+  },
+  {
     category: "Web Development",
     plans: [
       {
@@ -94,51 +139,6 @@ export const pricingPlans = [
     ],
   },
   {
-    category: "AI Agent Development",
-    plans: [
-      {
-        title: "Starter",
-        price: "₹10,000 – ₹20,000",
-        priceUsd: "$1,200 - $2,500",
-        description: "Automate basic customer support.",
-        features: [
-          "Basic FAQ agent (trained on your data)",
-          "Website embedding",
-          "24/7 automated responses",
-          "Simple lead capture",
-        ],
-        cta: "Get Started",
-      },
-      {
-        title: "Growth",
-        price: "₹25,000 – ₹45,000",
-        priceUsd: "$3,000 - $5,500",
-        description: "For lead qualification and booking.",
-        features: [
-          "Advanced conversational agents",
-          "CRM integration (HubSpot, Zoho)",
-          "Email notification workflows",
-        ],
-        cta: "Choose Growth Plan",
-        popular: true,
-      },
-      {
-        title: "Pro",
-        price: "₹50,000+",
-        priceUsd: "$5,000+",
-        description: "Custom end-to-end automation.",
-        features: [
-          "Custom LLM solutions",
-          "Multi-agent systems",
-          "Voice capabilities",
-          "API integrations for full automation",
-          "Detailed conversation analytics",
-        ],
-        cta: "Contact Sales",
-      },
-    ],
-  },
-  {
     category: "Bundled Packages",
     plans: [
       {
@@ -186,6 +186,21 @@ export const pricingPlans = [
 ];
 
 export const services = [
+   {
+    icon: 'BrainCircuit',
+    title: 'AI Solutions',
+    description: 'Integrating artificial intelligence to automate processes, gain insights, and create intelligent products for our B2B lead generation company in Junagadh.',
+    image: {
+      imageUrl: "https://images.unsplash.com/photo-1694903110330-cc64b7e1d21d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc1ODc5NDU3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      imageHint: "artificial intelligence"
+    },
+    slug: 'ai-solutions',
+    process: 'We analyze your business challenges, develop custom AI models, and integrate them seamlessly into your existing workflows.',
+    benefits: 'Increased efficiency, data-driven decision-making, and a competitive edge in your industry.',
+    results: 'Measurable improvements in operational efficiency and the creation of innovative, AI-powered features.',
+    startingPrice: 8000,
+    startingPriceUsd: 1000,
+  },
   {
     icon: 'Code',
     title: 'Web Development',
@@ -259,21 +274,6 @@ slug: 'performance-marketing',
     benefits: 'A strong, recognizable brand that builds trust and loyalty with your customers.',
     results: 'Increased brand recognition and a professional image that attracts high-value clients.',
     startingPrice: 6000,
-    startingPriceUsd: 1000,
-  },
-  {
-    icon: 'BrainCircuit',
-    title: 'AI Solutions',
-    description: 'Integrating artificial intelligence to automate processes, gain insights, and create intelligent products for our B2B lead generation company in Junagadh.',
-    image: {
-      imageUrl: "https://images.unsplash.com/photo-1694903110330-cc64b7e1d21d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlfGVufDB8fHx8MTc1ODc5NDU3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      imageHint: "artificial intelligence"
-    },
-    slug: 'ai-solutions',
-    process: 'We analyze your business challenges, develop custom AI models, and integrate them seamlessly into your existing workflows.',
-    benefits: 'Increased efficiency, data-driven decision-making, and a competitive edge in your industry.',
-    results: 'Measurable improvements in operational efficiency and the creation of innovative, AI-powered features.',
-    startingPrice: 8000,
     startingPriceUsd: 1000,
   },
 ];
@@ -573,15 +573,15 @@ export const teamMembers = [
 export const faqs = [
     {
       question: 'What types of businesses do you work with?',
-      answer: 'We work with a wide range of businesses in Junagadh, from early-stage startups to established local companies. Our digital marketing for small business in Junagadh is particularly effective.'
+      answer: 'We work with a wide range of businesses in Junagadh, from early-stage startups to established local companies. Our AI automation and digital marketing for small business in Junagadh is particularly effective.'
     },
     {
       question: 'How much does a typical project cost?',
-      answer: "Project costs vary depending on the scope. We provide custom quotes after an initial discovery call. Our goal is to offer affordable web design in Junagadh that delivers a high return on investment."
+      answer: "Project costs vary depending on the scope. We provide custom quotes after an initial discovery call. Our goal is to offer affordable AI and web solutions in Junagadh that delivers a high return on investment."
     },
     {
       question: 'How long does a project usually take?',
-      answer: "A typical website project takes 8-12 weeks from kick-off to launch. Smaller projects can be faster, and more complex ecommerce website development in Junagadh may take longer. We establish a clear timeline at the beginning of every project."
+      answer: "A typical website project takes 8-12 weeks from kick-off to launch. AI automation projects can vary greatly based on complexity. We establish a clear timeline at the beginning of every project."
     },
     {
       question: "What's your process for working with new clients?",
@@ -589,7 +589,7 @@ export const faqs = [
     },
     {
       question: 'Do you offer ongoing support and maintenance?',
-      answer: "Yes, we offer a variety of ongoing support packages to ensure your website remains secure and updated. We also provide retainers for social media management in Junagadh and other ongoing marketing needs."
+      answer: "Yes, we offer a variety of ongoing support packages to ensure your website and AI agents remain secure, updated, and optimized. We also provide retainers for ongoing marketing needs."
     }
   ];
 
@@ -598,5 +598,8 @@ export const faqs = [
     
 
     
+
+    
+
 
     

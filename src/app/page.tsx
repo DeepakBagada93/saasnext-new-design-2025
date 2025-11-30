@@ -41,7 +41,7 @@ const whyChooseUsItems = [
   {
     icon: <Award className="h-10 w-10 text-primary" />,
     title: "Results-Driven",
-    description: "We're not just about pretty designs. We're a business-focused digital marketing company in Junagadh that delivers measurable results and a tangible ROI for our clients."
+    description: "We're not just about building tech. We're a business-focused AI and web development company in Junagadh that delivers measurable results and a tangible ROI for our clients."
   },
   {
     icon: <Users className="h-10 w-10 text-primary" />,
@@ -51,7 +51,7 @@ const whyChooseUsItems = [
   {
     icon: <Zap className="h-10 w-10 text-primary" />,
     title: "Agile & Efficient",
-    description: "Our agile process means we move fast, iterate quickly, and get your project to market faster without sacrificing the quality of our website development services in Junagadh."
+    description: "Our agile process means we move fast, iterate quickly, and get your project to market faster without sacrificing quality."
   }
 ];
 
@@ -68,22 +68,22 @@ const processSteps = [
     {
       step: "01",
       title: "Discovery & Strategy",
-      description: "We start by diving deep into your business, goals, and target audience in Junagadh. This phase includes stakeholder interviews, market research, and competitive analysis to build a data-driven strategy that sets the foundation for success."
+      description: "We start by diving deep into your business, goals, and operational challenges. This phase includes process mapping and workflow analysis to build a data-driven strategy that sets the foundation for successful automation and development."
     },
     {
       step: "02",
-      title: "Design & Prototyping",
-      description: "Our team creates wireframes and high-fidelity mockups, focusing on a user-centric design that is both beautiful and intuitive. You'll get to see and approve the visual direction before any code is written."
+      title: "Solution Design & Prototyping",
+      description: "Our team creates system architectures and high-fidelity mockups, focusing on a user-centric design that is both powerful and intuitive. You'll get to see and approve the technical and visual direction before any code is written."
     },
     {
       step: "03",
-      title: "Development & QA",
-      description: "As a premier web design company in Junagadh, we use the latest technologies to build a high-performance, scalable website. We conduct rigorous QA testing to ensure everything is bug-free and pixel-perfect."
+      title: "Agile Development & QA",
+      description: "As a premier AI and web design company in Junagadh, we use the latest technologies to build high-performance, scalable solutions. We conduct rigorous QA testing to ensure everything is bug-free and pixel-perfect."
     },
     {
       step: "04",
       title: "Launch & Optimization",
-      description: "We handle the entire deployment process. But our work doesn't stop there. We monitor performance, analyze user data, and provide ongoing optimization to ensure you're getting the best possible results."
+      description: "We handle the entire deployment process. But our work doesn't stop there. We monitor performance, analyze user data, and provide ongoing optimization to ensure you're getting the best possible results and ROI."
     }
   ];
 
@@ -91,17 +91,17 @@ const processSteps = [
     {
       icon: <Rocket className="h-8 w-8 text-primary" />,
       title: "Ambitious Startups",
-      description: "You need to move fast and make a big impact. We provide the agile development and go-to-market strategies to help you launch, iterate, and scale quickly, securing your position in a competitive market."
+      description: "You need to move fast and make a big impact. We provide the agile development and AI automation to help you launch, iterate, and scale quickly, securing your position in a competitive market."
     },
     {
       icon: <Building className="h-8 w-8 text-primary" />,
       title: "Established Local Businesses",
-      description: "Your business is a staple in Junagadh, but your digital presence isn't keeping up. We'll modernize your website, optimize it for local search, and drive more foot traffic and online sales."
+      description: "Your business is a staple in Junagadh, but operational inefficiencies are holding you back. We'll modernize your website, automate workflows, and drive more profitable growth."
     },
     {
       icon: <Scale className="h-8 w-8 text-primary" />,
       title: "SMEs & Enterprises",
-      description: "You require a robust, scalable, and secure digital platform. We offer custom website development in Junagadh to handle complex requirements and deliver enterprise-grade solutions."
+      description: "You require robust, scalable, and secure digital platforms. We offer custom AI solutions and web development in Junagadh to handle complex requirements and deliver enterprise-grade automation."
     }
   ];
   
@@ -114,12 +114,12 @@ const processSteps = [
     {
         icon: <BadgeCheck className="h-8 w-8 text-primary" />,
         title: "Build Trust & Credibility",
-        description: "A professional website from a trusted web design company in Junagadh builds trust and makes you the go-to choice in the local community."
+        description: "A professional, AI-enhanced website from a trusted company in Junagadh builds trust and makes you the go-to choice in the local community."
     },
     {
         icon: <BarChart className="h-8 w-8 text-primary" />,
         title: "Stay Ahead of Competition",
-        description: "Many local competitors have a weak online game. A strong digital strategy for your small business in Junagadh puts you miles ahead."
+        description: "Many local competitors have a weak online game. A strong digital and automation strategy for your business in Junagadh puts you miles ahead."
     }
   ]
 
@@ -128,12 +128,12 @@ const allTech = [...techStack.frontend, ...techStack.backend, ...techStack.aiAnd
 const problemsAndSolutions = [
     {
         problem: {
-            title: "Lost in the Digital Noise",
-            description: "Your business offers incredible value, but potential clients can't find you online. Competitors with weaker services but better SEO dominate search results, leaving you invisible to customers actively looking for a web developer near me in Junagadh."
+            title: "Manual, Repetitive Tasks Are Draining Your Resources",
+            description: "Your team is spending too much time on repetitive, manual tasks like data entry, customer follow-ups, and report generation. This inefficiency is limiting your ability to focus on growth and innovation."
         },
         solution: {
-            title: "Strategic Digital Dominance",
-            description: "As a top digital marketing company in Junagadh, we implement a targeted strategy. Through expert web development and SEO services, we elevate your website's ranking, turning it into a powerful tool for online lead generation. We make sure you're seen."
+            title: "Intelligent Automation & AI Solutions",
+            description: "We implement custom AI and automation solutions to streamline your operations. From AI-powered chatbots to automated workflows, we help you save time, reduce costs, and free up your team to focus on high-impact activities."
         }
     },
     {
@@ -148,16 +148,6 @@ const problemsAndSolutions = [
     },
     {
         problem: {
-            title: "Inconsistent and Unprofessional Branding",
-            description: "Your logo, color scheme, and messaging are all over the place. This lack of a cohesive brand identity confuses customers and makes your business look amateur, especially in a competitive market."
-        },
-        solution: {
-            title: "Cohesive and Memorable Brand Identity",
-            description: "Our branding and SMM services in Junagadh create a consistent and professional brand identity. We craft a unique logo, define your brand voice, and ensure all your marketing materials are aligned, making your brand instantly recognizable."
-        }
-    },
-    {
-        problem: {
             title: "No Real Return on Your Ad Spend",
             description: "You're spending money on digital ads, but you're not seeing a clear return. Your campaigns are attracting clicks but not qualified leads, making it impossible to justify the investment."
         },
@@ -168,22 +158,32 @@ const problemsAndSolutions = [
     },
     {
         problem: {
+            title: "Lost in the Digital Noise",
+            description: "Your business offers incredible value, but potential clients can't find you online. Competitors with weaker services but better SEO dominate search results, leaving you invisible to customers actively looking for a web developer near me in Junagadh."
+        },
+        solution: {
+            title: "Strategic Digital Dominance",
+            description: "As a top digital marketing company in Junagadh, we implement a targeted strategy. Through expert web development and SEO services, we elevate your website's ranking, turning it into a powerful tool for online lead generation. We make sure you're seen."
+        }
+    },
+    {
+        problem: {
+            title: "Inconsistent and Unprofessional Branding",
+            description: "Your logo, color scheme, and messaging are all over the place. This lack of a cohesive brand identity confuses customers and makes your business look amateur, especially in a competitive market."
+        },
+        solution: {
+            title: "Cohesive and Memorable Brand Identity",
+            description: "Our branding and SMM services in Junagadh create a consistent and professional brand identity. We craft a unique logo, define your brand voice, and ensure all your marketing materials are aligned, making your brand instantly recognizable."
+        }
+    },
+    {
+        problem: {
             title: "Struggling to Attract High-Value B2B Clients",
             description: "Your current marketing efforts are attracting small, one-off clients, but you're struggling to connect with the larger B2B clients that will truly grow your business. Your messaging isn't reaching decision-makers."
         },
         solution: {
             title: "Targeted B2B Lead Generation",
             description: "As a B2B lead generation company in Junagadh, we specialize in connecting you with high-value business clients. We use a combination of LinkedIn marketing, targeted content, and professional web design to attract and nurture qualified B2B leads."
-        }
-    },
-    {
-        problem: {
-            title: "Manual, Repetitive Tasks Are Draining Your Resources",
-            description: "Your team is spending too much time on repetitive, manual tasks like data entry, customer follow-ups, and report generation. This inefficiency is limiting your ability to focus on growth and innovation."
-        },
-        solution: {
-            title: "Intelligent Automation & AI Solutions",
-            description: "We implement custom AI and automation solutions to streamline your operations. From AI-powered chatbots to automated workflows, we help you save time, reduce costs, and free up your team to focus on high-impact activities."
         }
     }
 ];
@@ -234,13 +234,13 @@ export default function Home() {
         <HeroAnimation />
         <div className="relative z-10 px-4 sm:px-6 lg:px-8">
            <AnimatedHeadline
-              words={['Customers', 'Revenue', 'Momentum']}
-              prefix={<>Top <span className="text-foreground">Web Design & Performance Marketing</span> in Junagadh. We Build</>}
+              words={['Efficiency', 'Productivity', 'Scale']}
+              prefix={<>AI-First Automation & Web Engineering. We Build</>}
               suffix={<>.</>}
               className="font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter animate-fade-in-up"
             />
           <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground animate-fade-in-up animation-delay-200">
-            High-performance web development and ROI-focused marketing campaigns that turn your ad spend into profit.
+            Custom AI agents to automate your business, paired with high-performance web development and ROI-focused marketing.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 animate-fade-in-up animation-delay-400">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto shadow-lg shadow-primary/20">
@@ -309,9 +309,9 @@ export default function Home() {
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="space-y-6">
-                    <h2 className="font-headline text-4xl md:text-5xl font-bold">The Top Web Design Agency in Junagadh</h2>
+                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Your AI & Web Partner in Junagadh</h2>
                     <p className="text-lg text-muted-foreground">
-                        You've been burned by slow timelines and unmet promises. We're different. We're a performance-focused digital marketing agency in Junagadh, dedicated to your growth and providing powerful online lead generation solutions.
+                        You've been burned by slow timelines and unmet promises. We're different. We're a performance-focused AI and digital agency in Junagadh, dedicated to your growth and providing powerful automation and web solutions.
                     </p>
                     <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
                         <Image src="/saasnext-marketing-leadgeneration.png" alt="SaaSNext Team providing digital marketing for lead generation Junagadh" data-ai-hint="team working" fill className="object-cover"/>
@@ -340,7 +340,7 @@ export default function Home() {
             <p className="mt-4 text-muted-foreground text-lg">From standalone services to all-in-one bundles, find the perfect fit for your business goals and budget.</p>
           </div>
 
-          <Tabs defaultValue="web-development" className="mt-12">
+          <Tabs defaultValue="ai-agent-development" className="mt-12">
             <div className="flex justify-center mb-8">
                 <TabsList className="grid w-full max-w-2xl grid-cols-2 md:grid-cols-4">
                     {pricingPlans.map((category) => (
@@ -495,8 +495,8 @@ export default function Home() {
     <section id="target-audience" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto">
-                <h2 className="font-headline text-4xl md:text-5xl font-bold">Digital Solutions for Every Business in Junagadh</h2>
-                <p className="mt-4 text-muted-foreground text-lg">Whether you're a budding startup or an established local enterprise, our website development services in Junagadh are tailored to meet your unique business needs and goals.</p>
+                <h2 className="font-headline text-4xl md:text-5xl font-bold">AI & Web Solutions for Every Business in Junagadh</h2>
+                <p className="mt-4 text-muted-foreground text-lg">Whether you're a budding startup or an established local enterprise, our AI and web development services in Junagadh are tailored to meet your unique business needs and goals.</p>
             </div>
             <div className="mt-16 grid md:grid-cols-3 gap-8">
                 {targetAudiences.map((audience) => (
@@ -626,9 +626,9 @@ export default function Home() {
       <section id="cta" className="py-20 md:py-28">
         <div className="px-4 sm:px-6 lg:px-8 animate-fade-in-up">
           <div className="bg-gradient-to-r from-primary to-orange-400 text-primary-foreground p-12 rounded-lg text-center max-w-5xl mx-auto shadow-2xl shadow-primary/20">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">Ready to Grow Your Business in Junagadh?</h2>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">Ready to Automate & Grow?</h2>
             <p className="mt-4 max-w-3xl mx-auto text-lg opacity-90">
-              Let's talk about how we can help you achieve your goals. Get a free, no-obligation strategy session with Junagadh's top lead generation agency today.
+              Let's talk about how our AI solutions and web expertise can help you achieve your goals. Get a free, no-obligation strategy session with Junagadh's top AI agency today.
             </p>
             <div className="mt-8">
               <Button asChild size="lg" variant="secondary" className="bg-background text-foreground hover:bg-background/80 scale-105 hover:scale-110 transition-transform">
@@ -643,5 +643,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
