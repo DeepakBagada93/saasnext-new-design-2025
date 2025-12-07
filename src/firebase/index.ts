@@ -8,23 +8,23 @@ import { getFirestore } from 'firebase/firestore'
 // IMPORTANT: DO NOT MODIFY THIS FUNCTION
 export function initializeFirebase() {
   if (!getApps().length) {
-    // Important! initializeApp() is called without any arguments because Firebase App Hosting
-    // integrates with the initializeApp() function to provide the environment variables needed to
-    // populate the FirebaseOptions in production. It is critical that we attempt to call initializeApp()
-    // without arguments.
+    // Important! When deployed to Firebase App Hosting, the SDK is automatically
+    // initialized with the correct project configuration.
+    // In other environments, we fall back to the firebaseConfig object.
     let firebaseApp;
-    try {
-      // Attempt to initialize via Firebase App Hosting environment variables
-      firebaseApp = initializeApp();
-    } catch (e) {
-      // Only warn in production because it's normal to use the firebaseConfig to initialize
-      // during development
-      if (process.env.NODE_ENV === "production") {
-        console.warn('Automatic initialization failed. Falling back to firebase config object.', e);
-      }
-      firebaseApp = initializeApp(firebaseConfig);
+    // The `VITE_FIREBASE_APP_HOSTING_CONFIG` is a special environment variable
+    // set by Firebase App Hosting.
+    if (process.env.VITE_FIREBASE_APP_HOSTING_CONFIG) {
+        try {
+            firebaseApp = initializeApp();
+        } catch(e) {
+            console.error("initializeApp failed", e);
+            firebaseApp = initializeApp(firebaseConfig);
+        }
+    } else {
+        firebaseApp = initializeApp(firebaseConfig);
     }
-
+    
     return getSdks(firebaseApp);
   }
 
