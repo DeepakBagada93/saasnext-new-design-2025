@@ -561,7 +561,28 @@ export const portfolioItems = [
       niche: 'E-commerce',
       url: 'https://studio-taupe-delta.vercel.app/'
     },
-   
+    {
+      id: 'proj-21',
+      title: 'Velvet- interior design',
+      problem: 'A growing construction firm needed a strong online presence to showcase their projects and attract new clients.',
+      solution: 'We built a professional, responsive website highlighting their services, portfolio of completed projects, and easy contact options for inquiries.',
+      results: 'Improved brand credibility, generated steady client leads, and boosted local market visibility by 45% within six months.',
+      image: { imageUrl: "/velvelspace.png", imageHint: "construction website" },
+      service: 'Web Development',
+      niche: 'E-commerce',
+      url: 'https://saasnext-interior.vercel.app/'
+    },
+    {
+      id: 'proj-212',
+      title: 'Dentist- healthcare',
+      problem: 'A growing construction firm needed a strong online presence to showcase their projects and attract new clients.',
+      solution: 'We built a professional, responsive website highlighting their services, portfolio of completed projects, and easy contact options for inquiries.',
+      results: 'Improved brand credibility, generated steady client leads, and boosted local market visibility by 45% within six months.',
+      image: { imageUrl: "/lumia-dentist.png", imageHint: "construction website" },
+      service: 'Web Development',
+      niche: 'Healthcare',
+      url: 'https://saasnext-dentist.vercel.app/'
+    },
   ];
 
 export const teamMembers = [
