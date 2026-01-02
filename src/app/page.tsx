@@ -5,9 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, CheckCircle, Code, Globe, Zap, BarChart, Users, MessageSquare, Rocket, ShieldCheck, BrainCircuit, Search, Megaphone, Feather, Palette } from "lucide-react";
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { services, techStack, testimonials, faqs, portfolioItems } from "@/lib/data";
+import { services, techStack, faqs, portfolioItems } from "@/lib/data";
 import { TextReveal } from "@/components/text-reveal";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
@@ -70,19 +69,7 @@ export default function Home() {
         </div>
       </HeroHighlight>
 
-      {/* Social Proof */}
-      <section className="py-12 border-y bg-muted/30">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-          <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-8">Trusted by innovative companies in Junagadh and beyond</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-            {['Acme Corp', 'Global Tech', 'Nebula AI', 'Vertex Solutions', 'Quantum Leap'].map((client) => (
-              <div key={client} className="flex justify-center items-center h-12 font-bold text-xl text-foreground/60">
-                {client}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Services Overview with Bento Grid */}
       <section id="services" className="py-20 md:py-28 bg-neutral-50 dark:bg-black">
@@ -247,36 +234,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 md:py-28">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold text-center mb-16">Client Success Stories</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, i) => (
-              <Card key={i} className="bg-card border-none shadow-md">
-                <CardContent className="p-8 flex flex-col h-full">
-                  <div className="mb-6 text-primary">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <span key={star} className="inline-block mr-1">★</span>
-                    ))}
-                  </div>
-                  <p className="text-lg mb-6 flex-grow italic">"{testimonial.quote}"</p>
-                  <div className="flex items-center gap-4">
-                    <Avatar>
-                      <AvatarImage src={`/avatars/client-${i + 1}.png`} />
-                      <AvatarFallback>{testimonial.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="font-bold">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* FAQ Section */}
       <section className="py-20 md:py-28 bg-card">
