@@ -156,7 +156,7 @@ export default function Home() {
           </div>
           <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
             <Image
-              src="/saasnext-seo.jpg"
+              src="/saasnext-webdevelopment-ai.png"
               alt="SEO Analytics Dashboard - SEO Company Junagadh"
               fill
               className="object-cover"
