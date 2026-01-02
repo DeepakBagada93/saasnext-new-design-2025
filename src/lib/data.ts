@@ -620,7 +620,7 @@ export const portfolioItems = [
       'Strengthened brand credibility, attracted new creative collaborations, and increased client inquiries for professional video editing services.',
 
     image: {
-      imageUrl: "/saasnext-videoedit.png",
+      imageUrl: "/sasnext-inferno.png",
       imageHint: "video editing portfolio"
     },
 
@@ -629,6 +629,31 @@ export const portfolioItems = [
 
     url: 'https://saasenxt-video.vercel.app/'
   },
+  {
+    id: 'proj-26',
+    title: 'SaasNext Cosmos – Scientist & Research Showcase Website',
+
+    problem:
+      'Researchers and scientists needed a clean, credible online platform to present their work, publications, discoveries, and ongoing research to a global audience.',
+
+    solution:
+      'We designed and developed a modern scientist-focused website featuring research highlights, publications, project timelines, visual data sections, and an academic-friendly layout. The platform emphasizes clarity, credibility, and knowledge sharing.',
+
+    results:
+      'Enhanced professional visibility, improved research accessibility, and created a strong digital identity suitable for academic and scientific communities.',
+
+    image: {
+      imageUrl: "/saasnext-cosmos.png",
+      imageHint: "scientist research website"
+    },
+
+    service: 'Web Development',
+    niche: 'Science & Research',
+
+    url: 'https://saasnext-cosmos.vercel.app/'
+  },
+
+
 
 
 ];
