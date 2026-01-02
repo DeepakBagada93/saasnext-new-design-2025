@@ -11,6 +11,7 @@ import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { Pricing } from "@/components/pricing";
+import { AnimatedSVG } from "@/components/ui/animated-svg";
 
 export default function Home() {
 
@@ -92,18 +93,7 @@ export default function Home() {
                   key={i}
                   title={service.title}
                   description={service.description}
-                  header={
-                    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 relative overflow-hidden group-hover/bento:scale-105 transition-transform duration-200">
-                      {service.image?.imageUrl && (
-                        <Image
-                          src={service.image.imageUrl}
-                          alt={service.title}
-                          fill
-                          className="object-cover opacity-80 group-hover/bento:opacity-100 transition-opacity"
-                        />
-                      )}
-                    </div>
-                  }
+                  header={<AnimatedSVG />}
                   icon={<IconComponent className="h-6 w-6 text-neutral-500" />}
                   className={i === 3 || i === 6 ? "md:col-span-2" : ""}
                 />
