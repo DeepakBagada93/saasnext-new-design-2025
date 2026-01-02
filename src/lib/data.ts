@@ -606,6 +606,30 @@ export const portfolioItems = [
 
     url: 'https://saasnext-3ddental.vercel.app/'
   },
+  {
+    id: 'proj-24',
+    title: 'SaasNext Video – Creative Video Editing Portfolio',
+
+    problem:
+      'Brands and content creators needed high-quality video editing to stand out on social media, websites, and marketing campaigns, but lacked a strong visual portfolio to showcase editing capabilities.',
+
+    solution:
+      'We created a visually engaging video editing portfolio showcasing cinematic edits, social media reels, promotional videos, motion graphics, and storytelling-focused content. The website highlights editing styles, workflows, and creative expertise.',
+
+    results:
+      'Strengthened brand credibility, attracted new creative collaborations, and increased client inquiries for professional video editing services.',
+
+    image: {
+      imageUrl: "/saasnext-videoedit.png",
+      imageHint: "video editing portfolio"
+    },
+
+    service: 'Video Editing & Creative Media',
+    niche: 'Video Production & Editing',
+
+    url: 'https://saasenxt-video.vercel.app/'
+  },
+
 
 ];
 
