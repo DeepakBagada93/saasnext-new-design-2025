@@ -1,11 +1,21 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { services } from "@/lib/data";
-import { ServiceCard } from '@/components/service-card';
 import { ServicesNav } from '@/components/services-nav';
 import { AnimatedHeadline } from '@/components/animated-headline';
 import { TextReveal } from '@/components/text-reveal';
+import { motion } from 'framer-motion';
+import { ArrowRight, BrainCircuit, Code, Search, Megaphone, Feather, Palette } from 'lucide-react';
+import Link from 'next/link';
 
+const iconMap: Record<string, any> = {
+    'BrainCircuit': BrainCircuit,
+    'Code': Code,
+    'Search': Search,
+    'Megaphone': Megaphone,
+    'Feather': Feather,
+    'Palette': Palette,
+};
 
 export default function ServicesPage() {
     const [activeService, setActiveService] = useState<string>(services[0].slug);
@@ -20,7 +30,7 @@ export default function ServicesPage() {
                     }
                 });
             },
-            { rootMargin: '-50% 0px -50% 0px' }
+            { rootMargin: '-20% 0px -50% 0px' }
         );
 
         const currentRefs = serviceRefs.current.filter(ref => ref !== null);
@@ -32,66 +42,121 @@ export default function ServicesPage() {
     }, []);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-            <section className="pt-20 md:pt-28 text-center max-w-3xl mx-auto">
-                <AnimatedHeadline
-                    words={['Growth', 'Engagement', 'Results']}
-                    prefix="Digital Services that Drive"
-                    suffix="."
-                    className="font-headline text-4xl md:text-6xl font-bold tracking-tighter"
-                />
-                <TextReveal>
-                    <p className="mt-6 text-lg md:text-xl text-muted-foreground">
-                        We offer a comprehensive suite of digital services in Junagadh, including web development, SEO, and lead generation services, designed to elevate your brand and accelerate your growth in the local market. Our expert team delivers custom solutions that drive real business results.
-                    </p>
-                </TextReveal>
+        <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
+            {/* Header Section */}
+            <section className="px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-32">
+                <div className="max-w-5xl mx-auto">
+                    <AnimatedHeadline
+                        words={['Impact', 'Growth', 'Future']}
+                        prefix="We Build Digital"
+                        suffix="."
+                        className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8"
+                    />
+                    <TextReveal>
+                        <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 max-w-3xl leading-relaxed">
+                            SaaSNext is more than a digital agency; we are your strategic partner in Junagadh.
+                            We fuse creativity with technology to deliver <strong>web development</strong>,
+                            <strong> AI solutions</strong>, and <strong>performance marketing</strong> that
+                            doesn't just look good—it dominates the market.
+                        </p>
+                    </TextReveal>
+                </div>
             </section>
 
-            <div className="mt-20 max-w-7xl mx-auto lg:grid lg:grid-cols-12 lg:gap-12">
-                <aside className="hidden lg:block lg:col-span-3">
-                    <ServicesNav services={services} activeService={activeService} />
-                </aside>
+            <div className="px-4 sm:px-6 lg:px-8 pb-32">
+                <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-12 lg:gap-20">
+                    {/* Sticky Navigation */}
+                    <aside className="hidden lg:block lg:col-span-3 relative">
+                        <div className="sticky top-32">
+                            <ServicesNav services={services} activeService={activeService} />
+                        </div>
+                    </aside>
 
-                <div className="lg:col-span-9 space-y-12">
-                    {services.map((service, index) => (
-                        <section
-                            key={service.slug}
-                            id={service.slug}
-                            ref={(el) => { serviceRefs.current[index] = el; }}
-                            className="scroll-mt-24"
-                        >
-                            <ServiceCard service={service} />
-                        </section>
-                    ))}
+                    {/* Main Content */}
+                    <div className="lg:col-span-9 space-y-32">
+                        {services.map((service, index) => {
+                            const Icon = iconMap[service.icon] || Code;
+                            return (
+                                <section
+                                    key={service.slug}
+                                    id={service.slug}
+                                    ref={(el) => { serviceRefs.current[index] = el; }}
+                                    className="scroll-mt-32 group"
+                                >
+                                    {/* Service Header */}
+                                    <div className="mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-8">
+                                        <div className="flex items-center gap-4 mb-4 text-primary">
+                                            <Icon className="w-8 h-8" />
+                                            <span className="text-sm font-mono uppercase tracking-widest">0{index + 1} / Service</span>
+                                        </div>
+                                        <h2 className="font-headline text-4xl md:text-6xl font-bold text-neutral-900 dark:text-white group-hover:text-primary transition-colors duration-300">
+                                            {service.title}
+                                        </h2>
+                                    </div>
+
+                                    {/* Content Grid */}
+                                    <div className="grid md:grid-cols-2 gap-12">
+                                        <div className="space-y-8">
+                                            <TextReveal>
+                                                <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                                                    {service.description}
+                                                </p>
+                                            </TextReveal>
+
+                                            <div className="bg-neutral-100 dark:bg-neutral-900 p-8 rounded-2xl">
+                                                <h3 className="text-xl font-bold mb-4">Our Process</h3>
+                                                <p className="text-neutral-600 dark:text-neutral-400">{service.process}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-8">
+                                            <div>
+                                                <h3 className="text-xl font-bold mb-4 border-l-4 border-primary pl-4">Key Benefits</h3>
+                                                <p className="text-neutral-600 dark:text-neutral-400 pl-5">{service.benefits}</p>
+                                            </div>
+
+                                            <div>
+                                                <h3 className="text-xl font-bold mb-4 border-l-4 border-primary pl-4">Real Results</h3>
+                                                <p className="text-neutral-600 dark:text-neutral-400 pl-5">{service.results}</p>
+                                            </div>
+
+                                            <div className="pt-8">
+                                                <Link
+                                                    href="/contact"
+                                                    className="inline-flex items-center gap-2 text-lg font-bold text-primary hover:text-primary/80 transition-colors group/link"
+                                                >
+                                                    Start Project
+                                                    <ArrowRight className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" />
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
-            <section className="mt-24 max-w-4xl mx-auto text-center">
-                <h2 className="font-headline text-3xl md:text-4xl font-bold">Your Full-Service Digital Partner in Junagadh</h2>
-                <TextReveal>
-                    <p className="mt-4 text-muted-foreground text-lg">
-                        As a premier digital marketing company in Junagadh, we offer end-to-end solutions. From custom website development to targeted B2B lead generation, our services are designed to deliver results. Whether you need a WordPress developer, ecommerce solutions, or a comprehensive social media strategy, our team is the best digital marketing agency in Junagadh to help your small business succeed.
-                    </p>
-                </TextReveal>
-            </section>
 
-            <section className="mt-16 max-w-5xl mx-auto">
-                <div className="grid md:grid-cols-2 gap-12">
-                    <div className="text-center md:text-left">
-                        <h2 className="font-headline text-3xl font-bold">Local Presence, Global Standards</h2>
-                        <TextReveal>
-                            <p className="mt-4 text-muted-foreground text-lg">
-                                When you search for a "web developer near me in Junagadh," you're looking for a local team that understands the market. As a top web design company in Junagadh, we provide that local expertise combined with world-class website development services. We build custom websites that are not only affordable but also powerful enough to compete on a global scale.
-                            </p>
-                        </TextReveal>
-                    </div>
-                    <div className="text-center md:text-left">
-                        <h2 className="font-headline text-3xl font-bold">Driving Growth with Performance Marketing</h2>
-                        <TextReveal>
-                            <p className="mt-4 text-muted-foreground text-lg">
-                                Our SMM services in Junagadh are built for performance. As a data-driven social media marketing agency, we go beyond simple posting. We manage targeted Facebook and Instagram marketing campaigns that deliver real, measurable results, making us the digital advertising agency Junagadh businesses trust for growth.
-                            </p>
-                        </TextReveal>
-                    </div>
+            {/* SEO Footer Section */}
+            <section className="bg-neutral-900 text-white py-24 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h2 className="font-headline text-3xl md:text-5xl font-bold mb-8">
+                        Ready to Dominate Your Market?
+                    </h2>
+                    <TextReveal>
+                        <p className="text-xl text-neutral-400 mb-12">
+                            Whether you need a cutting-edge website, an AI-powered automation system, or a high-ROI marketing campaign,
+                            SaaSNext is the <strong>best digital marketing agency in Junagadh</strong> to make it happen.
+                            Stop competing and start leading.
+                        </p>
+                    </TextReveal>
+                    <Link
+                        href="/contact"
+                        className="inline-block bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-neutral-200 transition-colors"
+                    >
+                        Get Your Free Strategy Session
+                    </Link>
                 </div>
             </section>
         </div>
