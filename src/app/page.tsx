@@ -1,37 +1,60 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, CheckCircle, Code, Globe, Zap, BarChart, Users, MessageSquare, Rocket, ShieldCheck } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight, CheckCircle, Code, Globe, Zap, BarChart, Users, MessageSquare, Rocket, ShieldCheck, BrainCircuit, Search, Megaphone, Feather, Palette } from "lucide-react";
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { services, techStack, testimonials, faqs, portfolioItems } from "@/lib/data";
-import { ServiceCard } from "@/components/service-card";
 import { TextReveal } from "@/components/text-reveal";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
 export default function Home() {
 
   const featuredPortfolio = portfolioItems.slice(0, 4);
 
+  // Map icons string to components
+  const iconMap: { [key: string]: any } = {
+    BrainCircuit: BrainCircuit,
+    Code: Code,
+    Search: Search,
+    Megaphone: Megaphone,
+    Feather: Feather,
+    Palette: Palette,
+  };
+
+  // Flatten tech stack for marquee
+  const techStackItems = [
+    ...techStack.frontend,
+    ...techStack.backend,
+    ...techStack.aiAndDeployment
+  ].map(tech => ({
+    quote: tech.description,
+    name: tech.name,
+    title: ""
+  }));
+
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/20 via-background to-background" />
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+      {/* Hero Section with Highlight */}
+      <HeroHighlight containerClassName="h-[40rem] md:h-[50rem]">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center relative z-20">
           <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80 mb-8">
             New: AI-Powered Lead Generation
           </div>
-          <AnimatedHeadline
-            words={['Digital Future', 'Growth Engine', 'Success Story']}
-            prefix="Building Your"
-            suffix="."
-            className="font-headline text-5xl md:text-7xl font-bold tracking-tighter mb-6"
-          />
+          <h1 className="text-4xl md:text-7xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto mb-6">
+            Building Your <br />
+            <Highlight className="text-black dark:text-white">
+              Digital Future.
+            </Highlight>
+          </h1>
+
           <TextReveal>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10">
-              SaaSNext is the best web design company in Junagadh, empowering businesses with custom websites, AI automation, and data-driven digital marketing strategies. We turn your vision into a scalable reality.
+              SaaSNext is the best web design company in Junagadh, empowering businesses with custom websites, AI automation, and data-driven digital marketing strategies.
             </p>
           </TextReveal>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -44,30 +67,14 @@ export default function Home() {
               <Link href="/portfolio">View Our Work</Link>
             </Button>
           </div>
-
-          <div className="mt-20 relative mx-auto max-w-5xl">
-            <div className="aspect-[16/9] rounded-xl overflow-hidden border bg-muted shadow-2xl">
-              <Image
-                src="/saasnext-hero.png"
-                alt="SaaSNext Dashboard - Web Development Junagadh"
-                width={1200}
-                height={675}
-                className="object-cover"
-                priority
-                data-ai-hint="dashboard interface"
-              />
-            </div>
-            <div className="absolute -bottom-6 -right-6 -z-10 w-full h-full bg-primary/10 rounded-xl blur-3xl" />
-          </div>
         </div>
-      </section>
+      </HeroHighlight>
 
       {/* Social Proof */}
       <section className="py-12 border-y bg-muted/30">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
           <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-8">Trusted by innovative companies in Junagadh and beyond</p>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
-            {/* Replace with actual client logos */}
             {['Acme Corp', 'Global Tech', 'Nebula AI', 'Vertex Solutions', 'Quantum Leap'].map((client) => (
               <div key={client} className="flex justify-center items-center h-12 font-bold text-xl text-foreground/60">
                 {client}
@@ -77,27 +84,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section id="services" className="py-20 md:py-28">
+      {/* Services Overview with Bento Grid */}
+      <section id="services" className="py-20 md:py-28 bg-neutral-50 dark:bg-black">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="font-headline text-4xl md:text-5xl font-bold mb-6">Comprehensive Digital Solutions</h2>
             <TextReveal>
               <p className="text-lg text-muted-foreground">
-                From custom website development to advanced AI integration, we provide everything you need to dominate your market. As a leading digital marketing agency in Junagadh, we deliver results that matter.
+                From custom website development to advanced AI integration, we provide everything you need to dominate your market.
               </p>
             </TextReveal>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.slice(0, 3).map((service) => (
-              <ServiceCard key={service.slug} service={service} />
-            ))}
-          </div>
+
+          <BentoGrid className="max-w-7xl mx-auto">
+            {services.map((service, i) => {
+              const IconComponent = iconMap[service.icon] || Code;
+              return (
+                <BentoGridItem
+                  key={i}
+                  title={service.title}
+                  description={service.description}
+                  header={
+                    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 relative overflow-hidden group-hover/bento:scale-105 transition-transform duration-200">
+                      {service.image?.imageUrl && (
+                        <Image
+                          src={service.image.imageUrl}
+                          alt={service.title}
+                          fill
+                          className="object-cover opacity-80 group-hover/bento:opacity-100 transition-opacity"
+                        />
+                      )}
+                    </div>
+                  }
+                  icon={<IconComponent className="h-6 w-6 text-neutral-500" />}
+                  className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+                />
+              );
+            })}
+          </BentoGrid>
+
           <div className="mt-12 text-center">
             <Button asChild variant="link" className="text-lg text-primary">
               <Link href="/services">Explore All Services <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Tech Stack Marquee */}
+      <section className="py-20 md:py-28 overflow-hidden bg-grid-small-black/[0.2] relative">
+        <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center relative z-10">
+          <h2 className="font-headline text-4xl md:text-5xl font-bold mb-16">Powered by Modern Technology</h2>
+          <InfiniteMovingCards
+            items={techStackItems}
+            direction="left"
+            speed="normal"
+          />
         </div>
       </section>
 
@@ -108,7 +151,7 @@ export default function Home() {
             <h2 className="font-headline text-4xl md:text-5xl font-bold">Dominate Local Search with Junagadh SEO</h2>
             <TextReveal>
               <p className="text-lg text-muted-foreground">
-                Being on the first page of Google isn't a luxury; it's a necessity. Our web development and SEO services in Junagadh put your business in front of the customers who matter most. We optimize your online presence to capture local traffic and convert visitors into loyal clients.
+                Being on the first page of Google isn't a luxury; it's a necessity. Our web development and SEO services in Junagadh put your business in front of the customers who matter most.
               </p>
             </TextReveal>
             <ul className="space-y-4">
@@ -140,31 +183,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tech Stack */}
-      <section className="py-20 md:py-28">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold mb-16">Powered by Modern Technology</h2>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-            {[...techStack.frontend, ...techStack.backend, ...techStack.aiAndDeployment].map((tech) => (
-              <div key={tech.name} className="flex flex-col items-center gap-3 group">
-                <div className="p-4 rounded-xl bg-muted group-hover:bg-primary/10 transition-colors">
-                  {/* Icons would ideally be imported or SVG components */}
-                  <Code className="h-8 w-8 text-foreground group-hover:text-primary transition-colors" />
-                </div>
-                <span className="font-semibold text-sm">{tech.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* B2B Focus Section */}
       <section id="b2b-focus" className="py-20 md:py-28 bg-primary text-primary-foreground">
         <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
           <h2 className="font-headline text-4xl md:text-5xl font-bold text-white">Your B2B Lead Generation Company in Junagadh</h2>
           <TextReveal>
             <p className="mt-6 text-primary-foreground/90 text-xl leading-relaxed">
-              SaaSNext specializes in B2B lead generation, connecting you with high-value business clients in Junagadh and beyond. We combine targeted digital marketing strategies with our custom website development to create powerful online lead generation solutions. Our team understands the nuances of the B2B market, ensuring your message reaches the right decision-makers.
+              SaaSNext specializes in B2B lead generation, connecting you with high-value business clients in Junagadh and beyond. We combine targeted digital marketing strategies with our custom website development to create powerful online lead generation solutions.
             </p>
           </TextReveal>
           <Button asChild size="lg" variant="secondary" className="mt-10 text-lg">
@@ -219,18 +244,6 @@ export default function Home() {
               </Card>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Small Business Partner */}
-      <section id="small-business-partner" className="py-20 md:py-28 bg-muted/30">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold">The Digital Partner for Small Business in Junagadh</h2>
-          <TextReveal>
-            <p className="mt-6 text-muted-foreground text-xl leading-relaxed">
-              We are more than just a vendor; we are your digital partner. We understand the challenges faced by small businesses in Junagadh. That's why we offer affordable web design and scalable digital marketing for small businesses, helping you compete with larger players without breaking the bank. Let us be the web developer near me in Junagadh that you can trust.
-            </p>
-          </TextReveal>
         </div>
       </section>
 
