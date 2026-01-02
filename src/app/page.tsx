@@ -10,6 +10,7 @@ import { TextReveal } from "@/components/text-reveal";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { Pricing } from "@/components/pricing";
 
 export default function Home() {
 
@@ -235,6 +236,10 @@ export default function Home() {
       </section>
 
 
+
+
+      {/* Pricing Section */}
+      <Pricing />
 
       {/* FAQ Section */}
       <section className="py-20 md:py-28 bg-card">
