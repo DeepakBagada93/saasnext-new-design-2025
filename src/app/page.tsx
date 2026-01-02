@@ -12,6 +12,8 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { Pricing } from "@/components/pricing";
 import { BentoGridHeader } from "@/components/ui/bento-grid-header";
+import { ProblemSolution } from "@/components/problem-solution";
+import { Timeline } from "@/components/timeline";
 
 export default function Home() {
 
@@ -70,6 +72,9 @@ export default function Home() {
           </div>
         </div>
       </HeroHighlight>
+
+      {/* Problem / Solution Section */}
+      <ProblemSolution />
 
 
 
@@ -227,6 +232,9 @@ export default function Home() {
 
 
 
+
+      {/* Timeline Section */}
+      <Timeline />
 
       {/* Pricing Section */}
       <Pricing />
