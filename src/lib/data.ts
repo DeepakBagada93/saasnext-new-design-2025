@@ -200,6 +200,7 @@ export const services = [
     results: 'Measurable improvements in operational efficiency and the creation of innovative, AI-powered features.',
     startingPrice: 8000,
     startingPriceUsd: 1000,
+    tags: ['Machine Learning', 'Automation', 'NLP', 'Predictive Analytics'],
   },
   {
     icon: 'Code',
@@ -215,6 +216,7 @@ export const services = [
     results: 'Increased traffic, higher conversion rates, and a stronger brand identity with our custom website development in Junagadh.',
     startingPrice: 8000,
     startingPriceUsd: 1500,
+    tags: ['React/Next.js', 'E-commerce', 'UI/UX Design', 'Performance'],
   },
   {
     icon: 'Search',
@@ -230,6 +232,7 @@ export const services = [
     results: 'Top-of-page rankings for target keywords and a significant increase in qualified, organic leads for your business.',
     startingPrice: 6000,
     startingPriceUsd: 1000,
+    tags: ['Keyword Research', 'On-Page SEO', 'Link Building', 'Local SEO'],
   },
   {
     icon: 'Megaphone',
@@ -245,6 +248,7 @@ export const services = [
     results: 'Lower cost-per-acquisition (CPA) and higher return on ad spend (ROAS) from our digital advertising agency in Junagadh.',
     startingPrice: 8000,
     startingPriceUsd: 1000,
+    tags: ['PPC Campaigns', 'Social Media Ads', 'Lead Funnels', 'CRO'],
   },
   {
     icon: 'Feather',
@@ -260,6 +264,7 @@ export const services = [
     results: 'Higher engagement rates, increased organic traffic, and a library of assets that supports sales and marketing efforts.',
     startingPrice: 6000,
     startingPriceUsd: 1000,
+    tags: ['Blog Posts', 'Copywriting', 'Email Marketing', 'Strategy'],
   },
   {
     icon: 'Palette',
@@ -275,6 +280,7 @@ export const services = [
     results: 'Increased brand recognition and a professional image that attracts high-value clients.',
     startingPrice: 6000,
     startingPriceUsd: 1000,
+    tags: ['Brand Identity', 'Logo Design', 'Brand Guidelines', 'Visual Assets'],
   },
 ];
 
