@@ -33,8 +33,11 @@ const steps = [
 
 export const Timeline = () => {
     return (
-        <section className="py-20 md:py-32 bg-neutral-50 dark:bg-neutral-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-20 md:py-32 bg-neutral-50 dark:bg-neutral-900 relative overflow-hidden">
+            {/* Background Grid Pattern */}
+            <div className="absolute inset-0 bg-grid-black/[0.05] dark:bg-grid-white/[0.05] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-20">
                     <h2 className="font-headline text-4xl md:text-5xl font-bold mb-6">Your Journey with SaaSNext</h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
