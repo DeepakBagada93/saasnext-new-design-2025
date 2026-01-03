@@ -18,6 +18,7 @@ import { AgencyOverview } from "@/components/agency-overview";
 import { BusinessTargeting } from "@/components/business-targeting";
 import { Timeline } from "@/components/timeline";
 import { ClientHubCTA } from "@/components/client-hub-cta";
+import { CreativeHero } from "@/components/creative-hero";
 
 export default function Home() {
 
@@ -47,35 +48,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section with Highlight */}
-      <HeroHighlight containerClassName="h-[40rem] md:h-[50rem]">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center relative z-20">
-          <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80 mb-8">
-            New: AI-Powered Lead Generation
-          </div>
-          <h1 className="text-4xl md:text-7xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto mb-6">
-            Building Your <br />
-            <Highlight className="text-black dark:text-white">
-              Digital Future.
-            </Highlight>
-          </h1>
-
-          <TextReveal>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10">
-              SaaSNext is the best web design company in Junagadh, empowering businesses with custom websites, AI automation, and data-driven digital marketing strategies.
-            </p>
-          </TextReveal>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground">
-              <Link href="/contact">
-                Get a Free Consultation <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
-              <Link href="/portfolio">View Our Work</Link>
-            </Button>
-          </div>
-        </div>
-      </HeroHighlight>
+      {/* Creative Hero Section */}
+      <CreativeHero />
 
       {/* Problem / Solution Section */}
       <ProblemSolution />
