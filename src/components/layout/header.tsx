@@ -36,32 +36,32 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px] flex flex-col p-0">
-                <SheetHeader className="p-4 border-b">
-                    <SheetTitle><Logo /></SheetTitle>
-                </SheetHeader>
-                <div className="flex-1 flex flex-col p-4 space-y-4">
-                  <nav className="flex flex-col space-y-4">
-                    {navLinks.map(({ href, label }) => (
-                        <Link
-                        key={href}
-                        href={href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className={cn(
-                            "text-lg font-medium transition-colors hover:text-primary",
-                            pathname === href ? "text-primary" : "text-foreground/80"
-                        )}
-                        >
-                        {label}
-                        </Link>
-                    ))}
-                  </nav>
-                  <div className="flex-grow"></div>
-                  <div className="space-y-2">
-                    <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" asChild>
-                        <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
-                    </Button>
-                  </div>
+              <SheetHeader className="p-4 border-b">
+                <SheetTitle><Logo /></SheetTitle>
+              </SheetHeader>
+              <div className="flex-1 flex flex-col p-4 space-y-4">
+                <nav className="flex flex-col space-y-4">
+                  {navLinks.map(({ href, label }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={cn(
+                        "text-lg font-medium transition-colors hover:text-primary",
+                        pathname === href ? "text-primary" : "text-foreground/80"
+                      )}
+                    >
+                      {label}
+                    </Link>
+                  ))}
+                </nav>
+                <div className="flex-grow"></div>
+                <div className="space-y-2">
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" asChild>
+                    <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>Get Started</Link>
+                  </Button>
                 </div>
+              </div>
             </SheetContent>
           </Sheet>
         </div>
@@ -84,9 +84,9 @@ export default function Header() {
           ))}
         </nav>
         <div className="flex items-center justify-end space-x-2">
-            <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full" asChild>
-                <Link href="/register">Get Started</Link>
-            </Button>
+          <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full" asChild>
+            <Link href="/login">Get Started</Link>
+          </Button>
         </div>
       </div>
     </header>

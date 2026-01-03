@@ -6,6 +6,7 @@ import { ArrowRight, Handshake, Target, CheckCircle, Search, DraftingCompass, Co
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { TextReveal } from "@/components/text-reveal";
+import { AboutSections } from "@/components/about-sections";
 
 
 const coreValues = [
@@ -93,16 +94,8 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            <section className="py-20 md:py-28 bg-card">
-                <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center space-y-6">
-                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Story: From Junagadh to the AI Frontier</h2>
-                    <TextReveal>
-                        <p className="text-lg text-muted-foreground">
-                            Founded in the heart of Junagadh, SaaSNext was born from a simple observation: local businesses deserved world-class digital tools to compete and thrive. We started as a small team with a big vision—to bridge the gap between ambition and technology. Today, we're proud to be the trusted AI and digital partner for companies in our hometown and beyond, offering top-tier web design, SEO, and automation services.
-                        </p>
-                    </TextReveal>
-                </div>
-            </section>
+            {/* Detailed About Sections */}
+            <AboutSections />
 
             <section className="py-20 md:py-28">
                 <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">

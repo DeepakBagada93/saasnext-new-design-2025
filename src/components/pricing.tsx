@@ -70,7 +70,7 @@ export const Pricing = () => {
                                             </CardContent>
                                             <CardFooter>
                                                 <Button asChild className="w-full" variant={plan.popular ? "default" : "outline"}>
-                                                    <Link href="/contact">{plan.cta}</Link>
+                                                    <Link href="/login">{plan.cta}</Link>
                                                 </Button>
                                             </CardFooter>
                                         </Card>

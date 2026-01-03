@@ -11,9 +11,13 @@ import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { Pricing } from "@/components/pricing";
+import { CTASection } from "@/components/cta-section";
 import { BentoGridHeader } from "@/components/ui/bento-grid-header";
 import { ProblemSolution } from "@/components/problem-solution";
+import { AgencyOverview } from "@/components/agency-overview";
+import { BusinessTargeting } from "@/components/business-targeting";
 import { Timeline } from "@/components/timeline";
+import { ClientHubCTA } from "@/components/client-hub-cta";
 
 export default function Home() {
 
@@ -75,6 +79,8 @@ export default function Home() {
 
       {/* Problem / Solution Section */}
       <ProblemSolution />
+      {/* Client Hub CTA */}
+      <ClientHubCTA />
 
 
 
@@ -127,6 +133,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Agency Overview Section */}
+      <AgencyOverview />
+
       {/* Value Proposition / Local SEO Focus */}
       <section id="local-seo" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
@@ -166,20 +175,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* B2B Focus Section */}
-      <section id="b2b-focus" className="py-20 md:py-28 bg-primary text-primary-foreground">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold text-white">Your B2B Lead Generation Company in Junagadh</h2>
-          <TextReveal>
-            <p className="mt-6 text-primary-foreground/90 text-xl leading-relaxed">
-              SaaSNext specializes in B2B lead generation, connecting you with high-value business clients in Junagadh and beyond. We combine targeted digital marketing strategies with our custom website development to create powerful online lead generation solutions.
-            </p>
-          </TextReveal>
-          <Button asChild size="lg" variant="secondary" className="mt-10 text-lg">
-            <Link href="/contact">Start Generating Leads</Link>
-          </Button>
-        </div>
-      </section>
+
+      {/* Business Targeting Section */}
+      <BusinessTargeting />
 
       {/* Portfolio Preview */}
       <section className="py-20 md:py-28">
@@ -235,7 +233,6 @@ export default function Home() {
 
       {/* Timeline Section */}
       <Timeline />
-
       {/* Pricing Section */}
       <Pricing />
 
@@ -257,21 +254,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-28 text-center">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <h2 className="font-headline text-4xl md:text-6xl font-bold mb-6">Ready to Transform Your Business?</h2>
-          <TextReveal>
-            <p className="text-xl text-muted-foreground mb-10">
-              Join the growing list of businesses in Junagadh that trust SaaSNext for their digital success. Let's build something extraordinary together.
-            </p>
-          </TextReveal>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-lg px-10 py-8 bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link href="/contact">Start Your Project Now</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTASection />
     </div>
   );
 }
