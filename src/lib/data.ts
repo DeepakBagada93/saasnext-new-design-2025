@@ -344,21 +344,21 @@ export const testimonials = [
 
 export const portfolioItems = [
   {
-    id: 'proj-1',
-    title: 'E-commerce Platform for Innovate Ltd.',
-    problem: 'Innovate Ltd. needed a scalable ecommerce website development in Junagadh to handle their growing product line and customer base.',
-    solution: 'We built a custom web application using Next.js and integrated a headless CMS for easy content management.',
-    results: 'Achieved a 50% increase in online sales and a 30% improvement in page load times.',
+    id: 'proj-23',
+    title: 'Modern E-commerce Website Demo',
+    problem: 'Many growing brands struggle to visualize how a fast, scalable e-commerce website should look and perform before investing in full development.',
+    solution: 'We designed and developed a high-performance e-commerce demo using Next.js, showcasing a clean UI, optimized product pages, and a headless CMS structure for future scalability.',
+    results: 'Demonstrates lightning-fast load times, smooth navigation, and a conversion-focused shopping experience suitable for real-world e-commerce businesses.',
     image: {
       imageUrl: "/saasnextecom1.webp",
-      imageHint: "e-commerce screenshot"
+      imageHint: "modern e-commerce website demo"
     },
-    service: 'Web Development',
-    niche: 'E-commerce',
+    service: 'E-commerce Web Development',
+    niche: 'Online Store / Retail',
     url: 'https://saasnext-ecom.vercel.app/'
   },
   {
-    id: 'proj-2',
+    id: 'proj-24',
     title: 'Interactive 3D Tile Visualizer for Royal Tiles',
     problem: 'Royal Tiles, a leading tile manufacturer, struggled to help customers visualize how different tiles would look in their homes, leading to decision fatigue and lost sales.',
     solution: 'We developed an AI-powered 3D web application that allows users to upload a photo of their room and instantly see any of Royal Tiles\' products on their floors or walls.',
@@ -369,7 +369,7 @@ export const portfolioItems = [
     url: 'https://styleonart1.vercel.app/'
   },
   {
-    id: 'proj-3',
+    id: 'proj-26',
     title: 'Web Development Project for HealthCare',
     problem: 'The healthcare client needed a modern, secure, and user-friendly website to improve patient engagement and streamline online appointment bookings.',
     solution: 'We designed and developed a responsive healthcare website with secure patient data handling, integrated appointment scheduling, and easy navigation for both patients and staff.',
@@ -590,7 +590,7 @@ export const portfolioItems = [
     url: 'https://saasnext-dentist.vercel.app/'
   },
   {
-    id: 'proj-23',
+    id: 'proj-1',
     title: '3D Dental Clinic – Modern Dental Care Website',
 
     problem:
@@ -613,7 +613,7 @@ export const portfolioItems = [
     url: 'https://saasnext-3ddental.vercel.app/'
   },
   {
-    id: 'proj-24',
+    id: 'proj-2',
     title: 'SaasNext Video – Creative Video Editing Portfolio',
 
     problem:
@@ -636,7 +636,7 @@ export const portfolioItems = [
     url: 'https://saasenxt-video.vercel.app/'
   },
   {
-    id: 'proj-26',
+    id: 'proj-3',
     title: 'SaasNext Cosmos – Scientist & Research Showcase Website',
 
     problem:
