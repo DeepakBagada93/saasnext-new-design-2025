@@ -156,15 +156,19 @@ export default function Home() {
 
       {/* Portfolio Preview */}
       <section className="py-20 md:py-28 overflow-hidden bg-neutral-950">
-        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-12 text-center">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold mb-4 text-white">Our Recent Work</h2>
-          <TextReveal>
-            <p className="text-lg text-neutral-400 max-w-2xl mx-auto">See how we've helped businesses transform their digital presence with our expert web design and development services.</p>
-          </TextReveal>
-          <div className="mt-8">
-            <Button asChild variant="outline" className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white">
-              <Link href="/portfolio">View Full Portfolio <ArrowRight className="ml-2 h-4 w-4" /></Link>
-            </Button>
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-12">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 text-center md:text-left">
+            <div className="max-w-2xl mx-auto md:mx-0">
+              <h2 className="font-headline text-4xl md:text-5xl font-bold mb-4 text-white">Our Recent Work</h2>
+              <TextReveal>
+                <p className="text-lg text-neutral-400">See how we've helped businesses transform their digital presence with our expert web design and development services.</p>
+              </TextReveal>
+            </div>
+            <div className="mx-auto md:mx-0">
+              <Button asChild variant="outline" className="border-neutral-700 text-neutral-300 hover:bg-neutral-800 hover:text-white">
+                <Link href="/portfolio">View Full Portfolio <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              </Button>
+            </div>
           </div>
         </div>
 
