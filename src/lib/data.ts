@@ -658,6 +658,169 @@ export const portfolioItems = [
 
     url: 'https://saasnext-cosmos.vercel.app/'
   },
+  {
+    id: 'proj-27',
+    title: 'SaasNext Universe – Scroll-Triggered Interactive Landing Page',
+
+    problem:
+      'Modern brands needed an immersive landing page experience to capture user attention, communicate storytelling visually, and keep visitors engaged while scrolling.',
+
+    solution:
+      'We created an interactive landing page using advanced scroll-trigger animations, smooth transitions, and universe-inspired visuals. The experience guides users through content as they scroll, creating a cinematic and engaging storytelling flow.',
+
+    results:
+      'Increased user engagement, longer session durations, and a visually memorable brand experience that stands out from traditional static landing pages.',
+
+    image: {
+      imageUrl: "/saasnext-universe-lpov.png",
+      imageHint: "scroll trigger animated landing page"
+    },
+
+    service: 'Landing Page Development',
+    niche: 'Interactive Web & Motion UI',
+
+    url: 'https://saasnext-universe-lpov.vercel.app/'
+  },
+  {
+    id: 'proj-28',
+    title: 'SaasNext Motivate – Professional Music Studio Website',
+
+    problem:
+      'Independent artists, bands, and music producers needed a strong online presence to showcase their work, studio services, and attract new recording projects.',
+
+    solution:
+      'We developed a modern music studio website featuring artist showcases, studio services, audio samples, project galleries, and easy booking inquiries. The design focuses on creativity, sound, and a strong visual identity.',
+
+    results:
+      'Improved brand visibility, increased booking inquiries, and created a professional digital presence for artists and music creators.',
+
+    image: {
+      imageUrl: "/saasnext-motivate.png",
+      imageHint: "music studio website"
+    },
+
+    service: 'Web Development',
+    niche: 'Music & Creative Studio',
+
+    url: 'https://saasnext-motivate.vercel.app/'
+  },
+  {
+    id: 'proj-29',
+    title: 'SaasNext Terresact – Digital Marketing Company Website',
+
+    problem:
+      'Businesses needed a results-driven digital marketing company to help them increase online visibility, generate quality leads, and scale revenue through digital channels.',
+
+    solution:
+      'We built a modern digital marketing company website highlighting performance-focused services such as SEO, paid advertising, social media marketing, content strategy, and conversion optimization. The site is designed to build trust and drive inquiries.',
+
+    results:
+      'Strengthened brand authority, increased inbound leads, and positioned the company as a reliable digital marketing partner for growth-focused brands.',
+
+    image: {
+      imageUrl: "/saasnext-terresact.png",
+      imageHint: "digital marketing company website"
+    },
+
+    service: 'Digital Marketing',
+    niche: 'Marketing & Growth',
+
+    url: 'https://saasnext-terresact.vercel.app/'
+  },
+  {
+    id: 'proj-30',
+    title: 'SaasNext CarRental – Online Car Booking Website',
+
+    problem:
+      'Customers needed a convenient and reliable way to rent cars online for local travel, business trips, and vacations without complicated booking processes.',
+
+    solution:
+      'We developed a modern car rental website featuring vehicle listings, rental packages, pricing details, availability information, and quick booking inquiries. The platform focuses on ease of use, trust, and fast reservations.',
+
+    results:
+      'Improved customer engagement, increased rental inquiries, and created a seamless online booking experience for car rental services.',
+
+    image: {
+      imageUrl: "/saasnext-carrental.png",
+      imageHint: "car rental website"
+    },
+
+    service: 'Web Development',
+    niche: 'Travel & Transportation',
+
+    url: 'https://saasnext-carrental.vercel.app/'
+  },
+  {
+    id: 'proj-31',
+    title: 'SaasNext Minimal – Minimal Text-Based Website',
+
+    problem:
+      'Some brands and creators needed a distraction-free website that focuses purely on content, clarity, and readability without heavy visuals or complex layouts.',
+
+    solution:
+      'We designed a minimal, text-first website using clean typography, simple layouts, and clear content hierarchy. The site emphasizes readability, fast loading, and a calm user experience.',
+
+    results:
+      'Created a strong content-focused digital presence, improved user focus on messaging, and delivered a fast, lightweight browsing experience.',
+
+    image: {
+      imageUrl: "/saasnext-minimal.png",
+      imageHint: "minimal text based website"
+    },
+
+    service: 'Web Development',
+    niche: 'Minimal & Typography Design',
+
+    url: 'https://saasnext-minimal.vercel.app/'
+  },
+  {
+    id: 'proj-32',
+    title: 'SaasNext Fitness – Fitness & Gym Website',
+
+    problem:
+      'Fitness centers and personal trainers needed a high-energy online presence to motivate users, showcase programs, and convert visitors into members or clients.',
+
+    solution:
+      'We developed a modern fitness website featuring workout programs, trainer profiles, class schedules, membership plans, and transformation highlights. The design emphasizes motivation, performance, and user engagement.',
+
+    results:
+      'Increased membership inquiries, improved user engagement, and created a strong digital identity for fitness and wellness brands.',
+
+    image: {
+      imageUrl: "/saasnext-fitness.png",
+      imageHint: "fitness gym website"
+    },
+
+    service: 'Web Development',
+    niche: 'Fitness & Wellness',
+
+    url: 'https://saasnext-fitness.vercel.app/'
+  },
+  {
+    id: 'proj-33',
+    title: 'SaasNext Tera – Tiles Industry Website',
+
+    problem:
+      'Tiles manufacturers and suppliers needed a professional digital platform to showcase their tile collections, designs, and applications for architects, builders, and homeowners.',
+
+    solution:
+      'We developed a modern tiles industry website featuring product catalogs, tile categories, finish and size filters, application galleries, and inquiry forms for bulk and project-based orders. The website focuses on visual presentation and ease of exploration.',
+
+    results:
+      'Improved product visibility, increased B2B inquiries, and strengthened the brand’s presence in the construction and interior design market.',
+
+    image: {
+      imageUrl: "/saasnext-tera.png",
+      imageHint: "tiles industry website"
+    },
+
+    service: 'Web Development',
+    niche: 'Tiles & Manufacturing',
+
+    url: 'https://saasnext-tera.vercel.app/'
+  }
+
+
 
 
 
