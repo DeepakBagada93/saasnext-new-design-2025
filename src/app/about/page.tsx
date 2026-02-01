@@ -7,6 +7,7 @@ import { AnimatedHeadline } from "@/components/animated-headline";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { TextReveal } from "@/components/text-reveal";
 import { AboutSections } from "@/components/about-sections";
+import { techStack } from "@/lib/data";
 
 
 const coreValues = [
@@ -136,6 +137,78 @@ export default function AboutPage() {
                             Work With Us <ArrowRight className="ml-2 h-5 w-5" />
                         </Link>
                     </Button>
+                </div>
+            </section>
+
+            {/* Mission Statement */}
+            <section className="py-20 md:py-28 bg-primary text-primary-foreground">
+                <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
+                    <h2 className="font-headline text-3xl md:text-4xl font-bold mb-8">Our Mission</h2>
+                    <blockquote className="text-2xl md:text-4xl font-medium leading-relaxed">
+                        "To empower businesses in Junagadh and beyond with cutting-edge digital solutions that bridge the gap between human creativity and artificial intelligence."
+                    </blockquote>
+                </div>
+            </section>
+
+            {/* Tech Stack Section */}
+            <section className="py-20 md:py-28">
+                <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                    <div className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Technology Stack</h2>
+                        <TextReveal>
+                            <p className="mt-4 text-muted-foreground text-lg">We use the latest tools and frameworks to build fast, secure, and scalable solutions.</p>
+                        </TextReveal>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-12">
+                        {/* Frontend */}
+                        <div className="space-y-6">
+                            <h3 className="text-2xl font-bold border-b pb-4">Frontend & UI</h3>
+                            <ul className="space-y-3">
+                                {techStack.frontend.map((tech) => (
+                                    <li key={tech.name} className="flex items-start gap-3">
+                                        <CheckCircle className="h-5 w-5 text-primary mt-1 shrink-0" />
+                                        <div>
+                                            <span className="font-semibold">{tech.name}</span>
+                                            <p className="text-sm text-muted-foreground">{tech.description}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Backend */}
+                        <div className="space-y-6">
+                            <h3 className="text-2xl font-bold border-b pb-4">Backend & Database</h3>
+                            <ul className="space-y-3">
+                                {techStack.backend.map((tech) => (
+                                    <li key={tech.name} className="flex items-start gap-3">
+                                        <CheckCircle className="h-5 w-5 text-primary mt-1 shrink-0" />
+                                        <div>
+                                            <span className="font-semibold">{tech.name}</span>
+                                            <p className="text-sm text-muted-foreground">{tech.description}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* AI & DevOps */}
+                        <div className="space-y-6">
+                            <h3 className="text-2xl font-bold border-b pb-4">AI & Infrastructure</h3>
+                            <ul className="space-y-3">
+                                {techStack.aiAndDeployment.map((tech) => (
+                                    <li key={tech.name} className="flex items-start gap-3">
+                                        <CheckCircle className="h-5 w-5 text-primary mt-1 shrink-0" />
+                                        <div>
+                                            <span className="font-semibold">{tech.name}</span>
+                                            <p className="text-sm text-muted-foreground">{tech.description}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </section>
 

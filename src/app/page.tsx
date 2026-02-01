@@ -19,7 +19,7 @@ import { BusinessTargeting } from "@/components/business-targeting";
 import { Timeline } from "@/components/timeline";
 import { ClientHubCTA } from "@/components/client-hub-cta";
 import { CreativeHero } from "@/components/creative-hero";
-import { InfinitePortfolioCards } from "@/components/ui/infinite-portfolio-cards";
+import { FocusCards } from "@/components/ui/focus-cards";
 
 export default function Home() {
 
@@ -172,11 +172,7 @@ export default function Home() {
           </div>
         </div>
 
-        <InfinitePortfolioCards
-          items={portfolioItems}
-          direction="left"
-          speed="slow"
-        />
+        <FocusCards items={portfolioItems} />
       </section>
 
 

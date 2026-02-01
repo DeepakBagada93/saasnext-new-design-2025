@@ -38,7 +38,7 @@ export const Timeline = () => {
             <div className="absolute inset-0 bg-grid-black/[0.05] dark:bg-grid-white/[0.05] bg-[size:30px_30px] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center mb-20">
+                <div className="text-center mb-16 md:mb-24">
                     <h2 className="font-headline text-4xl md:text-5xl font-bold mb-6">Your Journey with SaaSNext</h2>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         From concept to market dominance, we guide you through every step of the digital transformation process.
@@ -46,34 +46,31 @@ export const Timeline = () => {
                 </div>
 
                 <div className="relative">
-                    {/* Vertical Line */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-neutral-200 dark:bg-neutral-800 hidden md:block" />
+                    {/* Desktop Horizontal Line */}
+                    <div className="hidden md:block absolute top-[28px] left-0 w-full h-1 bg-neutral-200 dark:bg-neutral-800" />
+                    {/* Mobile Vertical Line */}
+                    <div className="md:hidden absolute left-[28px] top-0 h-full w-1 bg-neutral-200 dark:bg-neutral-800" />
 
-                    <div className="space-y-12 md:space-y-24">
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4">
                         {steps.map((step, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, y: 50 }}
+                                initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-100px" }}
+                                viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                                className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                                className="relative flex flex-row md:flex-col items-start md:items-center gap-6 md:gap-8"
                             >
-                                {/* Content Side */}
-                                <div className="flex-1 w-full md:w-1/2 text-center md:text-left">
-                                    <div className={`p-6 rounded-2xl bg-white dark:bg-black border border-neutral-200 dark:border-neutral-800 shadow-sm ${index % 2 === 0 ? 'md:ml-12' : 'md:mr-12'}`}>
-                                        <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                                        <p className="text-muted-foreground">{step.description}</p>
-                                    </div>
+                                {/* Icon */}
+                                <div className="relative z-10 flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shrink-0 border-4 border-white dark:border-current">
+                                    <step.icon className="w-6 h-6" />
                                 </div>
 
-                                {/* Icon Center */}
-                                <div className="relative flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary text-primary-foreground shadow-lg z-10 shrink-0">
-                                    <step.icon className="w-6 h-6 md:w-8 md:h-8" />
+                                {/* Content */}
+                                <div className="flex-1 md:text-center pt-2 md:pt-0">
+                                    <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                                    <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
                                 </div>
-
-                                {/* Empty Side */}
-                                <div className="flex-1 w-full md:w-1/2 hidden md:block" />
                             </motion.div>
                         ))}
                     </div>

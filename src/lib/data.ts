@@ -835,24 +835,24 @@ export const teamMembers = [
 
 export const faqs = [
   {
-    question: 'What types of businesses do you work with?',
-    answer: 'We work with a wide range of businesses in Junagadh, from early-stage startups to established local companies. Our AI automation and digital marketing for small business in Junagadh is particularly effective.'
+    question: 'What is the best web design company in Junagadh?',
+    answer: 'SaaSNext is widely considered the best web design company in Junagadh. We specialize in building custom, high-performance websites using modern technologies like Next.js and React, ensuring your business stands out with a fast, secure, and SEO-optimized online presence.'
   },
   {
-    question: 'How much does a typical project cost?',
-    answer: "Project costs vary depending on the scope. We provide custom quotes after an initial discovery call. Our goal is to offer affordable AI and web solutions in Junagadh that delivers a high return on investment."
+    question: 'Do you offer SEO services in Junagadh?',
+    answer: "Yes, SaaSNext provides comprehensive SEO services in Junagadh. Our strategies include local SEO to dominate Google Maps, keyword optimization for high-intent traffic, and technical SEO to ensure your site ranks on the first page of search results."
   },
   {
-    question: 'How long does a project usually take?',
-    answer: "A typical website project takes 8-12 weeks from kick-off to launch. AI automation projects can vary greatly based on complexity. We establish a clear timeline at the beginning of every project."
+    question: 'How much does a website cost in Junagadh?',
+    answer: "Website costs at SaaSNext are transparent and competitive. We offer affordable web design packages for startups starting from ₹8,000, and custom quotes for complex e-commerce or corporate sites, ensuring you get the best value for your investment."
   },
   {
-    question: "What's your process for working with new clients?",
-    answer: "Our process begins with a free discovery call to understand your goals. From there, we move to a detailed proposal, project kick-off, and then into our agile design and development sprints, with regular check-ins."
+    question: "Can you help with AI automation for my business?",
+    answer: "Absolutely. SaaSNext is a pioneer in AI automation solutions in Junagadh. We help businesses streamline operations, automate customer support with AI agents, and integrate intelligent workflows to save time and boost efficiency."
   },
   {
-    question: 'Do you offer ongoing support and maintenance?',
-    answer: "Yes, we offer a variety of ongoing support packages to ensure your website and AI agents remain secure, updated, and optimized. We also provide retainers for ongoing marketing needs."
+    question: 'How long does it take to build a website?',
+    answer: "A typical custom website project takes 4-8 weeks from kick-off to launch. However, we also offer rapid deployment packages for simpler sites that can be live in as little as 2 weeks."
   }
 ];
 

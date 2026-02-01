@@ -138,6 +138,56 @@ export default function ServicesPage() {
                 </div>
             </div>
 
+            {/* Industries We Serve */}
+            <section className="py-20 md:py-28 bg-white dark:bg-black">
+                <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                    <div className="text-center max-w-3xl mx-auto mb-16">
+                        <h2 className="font-headline text-4xl md:text-5xl font-bold">Industries We Transform</h2>
+                        <TextReveal>
+                            <p className="mt-4 text-muted-foreground text-lg">We bring deep domain expertise to a variety of sectors, delivering tailored solutions that solve real business challenges.</p>
+                        </TextReveal>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {[
+                            { name: "Healthcare", icon: "🏥" },
+                            { name: "E-commerce", icon: "🛍️" },
+                            { name: "Real Estate", icon: "🏠" },
+                            { name: "Education", icon: "🎓" },
+                            { name: "Manufacturing", icon: "🏭" },
+                            { name: "Finance", icon: "💰" },
+                            { name: "Hospitality", icon: "🏨" },
+                            { name: "Startups", icon: "🚀" }
+                        ].map((industry) => (
+                            <div key={industry.name} className="p-6 bg-neutral-50 dark:bg-neutral-900 rounded-xl text-center hover:shadow-lg transition-shadow">
+                                <div className="text-4xl mb-4">{industry.icon}</div>
+                                <h3 className="font-bold text-lg">{industry.name}</h3>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Service FAQs */}
+            <section className="py-20 md:py-28 bg-neutral-50 dark:bg-neutral-950">
+                <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+                    <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-12">Common Questions</h2>
+                    <div className="space-y-6">
+                        <div className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm">
+                            <h3 className="font-bold text-lg mb-2">Do you offer custom web development?</h3>
+                            <p className="text-muted-foreground">Yes, we specialize in custom solutions using Next.js and React, tailored to your specific business requirements.</p>
+                        </div>
+                        <div className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm">
+                            <h3 className="font-bold text-lg mb-2">How do your AI solutions work?</h3>
+                            <p className="text-muted-foreground">We integrate AI agents and automation workflows directly into your existing systems to automate repetitive tasks and improve efficiency.</p>
+                        </div>
+                        <div className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm">
+                            <h3 className="font-bold text-lg mb-2">What is included in your SEO services?</h3>
+                            <p className="text-muted-foreground">Our SEO packages include technical audits, keyword research, on-page optimization, content strategy, and local SEO for Junagadh businesses.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* SEO Footer Section */}
             <section className="bg-neutral-900 text-white py-24 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-4xl mx-auto text-center">

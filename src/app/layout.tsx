@@ -8,6 +8,7 @@ import { ClientOnly } from '@/components/client-only';
 import { AuthProvider } from '@/components/auth-provider';
 import Script from 'next/script';
 import { PT_Sans, Space_Grotesk } from 'next/font/google';
+import { FloatingSocials } from '@/components/floating-socials';
 
 const ptSans = PT_Sans({
   subsets: ['latin'],
@@ -23,7 +24,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: 'SaaSNext: Best Web Design & Digital Marketing Company in Junagadh',
-  description: 'SaaSNext is the top web design and digital marketing agency in Junagadh. We offer custom website development, AI solutions, SEO, SMM, and lead generation services to grow your business.',
+  description: 'Looking for the best web design and digital marketing agency in Junagadh? SaaSNext offers expert custom website development, AI solutions, SEO, and lead generation to grow your business.',
   keywords: [
     "Web Design Junagadh", "Web Development Junagadh", "SEO Company Junagadh",
     "Digital Marketing Agency Junagadh", "AI Solutions Junagadh", "SMM Services Junagadh",
@@ -78,6 +79,21 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://saasnext.in/#website",
+      "url": "https://saasnext.in/",
+      "name": "SaaSNext",
+      "description": "SaaSNext is the top web design and digital marketing agency in Junagadh.",
+      "publisher": {
+        "@id": "https://saasnext.in/#localbusiness"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://saasnext.in/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
       "@type": "LocalBusiness",
       "name": "SaaSNext",
       "image": "https://saasnext.in/saaasnext.png",
@@ -111,6 +127,10 @@ const structuredData = {
         {
           "@type": "State",
           "name": "Gujarat"
+        },
+        {
+          "@type": "Country",
+          "name": "India"
         }
       ],
       "description": "SaaSNext is a top-rated web design and digital marketing agency in Junagadh, specializing in custom website development, lead generation, and social media marketing to help local businesses grow.",
@@ -143,51 +163,74 @@ const structuredData = {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Web Design & Development"
+              "name": "Web Design & Development",
+              "description": "Custom website design and development services using Next.js, React, and modern technologies."
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "SEO & Digital Marketing"
+              "name": "SEO & Digital Marketing",
+              "description": "Comprehensive SEO, social media marketing, and lead generation strategies."
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "AI Automation Solutions"
+              "name": "AI Automation Solutions",
+              "description": "Custom AI agents and automation workflows to streamline business processes."
             }
           }
         ]
       }
     },
     {
+      "@type": "Service",
+      "name": "Web Design Junagadh",
+      "provider": {
+        "@id": "https://saasnext.in/#localbusiness"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Junagadh"
+      },
+      "description": "Professional web design services in Junagadh for small businesses and startups."
+    },
+    {
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What types of businesses do you work with?",
+          "name": "What is the best web design company in Junagadh?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "We work with a wide range of businesses in Junagadh, from early-stage startups to established local companies. Our AI automation and digital marketing for small business in Junagadh is particularly effective."
+            "text": "SaaSNext is widely considered the best web design company in Junagadh, offering custom, high-performance websites built with modern technology like Next.js and React, ensuring speed, SEO, and scalability."
           }
         },
         {
           "@type": "Question",
-          "name": "How much does a typical project cost?",
+          "name": "Do you offer SEO services in Junagadh?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Project costs vary depending on the scope. We provide custom quotes after an initial discovery call. Our goal is to offer affordable AI and web solutions in Junagadh that delivers a high return on investment."
+            "text": "Yes, SaaSNext provides comprehensive SEO services in Junagadh, including local SEO, keyword optimization, and content strategy to help your business rank on the first page of Google."
           }
         },
         {
           "@type": "Question",
-          "name": "How long does a project usually take?",
+          "name": "How much does a website cost in Junagadh?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A typical website project takes 8-12 weeks from kick-off to launch. AI automation projects can vary greatly based on complexity. We establish a clear timeline at the beginning of every project."
+            "text": "Website costs at SaaSNext are competitive and transparent. We offer affordable packages for startups and custom quotes for complex projects, ensuring you get the best value for your investment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you help with AI automation for my business?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. SaaSNext specializes in AI automation solutions, helping businesses in Junagadh streamline operations, automate customer support, and integrate AI agents to boost efficiency."
           }
         }
       ]
@@ -238,6 +281,7 @@ export default function RootLayout({
             <AuthProvider>
               {children}
             </AuthProvider>
+            <FloatingSocials />
           </ClientOnly>
         </FirebaseClientProvider>
       </body>

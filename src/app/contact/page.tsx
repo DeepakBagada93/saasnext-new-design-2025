@@ -102,6 +102,24 @@ export default function ContactPage() {
             </TextReveal>
           </div>
         </div>
+
+        <div className="pt-8 border-t">
+          <h3 className="font-headline text-2xl font-bold mb-4">Service Areas</h3>
+          <div className="flex flex-wrap gap-2">
+            {['Junagadh', 'Rajkot', 'Ahmedabad', 'Surat', 'Vadodara', 'Mumbai', 'Pune', 'Bangalore', 'Dubai', 'USA', 'UK'].map((city) => (
+              <span key={city} className="px-3 py-1 bg-muted rounded-full text-sm">{city}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="pt-8 border-t">
+          <h3 className="font-headline text-2xl font-bold mb-4">Office Hours</h3>
+          <ul className="space-y-2 text-muted-foreground">
+            <li className="flex justify-between"><span>Monday - Friday</span> <span>9:00 AM - 7:00 PM</span></li>
+            <li className="flex justify-between"><span>Saturday</span> <span>10:00 AM - 4:00 PM</span></li>
+            <li className="flex justify-between"><span>Sunday</span> <span>Closed</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   );
