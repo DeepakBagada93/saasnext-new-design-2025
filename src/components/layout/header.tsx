@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
+import { AIModeIndicator } from "@/components/ai-mode-indicator";
 
 const navLinks = [
   { href: "/about", label: "Our Story" },
@@ -24,8 +25,10 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-50 w-full p-4">
-      <div className="md:hidden flex h-14 items-center justify-between rounded-lg border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 z-50 w-full">
+      <AIModeIndicator />
+      <div className="p-4">
+        <div className="md:hidden flex h-14 items-center justify-between rounded-lg border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Logo />
         <div className="flex items-center gap-2">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -89,6 +92,7 @@ export default function Header() {
           </Button>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
   );
 }

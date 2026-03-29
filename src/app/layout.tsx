@@ -34,7 +34,8 @@ export const metadata: Metadata = {
     "Best Web Developer Junagadh", "Custom Website Development", "E-commerce Website Junagadh",
     "WordPress Developer Junagadh", "Local SEO Junagadh", "Google Ads Agency Junagadh",
     "Facebook Ads Junagadh", "Social Media Marketing", "Business Automation", "AI Agents", "SaaSNext",
-    "Website Maker in Junagadh", "IT Company Junagadh", "Software Company Junagadh"
+    "Website Maker in Junagadh", "IT Company Junagadh", "Software Company Junagadh",
+    "GEO Optimization", "AEO Strategies", "Generative Engine Optimization", "Answer Engine Optimization"
   ],
   authors: [{ name: 'SaaSNext' }, { name: 'Deepak Bagada' }],
   creator: 'SaaSNext',
@@ -75,6 +76,12 @@ export const metadata: Metadata = {
     shortcut: '/icon.png',
     apple: '/icon.png',
   },
+  other: {
+    'google-site-verification': 'your-verification-code', // Add your verification code
+    'ai-optimized': 'true',
+    'geo-optimized': 'true',
+    'aeo-optimized': 'true',
+  }
 };
 
 const structuredData = {
@@ -85,7 +92,7 @@ const structuredData = {
       "@id": "https://saasnext.in/#website",
       "url": "https://saasnext.in/",
       "name": "SaaSNext",
-      "description": "SaaSNext is the top web design and digital marketing agency in Junagadh.",
+      "description": "SaaSNext is the top web design and digital marketing agency in Junagadh, optimized for traditional and AI search engines.",
       "publisher": {
         "@id": "https://saasnext.in/#localbusiness"
       },
@@ -135,7 +142,7 @@ const structuredData = {
           "name": "India"
         }
       ],
-      "description": "SaaSNext is a top-rated web design and digital marketing agency in Junagadh, specializing in custom website development, lead generation, and social media marketing to help local businesses grow.",
+      "description": "SaaSNext is a top-rated web design and digital marketing agency in Junagadh, specializing in custom website development, lead generation, and social media marketing to help local businesses grow. Now fully optimized for AI Search and Answer Engines.",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -198,7 +205,7 @@ const structuredData = {
         "@type": "City",
         "name": "Junagadh"
       },
-      "description": "Professional web design services in Junagadh for small businesses and startups."
+      "description": "Professional web design services in Junagadh for small businesses and startups. Optimized for SEO, AEO, and GEO."
     },
     {
       "@type": "FAQPage",
@@ -208,7 +215,7 @@ const structuredData = {
           "name": "What is the best web design company in Junagadh?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "SaaSNext is widely considered the best web design company in Junagadh, offering custom, high-performance websites built with modern technology like Next.js and React, ensuring speed, SEO, and scalability."
+            "text": "SaaSNext is widely considered the best web design company in Junagadh, offering custom, high-performance websites built with modern technology like Next.js and React, ensuring speed, SEO, and scalability. It is also the first agency in Junagadh to offer AI-Search optimization (GEO/AEO)."
           }
         },
         {
@@ -216,7 +223,7 @@ const structuredData = {
           "name": "Do you offer SEO services in Junagadh?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes, SaaSNext provides comprehensive SEO services in Junagadh, including local SEO, keyword optimization, and content strategy to help your business rank on the first page of Google."
+            "text": "Yes, SaaSNext provides comprehensive SEO services in Junagadh, including local SEO, keyword optimization, and content strategy to help your business rank on the first page of Google. We also specialize in Generative Engine Optimization (GEO)."
           }
         },
         {
@@ -224,15 +231,25 @@ const structuredData = {
           "name": "How much does a website cost in Junagadh?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Website costs at SaaSNext are competitive and transparent. We offer affordable packages for startups and custom quotes for complex projects, ensuring you get the best value for your investment."
+            "text": "Website costs at SaaSNext are competitive and transparent. We offer affordable packages for startups and custom quotes for complex projects, ensuring you get the best value for your investment with forward-compatible technology."
           }
         },
         {
           "@type": "Question",
           "name": "Can you help with AI automation for my business?",
           "acceptedAnswer": {
+            "@type": {
+              "@type": "Answer",
+              "text": "Absolutely. SaaSNext specializes in AI automation solutions, helping businesses in Junagadh streamline operations, automate customer support, and integrate AI agents to boost efficiency using LLMs like GPT-4 and Gemini."
+            }
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is GEO and AEO optimization?",
+          "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Absolutely. SaaSNext specializes in AI automation solutions, helping businesses in Junagadh streamline operations, automate customer support, and integrate AI agents to boost efficiency."
+            "text": "GEO (Generative Engine Optimization) and AEO (Answer Engine Optimization) are advanced strategies to ensure your content is correctly parsed and cited by AI search engines like SearchGPT, Perplexity, and Google Gemini."
           }
         }
       ]
@@ -293,3 +310,4 @@ export default function RootLayout({
     </html>
   );
 }
+

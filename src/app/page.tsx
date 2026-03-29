@@ -21,6 +21,8 @@ import { ClientHubCTA } from "@/components/client-hub-cta";
 import { CreativeHero } from "@/components/creative-hero";
 import { FocusCards } from "@/components/ui/focus-cards";
 
+import { GEOSection } from "@/components/geo-section";
+
 export default function Home() {
 
   const featuredPortfolio = portfolioItems.slice(0, 4);
@@ -54,6 +56,10 @@ export default function Home() {
 
       {/* Problem / Solution Section */}
       <ProblemSolution />
+      
+      {/* AI, GEO & AEO Section */}
+      <GEOSection />
+
       {/* Client Hub CTA */}
       <ClientHubCTA />
 
