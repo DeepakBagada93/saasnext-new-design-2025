@@ -62,6 +62,8 @@ export function PortfolioGallery({ items, showFilters = true }: { items: Portfol
                                                 data-ai-hint={item.image.imageHint}
                                                 width={600}
                                                 height={450}
+                                                loading="lazy"
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                             />
                                         </div>

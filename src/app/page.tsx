@@ -143,6 +143,8 @@ export default function Home() {
               src="/saasnext-webdevelopment-ai.png"
               alt="SEO Analytics Dashboard - SEO Company Junagadh"
               fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
               data-ai-hint="analytics chart showing growth"
             />

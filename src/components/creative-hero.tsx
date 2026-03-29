@@ -5,6 +5,16 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 
+// Stable particle positions to avoid hydration mismatch and avoid Math.random() on every render
+const PARTICLES = [
+    { cx: "10%", cy: "20%", r: 2 },
+    { cx: "30%", cy: "75%", r: 1.5 },
+    { cx: "55%", cy: "40%", r: 2.5 },
+    { cx: "70%", cy: "15%", r: 1 },
+    { cx: "85%", cy: "60%", r: 2 },
+    { cx: "45%", cy: "85%", r: 1.5 },
+];
+
 export function CreativeHero() {
     return (
         <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-neutral-950 pt-20">
@@ -12,8 +22,8 @@ export function CreativeHero() {
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-                {/* Animated SVG Circuit/Neural Network */}
-                <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
+                {/* Animated SVG - paths animate once (not infinite loop), only 6 particles (was 20) */}
+                <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <defs>
                         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" style={{ stopColor: '#f97316', stopOpacity: 1 }} />
@@ -26,8 +36,8 @@ export function CreativeHero() {
                         stroke="url(#grad1)"
                         strokeWidth="2"
                         initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ pathLength: 1, opacity: 1 }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatType: "loop" }}
+                        animate={{ pathLength: 1, opacity: 0.7 }}
+                        transition={{ duration: 2, ease: "easeOut" }}
                     />
                     <motion.path
                         d="M0,200 Q300,50 600,200 T1200,200"
@@ -35,8 +45,8 @@ export function CreativeHero() {
                         stroke="url(#grad1)"
                         strokeWidth="2"
                         initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ pathLength: 1, opacity: 1 }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "linear", repeatType: "loop", delay: 1 }}
+                        animate={{ pathLength: 1, opacity: 0.7 }}
+                        transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
                     />
                     <motion.path
                         d="M0,400 Q400,200 800,400 T1600,400"
@@ -44,22 +54,24 @@ export function CreativeHero() {
                         stroke="url(#grad1)"
                         strokeWidth="2"
                         initial={{ pathLength: 0, opacity: 0 }}
-                        animate={{ pathLength: 1, opacity: 1 }}
-                        transition={{ duration: 5, repeat: Infinity, ease: "linear", repeatType: "loop", delay: 2 }}
+                        animate={{ pathLength: 1, opacity: 0.7 }}
+                        transition={{ duration: 3, ease: "easeOut", delay: 0.6 }}
                     />
-                    {/* Floating Particles */}
-                    {[...Array(20)].map((_, i) => (
-                        <motion.circle
-                            key={i}
-                            cx={Math.random() * 100 + "%"}
-                            cy={Math.random() * 100 + "%"}
-                            r={Math.random() * 3}
-                            fill="#f97316"
-                            initial={{ opacity: 0, y: 0 }}
-                            animate={{ opacity: [0, 1, 0], y: -100 }}
-                            transition={{ duration: Math.random() * 3 + 2, repeat: Infinity, delay: Math.random() * 2 }}
-                        />
-                    ))}
+                    {/* 6 stable particles with GPU compositing hint */}
+                    <g style={{ willChange: 'transform' }}>
+                        {PARTICLES.map((p, i) => (
+                            <motion.circle
+                                key={i}
+                                cx={p.cx}
+                                cy={p.cy}
+                                r={p.r}
+                                fill="#f97316"
+                                initial={{ opacity: 0, y: 0 }}
+                                animate={{ opacity: [0, 1, 0], y: -80 }}
+                                transition={{ duration: 4, repeat: Infinity, delay: i * 0.6, ease: "easeInOut" }}
+                            />
+                        ))}
+                    </g>
                 </svg>
 
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-primary/20 blur-[120px] rounded-full" />

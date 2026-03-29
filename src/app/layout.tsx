@@ -14,11 +14,13 @@ const ptSans = PT_Sans({
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-pt-sans',
+  display: 'swap',
 });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-space-grotesk',
+  display: 'swap',
 });
 
 
@@ -246,30 +248,33 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("dark", ptSans.variable, spaceGrotesk.variable)} style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
+        {/* Preconnect to speed up 3rd-party domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-16689867019"></Script>
-        <Script id="google-ads">
+        {/* Load Google scripts after page is interactive to prevent render-blocking */}
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-16689867019" />
+        <Script id="google-ads" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-          
             gtag('config', 'AW-16689867019');
           `}
         </Script>
 
-        {/* <!-- Google Analytics (GA4) --> */}
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-7WV5GJXKXS"></Script>
-        <Script id="google-analytics">
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-7WV5GJXKXS" />
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-          
             gtag('config', 'G-7WV5GJXKXS');
           `}
         </Script>
