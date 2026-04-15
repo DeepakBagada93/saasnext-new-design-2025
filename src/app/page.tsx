@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, CheckCircle, Code, Globe, Zap, BarChart, Users, MessageSquare, Rocket, ShieldCheck, BrainCircuit, Search, Megaphone, Feather, Palette } from "lucide-react";
+import { ArrowRight, CheckCircle, Code, Globe, Zap, BarChart, Users, MessageSquare, Rocket, ShieldCheck, BrainCircuit, Search, Megaphone, Feather, Palette, Bot, Cpu, Layout } from "lucide-react";
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { services, techStack, faqs, portfolioItems } from "@/lib/data";
@@ -18,7 +18,7 @@ import { AgencyOverview } from "@/components/agency-overview";
 import { BusinessTargeting } from "@/components/business-targeting";
 import { Timeline } from "@/components/timeline";
 import { ClientHubCTA } from "@/components/client-hub-cta";
-import { CreativeHero } from "@/components/creative-hero";
+import { HeroAI } from "@/components/hero-ai";
 import { FocusCards } from "@/components/ui/focus-cards";
 
 import { GEOSection } from "@/components/geo-section";
@@ -50,9 +50,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section with Highlight */}
-      {/* Creative Hero Section */}
-      <CreativeHero />
+      {/* High-Impact AI & Automation Hero */}
+      <HeroAI />
 
       {/* Problem / Solution Section */}
       <ProblemSolution />
@@ -60,19 +59,32 @@ export default function Home() {
       {/* AI, GEO & AEO Section */}
       <GEOSection />
 
-      {/* Client Hub CTA */}
-      <ClientHubCTA />
-
-
+      {/* Client Explorer CTA */}
+      <section className="py-20 bg-primary/5 border-y border-primary/10">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+          <h2 className="font-headline text-3xl md:text-5xl font-bold mb-6">Experience the SaaSNext Client Portal</h2>
+          <p className="text-xl text-neutral-400 max-w-2xl mx-auto mb-10">
+            Log in to our explorer panel to track your projects, manage AI agents, and access premium automation tools in real-time.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Button asChild size="lg" className="rounded-full px-8">
+              <Link href="/login">Explore All Services <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="rounded-full px-8">
+              <Link href="/services">View Catalog</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Services Overview with Bento Grid */}
       <section id="services" className="py-20 md:py-28 bg-neutral-50 dark:bg-black">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-6">Comprehensive Digital Solutions</h2>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-6">Intelligent Digital Solutions</h2>
             <TextReveal>
               <p className="text-lg text-muted-foreground">
-                From custom website development to advanced AI integration, we provide everything you need to dominate your market.
+                From autonomous AI agents to high-conversion web applications, we provide the technical edge your business needs to scale in the AI era.
               </p>
             </TextReveal>
           </div>
@@ -101,11 +113,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Custom Web App Focus */}
+      <section className="py-20 md:py-28 bg-black overflow-hidden relative">
+        <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div className="relative order-2 md:order-1">
+            <div className="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-50" />
+            <div className="relative p-2 rounded-2xl bg-white/5 border border-white/10 overflow-hidden shadow-2xl">
+               <Image
+                src="/saasnext-webdevelopment-ai.png"
+                alt="Custom Web Application Interface"
+                width={800}
+                height={600}
+                className="rounded-xl w-full"
+              />
+            </div>
+          </div>
+          <div className="space-y-8 order-1 md:order-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono">
+              <Code className="w-3 h-3" />
+              <span>CUSTOM WEB APP DEVELOPMENT</span>
+            </div>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold text-white">Scale Faster with <span className="text-primary">Custom Engines.</span></h2>
+            <p className="text-lg text-neutral-400">
+              Generic websites don't cut it anymore. We build tailored web applications that integrate directly with your business logic, automate repetitive tasks, and provide a seamless user experience.
+            </p>
+            <ul className="space-y-4">
+              {[
+                "Next.js 15 & React Server Components",
+                "Real-time Dashboard Integrations",
+                "High-Performance Cloud Architecture",
+                "Secure API-First Development"
+              ].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-neutral-300">
+                  <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <Button asChild size="lg" className="mt-4">
+              <Link href="/contact">Build Your App</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Tech Stack Marquee */}
       <section className="py-20 md:py-28 overflow-hidden bg-grid-small-black/[0.2] relative">
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center relative z-10">
-          <h2 className="font-headline text-4xl md:text-5xl font-bold mb-16">Powered by Modern Technology</h2>
+          <h2 className="font-headline text-4xl md:text-5xl font-bold mb-16">The SaaSNext Tech Stack</h2>
           <InfiniteMovingCards
             items={techStackItems}
             direction="left"
@@ -146,7 +202,7 @@ export default function Home() {
           </div>
           <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
             <Image
-              src="/saasnext-webdevelopment-ai.png"
+              src="/saasnext-web-development.jpg"
               alt="SEO Analytics Dashboard - SEO Company Junagadh"
               fill
               priority
@@ -213,3 +269,4 @@ export default function Home() {
     </div>
   );
 }
+

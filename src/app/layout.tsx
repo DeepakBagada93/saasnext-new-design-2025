@@ -25,17 +25,15 @@ const spaceGrotesk = Space_Grotesk({
 
 
 export const metadata: Metadata = {
-  title: 'SaaSNext: Best Web Design & Digital Marketing Company in Junagadh',
-  description: 'Looking for the best web design and digital marketing agency in Junagadh? SaaSNext offers expert custom website development, AI solutions, SEO, and lead generation to grow your business.',
+  title: 'SaaSNext: Best AI Agency & Web App Development in Junagadh',
+  description: 'SaaSNext is the premier AI agency and web app development company in Junagadh. We build custom AI agents, intelligent automation, and high-performance Next.js applications for global businesses.',
   keywords: [
-    "Web Design Junagadh", "Web Development Junagadh", "SEO Company Junagadh",
-    "Digital Marketing Agency Junagadh", "AI Solutions Junagadh", "SMM Services Junagadh",
-    "Lead Generation Junagadh", "B2B Marketing", "Affordable Web Design",
-    "Best Web Developer Junagadh", "Custom Website Development", "E-commerce Website Junagadh",
-    "WordPress Developer Junagadh", "Local SEO Junagadh", "Google Ads Agency Junagadh",
-    "Facebook Ads Junagadh", "Social Media Marketing", "Business Automation", "AI Agents", "SaaSNext",
-    "Website Maker in Junagadh", "IT Company Junagadh", "Software Company Junagadh",
-    "GEO Optimization", "AEO Strategies", "Generative Engine Optimization", "Answer Engine Optimization"
+    "AI Agency Junagadh", "AI Agent Development", "Business Automation Junagadh",
+    "Web App Development Junagadh", "Custom Software Junagadh", "Next.js Developer Junagadh",
+    "Best Web Design Junagadh", "SEO Company Junagadh", "Digital Marketing Junagadh",
+    "AI Solutions for Business", "Autonomous AI Agents", "Python Automation",
+    "GEO Optimization", "AEO Strategies", "Generative Engine Optimization", "Answer Engine Optimization",
+    "SaaSNext", "Deepak Bagada"
   ],
   authors: [{ name: 'SaaSNext' }, { name: 'Deepak Bagada' }],
   creator: 'SaaSNext',
