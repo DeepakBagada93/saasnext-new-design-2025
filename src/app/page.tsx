@@ -22,6 +22,7 @@ import { HeroAI } from "@/components/hero-ai";
 import { FocusCards } from "@/components/ui/focus-cards";
 
 import { GEOSection } from "@/components/geo-section";
+import { CreativeSectionHeader } from "@/components/creative-section-header";
 
 export default function Home() {
 
@@ -78,16 +79,13 @@ export default function Home() {
       </section>
 
       {/* Services Overview with Bento Grid */}
-      <section id="services" className="py-20 md:py-28 bg-neutral-50 dark:bg-black">
+      <section id="services" className="py-20 md:py-28 bg-neutral-50 dark:bg-black overflow-hidden">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-6">Intelligent Digital Solutions</h2>
-            <TextReveal>
-              <p className="text-lg text-muted-foreground">
-                From autonomous AI agents to high-conversion web applications, we provide the technical edge your business needs to scale in the AI era.
-              </p>
-            </TextReveal>
-          </div>
+          <CreativeSectionHeader 
+            title="Intelligent Digital Solutions"
+            subtitle="From autonomous AI agents to high-conversion web applications, we provide the technical edge your business needs to scale in the AI era."
+            className="mb-12"
+          />
 
           <BentoGrid className="max-w-7xl mx-auto">
             {services.map((service, i) => {
