@@ -79,7 +79,7 @@ export default function AdminDashboardPage() {
                 />
                 <DashboardStatCard 
                     title="Pending Requests" 
-                    value={requestsSnapshot?.filter(doc => doc.data().status === 'Pending').length || 0} 
+                    value={requestsSnapshot?.docs.filter(doc => doc.data().status === 'Pending').length || 0} 
                     description="Requests to review" 
                     icon={Bell} 
                     trend={{ value: "High priority", isPositive: false }}
