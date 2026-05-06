@@ -5,7 +5,7 @@ import { ServicesNav } from '@/components/services-nav';
 import { AnimatedHeadline } from '@/components/animated-headline';
 import { TextReveal } from '@/components/text-reveal';
 import { motion } from 'framer-motion';
-import { ArrowRight, BrainCircuit, Code, Search, Megaphone, Feather } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Code, Search, Megaphone, Feather, Sparkles, Layout } from 'lucide-react';
 import Link from 'next/link';
 
 const iconMap: Record<string, any> = {
@@ -41,38 +41,62 @@ export default function ServicesPage() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
+        <div className="min-h-screen bg-black text-white selection:bg-primary selection:text-white">
+            {/* Immersive Background */}
+            <div className="fixed inset-0 z-0">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(41,171,226,0.1),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
+                
+                <motion.div 
+                    animate={{ 
+                        opacity: [0.1, 0.2, 0.1],
+                        scale: [1, 1.1, 1],
+                    }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                    className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-primary/20 blur-[120px] rounded-full" 
+                />
+            </div>
+
             {/* Header Section */}
-            <section className="px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-32">
-                <div className="max-w-5xl mx-auto">
-                    <AnimatedHeadline
-                        words={['Impact', 'Growth', 'Future']}
-                        prefix="We Build Digital"
-                        suffix="."
-                        className="font-headline text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8"
-                    />
-                    <TextReveal>
-                        <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 max-w-3xl leading-relaxed">
-                            SaaSNext is more than a digital agency; we are your strategic partner in Junagadh.
-                            We fuse creativity with technology to deliver <strong>web development</strong>,
-                            <strong> AI solutions</strong>, and <strong>performance marketing</strong> that
-                            doesn't just look good—it dominates the market.
-                        </p>
-                    </TextReveal>
+            <section className="relative z-10 px-4 sm:px-6 lg:px-8 pt-32 pb-20 md:pt-48 md:pb-40">
+                <div className="max-w-7xl mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-primary text-sm font-mono mb-8"
+                    >
+                        <Sparkles className="w-4 h-4" />
+                        <span>PREMIUM DIGITAL SOLUTIONS</span>
+                    </motion.div>
+
+                    <div className="grid lg:grid-cols-2 gap-12 items-end">
+                        <AnimatedHeadline
+                            words={['Impact', 'Growth', 'Future']}
+                            prefix="We Build Digital"
+                            suffix="."
+                            className="font-headline text-5xl md:text-8xl font-bold tracking-tight text-white leading-[0.9]"
+                        />
+                        <TextReveal>
+                            <p className="text-xl md:text-2xl text-neutral-400 max-w-xl leading-relaxed">
+                                SaaSNext fuses creativity with high-end technology to deliver solutions that don't just look good—they <strong>dominate</strong>.
+                            </p>
+                        </TextReveal>
+                    </div>
                 </div>
             </section>
 
-            <div className="px-4 sm:px-6 lg:px-8 pb-32">
+            <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-32">
                 <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-12 lg:gap-20">
                     {/* Sticky Navigation */}
-                    <aside className="hidden lg:block lg:col-span-3 relative">
+                    <aside className="hidden lg:block lg:col-span-3">
                         <div className="sticky top-32">
                             <ServicesNav services={services} activeService={activeService} />
                         </div>
                     </aside>
 
                     {/* Main Content */}
-                    <div className="lg:col-span-9 space-y-32">
+                    <div className="lg:col-span-9 space-y-48">
                         {services.map((service, index) => {
                             const Icon = iconMap[service.icon] || Code;
                             return (
@@ -83,49 +107,63 @@ export default function ServicesPage() {
                                     className="scroll-mt-32 group"
                                 >
                                     {/* Service Header */}
-                                    <div className="mb-12 border-b border-neutral-200 dark:border-neutral-800 pb-8">
-                                        <div className="flex items-center gap-4 mb-4 text-primary">
-                                            <Icon className="w-8 h-8" />
-                                            <span className="text-sm font-mono uppercase tracking-widest">0{index + 1} / Service</span>
+                                    <div className="mb-16">
+                                        <div className="flex items-center gap-4 mb-6 text-primary">
+                                            <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20">
+                                                <Icon className="w-8 h-8" />
+                                            </div>
+                                            <span className="text-sm font-mono uppercase tracking-[0.3em] opacity-50">0{index + 1} / {service.title}</span>
                                         </div>
-                                        <h2 className="font-headline text-4xl md:text-6xl font-bold text-neutral-900 dark:text-white group-hover:text-primary transition-colors duration-300">
+                                        <h2 className="font-headline text-5xl md:text-7xl font-bold text-white group-hover:text-primary transition-colors duration-500">
                                             {service.title}
                                         </h2>
                                     </div>
 
                                     {/* Content Grid */}
-                                    <div className="grid md:grid-cols-2 gap-12">
-                                        <div className="space-y-8">
+                                    <div className="grid md:grid-cols-5 gap-12 lg:gap-20">
+                                        <div className="md:col-span-3 space-y-12">
                                             <TextReveal>
-                                                <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                                                <p className="text-xl md:text-2xl text-neutral-400 leading-relaxed font-light">
                                                     {service.description}
                                                 </p>
                                             </TextReveal>
 
-                                            <div className="bg-neutral-100 dark:bg-neutral-900 p-8 rounded-2xl">
-                                                <h3 className="text-xl font-bold mb-4">Our Process</h3>
-                                                <p className="text-neutral-600 dark:text-neutral-400">{service.process}</p>
+                                            <div className="relative p-8 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm group/card hover:bg-white/[0.04] transition-all duration-500 overflow-hidden">
+                                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full" />
+                                                <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                                                    <Layout className="w-5 h-5 text-primary" />
+                                                    The Framework
+                                                </h3>
+                                                <p className="text-neutral-400 leading-relaxed italic">"{service.process}"</p>
                                             </div>
                                         </div>
 
-                                        <div className="space-y-8">
-                                            <div>
-                                                <h3 className="text-xl font-bold mb-4 border-l-4 border-primary pl-4">Key Benefits</h3>
-                                                <p className="text-neutral-600 dark:text-neutral-400 pl-5">{service.benefits}</p>
+                                        <div className="md:col-span-2 space-y-12">
+                                            <div className="space-y-6">
+                                                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-primary">Key Benefits</h3>
+                                                <div className="space-y-4">
+                                                    {service.benefits.split(',').map((benefit: string, i: number) => (
+                                                        <motion.div 
+                                                            key={i}
+                                                            whileHover={{ x: 10 }}
+                                                            className="flex items-center gap-3 group/item"
+                                                        >
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                                            <span className="text-neutral-300 group-hover/item:text-white transition-colors">{benefit.trim()}</span>
+                                                        </motion.div>
+                                                    ))}
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <h3 className="text-xl font-bold mb-4 border-l-4 border-primary pl-4">Real Results</h3>
-                                                <p className="text-neutral-600 dark:text-neutral-400 pl-5">{service.results}</p>
-                                            </div>
-
-                                            <div className="pt-8">
+                                            <div className="pt-8 border-t border-white/10">
                                                 <Link
                                                     href="/contact"
-                                                    className="inline-flex items-center gap-2 text-lg font-bold text-primary hover:text-primary/80 transition-colors group/link"
+                                                    className="inline-flex items-center gap-4 text-xl font-bold text-white hover:text-primary transition-all group/link"
                                                 >
-                                                    Start Project
-                                                    <ArrowRight className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" />
+                                                    Initialize Project
+                                                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover/link:bg-primary group-hover/link:border-primary transition-all duration-300">
+                                                        <ArrowRight className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" />
+                                                    </div>
                                                 </Link>
                                             </div>
                                         </div>
@@ -135,51 +173,46 @@ export default function ServicesPage() {
                         })}
 
                         {/* Why Productized Section */}
-                        <section className="py-20 bg-primary/5 border-y border-primary/10 rounded-3xl">
-                            <div className="px-8 space-y-12">
-                                <div className="grid md:grid-cols-2 gap-16 items-start">
-                                    <div>
-                                        <h2 className="font-headline text-4xl font-bold mb-8">Why Our Productized Packages Work Better</h2>
-                                        <div className="space-y-6">
-                                            {[
-                                                { title: "Clear Deliverables", desc: "You know exactly what you get, when you'll get it, and how much it costs." },
-                                                { title: "Faster Buying Decisions", desc: "No long-winded negotiations. Pick a package that fits and we start immediately." },
-                                                { title: "Higher Perceived Value", desc: "Our systems are built on proven frameworks that deliver predictable results." },
-                                                { title: "Professional Positioning", desc: "We operate as a partner, providing digital assets that grow with your business." }
-                                            ].map((benefit, i) => (
-                                                <div key={i} className="flex gap-4">
-                                                    <div className="bg-primary/20 p-2 rounded-lg h-fit">
-                                                        <div className="w-2 h-2 rounded-full bg-primary" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="font-bold text-lg mb-1">{benefit.title}</h4>
-                                                        <p className="text-sm text-muted-foreground">{benefit.desc}</p>
-                                                    </div>
+                        <section className="relative py-24 px-8 md:px-16 rounded-[3rem] border border-white/10 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/5 overflow-hidden group">
+                            <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,black,transparent)]" />
+                            <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
+                                <div>
+                                    <h2 className="font-headline text-4xl md:text-6xl font-bold mb-10 text-white">Why Our <br/><span className="text-primary">Packages</span> Win.</h2>
+                                    <div className="grid gap-8">
+                                        {[
+                                            { title: "Zero Guesswork", desc: "Clear deliverables, fixed pricing, and predictable timelines." },
+                                            { title: "Rapid Deployment", desc: "Built on high-performance frameworks for immediate impact." },
+                                            { title: "Market Dominance", desc: "SEO & AI integration built into the core of every system." },
+                                        ].map((benefit, i) => (
+                                            <div key={i} className="flex gap-6">
+                                                <div className="text-primary font-mono text-xl opacity-50">0{i+1}</div>
+                                                <div>
+                                                    <h4 className="font-bold text-xl text-white mb-2">{benefit.title}</h4>
+                                                    <p className="text-neutral-400">{benefit.desc}</p>
                                                 </div>
-                                            ))}
-                                        </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <div className="bg-neutral-900 border border-white/10 p-8 rounded-3xl space-y-8 relative overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl rounded-full" />
-                                        <h3 className="text-2xl font-bold font-headline">Optional Add-Ons</h3>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            {[
-                                                "AI Chatbot Integration",
-                                                "Custom Brand Identity",
-                                                "SEO Content Package",
-                                                "Email Marketing Setup",
-                                                "AI Automation Workflows",
-                                                "Analytics Dashboard"
-                                            ].map((addon, i) => (
-                                                <div key={i} className="flex items-center gap-2 p-3 rounded-xl bg-white/5 border border-white/10 text-xs">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                                    <span>{addon}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <p className="text-xs text-neutral-400 italic">
-                                            * Add-ons can be integrated into any package to supercharge your results.
-                                        </p>
+                                </div>
+                                <div className="p-8 rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl space-y-8">
+                                    <h3 className="text-2xl font-bold font-headline text-white flex items-center gap-3">
+                                        <Sparkles className="w-6 h-6 text-primary" />
+                                        Performance Add-Ons
+                                    </h3>
+                                    <div className="grid sm:grid-cols-2 gap-4">
+                                        {[
+                                            "AI Chatbot Pro",
+                                            "Dynamic SEO Core",
+                                            "AEO Optimization",
+                                            "Custom API Bridge",
+                                            "Neural Workflows",
+                                            "Insight Dashboards"
+                                        ].map((addon, i) => (
+                                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 transition-colors">
+                                                <div className="w-2 h-2 rounded-full bg-primary" />
+                                                <span className="text-sm font-medium">{addon}</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
@@ -188,77 +221,29 @@ export default function ServicesPage() {
                 </div>
             </div>
 
-            {/* Industries We Serve */}
-            <section className="py-20 md:py-28 bg-white dark:bg-black">
-                <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h2 className="font-headline text-4xl md:text-5xl font-bold">Industries We Transform</h2>
-                        <TextReveal>
-                            <p className="mt-4 text-muted-foreground text-lg">We bring deep domain expertise to a variety of sectors, delivering tailored solutions that solve real business challenges.</p>
-                        </TextReveal>
+            {/* Service FAQs */}
+            <section className="relative z-10 py-32 bg-black">
+                <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+                    <div className="text-center mb-20">
+                        <span className="text-xs font-mono text-primary tracking-[0.3em] uppercase">Knowledge Base</span>
+                        <h2 className="font-headline text-4xl md:text-6xl font-bold text-white mt-4">Common Questions</h2>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div className="space-y-4">
                         {[
-                            { name: "Healthcare", icon: "🏥" },
-                            { name: "E-commerce", icon: "🛍️" },
-                            { name: "Real Estate", icon: "🏠" },
-                            { name: "Education", icon: "🎓" },
-                            { name: "Manufacturing", icon: "🏭" },
-                            { name: "Finance", icon: "💰" },
-                            { name: "Hospitality", icon: "🏨" },
-                            { name: "Startups", icon: "🚀" }
-                        ].map((industry) => (
-                            <div key={industry.name} className="p-6 bg-neutral-50 dark:bg-neutral-900 rounded-xl text-center hover:shadow-lg transition-shadow">
-                                <div className="text-4xl mb-4">{industry.icon}</div>
-                                <h3 className="font-bold text-lg">{industry.name}</h3>
+                            { q: "Do you offer custom web development?", a: "Yes, we specialize in high-performance Next.js 15 systems tailored for conversion and scale." },
+                            { q: "How do your AI solutions work?", a: "We build custom LLM agents and neural workflows that integrate directly into your business stack." },
+                            { q: "What is included in your SEO services?", a: "Full technical SEO, AEO (AI Engine Optimization), and conversion-focused content strategies." }
+                        ].map((faq, i) => (
+                            <div key={i} className="p-8 rounded-3xl bg-white/5 border border-white/5 hover:border-white/10 transition-all">
+                                <h3 className="font-bold text-xl text-white mb-4">{faq.q}</h3>
+                                <p className="text-neutral-400">{faq.a}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Service FAQs */}
-            <section className="py-20 md:py-28 bg-neutral-50 dark:bg-neutral-950">
-                <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
-                    <h2 className="font-headline text-3xl md:text-4xl font-bold text-center mb-12">Common Questions</h2>
-                    <div className="space-y-6">
-                        <div className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm">
-                            <h3 className="font-bold text-lg mb-2">Do you offer custom web development?</h3>
-                            <p className="text-muted-foreground">Yes, we specialize in custom solutions using Next.js and React, tailored to your specific business requirements.</p>
-                        </div>
-                        <div className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm">
-                            <h3 className="font-bold text-lg mb-2">How do your AI solutions work?</h3>
-                            <p className="text-muted-foreground">We integrate AI agents and automation workflows directly into your existing systems to automate repetitive tasks and improve efficiency.</p>
-                        </div>
-                        <div className="bg-white dark:bg-neutral-900 p-6 rounded-xl shadow-sm">
-                            <h3 className="font-bold text-lg mb-2">What is included in your SEO services?</h3>
-                            <p className="text-muted-foreground">Our SEO packages include technical audits, keyword research, on-page optimization, content strategy, and local SEO for Junagadh businesses.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* SEO Footer Section */}
-            <section className="bg-neutral-900 text-white py-24 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="font-headline text-3xl md:text-5xl font-bold mb-8">
-                        Ready to Dominate Your Market?
-                    </h2>
-                    <TextReveal>
-                        <p className="text-xl text-neutral-400 mb-12">
-                            Whether you need a cutting-edge website, an AI-powered automation system, or a high-ROI marketing campaign,
-                            SaaSNext is the <strong>best digital marketing agency in Junagadh</strong> to make it happen.
-                            Stop competing and start leading.
-                        </p>
-                    </TextReveal>
-                    <Link
-                        href="/contact"
-                        className="inline-block bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-neutral-200 transition-colors"
-                    >
-                        Get Your Free Strategy Session
-                    </Link>
-                </div>
-            </section>
         </div>
     );
 }
+
