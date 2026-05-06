@@ -76,7 +76,9 @@ export default function NewRequestPage() {
         if (!plan || plan.price.toLowerCase().includes('custom')) return total;
         
         const priceString = currency === 'USD' ? plan.priceUsd : plan.price;
-        const priceValue = parseInt(priceString.replace(/[^0-9]/g, ''), 10) || 0;
+        // Extract the first number from strings like "₹39,999 – ₹79,999"
+        const firstPart = priceString.split('–')[0].split('-')[0];
+        const priceValue = parseInt(firstPart.replace(/[^0-9]/g, ''), 10) || 0;
             
         return total + priceValue;
     }, 0);

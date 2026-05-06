@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Phone, FileText } from 'lucide-react';
+import { Calendar, Clock, Phone, FileText, Rocket, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { ProjectProgress } from './project-progress';
 import { useFirestore } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -102,26 +102,107 @@ export default function ProjectDetails({ id }: { id: string }) {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="font-headline text-3xl font-bold">{project.name}</h1>
-        <p className="text-muted-foreground">
-          Detailed view of your project's progress and updates.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 className="font-headline text-3xl font-bold">{project.name}</h1>
+            <p className="text-muted-foreground">
+            Detailed view of your project's progress and updates.
+            </p>
+        </div>
+        <Badge
+            variant={project.status === 'Completed' ? 'secondary' : 'default'}
+            className="text-lg px-4 py-1 w-fit"
+        >
+            {project.status}
+        </Badge>
       </div>
+
+      {project.status === 'Planning' && (
+          <Card className="bg-blue-500/10 border-blue-500/20">
+              <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="bg-blue-500 p-2 rounded-lg text-white">
+                      <Rocket className="h-6 w-6" />
+                  </div>
+                  <div>
+                      <CardTitle>Getting Started</CardTitle>
+                      <CardDescription>Follow these steps to kick off your project successfully.</CardDescription>
+                  </div>
+              </CardHeader>
+              <CardContent className="grid sm:grid-cols-3 gap-4">
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-background border">
+                      <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs font-bold text-blue-600">1</div>
+                      <div>
+                          <p className="font-semibold text-sm">Book Kick-off</p>
+                          <p className="text-xs text-muted-foreground">Schedule a meeting to align on goals.</p>
+                      </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-background border">
+                      <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs font-bold text-blue-600">2</div>
+                      <div>
+                          <p className="font-semibold text-sm">Submit Docs</p>
+                          <p className="text-xs text-muted-foreground">Upload any branding or content assets.</p>
+                      </div>
+                  </div>
+                  <div className="flex items-start gap-3 p-3 rounded-xl bg-background border">
+                      <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs font-bold text-blue-600">3</div>
+                      <div>
+                          <p className="font-semibold text-sm">Review Timeline</p>
+                          <p className="text-xs text-muted-foreground">Confirm the delivery milestones below.</p>
+                      </div>
+                  </div>
+              </CardContent>
+          </Card>
+      )}
+
+      {project.status === 'Completed' && (
+          <Card className="bg-emerald-500/10 border-emerald-500/20">
+              <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="bg-emerald-500 p-2 rounded-lg text-white">
+                      <CheckCircle2 className="h-6 w-6" />
+                  </div>
+                  <div>
+                      <CardTitle>Project Successfully Completed!</CardTitle>
+                      <CardDescription>Everything you need for your final handover.</CardDescription>
+                  </div>
+              </CardHeader>
+              <CardContent className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-4">
+                      <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Handover Documents</h4>
+                      <div className="space-y-2">
+                          <Button variant="outline" className="w-full justify-between" asChild>
+                              <Link href="#">
+                                  <span>Final Project Report</span>
+                                  <FileText className="h-4 w-4" />
+                              </Link>
+                          </Button>
+                          <Button variant="outline" className="w-full justify-between" asChild>
+                              <Link href="#">
+                                  <span>Credentials & Access</span>
+                                  <ShieldCheck className="h-4 w-4" />
+                              </Link>
+                          </Button>
+                      </div>
+                  </div>
+                  <div className="space-y-4">
+                      <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Next Steps</h4>
+                      <div className="space-y-2">
+                          <Button variant="default" className="w-full bg-accent hover:bg-accent/90" asChild>
+                              <Link href="/client/requests/new">Start Maintenance Plan</Link>
+                          </Button>
+                          <Button variant="outline" className="w-full" asChild>
+                              <Link href="/contact">Leave a Review</Link>
+                          </Button>
+                      </div>
+                  </div>
+              </CardContent>
+          </Card>
+      )}
 
       <div className="grid md:grid-cols-3 gap-8">
         <div className="md:col-span-2 space-y-8">
             <Card>
                 <CardHeader>
-                <div className="flex justify-between items-start">
-                    <CardTitle>Project Overview</CardTitle>
-                    <Badge
-                    variant={project.status === 'Completed' ? 'secondary' : 'default'}
-                    className="text-sm"
-                    >
-                    {project.status}
-                    </Badge>
-                </div>
+                <CardTitle>Project Overview</CardTitle>
                 <CardDescription>Project ID: {project.id}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">

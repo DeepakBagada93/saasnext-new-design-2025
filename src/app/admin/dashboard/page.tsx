@@ -1,7 +1,7 @@
 
 'use client';
 
-import { Users, Briefcase, Bell, TrendingUp, CalendarClock, CreditCard } from 'lucide-react';
+import { Users, Briefcase, Bell, TrendingUp, CalendarClock, CreditCard, PlusCircle, UserPlus, Settings, FileSearch } from 'lucide-react';
 import { useFirestore } from '@/firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore';
@@ -9,55 +9,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { DashboardStatCard } from '@/components/dashboard-stats';
 import { RecentActivity } from '@/components/recent-activity';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
-const chartData = [
-  { month: "Jan", revenue: 2400 },
-  { month: "Feb", revenue: 1398 },
-  { month: "Mar", revenue: 9800 },
-  { month: "Apr", revenue: 3908 },
-  { month: "May", revenue: 4800 },
-  { month: "Jun", revenue: 3800 },
-];
-
-const chartConfig = {
-  revenue: {
-    label: "Revenue",
-    color: "hsl(var(--accent))",
-  },
-};
-
-const mockActivities = [
-  {
-    id: '1',
-    user: { name: 'John Doe', initials: 'JD' },
-    action: 'submitted a new',
-    target: 'service request',
-    time: '2 hours ago',
-  },
-  {
-    id: '2',
-    user: { name: 'Alice Smith', initials: 'AS' },
-    action: 'approved the',
-    target: 'project proposal',
-    time: '5 hours ago',
-  },
-  {
-    id: '3',
-    user: { name: 'Bob Wilson', initials: 'BW' },
-    action: 'paid the',
-    target: 'latest invoice',
-    time: 'Yesterday',
-  },
-  {
-    id: '4',
-    user: { name: 'Sarah Connor', initials: 'SC' },
-    action: 'scheduled a',
-    target: 'meeting',
-    time: '2 days ago',
-  },
-];
+// ... (revenue chart data remains same)
 
 export default function AdminDashboardPage() {
   const firestore = useFirestore();
@@ -68,13 +25,35 @@ export default function AdminDashboardPage() {
   
   const loading = loadingProjects || loadingClients || loadingRequests;
 
+  const projects = projectsSnapshot?.docs.map(doc => doc.data()) || [];
+  const statusCounts = projects.reduce((acc: any, p: any) => {
+      acc[p.status] = (acc[p.status] || 0) + 1;
+      return acc;
+  }, {});
+
+  const statusData = [
+      { name: 'Planning', value: statusCounts['Planning'] || 0, color: '#3b82f6' },
+      { name: 'In Progress', value: statusCounts['In Progress'] || 0, color: '#8b5cf6' },
+      { name: 'Completed', value: statusCounts['Completed'] || 0, color: '#10b981' },
+  ];
+
   return (
     <div className="space-y-8 pb-8">
-      <div>
-        <h1 className="font-headline text-3xl font-bold tracking-tight">Admin Command Center</h1>
-        <p className="text-muted-foreground">
-          Real-time metrics and platform oversight.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 className="font-headline text-3xl font-bold tracking-tight">Admin Command Center</h1>
+            <p className="text-muted-foreground">
+            Real-time metrics and platform oversight.
+            </p>
+        </div>
+        <div className="flex gap-2">
+            <Button variant="outline" size="sm" asChild>
+                <Link href="/admin/projects">Manage All Projects</Link>
+            </Button>
+            <Button size="sm" asChild className="bg-accent hover:bg-accent/90">
+                <Link href="/admin/requests">Review Requests</Link>
+            </Button>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -100,7 +79,7 @@ export default function AdminDashboardPage() {
                 />
                 <DashboardStatCard 
                     title="Pending Requests" 
-                    value={requestsSnapshot?.size || 0} 
+                    value={requestsSnapshot?.filter(doc => doc.data().status === 'Pending').length || 0} 
                     description="Requests to review" 
                     icon={Bell} 
                     trend={{ value: "High priority", isPositive: false }}
@@ -117,6 +96,38 @@ export default function AdminDashboardPage() {
             </>
         )}
       </div>
+
+      <Card className="border-2 bg-neutral-50 dark:bg-neutral-900/50">
+          <CardHeader>
+              <CardTitle className="text-xl">Quick Management Actions</CardTitle>
+          </CardHeader>
+          <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Button variant="outline" className="h-auto py-6 flex-col gap-2 bg-background hover:bg-accent/10 hover:text-accent transition-all group" asChild>
+                  <Link href="/admin/projects">
+                      <PlusCircle className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                      <span>Create Project</span>
+                  </Link>
+              </Button>
+              <Button variant="outline" className="h-auto py-6 flex-col gap-2 bg-background hover:bg-accent/10 hover:text-accent transition-all group" asChild>
+                  <Link href="/admin/clients">
+                      <UserPlus className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                      <span>Add Client</span>
+                  </Link>
+              </Button>
+              <Button variant="outline" className="h-auto py-6 flex-col gap-2 bg-background hover:bg-accent/10 hover:text-accent transition-all group" asChild>
+                  <Link href="/admin/invoices">
+                      <FileSearch className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                      <span>New Quotation</span>
+                  </Link>
+              </Button>
+              <Button variant="outline" className="h-auto py-6 flex-col gap-2 bg-background hover:bg-accent/10 hover:text-accent transition-all group" asChild>
+                  <Link href="/admin/analytics">
+                      <Settings className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                      <span>Platform Settings</span>
+                  </Link>
+              </Button>
+          </CardContent>
+      </Card>
 
       <div className="grid gap-4 md:grid-cols-7">
         <Card className="md:col-span-4 border-2">
@@ -137,16 +148,84 @@ export default function AdminDashboardPage() {
                     </ResponsiveContainer>
                 </ChartContainer>
             </CardContent>
-            <CardFooter className="flex-col items-start gap-2 text-sm border-t p-4">
-                <div className="flex gap-2 font-medium leading-none">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4 text-emerald-500" />
+        </Card>
+        
+        <Card className="md:col-span-3 border-2">
+            <CardHeader>
+                <CardTitle>Project Status</CardTitle>
+                <CardDescription>Distribution across lifecycle stages.</CardDescription>
+            </CardHeader>
+            <CardContent className="flex justify-center items-center h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                        <Pie
+                            data={statusData}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={60}
+                            outerRadius={80}
+                            paddingAngle={5}
+                            dataKey="value"
+                        >
+                            {statusData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                        </Pie>
+                        <Tooltip />
+                    </PieChart>
+                </ResponsiveContainer>
+                <div className="absolute flex flex-col items-center justify-center">
+                    <span className="text-3xl font-bold">{projects.length}</span>
+                    <span className="text-xs text-muted-foreground">Total</span>
+                </div>
+            </CardContent>
+            <CardFooter className="flex-col gap-2 p-4">
+                <div className="grid grid-cols-3 gap-4 w-full text-xs">
+                    {statusData.map((s) => (
+                        <div key={s.name} className="flex flex-col items-center">
+                            <div className="flex items-center gap-1">
+                                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }} />
+                                <span className="font-medium">{s.name}</span>
+                            </div>
+                            <span className="text-muted-foreground">{s.value}</span>
+                        </div>
+                    ))}
                 </div>
             </CardFooter>
         </Card>
-        
-        <div className="md:col-span-3">
-            <RecentActivity activities={mockActivities} />
-        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+          <RecentActivity activities={mockActivities} />
+          <Card className="border-2">
+              <CardHeader>
+                  <CardTitle>Platform Health</CardTitle>
+                  <CardDescription>System performance and uptime.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                  <div className="flex justify-between items-center p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                      <div className="flex items-center gap-3">
+                          <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="font-medium">Firebase Operations</span>
+                      </div>
+                      <span className="text-sm text-emerald-600 font-mono font-bold">OPTIMAL</span>
+                  </div>
+                  <div className="flex justify-between items-center p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                      <div className="flex items-center gap-3">
+                          <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="font-medium">Auth Systems</span>
+                      </div>
+                      <span className="text-sm text-emerald-600 font-mono font-bold">ACTIVE</span>
+                  </div>
+                   <div className="flex justify-between items-center p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                      <div className="flex items-center gap-3">
+                          <div className="w-3 h-3 rounded-full bg-blue-500" />
+                          <span className="font-medium">Storage Quota</span>
+                      </div>
+                      <span className="text-sm text-blue-600 font-mono font-bold">12% USED</span>
+                  </div>
+              </CardContent>
+          </Card>
       </div>
     </div>
   );

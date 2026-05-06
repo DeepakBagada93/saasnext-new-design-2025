@@ -15,9 +15,8 @@ const PerformanceMarketingChartDesignTech = dynamic(() => import('@/components/p
 
 export default function PortfolioPage() {
 
-  const brandingItems = portfolioItems.filter(item => item.niche === 'Branding');
   const socialItems = portfolioItems.filter(item => item.niche === 'Social Media');
-  const webItems = portfolioItems.filter(item => !['Branding', 'Social Media'].includes(item.niche));
+  const webItems = portfolioItems.filter(item => !['Social Media'].includes(item.niche));
 
 
   return (
@@ -57,44 +56,6 @@ export default function PortfolioPage() {
           </TextReveal>
         </div>
         <PortfolioGallery items={webItems} />
-      </section>
-
-      <section id="branding" className="mt-24 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="font-headline text-3xl md:text-4xl font-bold">Logo & Brand Identity</h2>
-          <TextReveal>
-            <p className="mt-2 text-muted-foreground text-lg">Crafting memorable brands that stand out from the competition with our expert branding services.</p>
-          </TextReveal>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {brandingItems.map((item, index) => (
-            <Card key={item.id} className={cn(
-              "overflow-hidden group",
-            )}>
-              <Link href={`/portfolio/${item.id}`}>
-                <CardContent className="p-0">
-                  <div className={cn(
-                    "w-full bg-muted overflow-hidden",
-                    (index === 0 || index === 3) ? "aspect-[16/9]" : "aspect-square",
-                  )}>
-                    <Image
-                      src={item.image.imageUrl}
-                      alt={item.title}
-                      data-ai-hint={item.image.imageHint}
-                      width={800}
-                      height={450}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-headline text-lg font-semibold">{item.title}</h3>
-                    <p className="text-sm text-primary">{item.service}</p>
-                  </div>
-                </CardContent>
-              </Link>
-            </Card>
-          ))}
-        </div>
       </section>
 
 

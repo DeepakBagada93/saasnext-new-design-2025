@@ -12,7 +12,6 @@ import {
   LogOut,
   CalendarClock,
   Bell,
-  Package,
 } from "lucide-react";
 
 import {
@@ -39,7 +38,6 @@ const menuItems = [
   { href: "/client/requests/new", label: "New Request", icon: PlusCircle },
   { href: "/client/invoices", label: "Quotations", icon: FileText },
   { href: "/client/schedule-meeting", label: "Schedule Meeting", icon: CalendarClock },
-  { href: "/client/services", label: "Services & Pricing", icon: Package },
   { href: "/client/profile", label: "Profile", icon: User },
 ];
 

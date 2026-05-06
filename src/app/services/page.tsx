@@ -5,7 +5,7 @@ import { ServicesNav } from '@/components/services-nav';
 import { AnimatedHeadline } from '@/components/animated-headline';
 import { TextReveal } from '@/components/text-reveal';
 import { motion } from 'framer-motion';
-import { ArrowRight, BrainCircuit, Code, Search, Megaphone, Feather, Palette } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Code, Search, Megaphone, Feather } from 'lucide-react';
 import Link from 'next/link';
 
 const iconMap: Record<string, any> = {
@@ -14,7 +14,6 @@ const iconMap: Record<string, any> = {
     'Search': Search,
     'Megaphone': Megaphone,
     'Feather': Feather,
-    'Palette': Palette,
 };
 
 export default function ServicesPage() {
@@ -134,6 +133,57 @@ export default function ServicesPage() {
                                 </section>
                             );
                         })}
+
+                        {/* Why Productized Section */}
+                        <section className="py-20 bg-primary/5 border-y border-primary/10 rounded-3xl">
+                            <div className="px-8 space-y-12">
+                                <div className="grid md:grid-cols-2 gap-16 items-start">
+                                    <div>
+                                        <h2 className="font-headline text-4xl font-bold mb-8">Why Our Productized Packages Work Better</h2>
+                                        <div className="space-y-6">
+                                            {[
+                                                { title: "Clear Deliverables", desc: "You know exactly what you get, when you'll get it, and how much it costs." },
+                                                { title: "Faster Buying Decisions", desc: "No long-winded negotiations. Pick a package that fits and we start immediately." },
+                                                { title: "Higher Perceived Value", desc: "Our systems are built on proven frameworks that deliver predictable results." },
+                                                { title: "Professional Positioning", desc: "We operate as a partner, providing digital assets that grow with your business." }
+                                            ].map((benefit, i) => (
+                                                <div key={i} className="flex gap-4">
+                                                    <div className="bg-primary/20 p-2 rounded-lg h-fit">
+                                                        <div className="w-2 h-2 rounded-full bg-primary" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="font-bold text-lg mb-1">{benefit.title}</h4>
+                                                        <p className="text-sm text-muted-foreground">{benefit.desc}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="bg-neutral-900 border border-white/10 p-8 rounded-3xl space-y-8 relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl rounded-full" />
+                                        <h3 className="text-2xl font-bold font-headline">Optional Add-Ons</h3>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            {[
+                                                "AI Chatbot Integration",
+                                                "Custom Brand Identity",
+                                                "SEO Content Package",
+                                                "Email Marketing Setup",
+                                                "AI Automation Workflows",
+                                                "Analytics Dashboard"
+                                            ].map((addon, i) => (
+                                                <div key={i} className="flex items-center gap-2 p-3 rounded-xl bg-white/5 border border-white/10 text-xs">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                                    <span>{addon}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <p className="text-xs text-neutral-400 italic">
+                                            * Add-ons can be integrated into any package to supercharge your results.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>

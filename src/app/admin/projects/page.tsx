@@ -101,6 +101,14 @@ function generateDefaultMilestones(projectName: string): Milestone[] {
     const today = new Date();
     const lowerCaseName = projectName.toLowerCase();
 
+    if (lowerCaseName.includes('3-day') || lowerCaseName.includes('72 hours')) {
+        return [
+            { name: 'Day 1: Design & Structure', date: addDays(today, 1), status: 'Upcoming' },
+            { name: 'Day 2: Development & Optimization', date: addDays(today, 2), status: 'Upcoming' },
+            { name: 'Day 3: Testing & Launch', date: addDays(today, 3), status: 'Upcoming' },
+        ];
+    }
+
     if (lowerCaseName.includes('lead gen') || lowerCaseName.includes('ads') || lowerCaseName.includes('marketing') || lowerCaseName.includes('seo')) {
         return [
             { name: 'Month 1', date: addMonths(today, 1), status: 'Upcoming' },

@@ -13,9 +13,9 @@ export const Pricing = () => {
         <section id="pricing" className="py-20 md:py-28 bg-neutral-50 dark:bg-neutral-900">
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="font-headline text-4xl md:text-5xl font-bold mb-6">Transparent Pricing</h2>
+                    <h2 className="font-headline text-4xl md:text-5xl font-bold mb-6">High-Converting Websites Built for Modern Businesses</h2>
                     <p className="text-lg text-muted-foreground">
-                        Choose the perfect plan for your business needs. No hidden fees, just results.
+                        We build digital platforms that generate revenue. Choose a productized package that fits your stage of growth.
                     </p>
                 </div>
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, CheckCircle, Code, Globe, Zap, BarChart, Users, MessageSquare, Rocket, ShieldCheck, BrainCircuit, Search, Megaphone, Feather, Palette, Bot, Cpu, Layout } from "lucide-react";
+import { ArrowRight, CheckCircle, Code, Globe, Zap, BarChart, Users, MessageSquare, Rocket, ShieldCheck, BrainCircuit, Search, Megaphone, Feather, Bot, Cpu, Layout } from "lucide-react";
 import { AnimatedHeadline } from "@/components/animated-headline";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { services, techStack, faqs, portfolioItems } from "@/lib/data";
@@ -35,7 +35,6 @@ export default function Home() {
     Search: Search,
     Megaphone: Megaphone,
     Feather: Feather,
-    Palette: Palette,
   };
 
   // Flatten tech stack for marquee
@@ -53,6 +52,9 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* High-Impact AI & Automation Hero */}
       <HeroAI />
+
+      {/* Pricing Section */}
+      <Pricing />
 
       {/* Problem / Solution Section */}
       <ProblemSolution />
@@ -82,8 +84,8 @@ export default function Home() {
       <section id="services" className="py-20 md:py-28 bg-neutral-50 dark:bg-black overflow-hidden">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <CreativeSectionHeader 
-            title="Intelligent Digital Solutions"
-            subtitle="From autonomous AI agents to high-conversion web applications, we provide the technical edge your business needs to scale in the AI era."
+            title="Productized Web Solutions"
+            subtitle="From 3-day rapid launches to enterprise digital platforms, we provide ready-to-deploy systems that scale with your business."
             className="mb-12"
           />
 
@@ -242,8 +244,6 @@ export default function Home() {
 
       {/* Timeline Section */}
       <Timeline />
-      {/* Pricing Section */}
-      <Pricing />
 
       {/* FAQ Section */}
       <section className="py-20 md:py-28 bg-card">

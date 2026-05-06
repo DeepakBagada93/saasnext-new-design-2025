@@ -90,7 +90,7 @@ export default function ClientDashboardPage() {
                 />
                 <DashboardStatCard 
                     title="Pending Requests" 
-                    value={serviceRequests?.length || 0} 
+                    value={serviceRequests?.filter((r: any) => r.status === 'Pending').length || 0} 
                     description="Awaiting response" 
                     icon={Bell} 
                     delay={0.2}
@@ -113,8 +113,35 @@ export default function ClientDashboardPage() {
         )}
       </div>
 
+      <Card className="bg-primary/5 border-primary/20">
+        <CardHeader>
+            <CardTitle className="text-xl">Quick Actions</CardTitle>
+            <CardDescription>Common tasks to get your project moving faster.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <Button variant="outline" className="h-auto py-4 flex-col gap-2 bg-background hover:bg-primary/10 hover:text-primary transition-all group" asChild>
+                <Link href="/client/requests/new">
+                    <PlusCircle className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                    <span>Start New Project</span>
+                </Link>
+            </Button>
+            <Button variant="outline" className="h-auto py-4 flex-col gap-2 bg-background hover:bg-primary/10 hover:text-primary transition-all group" asChild>
+                <Link href="/client/schedule-meeting">
+                    <CalendarClock className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                    <span>Schedule Meeting</span>
+                </Link>
+            </Button>
+            <Button variant="outline" className="h-auto py-4 flex-col gap-2 bg-background hover:bg-primary/10 hover:text-primary transition-all group" asChild>
+                <Link href="/client/profile">
+                    <PlusCircle className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                    <span>Update Profile</span>
+                </Link>
+            </Button>
+        </CardContent>
+      </Card>
+
       <div className="grid gap-6 md:grid-cols-2">
-         <Card className="border-2">
+         <Card className="border-2 overflow-hidden">
             <CardHeader>
             <div className="flex items-center justify-between">
                 <div>
@@ -128,49 +155,51 @@ export default function ClientDashboardPage() {
                 </Button>
             </div>
             </CardHeader>
-            <CardContent>
-            <Table>
-                <TableHeader>
-                <TableRow>
-                    <TableHead>Service</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Action</TableHead>
-                </TableRow>
-                </TableHeader>
-                <TableBody>
-                {loadingRequests && (
+            <CardContent className="p-0 sm:p-6">
+            <div className="overflow-x-auto">
+                <Table>
+                    <TableHeader>
                     <TableRow>
-                    <TableCell colSpan={3} className="text-center py-8">
-                        <Skeleton className="h-4 w-full" />
-                    </TableCell>
+                        <TableHead>Service</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
                     </TableRow>
-                )}
-                {serviceRequests && serviceRequests.length === 0 && !loadingRequests && (
-                    <TableRow>
-                        <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">No pending requests.</TableCell>
-                    </TableRow>
-                )}
-                {serviceRequests?.slice(0, 5).map((request: any) => (
-                    <TableRow key={request.id}>
-                    <TableCell className="font-medium">{request.serviceType}</TableCell>
-                    <TableCell>
-                        <Badge variant='outline' className="capitalize">{request.status}</Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" asChild>
-                        <Link href={`/client/requests`}>
-                            <ArrowRight className="h-4 w-4" />
-                        </Link>
-                        </Button>
-                    </TableCell>
-                    </TableRow>
-                ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                    {loadingRequests && (
+                        <TableRow>
+                        <TableCell colSpan={3} className="text-center py-8">
+                            <Skeleton className="h-4 w-full" />
+                        </TableCell>
+                        </TableRow>
+                    )}
+                    {serviceRequests && serviceRequests.length === 0 && !loadingRequests && (
+                        <TableRow>
+                            <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">No pending requests.</TableCell>
+                        </TableRow>
+                    )}
+                    {serviceRequests?.slice(0, 5).map((request: any) => (
+                        <TableRow key={request.id}>
+                        <TableCell className="font-medium">{request.serviceType}</TableCell>
+                        <TableCell>
+                            <Badge variant='outline' className="capitalize">{request.status}</Badge>
+                        </TableCell>
+                        <TableCell className="text-right">
+                            <Button variant="ghost" size="icon" asChild>
+                            <Link href={`/client/requests`}>
+                                <ArrowRight className="h-4 w-4" />
+                            </Link>
+                            </Button>
+                        </TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+            </div>
             </CardContent>
         </Card>
 
-        <Card className="border-2">
+        <Card className="border-2 overflow-hidden">
             <CardHeader>
             <div className="flex items-center justify-between">
                 <div>
@@ -184,51 +213,61 @@ export default function ClientDashboardPage() {
                 </Button>
             </div>
             </CardHeader>
-            <CardContent>
-            <Table>
-                <TableHeader>
-                <TableRow>
-                    <TableHead>Project</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead className="text-right">Action</TableHead>
-                </TableRow>
-                </TableHeader>
-                <TableBody>
-                {loadingProjects && (
+            <CardContent className="p-0 sm:p-6">
+            <div className="overflow-x-auto">
+                <Table>
+                    <TableHeader>
                     <TableRow>
-                    <TableCell colSpan={3} className="text-center py-8">
-                         <Skeleton className="h-4 w-full" />
-                    </TableCell>
+                        <TableHead>Project</TableHead>
+                        <TableHead>Next Milestone</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
                     </TableRow>
-                )}
-                {clientProjects && clientProjects.length === 0 && !loadingProjects && (
-                    <TableRow>
-                        <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">No projects yet.</TableCell>
-                    </TableRow>
-                )}
-                {clientProjects?.slice(0, 5).map((project: any) => (
-                    <TableRow key={project.id}>
-                    <TableCell className="font-medium">{project.name}</TableCell>
-                    <TableCell>
-                        <Badge
-                        variant={
-                            project.status === 'Completed' ? 'secondary' : 'default'
-                        }
-                        >
-                        {project.status}
-                        </Badge>
-                    </TableCell>
-                    <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" asChild>
-                        <Link href={`/client/projects/${project.id}`}>
-                            <ArrowRight className="h-4 w-4" />
-                        </Link>
-                        </Button>
-                    </TableCell>
-                    </TableRow>
-                ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                    {loadingProjects && (
+                        <TableRow>
+                        <TableCell colSpan={4} className="text-center py-8">
+                            <Skeleton className="h-4 w-full" />
+                        </TableCell>
+                        </TableRow>
+                    )}
+                    {clientProjects && clientProjects.length === 0 && !loadingProjects && (
+                        <TableRow>
+                            <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">No projects yet.</TableCell>
+                        </TableRow>
+                    )}
+                    {clientProjects?.slice(0, 5).map((project: any) => {
+                        const nextMilestone = project.milestones?.find((m: any) => new Date(m.date) > new Date());
+                        
+                        return (
+                            <TableRow key={project.id}>
+                            <TableCell className="font-medium">{project.name}</TableCell>
+                            <TableCell className="text-sm text-muted-foreground">
+                                {nextMilestone ? nextMilestone.name : (project.status === 'Completed' ? 'Project Completed' : 'Finalizing')}
+                            </TableCell>
+                            <TableCell>
+                                <Badge
+                                variant={
+                                    project.status === 'Completed' ? 'secondary' : 'default'
+                                }
+                                >
+                                {project.status}
+                                </Badge>
+                            </TableCell>
+                            <TableCell className="text-right">
+                                <Button variant="ghost" size="icon" asChild>
+                                <Link href={`/client/projects/${project.id}`}>
+                                    <ArrowRight className="h-4 w-4" />
+                                </Link>
+                                </Button>
+                            </TableCell>
+                            </TableRow>
+                        );
+                    })}
+                    </TableBody>
+                </Table>
+            </div>
             </CardContent>
         </Card>
       </div>
