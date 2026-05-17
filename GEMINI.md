@@ -1,5 +1,14 @@
 # SaaSNext Platform - Project Overview
 
+## 🧠 Long-Term Memory
+Project context and long-term memory are stored in the [`.context/`](./.context/) directory:
+- [💡 Vision](./.context/💡_vision.md)
+- [🛠️ Stack](./.context/🛠️_stack.md)
+- [🎨 Design](./.context/🎨_design.md)
+- [📊 Logic](./.context/📊_logic.md)
+- [✍️ Content](./.context/✍️_content.md)
+- [✅ Progress](./.context/✅_progress.md)
+
 ## 🚀 Tech Stack
 
 - **Framework:** [Next.js 15+](https://nextjs.org/) (App Router, Turbopack)
@@ -7,7 +16,7 @@
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/), [PostCSS](https://postcss.org/)
 - **Animations:** [GSAP](https://gsap.com/), [Framer Motion](https://www.framer.com/motion/)
 - **UI Components:** [Radix UI](https://www.radix-ui.com/) (shadcn/ui), [Lucide React](https://lucide.dev/)
-- **Backend & Auth:** [Firebase](https://firebase.google.com/) (Firestore, Authentication)
+- **Backend & Auth:** [Supabase](https://supabase.com/) (PostgreSQL, Authentication)
 - **Forms & Validation:** [React Hook Form](https://react-hook-form.com/), [Zod](https://zod.dev/)
 - **Data Visualization:** [Recharts](https://recharts.org/)
 - **Email Service:** [Nodemailer](https://nodemailer.com/)
@@ -30,12 +39,12 @@
 │   │   ├── layout/         # Layout-specific (Header, Footer, Sidebars)
 │   │   ├── ui/             # Reusable UI components (shadcn/ui)
 │   │   └── sections/       # Page-specific sections (Hero, Features, etc.)
-│   ├── firebase/           # Firebase config, providers, and hooks
+│   ├── supabase/           # Supabase config, providers, and hooks
 │   ├── hooks/              # Custom React hooks
 │   ├── lib/                # Utilities and shared data/types
 │   └── styles/             # Global styles
-├── docs/                   # Project documentation (Blueprint, Backend Schema)
-└── firestore.rules         # Firebase Security Rules
+├── supabase/               # Supabase Migrations and Config
+└── package.json            # Project dependencies
 ```
 
 ---
@@ -63,14 +72,14 @@
 
 ---
 
-## 🔐 Database Schema (Firestore)
+## 🔐 Database Schema (Supabase/PostgreSQL)
 
-- `client_profiles/{uid}`: Company and contact details.
-- `admin_profiles/{uid}`: Internal staff details and roles.
-- `service_requests/{id}`: Leads and initial project inquiries.
-- `projects/{id}`: Active and completed work.
-- `invoices/{id}`: Billing data linked to projects and clients.
-- `roles_admin/{uid}`: Security collection for admin access control.
+- `client_profiles`: Extends Auth.users (id, full_name, company_name, role, onboarding_status).
+- `service_requests`: Leads and inquiries.
+- `projects`: Active and completed work.
+- `invoices`: Billing data.
+- `meeting_requests`: Consultation bookings.
+- `roles_admin`: Admin access control list.
 
 ---
 
@@ -96,7 +105,7 @@
 
 ## 📝 Development Guidelines
 
-- **Authentication:** Use `src/firebase/auth-provider.tsx` for context.
+- **Authentication:** Use `src/supabase/provider.tsx` for context.
 - **Styling:** Adhere to Tailwind utility classes; use `cn()` utility for conditional classes.
 - **Components:** Prefer functional components with TypeScript interfaces for props.
 - **Server Actions:** Use for all mutations and side effects (like sending emails).

@@ -11,19 +11,18 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useUser, useFirestore } from '@/firebase';
-import { useDocumentData } from 'react-firebase-hooks/firestore';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { useUser, useSupabase } from '@/supabase/provider';
+import { useDoc } from '@/supabase/hooks/use-doc';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ClientProfilePage() {
-  const { user, loading: userLoading } = useUser();
-  const firestore = useFirestore();
+  const { user, isUserLoading: userLoading } = useUser();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
 
-  const clientRef = user ? doc(firestore, 'client_profiles', user.uid) : null;
-  const [clientData, loadingData] = useDocumentData(clientRef);
+  const { data: docData, isLoading: loadingData } = useDoc(user ? { table: 'client_profiles', id: user.id } : null);
+  const clientData = docData?.data ? docData.data() : null;
 
   const [contactName, setContactName] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -31,17 +30,17 @@ export default function ClientProfilePage() {
   
   useEffect(() => {
     if (clientData) {
-      setContactName(clientData.contactName || user?.displayName || '');
-      setCompanyName(clientData.companyName || '');
-      setPhoneNumber(clientData.contactPhone || '');
+      setContactName(clientData.full_name || clientData.contact_name || user?.user_metadata?.full_name || '');
+      setCompanyName(clientData.company_name || '');
+      setPhoneNumber(clientData.contact_phone || '');
     } else if (user) {
-        setContactName(user.displayName || '');
+        setContactName(user.user_metadata?.full_name || '');
     }
   }, [clientData, user]);
 
   const handleSaveChanges = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !clientRef) {
+    if (!user) {
       toast({
         variant: 'destructive',
         title: 'Not Authenticated',
@@ -51,14 +50,14 @@ export default function ClientProfilePage() {
     }
 
     try {
-      await setDoc(clientRef, {
-        id: user.uid,
-        contactName: contactName,
-        companyName: companyName,
-        contactEmail: user.email,
-        contactPhone: phoneNumber,
-        updatedAt: serverTimestamp(),
-      }, { merge: true });
+      const { error } = await supabase.from('client_profiles').upsert({
+        id: user.id,
+        full_name: contactName,
+        company_name: companyName,
+        contact_phone: phoneNumber,
+        updated_at: new Date().toISOString(),
+      });
+      if (error) throw error;
 
       toast({
         title: 'Profile Updated',

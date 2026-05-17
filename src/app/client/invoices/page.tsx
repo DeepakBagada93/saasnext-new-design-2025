@@ -5,9 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Link from "next/link";
 import { Eye } from "lucide-react";
-import { useUser, useFirestore } from "@/firebase";
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, query, where } from 'firebase/firestore';
+import { useUser, useSupabase } from "@/supabase/provider";
+import { useCollection } from '@/supabase/hooks/use-collection';
 
 const formatCurrency = (amount: number, currency: string) => {
     return new Intl.NumberFormat('en-US', {
@@ -19,12 +18,18 @@ const formatCurrency = (amount: number, currency: string) => {
 
 export default function ClientQuotationsPage() {
   const { user } = useUser();
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
 
-  const quotationsQuery = user?.uid && query(collection(firestore, 'quotations'), where('userId', '==', user.uid));
-  const [quotationsSnapshot, loading, error] = useCollection(quotationsQuery || null);
+  const [quotationsSnapshot, loading, error] = useCollection(
+    user?.id ? { table: 'invoices', eq: { column: 'client_id', value: user.id } } : null
+  );
 
-  const clientQuotations = quotationsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const clientQuotations = quotationsSnapshot?.docs.map((doc: any) => ({ 
+    id: doc.id, 
+    ...doc,
+    date: doc.created_at,
+    dueDate: doc.due_date
+  }));
 
   return (
     <div className="space-y-6">

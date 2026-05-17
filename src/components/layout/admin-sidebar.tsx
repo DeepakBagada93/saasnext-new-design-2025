@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from "next/link";
@@ -27,7 +26,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Logo } from "@/components/logo";
-import { useAuth, useUser } from "@/firebase";
+import { useSupabase, useUser } from "@/supabase/provider";
 import { useToast } from "@/hooks/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "../ui/skeleton";
@@ -44,8 +43,8 @@ const menuItems = [
 ];
 
 export default function AdminSidebar() {
-  const auth = useAuth();
-  const { user, loading } = useUser();
+  const { supabase } = useSupabase();
+  const { user, isUserLoading: loading } = useUser();
   const router = useRouter();
   const pathname = usePathname();
   const { toast } = useToast();
@@ -53,7 +52,7 @@ export default function AdminSidebar() {
 
   const handleLogout = async () => {
     try {
-      await auth.signOut();
+      await supabase.auth.signOut();
       toast({
         title: "Logged Out",
         description: "You have been successfully logged out.",
@@ -101,11 +100,11 @@ export default function AdminSidebar() {
             ) : user && (
                 <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8">
-                        <AvatarImage src={user.photoURL || ''} alt={user.displayName || user.email || ''} />
+                        <AvatarImage src={user.user_metadata?.avatar_url || ''} alt={user.user_metadata?.full_name || user.email || ''} />
                         <AvatarFallback>{(user.email || 'A').charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 truncate">
-                        <p className="text-sm font-medium truncate">{user.displayName || user.email}</p>
+                        <p className="text-sm font-medium truncate">{user.user_metadata?.full_name || user.email}</p>
                     </div>
                 </div>
             )}

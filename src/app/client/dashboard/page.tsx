@@ -1,5 +1,17 @@
-
 'use client';
+
+import Link from 'next/link';
+import {
+  ArrowRight,
+  Bot,
+  CalendarClock,
+  CheckCircle2,
+  Code2,
+  Megaphone,
+  MessageCircle,
+  Rocket,
+  Sparkles,
+} from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,268 +21,235 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import Link from 'next/link';
-import { ArrowRight, PlusCircle, Briefcase, Bell, CalendarClock, CreditCard } from 'lucide-react';
-import { useUser, useFirestore } from '@/firebase';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, query, where } from 'firebase/firestore';
-import { DashboardStatCard } from '@/components/dashboard-stats';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useUser } from '@/supabase/provider';
+import { useCollection } from '@/supabase/hooks/use-collection';
+import { useDoc } from '@/supabase/hooks/use-doc';
 
-function formatCurrency(amount: number, currency: string) {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: currency,
-        minimumFractionDigits: 2,
-    }).format(amount);
+const quickServices = [
+  {
+    title: 'Website',
+    description: 'Launch, redesign, landing page, portfolio, or business site.',
+    icon: Code2,
+  },
+  {
+    title: 'AI Automation',
+    description: 'Chatbot, lead agent, workflow automation, or smart support.',
+    icon: Bot,
+  },
+  {
+    title: 'Marketing',
+    description: 'Lead generation, SEO, ads, conversion pages, and content.',
+    icon: Megaphone,
+  },
+];
+
+const setupSteps = [
+  'Choose what you need',
+  'Tell us your goal',
+  'Get a clear action plan',
+];
+
+function firstName(name?: string | null) {
+  return name?.split(' ')[0] || 'there';
+}
+
+function statusCopy(request?: any, project?: any) {
+  if (project) {
+    return {
+      label: project.status || 'In Progress',
+      title: project.name || project.title || 'Project active',
+      description: 'Your workspace is ready. Open it anytime to see updates and next steps.',
+      href: `/client/projects/${project.id}`,
+      cta: 'Open Project',
+    };
+  }
+
+  if (request) {
+    return {
+      label: request.status || 'Pending',
+      title: request.service_type || 'Request received',
+      description: 'We have your request. The team will review it and shape the next step.',
+      href: '/client/requests',
+      cta: 'View Request',
+    };
+  }
+
+  return {
+    label: 'Ready',
+    title: 'Start in 20 seconds',
+    description: 'Pick a service and share the goal. You do not need a detailed brief.',
+    href: '/client/requests/new',
+    cta: 'Start Now',
+  };
 }
 
 export default function ClientDashboardPage() {
   const { user } = useUser();
-  const firestore = useFirestore();
 
-  const projectsQuery =
-    user?.uid &&
-    query(collection(firestore, 'projects'), where('clientId', '==', user.uid));
-  const [projectsSnapshot, loadingProjects, errorProjects] = useCollection(projectsQuery || null);
-  
-  const requestsQuery =
-    user?.uid &&
-    query(collection(firestore, 'service_requests'), where('clientId', '==', user.uid));
-  const [requestsSnapshot, loadingRequests, errorRequests] = useCollection(requestsQuery || null);
+  const { data: profileSnapshot, isLoading: loadingProfile } = useDoc(
+    user?.id ? { table: 'client_profiles', id: user.id } : null
+  );
+  const profile = profileSnapshot?.data?.() || null;
 
-  const clientProjects = projectsSnapshot?.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  const [projectsSnapshot, loadingProjects] = useCollection(
+    user?.id ? { table: 'projects', eq: { column: 'client_id', value: user.id } } : null
+  );
 
-  const serviceRequests = requestsSnapshot?.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  const [requestsSnapshot, loadingRequests] = useCollection(
+    user?.id ? { table: 'service_requests', eq: { column: 'client_id', value: user.id } } : null
+  );
 
-  const loading = loadingProjects || loadingRequests;
+  const projects = projectsSnapshot?.docs || [];
+  const requests = requestsSnapshot?.docs || [];
+  const activeProject = projects.find((project: any) => project.status !== 'Completed') || projects[0];
+  const latestRequest = requests[0];
+  const loading = loadingProfile || loadingProjects || loadingRequests;
+  const currentStatus = statusCopy(latestRequest, activeProject);
+  const primaryHref = profile?.has_completed_onboarding ? '/client/requests/new' : '/client/onboarding';
 
   return (
-    <div className="space-y-8 pb-8">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="font-headline text-3xl font-bold tracking-tight">Welcome back, {user?.displayName?.split(' ')[0] || 'Client'}!</h1>
-          <p className="text-muted-foreground">
-            Here's what's happening with your projects and requests today.
-          </p>
-        </div>
-        <Button asChild className="bg-accent hover:bg-accent/90 w-full sm:w-auto shadow-lg shadow-accent/20">
-          <Link href="/client/requests/new">
-            <PlusCircle className="mr-2 h-4 w-4" />
-            New Service Request
-          </Link>
-        </Button>
-      </div>
+    <div className="min-h-[calc(100vh-5rem)] space-y-6 pb-8">
+      <section className="overflow-hidden rounded-2xl border border-white/10 bg-[#070707]">
+        <div className="grid lg:grid-cols-[1.35fr_0.65fr]">
+          <div className="space-y-8 p-5 sm:p-8 lg:p-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-accent">
+              <Sparkles className="h-3.5 w-3.5" />
+              20 Second Setup
+            </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {loading ? (
-            Array(4).fill(0).map((_, i) => <Skeleton key={i} className="h-32 w-full rounded-xl" />)
-        ) : (
-            <>
-                <DashboardStatCard 
-                    title="Active Projects" 
-                    value={clientProjects?.filter((p: any) => p.status !== 'Completed').length || 0} 
-                    description="Current work in progress" 
-                    icon={Briefcase} 
-                    delay={0.1}
-                />
-                <DashboardStatCard 
-                    title="Pending Requests" 
-                    value={serviceRequests?.filter((r: any) => r.status === 'Pending').length || 0} 
-                    description="Awaiting response" 
-                    icon={Bell} 
-                    delay={0.2}
-                />
-                <DashboardStatCard 
-                    title="Total Spent" 
-                    value={formatCurrency(clientProjects?.reduce((acc: number, p: any) => acc + (p.budget || 0), 0) || 0, 'USD')} 
-                    description="Total investment" 
-                    icon={CreditCard} 
-                    delay={0.3}
-                />
-                 <DashboardStatCard 
-                    title="Next Meeting" 
-                    value="None Scheduled" 
-                    description="Stay on track" 
-                    icon={CalendarClock} 
-                    delay={0.4}
-                />
-            </>
-        )}
-      </div>
+            <div className="max-w-3xl space-y-4">
+              <h1 className="font-headline text-4xl font-bold tracking-tight sm:text-5xl">
+                Hi {firstName(user?.user_metadata?.full_name)}, let us make this simple.
+              </h1>
+              <p className="text-lg leading-relaxed text-neutral-400">
+                Choose a service, tell us the business goal, and we will turn it into a clear plan. No long forms. No confusion.
+              </p>
+            </div>
 
-      <Card className="bg-primary/5 border-primary/20">
-        <CardHeader>
-            <CardTitle className="text-xl">Quick Actions</CardTitle>
-            <CardDescription>Common tasks to get your project moving faster.</CardDescription>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            <Button variant="outline" className="h-auto py-4 flex-col gap-2 bg-background hover:bg-primary/10 hover:text-primary transition-all group" asChild>
-                <Link href="/client/requests/new">
-                    <PlusCircle className="h-6 w-6 group-hover:scale-110 transition-transform" />
-                    <span>Start New Project</span>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {setupSteps.map((step, index) => (
+                <div key={step} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                  <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-bold text-black">
+                    {index + 1}
+                  </div>
+                  <p className="text-sm font-semibold">{step}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild className="h-12 rounded-xl bg-accent px-6 text-base font-bold hover:bg-accent/90">
+                <Link href={primaryHref}>
+                  <Rocket className="mr-2 h-5 w-5" />
+                  Start My Service
                 </Link>
-            </Button>
-            <Button variant="outline" className="h-auto py-4 flex-col gap-2 bg-background hover:bg-primary/10 hover:text-primary transition-all group" asChild>
+              </Button>
+              <Button asChild variant="outline" className="h-12 rounded-xl px-6 text-base">
                 <Link href="/client/schedule-meeting">
-                    <CalendarClock className="h-6 w-6 group-hover:scale-110 transition-transform" />
-                    <span>Schedule Meeting</span>
+                  <CalendarClock className="mr-2 h-5 w-5" />
+                  Book Quick Call
                 </Link>
-            </Button>
-            <Button variant="outline" className="h-auto py-4 flex-col gap-2 bg-background hover:bg-primary/10 hover:text-primary transition-all group" asChild>
-                <Link href="/client/profile">
-                    <PlusCircle className="h-6 w-6 group-hover:scale-110 transition-transform" />
-                    <span>Update Profile</span>
-                </Link>
-            </Button>
-        </CardContent>
-      </Card>
+              </Button>
+            </div>
+          </div>
 
-      <div className="grid gap-6 md:grid-cols-2">
-         <Card className="border-2 overflow-hidden">
-            <CardHeader>
-            <div className="flex items-center justify-between">
-                <div>
-                    <CardTitle>My Service Requests</CardTitle>
-                    <CardDescription>
-                        Track your recent inquiries.
-                    </CardDescription>
-                </div>
-                 <Button variant="ghost" size="sm" asChild>
-                    <Link href="/client/requests" className="text-accent">View all</Link>
-                </Button>
+          <div className="border-t border-white/10 bg-white/[0.03] p-5 sm:p-8 lg:border-l lg:border-t-0">
+            <Card className="h-full border-white/10 bg-black/25">
+              <CardHeader>
+                <Badge variant="outline" className="w-fit border-accent/30 bg-accent/10 text-accent">
+                  {currentStatus.label}
+                </Badge>
+                <CardTitle className="text-2xl">{currentStatus.title}</CardTitle>
+                <CardDescription>{currentStatus.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {loading ? (
+                  <div className="space-y-3">
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-11 w-full" />
+                  </div>
+                ) : (
+                  <Button asChild variant="secondary" className="h-11 w-full">
+                    <Link href={currentStatus.href}>
+                      {currentStatus.cta}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-3">
+        {quickServices.map((service) => {
+          const Icon = service.icon;
+
+          return (
+            <Link
+              key={service.title}
+              href="/client/requests/new"
+              className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-accent/50 hover:bg-accent/5"
+            >
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition group-hover:bg-accent group-hover:text-white">
+                <Icon className="h-6 w-6" />
+              </div>
+              <h2 className="font-headline text-xl font-bold">{service.title}</h2>
+              <p className="mt-2 min-h-12 text-sm leading-relaxed text-muted-foreground">{service.description}</p>
+              <div className="mt-5 flex items-center text-sm font-bold text-accent">
+                Select this <ArrowRight className="ml-2 h-4 w-4 transition group-hover:translate-x-1" />
+              </div>
+            </Link>
+          );
+        })}
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-[1fr_0.7fr]">
+        <Card className="border-white/10 bg-white/[0.03]">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-xl">
+              <CheckCircle2 className="h-5 w-5 text-emerald-400" />
+              What Happens After You Start
+            </CardTitle>
+            <CardDescription>A simple handoff from your idea to our execution team.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-3 sm:grid-cols-3">
+            <div className="rounded-xl bg-black/20 p-4">
+              <p className="text-sm font-bold">We review</p>
+              <p className="mt-1 text-sm text-muted-foreground">Your goal, business, and timeline.</p>
             </div>
-            </CardHeader>
-            <CardContent className="p-0 sm:p-6">
-            <div className="overflow-x-auto">
-                <Table>
-                    <TableHeader>
-                    <TableRow>
-                        <TableHead>Service</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
-                    </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                    {loadingRequests && (
-                        <TableRow>
-                        <TableCell colSpan={3} className="text-center py-8">
-                            <Skeleton className="h-4 w-full" />
-                        </TableCell>
-                        </TableRow>
-                    )}
-                    {serviceRequests && serviceRequests.length === 0 && !loadingRequests && (
-                        <TableRow>
-                            <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">No pending requests.</TableCell>
-                        </TableRow>
-                    )}
-                    {serviceRequests?.slice(0, 5).map((request: any) => (
-                        <TableRow key={request.id}>
-                        <TableCell className="font-medium">{request.serviceType}</TableCell>
-                        <TableCell>
-                            <Badge variant='outline' className="capitalize">{request.status}</Badge>
-                        </TableCell>
-                        <TableCell className="text-right">
-                            <Button variant="ghost" size="icon" asChild>
-                            <Link href={`/client/requests`}>
-                                <ArrowRight className="h-4 w-4" />
-                            </Link>
-                            </Button>
-                        </TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
+            <div className="rounded-xl bg-black/20 p-4">
+              <p className="text-sm font-bold">We suggest</p>
+              <p className="mt-1 text-sm text-muted-foreground">The best service, budget, and roadmap.</p>
             </div>
-            </CardContent>
+            <div className="rounded-xl bg-black/20 p-4">
+              <p className="text-sm font-bold">We execute</p>
+              <p className="mt-1 text-sm text-muted-foreground">Design, development, automation, or marketing.</p>
+            </div>
+          </CardContent>
         </Card>
 
-        <Card className="border-2 overflow-hidden">
-            <CardHeader>
-            <div className="flex items-center justify-between">
-                <div>
-                    <CardTitle>My Projects</CardTitle>
-                    <CardDescription>
-                        Active and past projects.
-                    </CardDescription>
-                </div>
-                 <Button variant="ghost" size="sm" asChild>
-                    <Link href="/client/projects" className="text-accent">View all</Link>
-                </Button>
-            </div>
-            </CardHeader>
-            <CardContent className="p-0 sm:p-6">
-            <div className="overflow-x-auto">
-                <Table>
-                    <TableHeader>
-                    <TableRow>
-                        <TableHead>Project</TableHead>
-                        <TableHead>Next Milestone</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
-                    </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                    {loadingProjects && (
-                        <TableRow>
-                        <TableCell colSpan={4} className="text-center py-8">
-                            <Skeleton className="h-4 w-full" />
-                        </TableCell>
-                        </TableRow>
-                    )}
-                    {clientProjects && clientProjects.length === 0 && !loadingProjects && (
-                        <TableRow>
-                            <TableCell colSpan={4} className="text-center py-8 text-muted-foreground">No projects yet.</TableCell>
-                        </TableRow>
-                    )}
-                    {clientProjects?.slice(0, 5).map((project: any) => {
-                        const nextMilestone = project.milestones?.find((m: any) => new Date(m.date) > new Date());
-                        
-                        return (
-                            <TableRow key={project.id}>
-                            <TableCell className="font-medium">{project.name}</TableCell>
-                            <TableCell className="text-sm text-muted-foreground">
-                                {nextMilestone ? nextMilestone.name : (project.status === 'Completed' ? 'Project Completed' : 'Finalizing')}
-                            </TableCell>
-                            <TableCell>
-                                <Badge
-                                variant={
-                                    project.status === 'Completed' ? 'secondary' : 'default'
-                                }
-                                >
-                                {project.status}
-                                </Badge>
-                            </TableCell>
-                            <TableCell className="text-right">
-                                <Button variant="ghost" size="icon" asChild>
-                                <Link href={`/client/projects/${project.id}`}>
-                                    <ArrowRight className="h-4 w-4" />
-                                </Link>
-                                </Button>
-                            </TableCell>
-                            </TableRow>
-                        );
-                    })}
-                    </TableBody>
-                </Table>
-            </div>
-            </CardContent>
+        <Card className="border-white/10 bg-white/[0.03]">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-xl">
+              <MessageCircle className="h-5 w-5 text-accent" />
+              Not Sure?
+            </CardTitle>
+            <CardDescription>Tell us in plain language. We will guide the rest.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <Button asChild className="h-12 w-full bg-white text-black hover:bg-neutral-200">
+              <Link href="/client/requests/new">Describe My Goal</Link>
+            </Button>
+            <Button asChild variant="outline" className="h-12 w-full">
+              <Link href="/client/schedule-meeting">Talk to an Expert</Link>
+            </Button>
+          </CardContent>
         </Card>
-      </div>
+      </section>
     </div>
   );
 }

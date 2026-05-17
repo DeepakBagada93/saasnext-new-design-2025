@@ -1,14 +1,23 @@
 'use client';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { pricingPlans } from "@/lib/data";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from 'react';
 import { cn } from "@/lib/utils";
+import { usePackages } from "@/hooks/use-packages";
 
 export default function ClientServicesPage() {
     const [currency, setCurrency] = useState('INR');
+    const { groupedPlans: pricingPlans, isLoading } = usePackages();
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center py-20 min-h-[400px]">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-8">

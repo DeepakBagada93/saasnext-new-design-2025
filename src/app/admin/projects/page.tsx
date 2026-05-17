@@ -15,9 +15,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, doc, updateDoc, arrayUnion, deleteDoc, addDoc, serverTimestamp } from 'firebase/firestore';
-import { useFirestore } from '@/firebase';
+import { useCollection } from '@/supabase/hooks/use-collection';
+import { useSupabase } from '@/supabase/provider';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -138,7 +137,7 @@ function ProjectDialog({
   onClose: () => void;
   clients: Client[];
 }) {
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
   const isEditing = !!project;
   
@@ -157,13 +156,6 @@ function ProjectDialog({
   const [milestones, setMilestones] = useState<Milestone[]>(
     project?.milestones ? project.milestones.map(m => ({...m, date: new Date(m.date as string)})) : generateDefaultMilestones(projectName)
   );
-
-  useState(() => {
-    if (!isEditing && projectName) {
-        setMilestones(generateDefaultMilestones(projectName));
-    }
-  });
-  
 
   const handleMilestoneChange = (index: number, field: 'name' | 'date', value: string | Date | undefined) => {
     if (value === undefined) return;
@@ -191,7 +183,6 @@ function ProjectDialog({
 
 
   const handleSave = async () => {
-    if (!firestore) return;
      if (!isEditing && !selectedClientId) {
       toast({ variant: 'destructive', title: 'Client Required', description: 'Please select a client.' });
       return;
@@ -208,41 +199,49 @@ function ProjectDialog({
 
 
       const projectData: any = {
-        name: projectName,
+        title: projectName,
         status,
         budget: Number(budget),
         currency,
-        timeline: {
-          start: start.toISOString(),
-          end: end.toISOString(),
-        },
+        start_date: start.toISOString(),
+        end_date: end.toISOString(),
         milestones: sortedMilestones.map(m => ({...m, date: new Date(m.date).toISOString()})),
-        quickCallNumber,
-        whatsappLink,
-        notionLink,
-        googleDocLink,
+        quick_call_number: quickCallNumber,
+        whatsapp_link: whatsappLink,
+        notion_link: notionLink,
+        google_doc_link: googleDocLink,
       };
 
       if (isEditing && project) {
-          const projectRef = doc(firestore, 'projects', project.id);
           if (newUpdate.trim() !== '') {
-            projectData.updates = arrayUnion({
+            const currentUpdates = project.updates || [];
+            projectData.updates = [...currentUpdates, {
                 text: newUpdate,
                 date: new Date().toISOString(),
-            })
+            }];
           }
-          await updateDoc(projectRef, projectData);
+          const { error } = await supabase
+            .from('projects')
+            .update(projectData)
+            .eq('id', project.id);
+          
+          if (error) throw error;
+          
           toast({ title: 'Project Updated', description: `${project.name} has been updated.` });
       } else {
           const selectedClient = clients.find(c => c.id === selectedClientId);
           if (!selectedClient) return;
 
-          projectData.clientId = selectedClientId;
-          projectData.clientName = selectedClient.companyName || selectedClient.contactName;
-          projectData.createdAt = serverTimestamp();
+          projectData.client_id = selectedClientId;
+          projectData.created_at = new Date().toISOString();
           projectData.updates = [];
           
-          await addDoc(collection(firestore, 'projects'), projectData);
+          const { error } = await supabase
+            .from('projects')
+            .insert([projectData]);
+            
+          if (error) throw error;
+          
           toast({ title: 'Project Created', description: `New project "${projectName}" has been created.` });
       }
 
@@ -443,34 +442,63 @@ function ProjectDialog({
 }
 
 export default function AdminProjectsPage() {
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
   
-  const [projectsSnapshot, loadingProjects, errorProjects] = useCollection(
-    collection(firestore, 'projects')
-  );
-  const [clientsSnapshot, loadingClients, errorClients] = useCollection(
-    collection(firestore, 'client_profiles')
-  );
+  const [projectsSnapshot, loadingProjects, errorProjects] = useCollection({
+    table: 'projects',
+    order: { column: 'created_at', ascending: false }
+  });
+  const [clientsSnapshot, loadingClients, errorClients] = useCollection({
+    table: 'client_profiles'
+  });
 
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [isNewProjectDialogOpen, setIsNewProjectDialogOpen] = useState(false);
 
   const projects = projectsSnapshot?.docs.map(
-    (doc) => ({ id: doc.id, ...doc.data() } as Project)
+    (doc: any) => ({ 
+        id: doc.id, 
+        name: doc.title,
+        clientId: doc.client_id,
+        clientName: doc.client_name || 'Unknown Client', // Fallback if not stored
+        status: doc.status,
+        budget: doc.budget,
+        currency: doc.currency,
+        timeline: {
+            start: doc.start_date,
+            end: doc.end_date
+        },
+        milestones: doc.milestones,
+        updates: doc.updates,
+        quickCallNumber: doc.quick_call_number,
+        whatsappLink: doc.whatsapp_link,
+        notionLink: doc.notion_link,
+        googleDocLink: doc.google_doc_link,
+    } as unknown as Project)
   );
 
   const clients = clientsSnapshot?.docs.map(
-    (doc) => ({ id: doc.id, ...doc.data() } as Client)
+    (doc: any) => ({ 
+        id: doc.id, 
+        contactName: doc.full_name,
+        companyName: doc.company_name,
+        contactEmail: doc.id // Using ID as placeholder for email if not in profile
+    } as unknown as Client)
   );
 
   const loading = loadingProjects || loadingClients;
   const error = errorProjects || errorClients;
   
   const handleDeleteProject = async (projectId: string) => {
-    if (!firestore) return;
     try {
-      await deleteDoc(doc(firestore, 'projects', projectId));
+      const { error } = await supabase
+        .from('projects')
+        .delete()
+        .eq('id', projectId);
+        
+      if (error) throw error;
+      
       toast({
         title: 'Project Deleted',
         description: 'The project has been successfully deleted.',

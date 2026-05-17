@@ -1,4 +1,3 @@
-
 'use client';
 import {
   Card,
@@ -14,9 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, doc, deleteDoc } from 'firebase/firestore';
-import { useFirestore } from '@/firebase';
+import { useCollection } from '@/supabase/hooks/use-collection';
+import { useSupabase } from '@/supabase/provider';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import {
@@ -33,29 +31,27 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { Trash2 } from 'lucide-react';
 
-
 type Client = {
   id: string;
-  companyName: string;
-  contactName: string;
-  contactEmail: string;
+  company_name: string;
+  contact_name?: string;
+  full_name?: string;
+  email: string;
 };
 
 export default function AdminClientsPage() {
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
-  const [clientsSnapshot, loading, error] = useCollection(
-    firestore ? collection(firestore, 'client_profiles') : null
-  );
-
-  const clients = clientsSnapshot?.docs.map(
-    (doc) => ({ id: doc.id, ...doc.data() } as Client)
-  );
+  const { data: clients, isLoading: loading, error } = useCollection<Client>({
+    table: 'client_profiles',
+    eq: { column: 'role', value: 'client' }
+  });
 
   const handleDeleteClient = async (clientId: string) => {
-    if (!firestore) return;
+    if (!supabase) return;
     try {
-      await deleteDoc(doc(firestore, 'client_profiles', clientId));
+      const { error } = await supabase.from('client_profiles').delete().eq('id', clientId);
+      if (error) throw error;
       toast({
         title: 'Client Deleted',
         description: 'The client has been successfully deleted.',
@@ -111,9 +107,9 @@ export default function AdminClientsPage() {
               )}
               {clients?.map((client) => (
                 <TableRow key={client.id}>
-                  <TableCell className="font-medium">{client.companyName}</TableCell>
-                  <TableCell>{client.contactName}</TableCell>
-                  <TableCell>{client.contactEmail}</TableCell>
+                  <TableCell className="font-medium">{client.company_name || 'N/A'}</TableCell>
+                  <TableCell>{client.contact_name || client.full_name || 'N/A'}</TableCell>
+                  <TableCell>{client.email || 'N/A'}</TableCell>
                   <TableCell className="text-right">
                     <AlertDialog>
                       <AlertDialogTrigger asChild>

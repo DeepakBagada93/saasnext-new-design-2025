@@ -4,9 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Printer } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { Badge } from "@/components/ui/badge";
-import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { useDocumentData } from 'react-firebase-hooks/firestore';
+import { useDoc } from '@/supabase/hooks/use-doc';
 import { notFound } from 'next/navigation';
 
 type Quotation = {
@@ -35,9 +33,8 @@ const formatCurrency = (amount: number, currency: string) => {
 }
 
 export default function QuotationDetails({ quotationId }: { quotationId: string }) {
-    const firestore = useFirestore();
-    const quotationRef = doc(firestore, 'quotations', quotationId);
-    const [data, loading, error] = useDocumentData(quotationRef);
+    const { data: docData, isLoading: loading, error } = useDoc({ table: 'invoices', id: quotationId });
+    const data = docData?.data ? docData.data() : null;
 
     const handlePrint = () => {
         window.print();
@@ -51,7 +48,14 @@ export default function QuotationDetails({ quotationId }: { quotationId: string 
         notFound();
     }
 
-    const quotation: Quotation = { ...data, id: quotationId } as Quotation;
+    const quotation: Quotation = { 
+        ...data, 
+        id: quotationId,
+        date: data.created_at,
+        dueDate: data.due_date,
+        upiId: data.upi_id,
+        clientName: data.client_name
+    } as unknown as Quotation;
 
 
     return (

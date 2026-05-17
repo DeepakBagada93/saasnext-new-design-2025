@@ -15,9 +15,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, doc, updateDoc } from 'firebase/firestore';
-import { useFirestore } from '@/firebase';
 import {
   Select,
   SelectContent,
@@ -25,6 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useSupabase } from '@/supabase/provider';
+import { useCollection } from '@/supabase/hooks/use-collection';
 import { useToast } from '@/hooks/use-toast';
 
 type MeetingRequest = {
@@ -45,13 +44,18 @@ function StatusSelector({
   requestId: string;
   currentStatus: MeetingRequest['status'];
 }) {
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
 
   const handleStatusChange = async (newStatus: MeetingRequest['status']) => {
     try {
-      const requestRef = doc(firestore, 'meetingRequests', requestId);
-      await updateDoc(requestRef, { status: newStatus });
+      const { error } = await supabase
+        .from('meeting_requests')
+        .update({ status: newStatus })
+        .eq('id', requestId);
+      
+      if (error) throw error;
+
       toast({
         title: 'Status Updated',
         description: `Meeting request has been set to ${newStatus}.`,
@@ -66,7 +70,7 @@ function StatusSelector({
   };
 
   return (
-    <Select value={currentStatus} onValueChange={handleStatusChange}>
+    <Select value={currentStatus} onValueChange={handleStatusChange as any}>
       <SelectTrigger className="w-[120px]">
         <SelectValue placeholder="Status" />
       </SelectTrigger>
@@ -81,13 +85,22 @@ function StatusSelector({
 }
 
 export default function AdminMeetingsPage() {
-  const firestore = useFirestore();
-  const [requestsSnapshot, loading, error] = useCollection(
-    collection(firestore, 'meetingRequests')
-  );
+  const [requestsSnapshot, loading, error] = useCollection({
+    table: 'meeting_requests',
+    order: { column: 'created_at', ascending: false }
+  });
 
   const requests = requestsSnapshot?.docs.map(
-    (doc) => ({ id: doc.id, ...doc.data() } as MeetingRequest)
+    (doc: any) => ({ 
+        id: doc.id, 
+        topic: doc.topic,
+        preferredDate: doc.preferred_date,
+        preferredTime: doc.preferred_time,
+        status: doc.status,
+        clientName: doc.client_name,
+        clientEmail: doc.client_email,
+        notes: doc.notes
+    } as unknown as MeetingRequest)
   );
 
   return (

@@ -1,5 +1,5 @@
-
 'use client';
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,14 +18,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { pricingPlans } from '@/lib/data';
-import { useUser, useFirestore } from '@/firebase';
+import { usePackages } from '@/hooks/use-packages';
+import { useUser, useSupabase } from '@/supabase/provider';
 import { useToast } from '@/hooks/use-toast';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Zap, Globe, Bot, Palette, Rocket, ArrowRight, Loader2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 
@@ -37,23 +36,15 @@ const formatCurrency = (amount: number, currency: string) => {
     maximumFractionDigits: 0,
   };
 
-  if (currency === 'USD') {
-    options.minimumFractionDigits = 0;
-  }
-  
-  if (amount > 100000 && currency === 'INR') {
-    return new Intl.NumberFormat('en-IN', options).format(amount / 100000) + ' Lakh';
-  }
-
   return new Intl.NumberFormat(currency === 'INR' ? 'en-IN' : 'en-US', options).format(amount);
 };
 
-
 export default function NewRequestPage() {
   const { user } = useUser();
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
   const router = useRouter();
+  const { groupedPlans: pricingPlans, isLoading } = usePackages();
 
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [description, setDescription] = useState('');
@@ -68,103 +59,76 @@ export default function NewRequestPage() {
   const [contactNumber, setContactNumber] = useState('');
   const [whatsappNumber, setWhatsappNumber] = useState('');
 
-  const allPlans = pricingPlans.flatMap(category => category.plans.map(plan => ({...plan, category: category.category})));
+  const allPlans = (pricingPlans || []).flatMap(category => category.plans.map(plan => ({...plan, category: category.category})));
 
   const calculateTotalBudget = () => {
     return selectedServices.reduce((total, serviceTitle) => {
         const plan = allPlans.find(p => p.title === serviceTitle);
-        if (!plan || plan.price.toLowerCase().includes('custom')) return total;
+        if (!plan) return total;
         
         const priceString = currency === 'USD' ? plan.priceUsd : plan.price;
-        // Extract the first number from strings like "₹39,999 – ₹79,999"
-        const firstPart = priceString.split('–')[0].split('-')[0];
-        const priceValue = parseInt(firstPart.replace(/[^0-9]/g, ''), 10) || 0;
+        // Improved parsing for range-based pricing
+        const cleanPrice = priceString.replace(/[^0-9–-]/g, '').split(/[–-]/)[0];
+        const priceValue = parseInt(cleanPrice, 10) || 0;
             
         return total + priceValue;
     }, 0);
   }
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) {
       toast({
         variant: 'destructive',
-        title: 'Not Authenticated',
-        description: 'You must be logged in to submit a request.',
+        title: 'Authentication Required',
+        description: 'Please sign in to finalize your request.',
       });
       return;
     }
 
-    const finalDescription = customServiceDescription ? `Custom Request: ${customServiceDescription}\n\nAdditional Project Details:\n${description}` : description;
-    const finalServiceType = selectedServices.length > 0 ? selectedServices.join(', ') : 'Custom Service';
+    const finalDescription = customServiceDescription ? `Custom Request: ${customServiceDescription}\n\nProject Scope: ${description}` : description;
+    const finalServiceType = selectedServices.length > 0 ? selectedServices.join(', ') : 'Custom Strategy';
 
-    if (finalServiceType === 'Custom Service' && !customServiceDescription) {
-        toast({
-            variant: 'destructive',
-            title: 'Missing Information',
-            description: 'Please describe your custom service need or select a package.',
-        });
-        return;
-    }
-
-
-    if (selectedServices.length === 0 && !customServiceDescription) {
-      toast({
-        variant: 'destructive',
-        title: 'Missing Information',
-        description:
-          'Please select at least one service or describe your custom need.',
-      });
-      return;
-    }
-    
     const totalBudget = calculateTotalBudget();
 
-    // Construct additional details object
-    const additionalDetails: any = {};
-    if (selectedServices.some(s => allPlans.find(p => p.title === s)?.category.includes('Website')) && websiteType) {
-        additionalDetails.websiteType = websiteType;
-    }
-    if (selectedServices.some(s => allPlans.find(p => p.title === s)?.category.includes('AI')) && aiRequirements) {
-        additionalDetails.aiRequirements = aiRequirements;
-    }
-     if (companyName) {
-        additionalDetails.companyName = companyName;
-    }
-    if (websiteUrl) {
-        additionalDetails.websiteUrl = websiteUrl;
-    }
-    if (contactNumber) {
-        additionalDetails.contactNumber = contactNumber;
-    }
-    if (whatsappNumber) {
-        additionalDetails.whatsappNumber = whatsappNumber;
-    }
+    const payload: any = {
+        website_type: websiteType || null,
+        ai_requirements: aiRequirements || null,
+        company_name: companyName || null,
+        website_url: websiteUrl || null,
+        contact_number: contactNumber || null,
+        whatsapp_number: whatsappNumber || null,
+        metadata: {
+            selected_plans: selectedServices,
+            calculated_total: totalBudget
+        }
+    };
 
     try {
-      await addDoc(collection(firestore, 'service_requests'), {
-        clientId: user.uid,
-        clientName: user.displayName,
-        clientEmail: user.email,
-        serviceType: finalServiceType,
+      const { error } = await supabase.from('service_requests').insert([{
+        client_id: user.id,
+        client_name: user.user_metadata?.full_name || user.email,
+        client_email: user.email,
+        service_type: finalServiceType,
         description: finalDescription,
-        budget: totalBudget > 0 ? totalBudget : undefined,
+        budget: totalBudget > 0 ? totalBudget : null,
         currency,
         status: 'Pending',
-        createdAt: serverTimestamp(),
-        ...additionalDetails
-      });
+        created_at: new Date().toISOString(),
+        ...payload
+      }]);
+      
+      if (error) throw error;
+      
       toast({
-        title: 'Request Submitted',
-        description:
-          "We've received your request and will get back to you shortly.",
+        title: 'Mission Initialized',
+        description: "We've received your strategy request. An expert will reach out within 24 hours.",
       });
       router.push('/client/dashboard');
     } catch (error: any) {
       toast({
         variant: 'destructive',
-        title: 'Submission Failed',
+        title: 'Initialization Failed',
         description: error.message,
       });
     }
@@ -172,211 +136,239 @@ export default function NewRequestPage() {
   
   const totalBudget = calculateTotalBudget();
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="font-headline text-3xl font-bold">New Service Request</h1>
-        <p className="text-muted-foreground">
-          Let us know what you need, and we'll get back to you with a proposal.
-        </p>
-      </div>
+  if (isLoading) {
+    return (
+        <div className="flex min-h-screen items-center justify-center p-4 bg-[#050505]">
+            <Loader2 className="h-8 w-8 animate-spin text-accent" />
+        </div>
+    );
+  }
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Request Details</CardTitle>
-          <CardDescription>
-            Select the services you're interested in, or describe a custom need.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl">
-            <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
-                  <Label className="text-base font-semibold">Which service(s) are you interested in?</Label>
-                  <div className="flex items-center gap-2">
-                    <Label htmlFor="currency" className="font-semibold text-sm">Currency</Label>
+  return (
+    <div className="space-y-12 pb-12 bg-[#050505] min-h-screen text-white p-4 md:p-8">
+      <header className="space-y-4 max-w-4xl">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[10px] font-mono tracking-widest text-accent uppercase">
+            <Zap className="w-3 h-3" />
+            Strategic Selection
+        </div>
+        <h1 className="font-headline text-4xl md:text-5xl font-bold">New Mission Request</h1>
+        <p className="text-neutral-400 text-lg">
+          Select your growth pillars or describe a custom objective.
+        </p>
+      </header>
+
+      <form onSubmit={handleSubmit} className="space-y-12 max-w-6xl">
+        {/* Service Selection */}
+        <section className="space-y-8">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+                <h2 className="text-2xl font-bold font-headline flex items-center gap-2">
+                    <Rocket className="w-6 h-6 text-accent" />
+                    Growth Pillars
+                </h2>
+                <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-2 rounded-2xl">
+                    <Label htmlFor="currency" className="font-mono text-[10px] uppercase text-neutral-500 ml-2">Market Currency</Label>
                     <Select value={currency} onValueChange={setCurrency}>
-                      <SelectTrigger id="currency" className="w-[100px]">
-                        <SelectValue placeholder="Currency" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="INR">INR</SelectItem>
-                        <SelectItem value="USD">USD</SelectItem>
-                      </SelectContent>
+                    <SelectTrigger id="currency" className="w-[100px] bg-transparent border-none focus:ring-0">
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#0a0a0a] border-white/10 text-white">
+                        <SelectItem value="INR">INR (₹)</SelectItem>
+                        <SelectItem value="USD">USD ($)</SelectItem>
+                    </SelectContent>
                     </Select>
-                  </div>
-              </div>
-              <div className="space-y-8">
-                {pricingPlans.filter(cat => cat.category !== 'Bundled Packages').map((category) => (
-                    <div key={category.category}>
-                        <h3 className="font-headline text-xl font-bold mb-4">{category.category}</h3>
-                         <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                </div>
+            </div>
+
+            <div className="grid gap-12">
+                {pricingPlans.map((category) => (
+                    <div key={category.category} className="space-y-6">
+                        <div className="flex items-center gap-3">
+                            <div className="h-px flex-1 bg-white/10" />
+                            <h3 className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent/80 font-bold">{category.category}</h3>
+                            <div className="h-px flex-1 bg-white/10" />
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {category.plans.map((plan) => {
-                            const isSelected = selectedServices.includes(plan.title);
-                            
-                            return (
-                                <motion.div
-                                layout
-                                key={plan.title}
-                                onClick={() => {
-                                    setSelectedServices((prev) =>
-                                        prev.includes(plan.title)
-                                        ? prev.filter((s) => s !== plan.title)
-                                        : [...prev, plan.title]
-                                    );
-                                }}
-                                className={cn(
-                                    'p-4 border rounded-lg cursor-pointer transition-all duration-300 relative flex flex-col',
-                                    isSelected
-                                    ? 'border-primary ring-2 ring-primary bg-primary/10'
-                                    : 'bg-card hover:bg-muted/50'
-                                )}
-                                >
-                                <div className="flex-grow">
-                                    {isSelected && (
-                                        <CheckCircle className="h-5 w-5 text-primary absolute top-2 right-2"/>
-                                    )}
-                                    <h4 className="font-semibold">{plan.title}</h4>
-                                    <p className="text-xs text-muted-foreground mt-1">{plan.description}</p>
-                                </div>
-                                <div className="mt-4">
-                                    <p className="text-xs text-muted-foreground">Starts at</p>
-                                    <p className="font-bold text-lg text-primary">{currency === 'INR' ? plan.price : plan.priceUsd}</p>
-                                </div>
-                                
-                                <AnimatePresence>
-                                {isSelected && (category.category.includes('Website') || category.category.includes('AI')) && (
+                                const isSelected = selectedServices.includes(plan.title);
+                                return (
                                     <motion.div
-                                        initial={{ opacity: 0, height: 0 }}
-                                        animate={{ opacity: 1, height: 'auto' }}
-                                        exit={{ opacity: 0, height: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="overflow-hidden mt-4"
+                                        key={plan.title}
+                                        whileHover={{ y: -5 }}
+                                        onClick={() => {
+                                            setSelectedServices((prev) =>
+                                                prev.includes(plan.title)
+                                                ? prev.filter((s) => s !== plan.title)
+                                                : [...prev, plan.title]
+                                            );
+                                        }}
+                                        className={cn(
+                                            'p-6 border rounded-[2rem] cursor-pointer transition-all duration-500 relative flex flex-col group',
+                                            isSelected
+                                            ? 'border-accent bg-accent/5 ring-1 ring-accent'
+                                            : 'border-white/5 bg-white/5 hover:border-white/20'
+                                        )}
                                     >
-                                        {category.category.includes('Website') && (
-                                        <div className="space-y-3 p-4 rounded-lg bg-muted/50">
-                                            <Label>What type of website do you need?</Label>
-                                            <RadioGroup value={websiteType} onValueChange={setWebsiteType} className="gap-3">
-                                                <div className="flex items-center space-x-2"><RadioGroupItem value="e-commerce" id="e-commerce" /><Label htmlFor="e-commerce">E-commerce</Label></div>
-                                                <div className="flex items-center space-x-2"><RadioGroupItem value="corporate" id="corporate" /><Label htmlFor="corporate">Corporate</Label></div>
-                                                <div className="flex items-center space-x-2"><RadioGroupItem value="portfolio" id="portfolio" /><Label htmlFor="portfolio">Portfolio</Label></div>
-                                                <div className="flex items-center space-x-2"><RadioGroupItem value="other" id="other" /><Label htmlFor="other">Other</Label></div>
-                                            </RadioGroup>
-                                        </div>
+                                        {isSelected && (
+                                            <div className="absolute top-6 right-6">
+                                                <CheckCircle className="h-6 w-6 text-accent"/>
+                                            </div>
                                         )}
-                                        {category.category.includes('AI') && (
-                                        <div className="space-y-2 p-4 rounded-lg bg-muted/50">
-                                            <Label htmlFor="ai-requirements">What are your AI requirements?</Label>
-                                            <Textarea
-                                                id="ai-requirements"
-                                                placeholder="e.g., Customer service chatbot..."
-                                                value={aiRequirements}
-                                                onChange={(e) => setAiRequirements(e.target.value)}
-                                                className="bg-background"
-                                            />
+                                        
+                                        <div className="flex-grow space-y-4">
+                                            <h4 className="text-xl font-bold group-hover:text-accent transition-colors">{plan.title}</h4>
+                                            <p className="text-sm text-neutral-500 leading-relaxed">{plan.description}</p>
+                                            
+                                            <ul className="space-y-2 mt-4">
+                                                {plan.features.slice(0, 3).map((f, i) => (
+                                                    <li key={i} className="text-[11px] text-neutral-400 flex items-center gap-2">
+                                                        <div className="w-1 h-1 rounded-full bg-accent/50" />
+                                                        {f}
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
-                                        )}
+
+                                        <div className="mt-8 pt-6 border-t border-white/5 flex items-end justify-between">
+                                            <div>
+                                                <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">Investment</p>
+                                                <p className="text-xl font-bold text-white">{currency === 'INR' ? plan.price : plan.priceUsd}</p>
+                                            </div>
+                                            <Zap className={cn("w-5 h-5 transition-all", isSelected ? "text-accent fill-accent" : "text-neutral-700")} />
+                                        </div>
                                     </motion.div>
-                                )}
-                                </AnimatePresence>
-                                </motion.div>
-                            );
+                                );
                             })}
-                        </motion.div>
+                        </div>
                     </div>
                 ))}
-              </div>
+            </div>
+        </section>
+
+        {/* Dynamic Budget & Payload */}
+        <AnimatePresence>
+            {selectedServices.length > 0 && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="p-8 rounded-[2.5rem] bg-accent/10 border border-accent/20 flex flex-col md:flex-row justify-between items-center gap-6 shadow-[0_0_50px_rgba(41,171,226,0.1)]"
+                >
+                    <div className="space-y-1 text-center md:text-left">
+                        <h4 className="text-neutral-400 font-mono text-xs uppercase tracking-widest">Total Strategic Investment</h4>
+                        <p className="text-3xl md:text-5xl font-bold text-white tracking-tighter">
+                            {formatCurrency(totalBudget, currency)}
+                            <span className="text-lg text-accent ml-2">+</span>
+                        </p>
+                    </div>
+                    <div className="flex flex-col items-center md:items-end gap-2">
+                        <p className="text-[10px] font-mono text-neutral-500 uppercase">Estimated Starting Price</p>
+                        <div className="flex gap-2">
+                            {selectedServices.map(s => (
+                                <div key={s} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono">
+                                    {s}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+
+        {/* Configuration Section */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-12 border-t border-white/5">
+            <div className="space-y-8">
+                <h2 className="text-2xl font-bold font-headline">Mission Configuration</h2>
+                
+                <div className="space-y-6">
+                    <div className="space-y-4">
+                        <Label className="text-sm font-mono text-neutral-500 uppercase tracking-widest">Custom Requirements</Label>
+                        <Textarea
+                            placeholder="Describe any specialized needs or project specific goals..."
+                            rows={4}
+                            value={customServiceDescription}
+                            onChange={(e) => setCustomServiceDescription(e.target.value)}
+                            className="bg-white/5 border-white/10 focus:border-accent rounded-2xl p-6"
+                        />
+                    </div>
+
+                    <div className="space-y-4">
+                        <Label className="text-sm font-mono text-neutral-500 uppercase tracking-widest">Deep Project Scope</Label>
+                        <Textarea
+                            placeholder="Goals, target audience, technical hurdles..."
+                            rows={6}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            className="bg-white/5 border-white/10 focus:border-accent rounded-2xl p-6"
+                        />
+                    </div>
+                </div>
             </div>
 
-            <AnimatePresence>
-                {selectedServices.length > 0 && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="p-4 rounded-lg bg-muted/50 flex flex-col sm:flex-row justify-between items-center"
+            <div className="space-y-8 bg-white/5 p-8 rounded-[3rem] border border-white/10">
+                <h2 className="text-xl font-bold font-headline">Intelligence Sync</h2>
+                
+                <div className="grid gap-6">
+                    <div className="space-y-3">
+                        <Label className="text-[10px] font-mono text-neutral-500 uppercase">Enterprise / Entity Name</Label>
+                        <Input
+                            placeholder="Your Company Inc."
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
+                            className="bg-black/20 border-white/5 focus:border-accent h-14 px-6 rounded-xl"
+                        />
+                    </div>
+                    
+                    <div className="space-y-3">
+                        <Label className="text-[10px] font-mono text-neutral-500 uppercase">Digital Coordinates (URL)</Label>
+                        <Input
+                            type="url"
+                            placeholder="https://vision.com"
+                            value={websiteUrl}
+                            onChange={(e) => setWebsiteUrl(e.target.value)}
+                            className="bg-black/20 border-white/5 focus:border-accent h-14 px-6 rounded-xl"
+                        />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-3">
+                            <Label className="text-[10px] font-mono text-neutral-500 uppercase">Comm. Channel</Label>
+                            <Input
+                                placeholder="Contact Number"
+                                value={contactNumber}
+                                onChange={(e) => setContactNumber(e.target.value)}
+                                className="bg-black/20 border-white/5 focus:border-accent h-14 px-6 rounded-xl text-sm"
+                            />
+                        </div>
+                        <div className="space-y-3">
+                            <Label className="text-[10px] font-mono text-neutral-500 uppercase">Direct WhatsApp</Label>
+                            <Input
+                                placeholder="WhatsApp ID"
+                                value={whatsappNumber}
+                                onChange={(e) => setWhatsappNumber(e.target.value)}
+                                className="bg-black/20 border-white/5 focus:border-accent h-14 px-6 rounded-xl text-sm"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="pt-8">
+                    <Button 
+                        type="submit" 
+                        size="lg" 
+                        disabled={selectedServices.length === 0 && !customServiceDescription}
+                        className="w-full h-16 bg-white text-black hover:bg-neutral-200 rounded-2xl font-bold text-lg shadow-[0_0_40px_rgba(255,255,255,0.1)] group transition-all"
                     >
-                        <h4 className="font-semibold text-lg">Estimated Starting Total:</h4>
-                        <p className="font-bold text-2xl text-primary">{formatCurrency(totalBudget, currency)}</p>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-            
-            <div className="space-y-2">
-                <Label className="text-base font-semibold">Need Something Else? (Custom Service)</Label>
-                <Textarea
-                    id="custom-description"
-                    placeholder="If our packages don't fit your needs, please describe your project here..."
-                    rows={4}
-                    value={customServiceDescription}
-                    onChange={(e) => setCustomServiceDescription(e.target.value)}
-                />
-            </div>
-
-
-            <div className="space-y-2">
-              <Label htmlFor="companyName" className="text-base font-semibold">Company Name</Label>
-              <Input
-                id="companyName"
-                placeholder="Your Company Inc."
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="websiteUrl" className="text-base font-semibold">Current Website URL (if any)</Label>
-              <Input
-                id="websiteUrl"
-                type="url"
-                placeholder="https://your-website.com"
-                value={websiteUrl}
-                onChange={(e) => setWebsiteUrl(e.target.value)}
-              />
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="contactNumber" className="text-base font-semibold">Contact Number</Label>
-                  <Input
-                    id="contactNumber"
-                    type="tel"
-                    placeholder="+91 12345 67890"
-                    value={contactNumber}
-                    onChange={(e) => setContactNumber(e.target.value)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="whatsappNumber" className="text-base font-semibold">WhatsApp Number</Label>
-                  <Input
-                    id="whatsappNumber"
-                    type="tel"
-                    placeholder="+91 12345 67890"
-                    value={whatsappNumber}
-                    onChange={(e) => setWhatsappNumber(e.target.value)}
-                  />
+                        Initialize Project
+                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                    <p className="text-center text-[10px] text-neutral-600 mt-4 font-mono uppercase tracking-widest">
+                        SECURE ENCRYPTED TRANSMISSION
+                    </p>
                 </div>
             </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="description" className="text-base font-semibold">Additional Project Details</Label>
-              <Textarea
-                id="description"
-                placeholder="Describe your goals, target audience, and any other important details..."
-                rows={6}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            
-            <div className="pt-2">
-              <Button type="submit" size="lg" className="bg-accent hover:bg-accent/90" disabled={selectedServices.length === 0 && !customServiceDescription}>
-                Submit Request
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+        </section>
+      </form>
     </div>
   );
 }

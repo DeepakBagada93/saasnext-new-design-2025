@@ -1,4 +1,3 @@
-
 'use client';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -8,26 +7,17 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useUser, useFirestore } from '@/firebase';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, query, where } from 'firebase/firestore';
+import { useUser } from '@/supabase/provider';
+import { useCollection } from '@/supabase/hooks/use-collection';
 
 export default function ClientRequestsPage() {
   const { user } = useUser();
-  const firestore = useFirestore();
 
-  const requestsQuery =
-    user?.uid &&
-    query(
-      collection(firestore, 'service_requests'),
-      where('clientId', '==', user.uid)
-    );
+  const queryOptions = user?.id ? { table: 'service_requests', eq: { column: 'client_id', value: user.id } } : null;
+  const [requestsSnapshot, loading, error] = useCollection(queryOptions);
 
-  const [requestsSnapshot, loading, error] = useCollection(requestsQuery || null);
-
-  const requests = requestsSnapshot?.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
+  const requests = requestsSnapshot?.docs?.map((doc: any) => ({
+    ...doc,
   }));
 
   return (
@@ -52,12 +42,12 @@ export default function ClientRequestsPage() {
               <div key={request.id} className="border rounded-lg p-4">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-semibold">{request.serviceType}</h3>
+                    <h3 className="font-semibold">{request.service_type}</h3>
                     <p className="text-sm text-muted-foreground mt-2">
                       {request.description}
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
-                        Requested on: {request.createdAt ? new Date(request.createdAt.toDate()).toLocaleDateString() : 'N/A'}
+                        Requested on: {request.created_at ? new Date(request.created_at).toLocaleDateString() : 'N/A'}
                     </p>
                      <div className="text-sm text-muted-foreground mt-2 space-x-4">
                         {request.budget && <span>Budget: {request.budget} {request.currency}</span>}

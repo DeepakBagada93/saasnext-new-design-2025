@@ -1,4 +1,3 @@
-
 'use client';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -19,9 +18,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { useUser, useFirestore } from '@/firebase';
+import { useUser, useSupabase } from '@/supabase/provider';
 import { useToast } from '@/hooks/use-toast';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { Calendar as CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Calendar } from "@/components/ui/calendar"
@@ -32,10 +30,9 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-
 export default function ScheduleMeetingPage() {
   const { user } = useUser();
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
 
   const [topic, setTopic] = useState('');
@@ -55,17 +52,18 @@ export default function ScheduleMeetingPage() {
     }
 
     try {
-      await addDoc(collection(firestore, 'meetingRequests'), {
-        userId: user.uid,
-        clientName: user.displayName,
-        clientEmail: user.email,
+      const { error } = await supabase.from('meeting_requests').insert([{
+        client_id: user.id,
+        client_name: user.user_metadata?.full_name || user.email,
+        client_email: user.email,
         topic,
-        preferredDate: format(date, "yyyy-MM-dd"),
-        preferredTime: time,
+        preferred_date: format(date, "yyyy-MM-dd"),
+        preferred_time: time,
         notes,
         status: 'Pending',
-        requestedAt: serverTimestamp(),
-      });
+      }]);
+      if (error) throw error;
+      
       toast({
         title: 'Meeting Request Sent',
         description:
@@ -177,3 +175,4 @@ export default function ScheduleMeetingPage() {
     </div>
   );
 }
+// force rebuild

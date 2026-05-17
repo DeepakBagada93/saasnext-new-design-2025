@@ -3,8 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { useAuth, useFirestore } from "@/firebase";
+import { useSupabase } from "@/supabase/provider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,24 +11,52 @@ import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
 import { sendNotificationEmail } from "../actions/send-notification-email";
-import { doc, setDoc } from "firebase/firestore";
-
-const ADMIN_EMAIL = "deeepakbagada25@gmail.com";
+import { isEmailAdmin } from "@/lib/constants";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const auth = useAuth();
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const router = useRouter();
   const { toast } = useToast();
 
   const handleSuccessfulLogin = async (user: any) => {
-    if (!firestore) return;
-    // Ensure the admin role document exists
-    const adminRoleRef = doc(firestore, "roles_admin", user.uid);
-    await setDoc(adminRoleRef, { isAdmin: true }, { merge: true });
+    // 1. Ensure the user exists in client_profiles and has the admin role.
+    // This is the primary table used for RLS policies.
+    try {
+        const { error: profileError } = await supabase
+          .from('client_profiles')
+          .upsert({ 
+            id: user.id, 
+            role: 'admin',
+            full_name: user.user_metadata?.full_name || 'Admin User',
+            email: user.email // Ensure email is also synced if possible
+          }, { onConflict: 'id' });
+
+        if (profileError) {
+            console.error("Error updating client_profiles:", profileError);
+        }
+
+        // 2. Attempt to sync with roles_admin (auxiliary table).
+        // We do this after client_profiles and ignore failures to ensure the login proceeds.
+        const { error: roleError } = await supabase
+          .from('roles_admin')
+          .upsert({ 
+            admin_id: user.id, 
+            email: user.email, 
+            role: 'admin' 
+          }, { onConflict: 'admin_id' });
+
+        if (roleError) {
+            // Log but don't block the login
+            console.warn("Roles_admin sync skipped or failed:", roleError.message);
+        }
+    } catch (err) {
+        console.error("Critical error during role synchronization:", err);
+    }
 
     // Send notification email
     const subject = "Admin Login on SaaSNext";
@@ -38,23 +65,26 @@ export default function AdminLoginPage() {
         <h2>Admin Login</h2>
         <p>An administrator has logged into the SaaSNext platform.</p>
         <hr>
-        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>Email:</strong> <a href="mailto:${user.email}">${user.email}</a></p>
+        <p><strong>ID:</strong> ${user.id}</p>
       </div>
     `;
     await sendNotificationEmail(subject, htmlBody);
 
     toast({
       title: "Login Successful",
-      description: "Redirecting to dashboard...",
+      description: "Welcome to the Admin Command Center.",
     });
-    router.push("/admin/dashboard");
+    
+    // Hard redirect to ensure clean state and session pickup
+    window.location.href = "/admin/dashboard";
   };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
 
-    if (email.toLowerCase() !== ADMIN_EMAIL) {
+    if (!isEmailAdmin(email)) {
         const authError = "You are not authorized to access the admin portal.";
         setError(authError);
         toast({
@@ -66,52 +96,52 @@ export default function AdminLoginPage() {
     }
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      await handleSuccessfulLogin(userCredential.user);
-    } catch (error: any) {
-      // If user not found, try to create it.
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-        try {
-          const newUserCredential = await createUserWithEmailAndPassword(auth, email, password);
-          toast({
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        // If user not found/invalid credentials, try to create it (first time setup).
+        // Supabase error messages vary, but usually 'Invalid login credentials' means we can try signup
+        if (signInError.message.includes('Invalid login credentials')) {
+           const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+               email,
+               password
+           });
+
+           if (signUpError) {
+               throw signUpError;
+           }
+           
+           toast({
             title: "Admin Account Created",
             description: "Your admin account has been set up. Logging you in...",
           });
-          await handleSuccessfulLogin(newUserCredential.user);
-        } catch (createError: any) {
-            let errorMessage = "An unknown error occurred during signup.";
-            if (createError.code === 'auth/weak-password') {
-                errorMessage = "Password is too weak. It must be at least 6 characters long.";
-            } else {
-                errorMessage = createError.message;
-            }
-            setError(errorMessage);
-            toast({
-                variant: "destructive",
-                title: "Admin Creation Failed",
-                description: errorMessage,
-            });
+          if (signUpData.user) {
+             await handleSuccessfulLogin(signUpData.user);
+          }
+        } else {
+             throw signInError;
         }
-      } else {
-        let errorMessage = "An unknown error occurred.";
-        switch (error.code) {
-          case 'auth/wrong-password':
-            errorMessage = 'Incorrect password. Please try again.';
-            break;
-          case 'auth/invalid-email':
-              errorMessage = 'Please enter a valid email address.';
-              break;
-          default:
-            errorMessage = error.message;
-            break;
+      } else if (data.user) {
+        await handleSuccessfulLogin(data.user);
+      }
+    } catch (error: any) {
+        console.error("Full Login Error Object:", error);
+        let errorMessage = error.message || "An unknown error occurred.";
+        
+        // Provide cleaner messages for common errors
+        if (errorMessage.toLowerCase().includes("invalid login credentials")) {
+            errorMessage = "Invalid email or password. Please check your credentials.";
         }
+        
         setError(errorMessage);
         toast({
           variant: "destructive",
           title: "Login Failed",
           description: errorMessage,
         });
-      }
     }
   };
 
@@ -137,13 +167,27 @@ export default function AdminLoginPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input 
-              id="password" 
-              type="password" 
-              required 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="relative">
+                <Input 
+                  id="password" 
+                  type={showPassword ? "text" : "password"} 
+                  required 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+            </div>
           </div>
           {error && <p className="text-sm text-destructive">{error}</p>}
           <Button type="submit" className="w-full">

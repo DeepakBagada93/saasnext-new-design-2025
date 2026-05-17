@@ -3,12 +3,26 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle } from "lucide-react";
-import { pricingPlans } from "@/lib/data";
+import { CheckCircle, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePackages } from "@/hooks/use-packages";
 
 export const Pricing = () => {
+    const { groupedPlans: pricingPlans, isLoading } = usePackages();
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center py-20 min-h-[400px]">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+        );
+    }
+
+    if (!pricingPlans || pricingPlans.length === 0) {
+        return null;
+    }
+
     return (
         <section id="pricing" className="py-20 md:py-28 bg-neutral-50 dark:bg-neutral-900">
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -19,7 +33,7 @@ export const Pricing = () => {
                     </p>
                 </div>
 
-                <Tabs defaultValue={pricingPlans[0].category} className="w-full">
+                <Tabs defaultValue={pricingPlans[0]?.category} className="w-full">
                     <div className="flex justify-center mb-12">
                         <TabsList className="grid w-full max-w-2xl grid-cols-2 md:grid-cols-4 h-auto p-1">
                             {pricingPlans.map((plan) => (
@@ -57,7 +71,7 @@ export const Pricing = () => {
                                             <CardContent className="flex-grow">
                                                 <div className="mb-6">
                                                     <span className="text-3xl font-bold">{plan.price}</span>
-                                                    <span className="text-muted-foreground block text-sm mt-1">({plan.priceUsd})</span>
+                                                    <span className="text-muted-foreground block text-sm mt-1">({plan.price_usd})</span>
                                                 </div>
                                                 <ul className="space-y-3">
                                                     {plan.features.map((feature) => (

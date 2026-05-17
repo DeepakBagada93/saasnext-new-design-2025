@@ -9,16 +9,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useFirestore } from '@/firebase';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import {
-  collection,
-  doc,
-  addDoc,
-  deleteDoc,
-  serverTimestamp,
-  setDoc,
-} from 'firebase/firestore';
+import { useSupabase } from '@/supabase/provider';
+import { useCollection } from '@/supabase/hooks/use-collection';
 import { useToast } from '@/hooks/use-toast';
 import {
   Dialog,
@@ -45,6 +37,8 @@ type ServiceRequest = {
   clientName: string;
   clientEmail: string;
   clientId: string;
+  type?: string;
+  data?: any;
 };
 
 type Milestone = {
@@ -97,7 +91,7 @@ function generateDefaultMilestones(serviceType: string): Milestone[] {
 
 
 function ApproveRequestDialog({ request, isOpen, onClose }: { request: ServiceRequest, isOpen: boolean, onClose: () => void }) {
-    const firestore = useFirestore();
+    const { supabase } = useSupabase();
     const { toast } = useToast();
     const [projectName, setProjectName] = useState(`New Project: ${request.serviceType}`);
     const [milestones, setMilestones] = useState<Milestone[]>(generateDefaultMilestones(request.serviceType));
@@ -121,36 +115,44 @@ function ApproveRequestDialog({ request, isOpen, onClose }: { request: ServiceRe
 
         try {
             // Ensure a client profile exists, create one if not
-            const clientRef = doc(firestore, 'client_profiles', request.clientId);
-            await setDoc(clientRef, {
-                id: request.clientId,
-                contactName: request.clientName,
-                companyName: request.clientName, // Default to contact name
-                contactEmail: request.clientEmail,
-                createdAt: serverTimestamp(),
-            }, { merge: true });
-
+            const { error: profileError } = await supabase
+                .from('client_profiles')
+                .upsert({
+                    id: request.clientId,
+                    full_name: request.clientName,
+                    company_name: request.clientName, // Default to contact name
+                    role: 'client'
+                });
+            
+            if (profileError) throw profileError;
 
             const start = milestones.length > 0 ? milestones[0].date : new Date();
             const end = milestones.length > 0 ? milestones[milestones.length - 1].date : addDays(new Date(), 30);
 
-            await addDoc(collection(firestore, 'projects'), {
-                name: projectName,
-                clientName: request.clientName,
-                clientId: request.clientId,
-                status: 'Planning',
-                budget: request.budget || 0,
-                currency: request.currency || 'INR',
-                timeline: { // Legacy timeline for progress bar
-                    start: start.toISOString(),
-                    end: end.toISOString(),
-                },
-                milestones: milestones.map(m => ({...m, date: m.date.toISOString()})), // Store new milestones
-                createdAt: serverTimestamp(),
-                updates: [],
-            });
+            const { error: projectError } = await supabase
+                .from('projects')
+                .insert([{
+                    title: projectName,
+                    name: projectName,
+                    client_id: request.clientId,
+                    status: 'Planning',
+                    budget: request.budget || 0,
+                    currency: request.currency || 'INR',
+                    start_date: start.toISOString(),
+                    end_date: end.toISOString(),
+                    milestones: milestones.map(m => ({...m, date: m.date.toISOString()})), // Store new milestones
+                    created_at: new Date().toISOString(),
+                    updates: [],
+                }]);
 
-            await deleteDoc(doc(firestore, 'service_requests', request.id));
+            if (projectError) throw projectError;
+
+            const { error: deleteError } = await supabase
+                .from('service_requests')
+                .delete()
+                .eq('id', request.id);
+            
+            if (deleteError) throw deleteError;
 
             toast({
                 title: 'Project Approved',
@@ -223,22 +225,40 @@ function ApproveRequestDialog({ request, isOpen, onClose }: { request: ServiceRe
 }
 
 export default function AdminRequestsPage() {
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
-  const [requestsSnapshot, loading, error] = useCollection(
-    collection(firestore, 'service_requests')
-  );
+  const [requestsSnapshot, loading, error] = useCollection({
+    table: 'service_requests',
+    order: { column: 'created_at', ascending: false }
+  });
   const [selectedRequest, setSelectedRequest] = useState<ServiceRequest | null>(null);
 
   const requests = requestsSnapshot?.docs.map(
-    (doc) => ({ id: doc.id, ...doc.data() } as ServiceRequest)
+    (doc: any) => ({ 
+        id: doc.id, 
+        serviceType: doc.service_type,
+        description: doc.description,
+        budget: doc.budget,
+        currency: doc.currency,
+        clientName: doc.client_name,
+        clientEmail: doc.client_email,
+        clientId: doc.client_id,
+        type: doc.type,
+        data: doc.metadata
+    } as unknown as ServiceRequest)
   );
 
   const handleReject = async (requestId: string) => {
      try {
-      await deleteDoc(doc(firestore, 'service_requests', requestId));
+      const { error } = await supabase
+        .from('service_requests')
+        .delete()
+        .eq('id', requestId);
+      
+      if (error) throw error;
+
        toast({
-        variant: 'secondary',
+        variant: 'default',
         title: 'Request Rejected',
         description: 'The service request has been rejected and removed.',
       });
@@ -280,6 +300,14 @@ export default function AdminRequestsPage() {
                       From: {request.clientName} ({request.clientEmail})
                     </p>
                     <p className="text-md mt-2">{request.description}</p>
+                    {request.type === 'Onboarding' && request.data && (
+                      <div className="mt-2 p-3 bg-accent/5 rounded-md text-sm space-y-1 border border-accent/10">
+                        <p className="font-medium text-accent">Onboarding Details:</p>
+                        <p><span className="text-muted-foreground">Goal:</span> {request.data.outcome}</p>
+                        <p><span className="text-muted-foreground">Has Website:</span> {request.data.hasWebsite} | <span className="text-muted-foreground">Has Brand:</span> {request.data.hasBrandAssets}</p>
+                        {request.data.additionalInfo && <p><span className="text-muted-foreground">Note:</span> {request.data.additionalInfo}</p>}
+                      </div>
+                    )}
                     <div className="text-sm text-muted-foreground mt-2 grid grid-cols-2 gap-x-4">
                         {request.budget && <span>Budget: {request.budget} {request.currency}</span>}
                     </div>

@@ -1,4 +1,3 @@
-
 'use client';
 import { notFound } from 'next/navigation';
 import {
@@ -11,9 +10,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, Phone, FileText, Rocket, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { ProjectProgress } from './project-progress';
-import { useFirestore } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { useDocument } from 'react-firebase-hooks/firestore';
+import { useDoc } from '@/supabase/hooks/use-doc';
 import { ProjectTimeline } from './project-timeline';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -56,16 +53,13 @@ function NotionIcon(props: any) {
     )
 }
 
-
 export default function ProjectDetails({ id }: { id: string }) {
-  const firestore = useFirestore();
-  const projectRef = doc(firestore, 'projects', id);
-  const [projectSnapshot, loading, error] = useDocument(projectRef);
+  const { data: projectSnapshot, isLoading: loading, error } = useDoc({ table: 'projects', id });
 
   if (loading) {
     return <div>Loading...</div>;
   }
-  if (error || !projectSnapshot?.exists()) {
+  if (error || !projectSnapshot) {
     notFound();
   }
 
@@ -95,10 +89,9 @@ export default function ProjectDetails({ id }: { id: string }) {
       status: getMilestoneStatus(m.date, project.status, project.milestones),
   })) : [
     // Fallback for older projects without milestones
-    { name: 'Project Kick-off', date: project.timeline.start, status: 'Completed' },
-    { name: 'Final Delivery', date: project.timeline.end, status: project.status === 'Completed' ? 'Completed' : 'Upcoming' },
+    { name: 'Project Kick-off', date: project.timeline?.start, status: 'Completed' },
+    { name: 'Final Delivery', date: project.timeline?.end, status: project.status === 'Completed' ? 'Completed' : 'Upcoming' },
   ];
-
 
   return (
     <div className="space-y-8">
@@ -207,8 +200,8 @@ export default function ProjectDetails({ id }: { id: string }) {
                 </CardHeader>
                 <CardContent className="space-y-6">
                 <ProjectProgress
-                    start={project.timeline.start}
-                    end={project.timeline.end}
+                    start={project.timeline?.start}
+                    end={project.timeline?.end}
                     status={project.status}
                 />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-muted-foreground">
@@ -216,13 +209,13 @@ export default function ProjectDetails({ id }: { id: string }) {
                     <Calendar className="h-4 w-4" />
                     <span>
                         Start Date:{' '}
-                        {new Date(project.timeline.start).toLocaleDateString()}
+                        {project.timeline?.start && new Date(project.timeline.start).toLocaleDateString()}
                     </span>
                     </div>
                     <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
                     <span>
-                        End Date: {new Date(project.timeline.end).toLocaleDateString()}
+                        End Date: {project.timeline?.end && new Date(project.timeline.end).toLocaleDateString()}
                     </span>
                     </div>
                 </div>
@@ -247,23 +240,23 @@ export default function ProjectDetails({ id }: { id: string }) {
                     <CardDescription>Get in touch with the team.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                    {project.quickCallNumber && (
+                    {project.quick_call_number && (
                          <Button asChild variant="outline" className="w-full justify-start">
-                            <a href={`tel:${project.quickCallNumber}`}>
+                            <a href={`tel:${project.quick_call_number}`}>
                                 <Phone className="mr-2 h-4 w-4" />
-                                {project.quickCallNumber}
+                                {project.quick_call_number}
                             </a>
                         </Button>
                     )}
-                    {project.whatsappLink && (
+                    {project.whatsapp_link && (
                         <Button asChild variant="outline" className="w-full justify-start">
-                            <Link href={project.whatsappLink} target="_blank">
+                            <Link href={project.whatsapp_link} target="_blank">
                                 <WhatsappIcon className="mr-2 h-4 w-4" />
                                 Join WhatsApp Group
                             </Link>
                         </Button>
                     )}
-                    {(!project.quickCallNumber && !project.whatsappLink) && (
+                    {(!project.quick_call_number && !project.whatsapp_link) && (
                         <p className="text-sm text-muted-foreground text-center py-4">No quick contact methods have been added for this project.</p>
                     )}
                 </CardContent>
@@ -274,23 +267,23 @@ export default function ProjectDetails({ id }: { id: string }) {
                     <CardDescription>Essential documents and links.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                    {project.notionLink && (
+                    {project.notion_link && (
                          <Button asChild variant="outline" className="w-full justify-start">
-                            <Link href={project.notionLink} target="_blank">
+                            <Link href={project.notion_link} target="_blank">
                                 <NotionIcon className="mr-2 h-4 w-4" />
                                 Open Notion Page
                             </Link>
                         </Button>
                     )}
-                    {project.googleDocLink && (
+                    {project.google_doc_link && (
                         <Button asChild variant="outline" className="w-full justify-start">
-                            <Link href={project.googleDocLink} target="_blank">
+                            <Link href={project.google_doc_link} target="_blank">
                                 <FileText className="mr-2 h-4 w-4" />
                                 Open Google Doc
                             </Link>
                         </Button>
                     )}
-                    {(!project.notionLink && !project.googleDocLink) && (
+                    {(!project.notion_link && !project.google_doc_link) && (
                         <p className="text-sm text-muted-foreground text-center py-4">No resources have been added for this project yet.</p>
                     )}
                 </CardContent>
@@ -342,5 +335,3 @@ export default function ProjectDetails({ id }: { id: string }) {
     </div>
   );
 }
-
-    

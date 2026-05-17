@@ -1,4 +1,3 @@
-
 'use client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,25 +10,18 @@ import {
 } from '@/components/ui/card';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { useUser, useFirestore } from '@/firebase';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, query, where } from 'firebase/firestore';
+import { useUser } from '@/supabase/provider';
+import { useCollection } from '@/supabase/hooks/use-collection';
 
 export default function ClientProjectsPage() {
   const { user } = useUser();
-  const firestore = useFirestore();
 
-  const projectsQuery =
-    user?.uid &&
-    query(collection(firestore, 'projects'), where('clientId', '==', user.uid));
+  const queryOptions = user?.id ? { table: 'projects', eq: { column: 'client_id', value: user.id } } : null;
+  const [projectsSnapshot, loading, error] = useCollection(queryOptions);
 
-  const [projectsSnapshot, loading, error] = useCollection(projectsQuery || null);
-
-  const clientProjects = projectsSnapshot?.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
+  const clientProjects = projectsSnapshot?.docs?.map((doc: any) => ({
+    ...doc,
   }));
-
 
   return (
     <div className="space-y-6">
@@ -61,8 +53,8 @@ export default function ClientProjectsPage() {
                 <div>
                   <h4 className="text-sm font-semibold">Timeline</h4>
                   <p className="text-sm text-muted-foreground">
-                    {new Date(project.timeline.start).toLocaleDateString()} -{' '}
-                    {new Date(project.timeline.end).toLocaleDateString()}
+                    {project.timeline?.start && new Date(project.timeline.start).toLocaleDateString()} -{' '}
+                    {project.timeline?.end && new Date(project.timeline.end).toLocaleDateString()}
                   </p>
                 </div>
                 <Button variant="outline" size="sm" asChild>

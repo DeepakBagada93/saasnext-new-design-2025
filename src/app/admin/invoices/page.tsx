@@ -33,9 +33,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useFirestore } from '@/firebase';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, addDoc, serverTimestamp, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { useSupabase } from '@/supabase/provider';
+import { useCollection } from '@/supabase/hooks/use-collection';
 import { useToast } from '@/hooks/use-toast';
 import { PlusCircle, X, Edit, Trash2 } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
@@ -108,7 +107,7 @@ function QuotationDialog({
   const [items, setItems] = useState<QuotationItem[]>([
     { description: '', quantity: 1, price: 0 },
   ]);
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
   const { toast } = useToast();
   
   const isEditing = !!quotation;
@@ -168,34 +167,38 @@ function QuotationDialog({
     const totalAmount = calculateTotalAmount();
 
     const quotationData = {
-        userId: selectedClient.userId,
-        clientId: selectedClientId,
-        clientName: selectedClient.name,
-        clientEmail: selectedClient.email,
+        client_id: selectedClientId,
+        client_name: selectedClient.name,
         amount: totalAmount,
         currency: currency,
         status,
-        dueDate: dueDate.toISOString(),
+        due_date: dueDate.toISOString(),
         items,
-        upiId,
+        upi_id: upiId,
     };
 
     try {
         if (isEditing && quotation) {
-            const quotationRef = doc(firestore, 'quotations', quotation.id);
-            await updateDoc(quotationRef, {
-                ...quotationData,
-            });
+            const { error } = await supabase
+                .from('invoices')
+                .update(quotationData)
+                .eq('id', quotation.id);
+            
+            if (error) throw error;
+
             toast({
                 title: "Quotation Updated",
                 description: "The quotation has been successfully updated."
             });
         } else {
-            await addDoc(collection(firestore, 'quotations'), {
-                ...quotationData,
-                date: new Date().toISOString(),
-                createdAt: serverTimestamp(),
-            });
+            const { error } = await supabase
+                .from('invoices')
+                .insert([{
+                    ...quotationData,
+                    created_at: new Date().toISOString(),
+                }]);
+
+            if (error) throw error;
 
             toast({
                 title: "Quotation Created",
@@ -351,20 +354,35 @@ function QuotationDialog({
 
 
 export default function AdminQuotationsPage() {
-    const firestore = useFirestore();
+    const { supabase } = useSupabase();
     const { toast } = useToast();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingQuotation, setEditingQuotation] = useState<Quotation | null>(null);
 
-    const [quotationsSnapshot, loadingQuotations, errorQuotations] = useCollection(
-        collection(firestore, 'quotations')
-    );
-    const [clientsSnapshot, loadingClients, errorClients] = useCollection(
-        collection(firestore, 'client_profiles')
-    );
+    const [quotationsSnapshot, loadingQuotations, errorQuotations] = useCollection({
+        table: 'invoices',
+        order: { column: 'created_at', ascending: false }
+    });
+    const [clientsSnapshot, loadingClients, errorClients] = useCollection({
+        table: 'client_profiles'
+    });
 
-    const quotations = quotationsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Quotation));
-    const clients = clientsSnapshot?.docs.map(doc => ({ id: doc.id, ...doc.data() } as Client));
+    const quotations = quotationsSnapshot?.docs.map((doc: any) => ({ 
+        id: doc.id, 
+        ...doc,
+        clientId: doc.client_id,
+        clientName: doc.client_name,
+        dueDate: doc.due_date,
+        upiId: doc.upi_id
+    } as unknown as Quotation));
+    
+    const clients = clientsSnapshot?.docs.map((doc: any) => ({ 
+        id: doc.id, 
+        ...doc,
+        name: doc.full_name || doc.company_name,
+        userId: doc.id 
+    } as unknown as Client));
+    
     const loading = loadingQuotations || loadingClients;
     
     const handleOpenNewDialog = () => {
@@ -379,7 +397,13 @@ export default function AdminQuotationsPage() {
 
     const handleDeleteQuotation = async (quotationId: string) => {
         try {
-            await deleteDoc(doc(firestore, 'quotations', quotationId));
+            const { error } = await supabase
+                .from('invoices')
+                .delete()
+                .eq('id', quotationId);
+            
+            if (error) throw error;
+
             toast({
                 title: "Quotation Deleted",
                 description: "The quotation has been successfully deleted.",

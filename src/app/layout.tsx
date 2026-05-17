@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
-import { FirebaseClientProvider } from '@/firebase';
+import { SupabaseProvider } from '@/supabase/provider';
 import { ClientOnly } from '@/components/client-only';
 import { AuthProvider } from '@/components/auth-provider';
 import Script from 'next/script';
@@ -295,7 +295,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={cn("min-h-screen font-body antialiased", "bg-background")}>
-        <FirebaseClientProvider>
+        <SupabaseProvider>
           <ClientOnly>
             <Toaster />
             <AuthProvider>
@@ -303,7 +303,7 @@ export default function RootLayout({
             </AuthProvider>
             <FloatingSocials />
           </ClientOnly>
-        </FirebaseClientProvider>
+        </SupabaseProvider>
       </body>
     </html>
   );

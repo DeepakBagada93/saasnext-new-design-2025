@@ -2,8 +2,9 @@
 'use server';
 
 import * as nodemailer from 'nodemailer';
+import { ADMIN_EMAILS } from '@/lib/constants';
 
-const adminEmail = "ceo@saasnext.in";
+const adminEmail = ADMIN_EMAILS[0];
 
 export async function sendNotificationEmail(subject: string, htmlBody: string, replyTo?: string) {
   

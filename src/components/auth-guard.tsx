@@ -2,17 +2,19 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useUser } from '@/firebase';
+import { useUser } from '@/supabase/provider';
 import { AppLayout } from './app-layout';
 import React, { useEffect } from 'react';
-
-const ADMIN_EMAIL = "deeepakbagada25@gmail.com";
+import { isEmailAdmin } from '@/lib/constants';
 
 type LayoutType = 'public' | 'admin' | 'client' | 'auth';
 
 function getLayoutType(pathname: string): LayoutType {
     if (pathname.startsWith('/admin') && pathname !== '/admin-login') {
         return 'admin';
+    }
+    if (pathname === '/client/onboarding') {
+        return 'auth';
     }
     if (pathname.startsWith('/client')) {
         return 'client';
@@ -26,7 +28,7 @@ function getLayoutType(pathname: string): LayoutType {
 export function AuthGuard({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
-    const { user, loading: userLoading } = useUser();
+    const { user, isUserLoading: userLoading } = useUser();
     
     const currentLayout = getLayoutType(pathname);
 
@@ -35,7 +37,9 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
             return; // Don't do anything while loading
         }
 
-        const isUserAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL;
+        const isUserAdmin = isEmailAdmin(user?.email);
+        
+        console.log("[AuthGuard] Path:", pathname, "User:", user?.email, "IsAdmin:", isUserAdmin, "Layout:", currentLayout);
 
         // --- AUTHENTICATION LOGIC ---
         if (currentLayout === 'admin') {
@@ -48,7 +52,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
             if (!user) {
                 router.replace('/login'); // Not logged in, go to client login
             } else if (isUserAdmin) {
-                router.replace('/admin/dashboard'); // Is an admin, go to admin dash
+                router.replace('/admin/dashboard'); // Is an admin, go to client dash - NO, go to admin dash
             }
         } else if (currentLayout === 'auth') {
             if (user) {
@@ -68,12 +72,12 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     }
     
     // If the user is not an admin but trying to access an admin page, show blank screen while redirecting
-    if (currentLayout === 'admin' && user && user.email?.toLowerCase() !== ADMIN_EMAIL) {
+    if (currentLayout === 'admin' && user && !isEmailAdmin(user.email)) {
        return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
     }
 
     // If the user is an admin but trying to access a client page, show blank screen while redirecting
-    if (currentLayout === 'client' && user && user.email?.toLowerCase() === ADMIN_EMAIL) {
+    if (currentLayout === 'client' && user && isEmailAdmin(user.email)) {
        return <div className="flex min-h-screen items-center justify-center p-4 bg-background" />;
     }
 

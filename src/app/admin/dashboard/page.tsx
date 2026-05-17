@@ -2,9 +2,8 @@
 'use client';
 
 import { Users, Briefcase, Bell, TrendingUp, CalendarClock, CreditCard, PlusCircle, UserPlus, Settings, FileSearch } from 'lucide-react';
-import { useFirestore } from '@/firebase';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection } from 'firebase/firestore';
+import { useSupabase } from '@/supabase/provider';
+import { useCollection } from '@/supabase/hooks/use-collection';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DashboardStatCard } from '@/components/dashboard-stats';
 import { RecentActivity } from '@/components/recent-activity';
@@ -14,18 +13,30 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
-// ... (revenue chart data remains same)
+const chartConfig = {
+  revenue: {
+    label: 'Revenue',
+    color: 'hsl(var(--chart-1))',
+  },
+};
+
+const chartData: any[] = [];
+
+const mockActivities: any[] = [];
 
 export default function AdminDashboardPage() {
-  const firestore = useFirestore();
+  const { supabase } = useSupabase();
 
-  const [projectsSnapshot, loadingProjects] = useCollection(collection(firestore, 'projects'));
-  const [clientsSnapshot, loadingClients] = useCollection(collection(firestore, 'client_profiles'));
-  const [requestsSnapshot, loadingRequests] = useCollection(collection(firestore, 'service_requests'));
+  const { data: projectsData, isLoading: loadingProjects } = useCollection<any>({ table: 'projects' });
+  const { data: clientsData, isLoading: loadingClients } = useCollection<any>({ table: 'client_profiles' });
+  const { data: requestsData, isLoading: loadingRequests } = useCollection<any>({ table: 'service_requests' });
   
   const loading = loadingProjects || loadingClients || loadingRequests;
 
-  const projects = projectsSnapshot?.docs.map(doc => doc.data()) || [];
+  const projects = projectsData || [];
+  const clients = clientsData || [];
+  const requests = requestsData || [];
+
   const statusCounts = projects.reduce((acc: any, p: any) => {
       acc[p.status] = (acc[p.status] || 0) + 1;
       return acc;
@@ -63,7 +74,7 @@ export default function AdminDashboardPage() {
             <>
                 <DashboardStatCard 
                     title="Total Clients" 
-                    value={clientsSnapshot?.size || 0} 
+                    value={clients.length} 
                     description="Total registered clients" 
                     icon={Users} 
                     trend={{ value: "12% this month", isPositive: true }}
@@ -71,7 +82,7 @@ export default function AdminDashboardPage() {
                 />
                 <DashboardStatCard 
                     title="Active Projects" 
-                    value={projectsSnapshot?.docs.filter(doc => doc.data().status !== 'Completed').length || 0} 
+                    value={projects.filter((p: any) => p.status !== 'Completed').length} 
                     description="Projects in progress" 
                     icon={Briefcase} 
                     trend={{ value: "4 new today", isPositive: true }}
@@ -79,7 +90,7 @@ export default function AdminDashboardPage() {
                 />
                 <DashboardStatCard 
                     title="Pending Requests" 
-                    value={requestsSnapshot?.docs.filter(doc => doc.data().status === 'Pending').length || 0} 
+                    value={requests.filter((r: any) => r.status === 'Pending').length} 
                     description="Requests to review" 
                     icon={Bell} 
                     trend={{ value: "High priority", isPositive: false }}
@@ -87,10 +98,10 @@ export default function AdminDashboardPage() {
                 />
                  <DashboardStatCard 
                     title="Revenue" 
-                    value="₹12.4L" 
+                    value="₹0" 
                     description="Projected earnings" 
                     icon={CreditCard} 
-                    trend={{ value: "24% vs last mo", isPositive: true }}
+                    trend={{ value: "0% vs last mo", isPositive: true }}
                     delay={0.4}
                 />
             </>
@@ -206,7 +217,7 @@ export default function AdminDashboardPage() {
                   <div className="flex justify-between items-center p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
                       <div className="flex items-center gap-3">
                           <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
-                          <span className="font-medium">Firebase Operations</span>
+                          <span className="font-medium">Supabase Operations</span>
                       </div>
                       <span className="text-sm text-emerald-600 font-mono font-bold">OPTIMAL</span>
                   </div>
