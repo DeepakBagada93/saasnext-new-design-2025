@@ -1,28 +1,22 @@
--- Create admin user
--- CEO Account
-insert into auth.users (id, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, role, confirmation_token, email_change, email_change_token_new, recovery_token)
-values (
-    'ae0bb9b6-2a1f-43c6-af8d-ea685f5948e0', -- Using the ID from your logs
-    'ceo@saasnext.in',
-    crypt('password-saasnext@3093', gen_salt('bf')),
-    now(),
-    '{"provider":"email","providers":["email"]}',
-    '{"full_name":"CEO SaaSNext"}',
-    now(),
-    now(),
-    'authenticated',
-    '',
-    '',
-    '',
-    ''
-);
 
--- Set role to admin in profiles
-update public.profiles 
-set role = 'admin' 
-where id = 'ae0bb9b6-2a1f-43c6-af8d-ea685f5948e0';
+-- Migration to update pricing packages with the new "Systems" including Timeline and Outcome
 
--- Seed Initial Data from price.md
+-- Clear existing packages
+DELETE FROM public.packages;
+
+-- Add columns if they don't exist (they shouldn't since we are updating the schema conceptually)
+-- Note: In a real production scenario, we'd use ALTER TABLE, but for this migration we ensure they exist.
+DO $$ 
+BEGIN 
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='packages' AND column_name='timeline') THEN
+        ALTER TABLE public.packages ADD COLUMN timeline text;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='packages' AND column_name='outcome') THEN
+        ALTER TABLE public.packages ADD COLUMN outcome text;
+    END IF;
+END $$;
+
+-- Insert the new 5 systems with full data from price.md
 INSERT INTO public.packages (category, title, price, price_usd, description, timeline, outcome, features, cta, popular, sort_order) VALUES
 ('Digital Systems', '01 — Launch System', 'Starting From ₹8,000', '$100', 'Startups, creators, local businesses, personal brands, and early-stage companies launching online professionally.', '3–5 Days', 'Launch a professional digital presence that builds trust and converts visitors into leads.', '["Premium modern website", "Mobile responsive design", "5–8 custom pages", "Lead capture forms", "WhatsApp integration", "Booking/contact system", "Basic SEO setup", "Performance optimization", "Analytics integration", "Fast deployment"]', 'Launch My Website System', false, 10),
 

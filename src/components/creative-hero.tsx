@@ -95,7 +95,7 @@ export function CreativeHero() {
                         transition={{ duration: 0.5, delay: 0.1 }}
                         className="block"
                     >
-                        Building Your
+                        Digital Systems
                     </motion.span>
                     <motion.span
                         initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ export function CreativeHero() {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-400 to-purple-600 animate-gradient-x"
                     >
-                        Digital Future.
+                        Built For Modern Businesses
                     </motion.span>
                 </h1>
 
@@ -113,7 +113,7 @@ export function CreativeHero() {
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="text-xl md:text-2xl text-neutral-400 max-w-3xl mx-auto mb-12 leading-relaxed"
                 >
-                    SaaSNext is the premier web design and AI agency in Junagadh. We fuse creativity with code to build engines of growth for your business.
+                    We don&apos;t sell traditional services. We build AI-powered digital systems that automate operations, generate leads, and help businesses scale faster.
                 </motion.p>
 
                 <motion.div
@@ -127,8 +127,8 @@ export function CreativeHero() {
                         size="lg"
                         className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] transition-all duration-300"
                     >
-                        <Link href="/contact">
-                            Start Your Project <ArrowRight className="ml-2 h-5 w-5" />
+                        <Link href="/login">
+                            Launch My System <ArrowRight className="ml-2 h-5 w-5" />
                         </Link>
                     </Button>
                     <Button
@@ -137,7 +137,7 @@ export function CreativeHero() {
                         size="lg"
                         className="text-lg px-8 py-6 border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm"
                     >
-                        <Link href="/portfolio">View Our Work</Link>
+                        <Link href="/contact">Book Strategy Call</Link>
                     </Button>
                 </motion.div>
             </div>
