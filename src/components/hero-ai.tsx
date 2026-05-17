@@ -49,14 +49,14 @@ export function HeroAI() {
                         </motion.div>
 
                         <h1 className="font-headline text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-[1.1]">
-                            Automate Your <br />
+                            Best AI Agency in <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-purple-600">
-                                Digital Growth.
+                                Junagadh & Beyond.
                             </span>
                         </h1>
 
                         <p className="text-xl text-neutral-400 max-w-xl mb-10 leading-relaxed">
-                            We build custom AI Agents, intelligent automation workflows, and high-performance web applications that convert visitors into loyal customers.
+                            SaaSNext builds custom AI Agents, intelligent automation workflows, and high-performance web applications that help businesses rank in AI search engines and convert visitors into loyal customers.
                         </p>
 
                         <div className="flex flex-wrap gap-4">

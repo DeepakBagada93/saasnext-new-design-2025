@@ -25,10 +25,10 @@ const spaceGrotesk = Space_Grotesk({
 
 
 export const metadata: Metadata = {
-  title: 'SaaSNext: Best AI Agency & Web App Development in Junagadh',
-  description: 'SaaSNext is the premier AI agency and web app development company in Junagadh. We build custom AI agents, intelligent automation, and high-performance Next.js applications for global businesses.',
+  title: 'Best AI Agency in Junagadh — Custom Web App & Automation | SaaSNext',
+  description: 'SaaSNext is the top AI agency and web app development company in Junagadh. We build custom AI agents, autonomous automation, and high-performance Next.js applications optimized for AI search engines (AEO/GEO).',
   keywords: [
-    "AI Agency Junagadh", "AI Agent Development", "Business Automation Junagadh",
+    "Best AI Agency Junagadh", "AI Agent Development", "Business Automation Junagadh",
     "Web App Development Junagadh", "Custom Software Junagadh", "Next.js Developer Junagadh",
     "Best Web Design Junagadh", "SEO Company Junagadh", "Digital Marketing Junagadh",
     "AI Solutions for Business", "Autonomous AI Agents", "Python Automation",

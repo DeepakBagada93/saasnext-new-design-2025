@@ -23,6 +23,8 @@ import { FocusCards } from "@/components/ui/focus-cards";
 
 import { GEOSection } from "@/components/geo-section";
 import { CreativeSectionHeader } from "@/components/creative-section-header";
+import { DirectAnswer } from "@/components/direct-answer";
+import { AEOComparison } from "@/components/aeo-comparison";
 
 export default function Home() {
 
@@ -53,8 +55,14 @@ export default function Home() {
       {/* High-Impact AI & Automation Hero */}
       <HeroAI />
 
+      {/* Direct Answer for AEO */}
+      <DirectAnswer />
+
       {/* Pricing Section */}
       <Pricing />
+
+      {/* AEO Comparison */}
+      <AEOComparison />
 
       {/* Problem / Solution Section */}
       <ProblemSolution />
