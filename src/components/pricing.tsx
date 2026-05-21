@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Loader2, Clock, Target, Zap, ArrowRight, Sparkles, Plus } from "lucide-react";
+import { CheckCircle, Loader2, Clock, Target, Zap, ArrowRight, Sparkles, Activity, ShieldCheck, Cpu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePackages, Package } from "@/hooks/use-packages";
@@ -11,8 +11,7 @@ import { cn } from "@/lib/utils";
 
 export const Pricing = () => {
     const { packages, isLoading } = usePackages();
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const [selectedIndex, setSelectedIndex] = useState(1); // Default to Growth System
+    const [activeIndex, setActiveIndex] = useState(1); // Default to Growth System
 
     if (isLoading) {
         return (
@@ -26,177 +25,200 @@ export const Pricing = () => {
         return null;
     }
 
+    const currentPlan = packages[activeIndex] || packages[0];
+
     return (
-        <section id="pricing" className="py-24 md:py-40 bg-[#050505] overflow-hidden relative">
-            {/* Grid Background Overlay */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <section id="pricing" className="py-24 md:py-48 bg-neutral-950 overflow-hidden relative">
+            {/* Command Center Background */}
+            <div className="absolute inset-0 bg-[#050505]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,#f26a2e15,transparent_50%)]" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none" />
 
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
-                <div className="text-center max-w-3xl mx-auto mb-20 md:mb-28">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
-                            <Sparkles className="w-3 h-3 text-accent" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400">Engineering Excellence</span>
-                        </div>
-                        <h2 className="font-headline text-5xl md:text-7xl font-bold mb-8 text-white tracking-tight">
-                            Digital <span className="text-accent">Systems</span>
-                        </h2>
-                        <p className="text-lg text-neutral-400 leading-relaxed font-medium">
-                            Select a system blueprint to view its technical capabilities and deployment roadmap.
-                        </p>
-                    </motion.div>
-                </div>
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 md:mb-32">
+                    <div className="max-w-2xl">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 mb-6">
+                                <Activity className="w-3 h-3 text-accent" />
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">System Architecture</span>
+                            </div>
+                            <h2 className="font-headline text-5xl md:text-8xl font-bold mb-8 text-white tracking-tighter">
+                                The <span className="text-accent italic">Blueprint.</span>
+                            </h2>
+                            <p className="text-xl text-neutral-500 font-medium leading-relaxed">
+                                Select your operational tier to initialize the system configuration.
+                            </p>
+                        </motion.div>
+                    </div>
 
-                {/* Expanding Bento Grid */}
-                <div className="flex flex-col lg:flex-row gap-4 h-full lg:h-[650px]">
-                    {packages.map((plan, index) => {
-                        const isActive = selectedIndex === index;
-                        
-                        return (
-                            <motion.div
+                    {/* Desktop System Selector */}
+                    <div className="hidden lg:flex items-center gap-2 p-1.5 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-xl">
+                        {packages.map((plan, index) => (
+                            <button
                                 key={plan.id}
-                                layout
-                                onClick={() => setSelectedIndex(index)}
+                                onClick={() => setActiveIndex(index)}
                                 className={cn(
-                                    "relative cursor-pointer overflow-hidden rounded-[2.5rem] border transition-all duration-500",
-                                    isActive 
-                                        ? "flex-[2.5] bg-white border-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]" 
-                                        : "flex-1 bg-[#0A0A0A] border-white/5 hover:border-white/20 hover:bg-[#111]"
+                                    "px-6 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all duration-300",
+                                    activeIndex === index 
+                                        ? "bg-accent text-white shadow-[0_0_20px_rgba(242,106,46,0.3)]" 
+                                        : "text-neutral-500 hover:text-white hover:bg-white/5"
                                 )}
                             >
-                                {/* Background Patterns for Active State */}
-                                {isActive && (
-                                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1.5px,transparent_1.5px)] [background-size:20px_20px]" />
-                                )}
-
-                                <div className={cn(
-                                    "p-8 md:p-10 flex flex-col h-full",
-                                    isActive ? "text-black" : "text-white"
-                                )}>
-                                    {/* Header: Title & System ID */}
-                                    <div className="flex items-center justify-between mb-8">
-                                        <div className="space-y-1">
-                                            <span className={cn(
-                                                "text-[10px] font-black uppercase tracking-[0.3em]",
-                                                isActive ? "text-accent" : "text-neutral-500"
-                                            )}>
-                                                SYSTEM_{String(index + 1).padStart(2, '0')}
-                                            </span>
-                                            <h3 className={cn(
-                                                "text-2xl md:text-3xl font-bold font-headline leading-tight",
-                                                isActive ? "text-black" : "text-white"
-                                            )}>
-                                                {plan.title.split(' — ')[1] || plan.title}
-                                            </h3>
-                                        </div>
-                                        {isActive && plan.popular && (
-                                            <div className="bg-black text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
-                                                Active System
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Content Section */}
-                                    <div className="flex-grow">
-                                        <AnimatePresence mode="wait">
-                                            {isActive ? (
-                                                <motion.div
-                                                    key="active"
-                                                    initial={{ opacity: 0, y: 10 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    className="space-y-8"
-                                                >
-                                                    <p className="text-lg text-neutral-600 font-medium leading-relaxed max-w-md">
-                                                        {plan.description}
-                                                    </p>
-                                                    
-                                                    <div className="grid grid-cols-2 gap-6 py-6 border-y border-black/5">
-                                                        <div className="space-y-2">
-                                                            <div className="flex items-center gap-2 text-accent">
-                                                                <Clock className="w-4 h-4" />
-                                                                <span className="text-[10px] font-black uppercase tracking-widest">Execution</span>
-                                                            </div>
-                                                            <p className="text-xl font-bold">{plan.timeline}</p>
-                                                        </div>
-                                                        <div className="space-y-2">
-                                                            <div className="flex items-center gap-2 text-neutral-400">
-                                                                <Target className="w-4 h-4" />
-                                                                <span className="text-[10px] font-black uppercase tracking-widest">Goal</span>
-                                                            </div>
-                                                            <p className="text-sm font-semibold leading-snug">{plan.outcome}</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                        {plan.features.slice(0, 6).map((f) => (
-                                                            <div key={f} className="flex items-center gap-3">
-                                                                <div className="h-5 w-5 rounded-full bg-accent/10 flex items-center justify-center">
-                                                                    <CheckCircle className="h-3 w-3 text-accent" />
-                                                                </div>
-                                                                <span className="text-sm font-medium text-neutral-500">{f}</span>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </motion.div>
-                                            ) : (
-                                                <motion.div
-                                                    key="inactive"
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 1 }}
-                                                    className="lg:mt-32 space-y-6"
-                                                >
-                                                    <div className="text-3xl font-bold tracking-tighter text-white/40">
-                                                        {plan.price.replace('Starting From ', '')}
-                                                    </div>
-                                                    <p className="text-sm text-neutral-500 line-clamp-2">
-                                                        {plan.outcome}
-                                                    </p>
-                                                    <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent group-hover:bg-accent transition-all duration-300">
-                                                        <Plus className="h-5 w-5 text-white" />
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </div>
-
-                                    {/* Footer: Price & CTA */}
-                                    <div className="mt-8">
-                                        <AnimatePresence>
-                                            {isActive && (
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 20 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    className="flex flex-col md:flex-row items-center justify-between gap-6"
-                                                >
-                                                    <div className="text-left w-full md:w-auto">
-                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400 block mb-1">Base Investment</span>
-                                                        <div className="text-4xl font-bold tracking-tighter text-black">
-                                                            {plan.price.replace('Starting From ', '')}
-                                                        </div>
-                                                    </div>
-                                                    <Button asChild className="h-14 w-full md:w-auto px-8 bg-black text-white hover:bg-neutral-800 rounded-2xl font-black uppercase tracking-widest text-xs transition-transform active:scale-95 shadow-xl">
-                                                        <Link href="/login">
-                                                            {plan.cta}
-                                                            <ArrowRight className="ml-2 h-4 w-4" />
-                                                        </Link>
-                                                    </Button>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                                {plan.title.split(' — ')[1] || plan.title}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Mobile-Friendly Note */}
-                <div className="mt-12 text-center lg:hidden">
-                    <p className="text-xs text-neutral-600 font-bold uppercase tracking-widest">Tap a system to explore blueprint</p>
+                {/* Mobile System Selector */}
+                <div className="flex lg:hidden overflow-x-auto gap-2 mb-12 pb-4 scrollbar-hide">
+                    {packages.map((plan, index) => (
+                        <button
+                            key={plan.id}
+                            onClick={() => setActiveIndex(index)}
+                            className={cn(
+                                "px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap border transition-all",
+                                activeIndex === index 
+                                    ? "bg-accent border-accent text-white" 
+                                    : "bg-white/5 border-white/10 text-neutral-500"
+                            )}
+                        >
+                            {plan.title.split(' — ')[1] || plan.title}
+                        </button>
+                    ))}
+                </div>
+
+                {/* Command Center Detail View */}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentPlan.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -30 }}
+                        transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                        className="grid grid-cols-1 lg:grid-cols-12 gap-6"
+                    >
+                        {/* 1. Main Specs (Large) */}
+                        <div className="lg:col-span-8">
+                            <Card className="h-full border-white/5 bg-white/[0.02] p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 p-8">
+                                    <Cpu className="w-12 h-12 text-white/[0.03] group-hover:text-accent/10 transition-colors" />
+                                </div>
+                                
+                                <div className="space-y-12">
+                                    <div className="space-y-4">
+                                        <h3 className="text-4xl md:text-6xl font-bold font-headline text-white tracking-tight">
+                                            {currentPlan.title}
+                                        </h3>
+                                        <p className="text-lg md:text-xl text-neutral-400 max-w-xl leading-relaxed">
+                                            {currentPlan.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="grid sm:grid-cols-2 gap-12">
+                                        <div className="space-y-8">
+                                            <p className="text-[11px] font-black uppercase tracking-[0.4em] text-accent">Technical Capabilities</p>
+                                            <div className="grid gap-4">
+                                                {currentPlan.features.map((f) => (
+                                                    <div key={f} className="flex items-start gap-4 group">
+                                                        <div className="h-5 w-5 rounded-full border border-white/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:border-accent group-hover:bg-accent/10 transition-all">
+                                                            <CheckCircle className="h-3 w-3 text-accent" />
+                                                        </div>
+                                                        <span className="text-sm text-neutral-400 group-hover:text-white transition-colors">{f}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-8">
+                                            <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/5 space-y-8 backdrop-blur-sm">
+                                                <div className="space-y-4">
+                                                    <div className="flex items-center gap-2 text-neutral-500">
+                                                        <Clock className="w-4 h-4" />
+                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em]">Deployment Cycle</span>
+                                                    </div>
+                                                    <p className="text-3xl font-bold text-white">{currentPlan.timeline}</p>
+                                                </div>
+                                                <div className="space-y-4">
+                                                    <div className="flex items-center gap-2 text-neutral-500">
+                                                        <Target className="w-4 h-4" />
+                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em]">Defined Outcome</span>
+                                                    </div>
+                                                    <p className="text-sm md:text-base text-neutral-300 font-medium leading-relaxed italic">
+                                                        "{currentPlan.outcome}"
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Card>
+                        </div>
+
+                        {/* 2. ROI & Pricing (Small Stack) */}
+                        <div className="lg:col-span-4 flex flex-col gap-6">
+                            <Card className="flex-1 border-white/5 bg-accent/5 p-8 rounded-[2.5rem] flex flex-col justify-between relative overflow-hidden">
+                                <div className="absolute -top-10 -right-10 w-40 h-40 bg-accent/20 blur-[80px] rounded-full" />
+                                
+                                <div className="space-y-4">
+                                    <span className="text-[11px] font-black uppercase tracking-[0.4em] text-accent">Investment</span>
+                                    <div className="space-y-1">
+                                        <div className="text-5xl md:text-7xl font-bold text-white tracking-tighter">
+                                            {currentPlan.price.replace('Starting From ', '')}
+                                        </div>
+                                        <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
+                                            ~ {currentPlan.price_usd} USD Base
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="pt-12">
+                                    <Button asChild className="w-full h-16 text-xs font-black uppercase tracking-[0.2em] bg-white text-black hover:bg-neutral-200 transition-all rounded-2xl shadow-[0_20px_40px_rgba(255,255,255,0.05)]">
+                                        <Link href="/login">
+                                            Initialize {currentPlan.title.split(' — ')[1] || 'System'}
+                                            <ArrowRight className="ml-3 h-4 w-4" />
+                                        </Link>
+                                    </Button>
+                                </div>
+                            </Card>
+
+                            <Card className="border-white/5 bg-white/[0.02] p-8 rounded-[2.5rem] space-y-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                                        <ShieldCheck className="h-4 w-4 text-emerald-500" />
+                                    </div>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-neutral-400">Security Guarantee</span>
+                                </div>
+                                <p className="text-xs text-neutral-500 leading-relaxed uppercase tracking-widest">
+                                    All systems are built on enterprise-grade infrastructure with automated backups and 24/7 monitoring.
+                                </p>
+                            </Card>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+
+                {/* System Specs Bar */}
+                <div className="mt-12 p-6 rounded-[2rem] border border-white/5 bg-white/[0.01] flex flex-wrap items-center justify-around gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-600">
+                    <div className="flex items-center gap-2">
+                        <Sparkles className="w-3 h-3 text-accent" />
+                        Next.js 15
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Sparkles className="w-3 h-3 text-accent" />
+                        Supabase DB
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Sparkles className="w-3 h-3 text-accent" />
+                        AI Agent Ready
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Sparkles className="w-3 h-3 text-accent" />
+                        Cloud Deployment
+                    </div>
                 </div>
             </div>
         </section>
