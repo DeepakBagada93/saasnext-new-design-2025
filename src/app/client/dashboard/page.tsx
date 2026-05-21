@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -25,19 +26,23 @@ import { useDoc } from '@/supabase/hooks/use-doc';
 import { OnboardingChecklist } from './_components/OnboardingChecklist';
 import { QuickActionBar } from './_components/QuickActionBar';
 import { ProjectStatusCard } from './_components/ProjectStatusCard';
+import { ServiceRequestModal } from './_components/ServiceRequestModal';
 
 const quickServices = [
   {
+    id: 'website',
     title: 'Website',
     description: 'Launch, redesign, landing page, portfolio, or business site.',
     icon: Code2,
   },
   {
+    id: 'ai',
     title: 'AI Automation',
     description: 'Chatbot, lead agent, workflow automation, or smart support.',
     icon: Bot,
   },
   {
+    id: 'marketing',
     title: 'Marketing',
     description: 'Lead generation, SEO, ads, conversion pages, and content.',
     icon: Megaphone,
@@ -56,6 +61,8 @@ function firstName(name?: string | null) {
 
 export default function ClientDashboardPage() {
   const { user } = useUser();
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState('website');
 
   const { data: profileSnapshot, isLoading: loadingProfile } = useDoc(
     user?.id ? { table: 'client_profiles', id: user.id } : null
@@ -76,10 +83,19 @@ export default function ClientDashboardPage() {
   const latestRequest = requests[0];
   const loading = loadingProfile || loadingProjects || loadingRequests;
 
+  const handleOpenRequest = (serviceId: string = 'website') => {
+    setSelectedService(serviceId);
+    setIsRequestModalOpen(true);
+  };
+
   return (
     <div className="min-h-[calc(100vh-5rem)] space-y-6 pb-8">
       {/* Integrated Onboarding Flow */}
-      <OnboardingChecklist profile={profile} />
+      <OnboardingChecklist 
+        profile={profile} 
+        onStartRequest={() => handleOpenRequest()}
+        onBookCall={() => handleOpenRequest()} // Placeholder: reuse for now
+      />
 
       <section className="overflow-hidden rounded-2xl border border-white/10 bg-[#070707]">
         <div className="grid lg:grid-cols-[1.35fr_0.65fr]">
@@ -110,7 +126,10 @@ export default function ClientDashboardPage() {
             </div>
 
             {/* Quick Actions Integration */}
-            <QuickActionBar />
+            <QuickActionBar 
+              onNewRequest={() => handleOpenRequest()}
+              onScheduleCall={() => handleOpenRequest()}
+            />
           </div>
 
           <div className="border-t border-white/10 bg-white/[0.03] p-5 sm:p-8 lg:border-l lg:border-t-0">
@@ -129,10 +148,10 @@ export default function ClientDashboardPage() {
           const Icon = service.icon;
 
           return (
-            <Link
-              key={service.title}
-              href="/client/dashboard"
-              className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-accent/50 hover:bg-accent/5"
+            <button
+              key={service.id}
+              onClick={() => handleOpenRequest(service.id)}
+              className="group text-left rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-accent/50 hover:bg-accent/5"
             >
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition group-hover:bg-accent group-hover:text-white">
                 <Icon className="h-6 w-6" />
@@ -142,7 +161,7 @@ export default function ClientDashboardPage() {
               <div className="mt-5 flex items-center text-sm font-bold text-accent">
                 Select this <ArrowRight className="ml-2 h-4 w-4 transition group-hover:translate-x-1" />
               </div>
-            </Link>
+            </button>
           );
         })}
       </section>
@@ -181,15 +200,29 @@ export default function ClientDashboardPage() {
             <CardDescription>Tell us in plain language. We will guide the rest.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button asChild className="h-12 w-full bg-white text-black hover:bg-neutral-200">
-              <Link href="/client/dashboard">Describe My Goal</Link>
+            <Button 
+              onClick={() => handleOpenRequest()}
+              className="h-12 w-full bg-white text-black hover:bg-neutral-200"
+            >
+              Describe My Goal
             </Button>
-            <Button asChild variant="outline" className="h-12 w-full">
-              <Link href="/client/dashboard">Talk to an Expert</Link>
+            <Button 
+              onClick={() => handleOpenRequest()}
+              variant="outline" 
+              className="h-12 w-full"
+            >
+              Talk to an Expert
             </Button>
           </CardContent>
         </Card>
       </section>
+
+      {/* Shared Request Modal */}
+      <ServiceRequestModal 
+        isOpen={isRequestModalOpen}
+        onClose={() => setIsRequestModalOpen(false)}
+        initialType={selectedService}
+      />
     </div>
   );
 }
