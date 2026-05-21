@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Loader2, Clock, Target, Zap, ArrowRight, Star, Sparkles } from "lucide-react";
+import { CheckCircle, Loader2, Clock, Target, Zap, ArrowRight, Sparkles, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePackages, Package } from "@/hooks/use-packages";
@@ -11,7 +11,8 @@ import { cn } from "@/lib/utils";
 
 export const Pricing = () => {
     const { packages, isLoading } = usePackages();
-    const [activeTab, setActiveTab] = useState(0);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [selectedIndex, setSelectedIndex] = useState(1); // Default to Growth System
 
     if (isLoading) {
         return (
@@ -25,180 +26,177 @@ export const Pricing = () => {
         return null;
     }
 
-    const currentPlan = packages[activeTab] || packages[0];
-
     return (
-        <section id="pricing" className="py-24 md:py-40 bg-neutral-950 overflow-hidden relative">
-            {/* Background Elements */}
-            <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 blur-[140px] rounded-full -z-10" />
+        <section id="pricing" className="py-24 md:py-40 bg-[#050505] overflow-hidden relative">
+            {/* Grid Background Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
-                <div className="max-w-3xl mb-16 md:mb-24">
+                <div className="text-center max-w-3xl mx-auto mb-20 md:mb-28">
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 mb-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-6">
                             <Sparkles className="w-3 h-3 text-accent" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Scalable Infrastructure</span>
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400">Engineering Excellence</span>
                         </div>
                         <h2 className="font-headline text-5xl md:text-7xl font-bold mb-8 text-white tracking-tight">
-                            The <span className="text-accent">Systems</span>
+                            Digital <span className="text-accent">Systems</span>
                         </h2>
-                        <p className="text-lg md:text-xl text-neutral-400 leading-relaxed font-medium max-w-2xl">
-                            We don't just build websites. We engineer automated digital systems that generate revenue while you sleep.
+                        <p className="text-lg text-neutral-400 leading-relaxed font-medium">
+                            Select a system blueprint to view its technical capabilities and deployment roadmap.
                         </p>
                     </motion.div>
                 </div>
 
-                <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-16 items-start">
-                    {/* Left Column: Plan Selection List */}
-                    <div className="space-y-4 sticky top-32">
-                        <p className="text-[11px] font-black uppercase tracking-[0.4em] text-neutral-600 mb-6 ml-2">Select Your Tier</p>
-                        {packages.map((plan, index) => (
-                            <button
-                                key={plan.id}
-                                onClick={() => setActiveTab(index)}
-                                className={cn(
-                                    "w-full group relative flex flex-col items-start p-6 rounded-3xl transition-all duration-500 border text-left",
-                                    activeTab === index 
-                                        ? "bg-white border-white shadow-[0_20px_40px_rgba(0,0,0,0.3)] scale-[1.02] z-20" 
-                                        : "bg-white/[0.02] border-white/5 hover:border-white/20 hover:bg-white/[0.04] z-10"
-                                )}
-                            >
-                                <div className="flex w-full items-center justify-between mb-2">
-                                    <span className={cn(
-                                        "text-[10px] font-black uppercase tracking-widest",
-                                        activeTab === index ? "text-accent" : "text-neutral-500"
-                                    )}>
-                                        System {String(index + 1).padStart(2, '0')}
-                                    </span>
-                                    {plan.popular && (
-                                        <Star className={cn("w-3 h-3", activeTab === index ? "text-accent fill-accent" : "text-neutral-700")} />
-                                    )}
-                                </div>
-                                <h3 className={cn(
-                                    "text-xl md:text-2xl font-bold font-headline transition-colors",
-                                    activeTab === index ? "text-black" : "text-neutral-400 group-hover:text-white"
-                                )}>
-                                    {plan.title.split(' — ')[1] || plan.title}
-                                </h3>
-                                <p className={cn(
-                                    "text-sm mt-2 line-clamp-1 font-medium",
-                                    activeTab === index ? "text-neutral-600" : "text-neutral-600 group-hover:text-neutral-400"
-                                )}>
-                                    {plan.outcome}
-                                </p>
-
-                                {activeTab === index && (
-                                    <motion.div 
-                                        layoutId="sidebar-accent"
-                                        className="absolute -left-2 top-1/2 -translate-y-1/2 w-1 h-12 bg-accent rounded-full"
-                                    />
-                                )}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Right Column: Dynamic Interactive Content */}
-                    <div className="relative min-h-[600px] lg:min-h-[750px]">
-                        <AnimatePresence mode="wait">
+                {/* Expanding Bento Grid */}
+                <div className="flex flex-col lg:flex-row gap-4 h-full lg:h-[650px]">
+                    {packages.map((plan, index) => {
+                        const isActive = selectedIndex === index;
+                        
+                        return (
                             <motion.div
-                                key={currentPlan.id}
-                                initial={{ opacity: 0, x: 30 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -30 }}
-                                transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-                                className="h-full"
+                                key={plan.id}
+                                layout
+                                onClick={() => setSelectedIndex(index)}
+                                className={cn(
+                                    "relative cursor-pointer overflow-hidden rounded-[2.5rem] border transition-all duration-500",
+                                    isActive 
+                                        ? "flex-[2.5] bg-white border-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]" 
+                                        : "flex-1 bg-[#0A0A0A] border-white/5 hover:border-white/20 hover:bg-[#111]"
+                                )}
                             >
-                                <Card className="h-full border-white/10 bg-neutral-900/40 backdrop-blur-2xl shadow-3xl overflow-hidden flex flex-col">
-                                    {/* Card Header Section */}
-                                    <div className="p-8 md:p-12 border-b border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent">
-                                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-                                            <div className="space-y-4">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="p-3 bg-accent/10 rounded-2xl border border-accent/20">
-                                                        <Zap className="w-6 h-6 text-accent" />
-                                                    </div>
-                                                    <h3 className="text-3xl md:text-5xl font-bold font-headline text-white tracking-tight">
-                                                        {currentPlan.title.split(' — ')[1] || currentPlan.title}
-                                                    </h3>
-                                                </div>
-                                                <p className="text-lg text-neutral-400 max-w-xl leading-relaxed">
-                                                    {currentPlan.description}
-                                                </p>
-                                            </div>
+                                {/* Background Patterns for Active State */}
+                                {isActive && (
+                                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#000_1.5px,transparent_1.5px)] [background-size:20px_20px]" />
+                                )}
 
-                                            <div className="text-right">
-                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-500 block mb-2">Base Investment</span>
-                                                <div className="text-4xl md:text-6xl font-bold text-white tracking-tighter">
-                                                    {currentPlan.price.replace('Starting From ', '')}
-                                                </div>
-                                                <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest mt-2">
-                                                    ~ {currentPlan.price_usd} USD
-                                                </p>
-                                            </div>
+                                <div className={cn(
+                                    "p-8 md:p-10 flex flex-col h-full",
+                                    isActive ? "text-black" : "text-white"
+                                )}>
+                                    {/* Header: Title & System ID */}
+                                    <div className="flex items-center justify-between mb-8">
+                                        <div className="space-y-1">
+                                            <span className={cn(
+                                                "text-[10px] font-black uppercase tracking-[0.3em]",
+                                                isActive ? "text-accent" : "text-neutral-500"
+                                            )}>
+                                                SYSTEM_{String(index + 1).padStart(2, '0')}
+                                            </span>
+                                            <h3 className={cn(
+                                                "text-2xl md:text-3xl font-bold font-headline leading-tight",
+                                                isActive ? "text-black" : "text-white"
+                                            )}>
+                                                {plan.title.split(' — ')[1] || plan.title}
+                                            </h3>
                                         </div>
+                                        {isActive && plan.popular && (
+                                            <div className="bg-black text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
+                                                Active System
+                                            </div>
+                                        )}
                                     </div>
 
-                                    {/* Card Body: Features & Metrics */}
-                                    <div className="p-8 md:p-12 flex-grow grid md:grid-cols-2 gap-12">
-                                        <div className="space-y-10">
-                                            <div className="space-y-6">
-                                                <p className="text-[11px] font-black uppercase tracking-[0.4em] text-neutral-500">Core Capabilities</p>
-                                                <div className="grid gap-4">
-                                                    {currentPlan.features.map((feature) => (
-                                                        <div key={feature} className="flex items-start gap-4 group">
-                                                            <div className="mt-1 flex-shrink-0">
-                                                                <CheckCircle className="h-4 w-4 text-accent" />
-                                                            </div>
-                                                            <span className="text-sm md:text-base text-neutral-300 group-hover:text-white transition-colors">{feature}</span>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="space-y-10">
-                                            <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/5 space-y-8">
-                                                <div className="space-y-4">
-                                                    <div className="flex items-center gap-2 text-accent">
-                                                        <Clock className="w-4 h-4" />
-                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em]">Deployment</span>
-                                                    </div>
-                                                    <p className="text-2xl font-bold text-white">{currentPlan.timeline}</p>
-                                                </div>
-                                                <div className="space-y-4">
-                                                    <div className="flex items-center gap-2 text-emerald-400">
-                                                        <Target className="w-4 h-4" />
-                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em]">Goal</span>
-                                                    </div>
-                                                    <p className="text-base text-neutral-300 font-medium leading-relaxed italic">
-                                                        "{currentPlan.outcome}"
+                                    {/* Content Section */}
+                                    <div className="flex-grow">
+                                        <AnimatePresence mode="wait">
+                                            {isActive ? (
+                                                <motion.div
+                                                    key="active"
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    className="space-y-8"
+                                                >
+                                                    <p className="text-lg text-neutral-600 font-medium leading-relaxed max-w-md">
+                                                        {plan.description}
                                                     </p>
-                                                </div>
-                                            </div>
+                                                    
+                                                    <div className="grid grid-cols-2 gap-6 py-6 border-y border-black/5">
+                                                        <div className="space-y-2">
+                                                            <div className="flex items-center gap-2 text-accent">
+                                                                <Clock className="w-4 h-4" />
+                                                                <span className="text-[10px] font-black uppercase tracking-widest">Execution</span>
+                                                            </div>
+                                                            <p className="text-xl font-bold">{plan.timeline}</p>
+                                                        </div>
+                                                        <div className="space-y-2">
+                                                            <div className="flex items-center gap-2 text-neutral-400">
+                                                                <Target className="w-4 h-4" />
+                                                                <span className="text-[10px] font-black uppercase tracking-widest">Goal</span>
+                                                            </div>
+                                                            <p className="text-sm font-semibold leading-snug">{plan.outcome}</p>
+                                                        </div>
+                                                    </div>
 
-                                            <div className="pt-6">
-                                                <Button asChild className="w-full h-16 text-lg font-black uppercase tracking-widest transition-all hover:bg-accent/90 hover:scale-[1.02] active:scale-[0.98] bg-accent text-white border-none shadow-[0_20px_40px_rgba(242,106,46,0.2)]">
-                                                    <Link href="/login">
-                                                        {currentPlan.cta}
-                                                        <ArrowRight className="ml-3 h-5 w-5" />
-                                                    </Link>
-                                                </Button>
-                                                <p className="text-center text-[10px] text-neutral-600 font-bold uppercase tracking-[0.3em] mt-6">
-                                                    Secure Payment • Expert Support
-                                                </p>
-                                            </div>
-                                        </div>
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                        {plan.features.slice(0, 6).map((f) => (
+                                                            <div key={f} className="flex items-center gap-3">
+                                                                <div className="h-5 w-5 rounded-full bg-accent/10 flex items-center justify-center">
+                                                                    <CheckCircle className="h-3 w-3 text-accent" />
+                                                                </div>
+                                                                <span className="text-sm font-medium text-neutral-500">{f}</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </motion.div>
+                                            ) : (
+                                                <motion.div
+                                                    key="inactive"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    className="lg:mt-32 space-y-6"
+                                                >
+                                                    <div className="text-3xl font-bold tracking-tighter text-white/40">
+                                                        {plan.price.replace('Starting From ', '')}
+                                                    </div>
+                                                    <p className="text-sm text-neutral-500 line-clamp-2">
+                                                        {plan.outcome}
+                                                    </p>
+                                                    <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent group-hover:bg-accent transition-all duration-300">
+                                                        <Plus className="h-5 w-5 text-white" />
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
                                     </div>
-                                </Card>
+
+                                    {/* Footer: Price & CTA */}
+                                    <div className="mt-8">
+                                        <AnimatePresence>
+                                            {isActive && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    className="flex flex-col md:flex-row items-center justify-between gap-6"
+                                                >
+                                                    <div className="text-left w-full md:w-auto">
+                                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400 block mb-1">Base Investment</span>
+                                                        <div className="text-4xl font-bold tracking-tighter text-black">
+                                                            {plan.price.replace('Starting From ', '')}
+                                                        </div>
+                                                    </div>
+                                                    <Button asChild className="h-14 w-full md:w-auto px-8 bg-black text-white hover:bg-neutral-800 rounded-2xl font-black uppercase tracking-widest text-xs transition-transform active:scale-95 shadow-xl">
+                                                        <Link href="/login">
+                                                            {plan.cta}
+                                                            <ArrowRight className="ml-2 h-4 w-4" />
+                                                        </Link>
+                                                    </Button>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                </div>
                             </motion.div>
-                        </AnimatePresence>
-                    </div>
+                        );
+                    })}
+                </div>
+
+                {/* Mobile-Friendly Note */}
+                <div className="mt-12 text-center lg:hidden">
+                    <p className="text-xs text-neutral-600 font-bold uppercase tracking-widest">Tap a system to explore blueprint</p>
                 </div>
             </div>
         </section>
