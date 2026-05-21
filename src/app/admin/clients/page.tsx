@@ -111,7 +111,12 @@ export default function AdminClientsPage() {
                   <TableCell className="font-medium">{client.company_name || 'N/A'}</TableCell>
                   <TableCell>{client.contact_name || client.full_name || 'N/A'}</TableCell>
                   <TableCell>{client.email || 'N/A'}</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right flex justify-end gap-2">
+                    <Button asChild variant="ghost" size="icon">
+                      <Link href={`/admin/clients/${client.id}`}>
+                        <Eye className="h-4 w-4" />
+                      </Link>
+                    </Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
@@ -142,18 +147,6 @@ export default function AdminClientsPage() {
                {clients && clients.length === 0 && !loading && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
-                    No clients found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-me="text-center">
                     No clients found.
                   </TableCell>
                 </TableRow>

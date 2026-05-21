@@ -1,5 +1,5 @@
-
 'use client';
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,7 +16,7 @@ import { useDoc } from '@/supabase/hooks/use-doc';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function ClientProfilePage() {
+export default function SettingsPage() {
   const { user, isUserLoading: userLoading } = useUser();
   const { supabase } = useSupabase();
   const { toast } = useToast();
@@ -72,22 +72,22 @@ export default function ClientProfilePage() {
     }
   };
 
-  export default function SettingsPage() {
-  ...
-    return (
-      <div className="space-y-6">
-        <div>
-          <h1 className="font-headline text-3xl font-bold">Settings</h1>
-          <p className="text-muted-foreground">
-            Update your contact information and company details.
-          </p>
-        </div>
+  const isLoading = userLoading || loadingData;
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Company Settings</CardTitle>
-            <CardDescription>Keep your details up to date.</CardDescription>
-          </CardHeader>
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="font-headline text-3xl font-bold">Settings</h1>
+        <p className="text-muted-foreground">
+          Update your contact information and company details.
+        </p>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Company Settings</CardTitle>
+          <CardDescription>Keep your details up to date.</CardDescription>
+        </CardHeader>
         <CardContent>
           {isLoading ? (
              <div className="space-y-4 max-w-lg">
