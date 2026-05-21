@@ -13,22 +13,22 @@ export function HeroAI() {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(41,171,226,0.15),transparent_70%)]" />
                 <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] mix-blend-soft-light bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
                 
-                {/* Moving Glows */}
+                {/* Moving Glows - Simplified for mobile */}
                 <motion.div 
                     animate={{ 
-                        x: [0, 100, 0],
-                        y: [0, 50, 0],
+                        x: [0, 50, 0],
+                        y: [0, 25, 0],
                     }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 blur-[120px] rounded-full opacity-30" 
+                    className="absolute top-1/4 left-1/4 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-primary/10 md:bg-primary/20 blur-[80px] md:blur-[120px] rounded-full opacity-20 md:opacity-30" 
                 />
                 <motion.div 
                     animate={{ 
-                        x: [0, -100, 0],
-                        y: [0, -50, 0],
+                        x: [0, -50, 0],
+                        y: [0, -25, 0],
                     }}
                     transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-purple-500/10 blur-[120px] rounded-full opacity-30" 
+                    className="absolute bottom-1/4 right-1/4 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-purple-500/5 md:bg-purple-500/10 blur-[80px] md:blur-[120px] rounded-full opacity-20 md:opacity-30" 
                 />
 
                 {/* Animated Grid */}

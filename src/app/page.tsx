@@ -1,30 +1,37 @@
+'use client';
+
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, CheckCircle, Code, Globe, Zap, BarChart, Users, MessageSquare, Rocket, ShieldCheck, BrainCircuit, Search, Megaphone, Feather, Bot, Cpu, Layout } from "lucide-react";
-import { AnimatedHeadline } from "@/components/animated-headline";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { services, techStack, faqs, portfolioItems } from "@/lib/data";
-import { TextReveal } from "@/components/text-reveal";
-import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
-import { Pricing } from "@/components/pricing";
-import { CTASection } from "@/components/cta-section";
-import { BentoGridHeader } from "@/components/ui/bento-grid-header";
-import { ProblemSolution } from "@/components/problem-solution";
-import { AgencyOverview } from "@/components/agency-overview";
-import { BusinessTargeting } from "@/components/business-targeting";
-import { Timeline } from "@/components/timeline";
-import { ClientHubCTA } from "@/components/client-hub-cta";
+import { ArrowRight, CheckCircle, Code, BrainCircuit, Search, Megaphone, Feather } from "lucide-react";
+import { services, techStack, portfolioItems, faqs } from "@/lib/data";
 import { HeroAI } from "@/components/hero-ai";
-import { FocusCards } from "@/components/ui/focus-cards";
 
-import { GEOSection } from "@/components/geo-section";
-import { CreativeSectionHeader } from "@/components/creative-section-header";
-import { DirectAnswer } from "@/components/direct-answer";
-import { AEOComparison } from "@/components/aeo-comparison";
+// Dynamic imports for below-the-fold components
+const DirectAnswer = dynamic(() => import("@/components/direct-answer").then(mod => mod.DirectAnswer), { ssr: true });
+const Pricing = dynamic(() => import("@/components/pricing").then(mod => mod.Pricing), { 
+  ssr: false,
+  loading: () => <div className="h-[600px] w-full bg-neutral-900 animate-pulse rounded-3xl mx-auto max-w-7xl my-20" />
+});
+const AEOComparison = dynamic(() => import("@/components/aeo-comparison").then(mod => mod.AEOComparison), { ssr: false });
+const ProblemSolution = dynamic(() => import("@/components/problem-solution").then(mod => mod.ProblemSolution), { ssr: false });
+const GEOSection = dynamic(() => import("@/components/geo-section").then(mod => mod.GEOSection), { ssr: false });
+const BentoGrid = dynamic(() => import("@/components/ui/bento-grid").then(mod => mod.BentoGrid), { ssr: false });
+const BentoGridItem = dynamic(() => import("@/components/ui/bento-grid").then(mod => mod.BentoGridItem), { ssr: false });
+const BentoGridHeader = dynamic(() => import("@/components/ui/bento-grid-header").then(mod => mod.BentoGridHeader), { ssr: false });
+const CreativeSectionHeader = dynamic(() => import("@/components/creative-section-header").then(mod => mod.CreativeSectionHeader), { ssr: false });
+const InfiniteMovingCards = dynamic(() => import("@/components/ui/infinite-moving-cards").then(mod => mod.InfiniteMovingCards), { ssr: false });
+const AgencyOverview = dynamic(() => import("@/components/agency-overview").then(mod => mod.AgencyOverview), { ssr: false });
+const TextReveal = dynamic(() => import("@/components/text-reveal").then(mod => mod.TextReveal), { ssr: false });
+const BusinessTargeting = dynamic(() => import("@/components/business-targeting").then(mod => mod.BusinessTargeting), { ssr: false });
+const FocusCards = dynamic(() => import("@/components/ui/focus-cards").then(mod => mod.FocusCards), { ssr: false });
+const Timeline = dynamic(() => import("@/components/timeline").then(mod => mod.Timeline), { ssr: false });
+const Accordion = dynamic(() => import("@/components/ui/accordion").then(mod => mod.Accordion), { ssr: false });
+const AccordionContent = dynamic(() => import("@/components/ui/accordion").then(mod => mod.AccordionContent), { ssr: false });
+const AccordionItem = dynamic(() => import("@/components/ui/accordion").then(mod => mod.AccordionItem), { ssr: false });
+const AccordionTrigger = dynamic(() => import("@/components/ui/accordion").then(mod => mod.AccordionTrigger), { ssr: false });
+const CTASection = dynamic(() => import("@/components/cta-section").then(mod => mod.CTASection), { ssr: false });
 
 export default function Home() {
 
@@ -213,7 +220,6 @@ export default function Home() {
               src="/saasnext-web-development.jpg"
               alt="SEO Analytics Dashboard - SEO Company Junagadh"
               fill
-              priority
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
               data-ai-hint="analytics chart showing growth"
@@ -275,4 +281,3 @@ export default function Home() {
     </div>
   );
 }
-

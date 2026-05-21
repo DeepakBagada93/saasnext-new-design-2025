@@ -273,9 +273,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
-        {/* Load Google scripts after page is interactive to prevent render-blocking */}
-        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=AW-16689867019" />
-        <Script id="google-ads" strategy="afterInteractive">
+        {/* Load Google scripts with lazyOnload to prevent blocking the main thread */}
+        <Script strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=AW-16689867019" />
+        <Script id="google-ads" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -284,8 +284,8 @@ export default function RootLayout({
           `}
         </Script>
 
-        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-7WV5GJXKXS" />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script strategy="lazyOnload" src="https://www.googletagmanager.com/gtag/js?id=G-7WV5GJXKXS" />
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -296,11 +296,11 @@ export default function RootLayout({
       </head>
       <body className={cn("min-h-screen font-body antialiased", "bg-background")}>
         <SupabaseProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
           <ClientOnly>
             <Toaster />
-            <AuthProvider>
-              {children}
-            </AuthProvider>
             <FloatingSocials />
           </ClientOnly>
         </SupabaseProvider>
