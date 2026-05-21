@@ -52,12 +52,12 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
             if (!user) {
                 router.replace('/login'); // Not logged in, go to client login
             } else if (isUserAdmin) {
-                router.replace('/admin/dashboard'); // Is an admin, go to client dash - NO, go to admin dash
+                router.replace('/admin/analytics'); // Is an admin, go to client dash - NO, go to admin dash
             }
         } else if (currentLayout === 'auth') {
             if (user) {
                 if (isUserAdmin) {
-                    router.replace('/admin/dashboard');
+                    router.replace('/admin/analytics');
                 } else {
                     router.replace('/client/dashboard');
                 }

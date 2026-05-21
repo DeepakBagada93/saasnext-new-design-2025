@@ -50,7 +50,7 @@ export default function LoginPage() {
         });
         
         if (isEmailAdmin(data.user.email)) {
-            router.push("/admin/dashboard");
+            router.push("/admin/analytics");
         } else {
             router.push("/client/dashboard");
         }

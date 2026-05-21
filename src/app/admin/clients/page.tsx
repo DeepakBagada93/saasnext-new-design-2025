@@ -29,7 +29,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from '@/hooks/use-toast';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Eye } from 'lucide-react';
+import Link from 'next/link';
 
 type Client = {
   id: string;
@@ -141,6 +142,18 @@ export default function AdminClientsPage() {
                {clients && clients.length === 0 && !loading && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center">
+                    No clients found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+me="text-center">
                     No clients found.
                   </TableCell>
                 </TableRow>

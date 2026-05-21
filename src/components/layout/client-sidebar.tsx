@@ -6,11 +6,9 @@ import {
   LayoutDashboard,
   FileText,
   Briefcase,
-  PlusCircle,
-  User,
+  Files,
+  Settings,
   LogOut,
-  CalendarClock,
-  Bell,
 } from "lucide-react";
 
 import {
@@ -31,13 +29,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "../ui/skeleton";
 
 const menuItems = [
-  { href: "/client/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/client/dashboard", label: "Home", icon: LayoutDashboard },
   { href: "/client/projects", label: "Projects", icon: Briefcase },
-  { href: "/client/requests", label: "My Requests", icon: Bell },
-  { href: "/client/requests/new", label: "New Request", icon: PlusCircle },
-  { href: "/client/invoices", label: "Quotations", icon: FileText },
-  { href: "/client/schedule-meeting", label: "Schedule Meeting", icon: CalendarClock },
-  { href: "/client/profile", label: "Profile", icon: User },
+  { href: "/client/billing", label: "Billing", icon: FileText },
+  { href: "/client/documents", label: "Documents", icon: Files },
+  { href: "/client/settings", label: "Settings", icon: Settings },
 ];
 
 export default function ClientSidebar() {

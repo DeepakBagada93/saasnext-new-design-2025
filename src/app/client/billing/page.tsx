@@ -81,7 +81,7 @@ export default function ClientQuotationsPage() {
                   </TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="sm" asChild>
-                      <Link href={`/client/invoices/${quotation.id}`}><Eye className="mr-2 h-4 w-4"/>View</Link>
+                      <Link href={`/client/billing/${quotation.id}`}><Eye className="mr-2 h-4 w-4"/>View</Link>
                     </Button>
                   </TableCell>
                 </TableRow>

@@ -353,7 +353,7 @@ function QuotationDialog({
 }
 
 
-export default function AdminQuotationsPage() {
+export default function AdminBillingPage() {
     const { supabase } = useSupabase();
     const { toast } = useToast();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -421,8 +421,8 @@ export default function AdminQuotationsPage() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="font-headline text-3xl font-bold">Quotation Management</h1>
-                    <p className="text-muted-foreground">Create and manage all client quotations.</p>
+                    <h1 className="font-headline text-3xl font-bold">Billing & Quotations</h1>
+                    <p className="text-muted-foreground">Create and manage all client billing and quotations.</p>
                 </div>
                 {clients && (
                     <Button onClick={handleOpenNewDialog}>

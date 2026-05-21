@@ -4,15 +4,12 @@ import Link from 'next/link';
 import {
   ArrowRight,
   Bot,
-  CalendarClock,
   CheckCircle2,
   Code2,
   Megaphone,
   MessageCircle,
-  Rocket,
   Sparkles,
 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -21,10 +18,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useUser } from '@/supabase/provider';
 import { useCollection } from '@/supabase/hooks/use-collection';
 import { useDoc } from '@/supabase/hooks/use-doc';
+
+import { OnboardingChecklist } from './_components/OnboardingChecklist';
+import { QuickActionBar } from './_components/QuickActionBar';
+import { ProjectStatusCard } from './_components/ProjectStatusCard';
 
 const quickServices = [
   {
@@ -54,36 +54,6 @@ function firstName(name?: string | null) {
   return name?.split(' ')[0] || 'there';
 }
 
-function statusCopy(request?: any, project?: any) {
-  if (project) {
-    return {
-      label: project.status || 'In Progress',
-      title: project.name || project.title || 'Project active',
-      description: 'Your workspace is ready. Open it anytime to see updates and next steps.',
-      href: `/client/projects/${project.id}`,
-      cta: 'Open Project',
-    };
-  }
-
-  if (request) {
-    return {
-      label: request.status || 'Pending',
-      title: request.service_type || 'Request received',
-      description: 'We have your request. The team will review it and shape the next step.',
-      href: '/client/requests',
-      cta: 'View Request',
-    };
-  }
-
-  return {
-    label: 'Ready',
-    title: 'Start in 20 seconds',
-    description: 'Pick a service and share the goal. You do not need a detailed brief.',
-    href: '/client/requests/new',
-    cta: 'Start Now',
-  };
-}
-
 export default function ClientDashboardPage() {
   const { user } = useUser();
 
@@ -105,11 +75,12 @@ export default function ClientDashboardPage() {
   const activeProject = projects.find((project: any) => project.status !== 'Completed') || projects[0];
   const latestRequest = requests[0];
   const loading = loadingProfile || loadingProjects || loadingRequests;
-  const currentStatus = statusCopy(latestRequest, activeProject);
-  const primaryHref = profile?.has_completed_onboarding ? '/client/requests/new' : '/client/onboarding';
 
   return (
     <div className="min-h-[calc(100vh-5rem)] space-y-6 pb-8">
+      {/* Integrated Onboarding Flow */}
+      <OnboardingChecklist profile={profile} />
+
       <section className="overflow-hidden rounded-2xl border border-white/10 bg-[#070707]">
         <div className="grid lg:grid-cols-[1.35fr_0.65fr]">
           <div className="space-y-8 p-5 sm:p-8 lg:p-10">
@@ -138,48 +109,17 @@ export default function ClientDashboardPage() {
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button asChild className="h-12 rounded-xl bg-accent px-6 text-base font-bold hover:bg-accent/90">
-                <Link href={primaryHref}>
-                  <Rocket className="mr-2 h-5 w-5" />
-                  Start My Service
-                </Link>
-              </Button>
-              <Button asChild variant="outline" className="h-12 rounded-xl px-6 text-base">
-                <Link href="/client/schedule-meeting">
-                  <CalendarClock className="mr-2 h-5 w-5" />
-                  Book Quick Call
-                </Link>
-              </Button>
-            </div>
+            {/* Quick Actions Integration */}
+            <QuickActionBar />
           </div>
 
           <div className="border-t border-white/10 bg-white/[0.03] p-5 sm:p-8 lg:border-l lg:border-t-0">
-            <Card className="h-full border-white/10 bg-black/25">
-              <CardHeader>
-                <Badge variant="outline" className="w-fit border-accent/30 bg-accent/10 text-accent">
-                  {currentStatus.label}
-                </Badge>
-                <CardTitle className="text-2xl">{currentStatus.title}</CardTitle>
-                <CardDescription>{currentStatus.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {loading ? (
-                  <div className="space-y-3">
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-11 w-full" />
-                  </div>
-                ) : (
-                  <Button asChild variant="secondary" className="h-11 w-full">
-                    <Link href={currentStatus.href}>
-                      {currentStatus.cta}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
+            {/* Modular Status Card */}
+            <ProjectStatusCard 
+              project={activeProject} 
+              request={latestRequest} 
+              loading={loading} 
+            />
           </div>
         </div>
       </section>
@@ -191,7 +131,7 @@ export default function ClientDashboardPage() {
           return (
             <Link
               key={service.title}
-              href="/client/requests/new"
+              href="/client/dashboard"
               className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-accent/50 hover:bg-accent/5"
             >
               <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition group-hover:bg-accent group-hover:text-white">
@@ -242,10 +182,10 @@ export default function ClientDashboardPage() {
           </CardHeader>
           <CardContent className="space-y-3">
             <Button asChild className="h-12 w-full bg-white text-black hover:bg-neutral-200">
-              <Link href="/client/requests/new">Describe My Goal</Link>
+              <Link href="/client/dashboard">Describe My Goal</Link>
             </Button>
             <Button asChild variant="outline" className="h-12 w-full">
-              <Link href="/client/schedule-meeting">Talk to an Expert</Link>
+              <Link href="/client/dashboard">Talk to an Expert</Link>
             </Button>
           </CardContent>
         </Card>

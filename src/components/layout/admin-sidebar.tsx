@@ -3,15 +3,11 @@
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
   Users,
-  Briefcase,
   FileText,
   BarChart2,
-  Bell,
+  Settings,
   LogOut,
-  CalendarClock,
-  Package,
 } from "lucide-react";
 
 import {
@@ -32,14 +28,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "../ui/skeleton";
 
 const menuItems = [
-  { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/analytics", label: "Analytics", icon: BarChart2 },
-  { href: "/admin/clients", label: "Client Management", icon: Users },
-  { href: "/admin/requests", label: "Service Requests", icon: Bell },
-  { href: "/admin/projects", label: "Project Management", icon: Briefcase },
-  { href: "/admin/invoices", label: "Quotation Management", icon: FileText },
-  { href: "/admin/meetings", label: "Meeting Requests", icon: CalendarClock },
-  { href: "/admin/packages", label: "Packages", icon: Package },
+  { href: "/admin/clients", label: "Clients", icon: Users },
+  { href: "/admin/billing", label: "Billing", icon: FileText },
+  { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 export default function AdminSidebar() {

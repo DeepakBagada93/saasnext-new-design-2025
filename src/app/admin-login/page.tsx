@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
     });
     
     // Hard redirect to ensure clean state and session pickup
-    window.location.href = "/admin/dashboard";
+    window.location.href = "/admin/analytics";
   };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -6,6 +6,7 @@ Project context and long-term memory are stored in the [`.context/`](./.context/
 - [🛠️ Stack](./.context/🛠️_stack.md)
 - [🎨 Design](./.context/🎨_design.md)
 - [📊 Logic](./.context/📊_logic.md)
+- [🖥️ Dashboards](./.context/dashboard.md)
 - [✍️ Content](./.context/✍️_content.md)
 - [✅ Progress](./.context/✅_progress.md)
 

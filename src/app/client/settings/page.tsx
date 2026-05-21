@@ -72,22 +72,22 @@ export default function ClientProfilePage() {
     }
   };
 
-  const isLoading = userLoading || loadingData;
+  export default function SettingsPage() {
+  ...
+    return (
+      <div className="space-y-6">
+        <div>
+          <h1 className="font-headline text-3xl font-bold">Settings</h1>
+          <p className="text-muted-foreground">
+            Update your contact information and company details.
+          </p>
+        </div>
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="font-headline text-3xl font-bold">My Profile</h1>
-        <p className="text-muted-foreground">
-          Update your contact information and company details.
-        </p>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Profile Information</CardTitle>
-          <CardDescription>Keep your details up to date.</CardDescription>
-        </CardHeader>
+        <Card>
+          <CardHeader>
+            <CardTitle>Company Settings</CardTitle>
+            <CardDescription>Keep your details up to date.</CardDescription>
+          </CardHeader>
         <CardContent>
           {isLoading ? (
              <div className="space-y-4 max-w-lg">

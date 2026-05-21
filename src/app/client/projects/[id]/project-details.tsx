@@ -180,7 +180,7 @@ export default function ProjectDetails({ id }: { id: string }) {
                       <h4 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Next Steps</h4>
                       <div className="space-y-2">
                           <Button variant="default" className="w-full bg-accent hover:bg-accent/90" asChild>
-                              <Link href="/client/requests/new">Start Maintenance Plan</Link>
+                              <Link href="/client/dashboard">Start Maintenance Plan</Link>
                           </Button>
                           <Button variant="outline" className="w-full" asChild>
                               <Link href="/contact">Leave a Review</Link>
