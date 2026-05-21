@@ -32,7 +32,7 @@ export const Pricing = () => {
             {/* Command Center Background */}
             <div className="absolute inset-0 bg-[#050505]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,#f26a2e15,transparent_50%)]" />
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none" />
+            <div className="absolute inset-0 opacity-[0.01] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
 
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 md:mb-32">

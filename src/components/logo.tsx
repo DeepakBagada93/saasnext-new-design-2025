@@ -10,6 +10,7 @@ export function Logo({ className }: { className?: string }) {
         alt="SaaSNext Logo" 
         width={132} 
         height={32} 
+        style={{ height: 'auto' }}
         priority
       />
     </Link>

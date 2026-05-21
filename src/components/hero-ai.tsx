@@ -11,7 +11,7 @@ export function HeroAI() {
             {/* Background Effects */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(41,171,226,0.15),transparent_70%)]" />
-                <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light" />
+                <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] mix-blend-soft-light bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
                 
                 {/* Moving Glows */}
                 <motion.div 
