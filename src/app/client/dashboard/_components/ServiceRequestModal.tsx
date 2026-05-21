@@ -234,7 +234,7 @@ export function ServiceRequestModal({
                           {pkg.description}
                         </p>
                         <div className="text-lg font-bold text-white mb-1">
-                          {pkg.price.replace('Starting From ', '')}
+                          {pkg.price ? pkg.price.replace('Starting From ', '') : 'Custom Quote'}
                         </div>
                         <div className="text-[9px] font-mono text-neutral-500 uppercase tracking-tighter">
                           Approx {pkg.price_usd} USD
