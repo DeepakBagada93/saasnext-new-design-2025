@@ -1,46 +1,22 @@
 "use client";
 
-import React, { useState, useCallback, useEffect } from "react";
-import useEmblaCarousel from "embla-carousel-react";
+import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Loader2, ChevronLeft, ChevronRight, Clock, Target, Zap } from "lucide-react";
+import { CheckCircle, Loader2, Clock, Target, Zap, ArrowRight, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePackages, Package } from "@/hooks/use-packages";
+import { cn } from "@/lib/utils";
 
 export const Pricing = () => {
     const { packages, isLoading } = usePackages();
-    const [emblaRef, emblaApi] = useEmblaCarousel({
-        loop: true,
-        align: "center",
-        skipSnaps: false,
-    });
-
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-    const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
-    const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
-    const scrollTo = useCallback((index: number) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
-
-    const onSelect = useCallback(() => {
-        if (!emblaApi) return;
-        setSelectedIndex(emblaApi.selectedScrollSnap());
-    }, [emblaApi, setSelectedIndex]);
-
-    useEffect(() => {
-        if (!emblaApi) return;
-        onSelect();
-        setScrollSnaps(emblaApi.scrollSnapList());
-        emblaApi.on("select", onSelect);
-        emblaApi.on("reInit", onSelect);
-    }, [emblaApi, setScrollSnaps, onSelect]);
+    const [activeTab, setActiveTab] = useState(0);
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center py-20 min-h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <div className="flex justify-center items-center py-32 min-h-[600px] bg-neutral-950">
+                <Loader2 className="h-10 w-10 animate-spin text-accent" />
             </div>
         );
     }
@@ -49,151 +25,176 @@ export const Pricing = () => {
         return null;
     }
 
+    const currentPlan = packages[activeTab] || packages[0];
+
     return (
         <section id="pricing" className="py-24 md:py-32 bg-neutral-950 overflow-hidden relative">
-            {/* Background Accents */}
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 blur-[120px] rounded-full -z-10" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 blur-[120px] rounded-full -z-10" />
+            {/* Ambient Background Glows */}
+            <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent/10 blur-[120px] rounded-full -z-10 animate-pulse" />
+            <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-[120px] rounded-full -z-10 animate-pulse" style={{ animationDelay: '2s' }} />
 
-            <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div className="text-center max-w-3xl mx-auto mb-20">
+            <div className="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+                <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.6 }}
                     >
-                        <h2 className="font-headline text-4xl md:text-6xl font-bold mb-8 text-white">Choose Your System</h2>
-                        <p className="text-xl text-neutral-400 leading-relaxed">
-                            We build AI-powered digital systems that automate operations, generate leads, and help businesses scale faster.
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/20 bg-accent/5 mb-6">
+                            <Star className="w-3 h-3 text-accent fill-accent" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Strategic Systems</span>
+                        </div>
+                        <h2 className="font-headline text-4xl md:text-6xl font-bold mb-8 text-white tracking-tight">
+                            Choose Your <span className="text-accent">System</span>
+                        </h2>
+                        <p className="text-lg md:text-xl text-neutral-400 leading-relaxed font-medium">
+                            Premium AI-powered digital infrastructure designed to automate, convert, and scale.
                         </p>
                     </motion.div>
                 </div>
 
-                <div className="relative">
-                    {/* Carousel Container */}
-                    <div className="embla overflow-visible" ref={emblaRef}>
-                        <div className="embla__container flex">
-                            {packages.map((plan, index) => (
-                                <div
-                                    key={plan.id}
-                                    className="embla__slide flex-[0_0_100%] sm:flex-[0_0_80%] lg:flex-[0_0_40%] min-w-0 px-4 py-12"
-                                >
-                                    <motion.div
-                                        animate={{
-                                            scale: selectedIndex === index ? 1.05 : 0.9,
-                                            opacity: selectedIndex === index ? 1 : 0.4,
-                                        }}
-                                        transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-                                        className="h-full"
-                                    >
-                                        <Card className={`flex flex-col h-full relative border-2 overflow-hidden ${plan.popular ? 'border-primary shadow-[0_0_40px_rgba(249,115,22,0.15)] bg-neutral-900' : 'border-white/10 shadow-md bg-neutral-900'}`}>
-                                            {/* Grid Pattern on Card */}
-                                            <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
+                {/* Horizontal Tab Navigation */}
+                <div className="relative mb-12 md:mb-20">
+                    <div className="flex flex-nowrap overflow-x-auto pb-4 md:pb-0 scrollbar-hide gap-2 md:gap-4 justify-start md:justify-center px-4 md:px-0">
+                        {packages.map((plan, index) => (
+                            <button
+                                key={plan.id}
+                                onClick={() => setActiveTab(index)}
+                                className={cn(
+                                    "relative px-6 py-4 rounded-2xl transition-all duration-300 whitespace-nowrap border text-sm font-bold uppercase tracking-widest",
+                                    activeTab === index 
+                                        ? "bg-white text-black border-white shadow-[0_0_30px_rgba(255,255,255,0.1)]" 
+                                        : "bg-white/5 text-neutral-500 border-white/5 hover:border-white/20 hover:text-white"
+                                )}
+                            >
+                                {plan.title.split(' — ')[1] || plan.title}
+                                {activeTab === index && (
+                                    <motion.div 
+                                        layoutId="tab-glow"
+                                        className="absolute inset-0 rounded-2xl bg-white/20 blur-xl -z-10"
+                                    />
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                </div>
 
-                                            {plan.popular && (
-                                                <div className="bg-primary text-primary-foreground text-[10px] font-black px-4 py-1.5 rounded-full absolute top-6 right-6 z-20 shadow-lg tracking-widest uppercase">
-                                                    Popular
+                {/* Active Plan Detail View */}
+                <div className="relative min-h-[600px]">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={currentPlan.id}
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 1.05, y: -20 }}
+                            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                            className="w-full"
+                        >
+                            <Card className="border-white/10 bg-neutral-900/50 backdrop-blur-xl shadow-2xl overflow-hidden">
+                                <div className="grid lg:grid-cols-[1fr_0.8fr]">
+                                    {/* Left Side: Info & Features */}
+                                    <div className="p-8 md:p-12 lg:p-16 space-y-12">
+                                        <div className="space-y-6">
+                                            <div className="flex items-center gap-4">
+                                                <div className="p-4 bg-accent/10 rounded-2xl border border-accent/20">
+                                                    <Zap className="w-8 h-8 text-accent" />
                                                 </div>
-                                            )}
-                                            
-                                            <CardHeader className="p-8 pb-6 relative">
-                                                <div className="flex items-center gap-4 mb-6">
-                                                    <div className="p-3 bg-primary/10 rounded-xl shrink-0">
-                                                        <Zap className="w-6 h-6 text-primary" />
+                                                <div>
+                                                  <h3 className="text-3xl md:text-4xl font-bold font-headline text-white">{currentPlan.title}</h3>
+                                                  {currentPlan.popular && (
+                                                    <Badge variant="popular" className="mt-2" />
+                                                  )}
+                                                </div>
+                                            </div>
+                                            <p className="text-xl text-neutral-400 max-w-xl leading-relaxed">
+                                                {currentPlan.description}
+                                            </p>
+                                        </div>
+
+                                        <div className="grid sm:grid-cols-2 gap-8 py-8 border-y border-white/5">
+                                            <div className="space-y-3">
+                                                <div className="flex items-center gap-2 text-accent">
+                                                    <Clock className="w-5 h-5" />
+                                                    <span className="text-[11px] font-black uppercase tracking-[0.2em]">Execution Timeline</span>
+                                                </div>
+                                                <p className="text-2xl font-bold text-white">{currentPlan.timeline}</p>
+                                            </div>
+                                            <div className="space-y-3">
+                                                <div className="flex items-center gap-2 text-emerald-400">
+                                                    <Target className="w-5 h-5" />
+                                                    <span className="text-[11px] font-black uppercase tracking-[0.2em]">Defined Outcome</span>
+                                                </div>
+                                                <p className="text-lg text-neutral-300 font-medium leading-snug">{currentPlan.outcome}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-8">
+                                            <p className="text-[11px] font-black uppercase tracking-[0.4em] text-neutral-500">System Capabilities</p>
+                                            <div className="grid sm:grid-cols-2 gap-y-4 gap-x-12">
+                                                {(currentPlan.features || []).map((feature) => (
+                                                    <div key={feature} className="flex items-start gap-4 group">
+                                                        <CheckCircle className="mt-1 h-4 w-4 text-accent shrink-0" />
+                                                        <span className="text-neutral-300 group-hover:text-white transition-colors">{feature}</span>
                                                     </div>
-                                                    <CardTitle className="text-2xl md:text-3xl font-bold font-headline text-white tracking-tight">{plan.title}</CardTitle>
-                                                </div>
-                                                <CardDescription className="text-neutral-400 text-base leading-relaxed min-h-[80px]">
-                                                    <span className="text-primary font-bold mr-1.5">Perfect For:</span>
-                                                    {plan.description}
-                                                </CardDescription>
-                                            </CardHeader>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                            <CardContent className="flex-grow flex flex-col px-8 pt-0 relative">
-                                                <div className="mb-10 p-6 bg-white/5 rounded-2xl border border-white/5">
-                                                    <div className="flex items-baseline gap-2">
-                                                        <span className="text-4xl font-bold text-white tracking-tighter">{plan.price.replace('Starting From ', '')}</span>
-                                                        <span className="text-neutral-500 text-xs font-bold uppercase tracking-widest">Base</span>
-                                                    </div>
-                                                    <div className="text-neutral-500 text-xs mt-2 font-mono tracking-widest uppercase">Approx {plan.price_usd} USD</div>
+                                    {/* Right Side: Pricing & CTA */}
+                                    <div className="bg-white/[0.03] border-l border-white/10 p-8 md:p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-64 h-64 bg-accent/20 blur-[100px] rounded-full -z-10 translate-x-1/2 -translate-y-1/2" />
+                                        
+                                        <div className="space-y-8">
+                                            <div className="space-y-2">
+                                                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-neutral-500">Investment</span>
+                                                <div className="flex items-baseline gap-3">
+                                                    <span className="text-6xl font-bold text-white tracking-tighter">
+                                                        {currentPlan.price.replace('Starting From ', '')}
+                                                    </span>
                                                 </div>
+                                                <p className="text-sm font-mono text-neutral-500 uppercase tracking-widest mt-2">
+                                                    APPROX {currentPlan.price_usd} USD
+                                                </p>
+                                            </div>
 
-                                                <div className="grid grid-cols-2 gap-6 mb-10">
-                                                    <div className="space-y-2">
-                                                        <div className="flex items-center gap-2 text-primary">
-                                                            <Clock className="w-4 h-4" />
-                                                            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Timeline</span>
-                                                        </div>
-                                                        <p className="text-sm text-white font-bold">{plan.timeline}</p>
-                                                    </div>
-                                                    <div className="space-y-2">
-                                                        <div className="flex items-center gap-2 text-primary">
-                                                            <Target className="w-4 h-4" />
-                                                            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Outcome</span>
-                                                        </div>
-                                                        <p className="text-xs text-neutral-300 leading-normal font-medium">{plan.outcome}</p>
-                                                    </div>
-                                                </div>
+                                            <div className="space-y-4 rounded-2xl bg-white/5 border border-white/5 p-6 backdrop-blur-md">
+                                                <p className="text-sm text-neutral-300 leading-relaxed italic">
+                                                    "A high-performance digital system that pays for itself through automation and conversion."
+                                                </p>
+                                            </div>
+                                        </div>
 
-                                                <div className="space-y-5">
-                                                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-500">System Capabilities</p>
-                                                    <ul className="space-y-3.5">
-                                                        {(plan.features || []).slice(0, 7).map((feature) => (
-                                                            <li key={feature} className="flex items-start gap-4 group">
-                                                                <div className="mt-1 shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
-                                                                    <CheckCircle className="h-3.5 w-3.5 text-primary" />
-                                                                </div>
-                                                                <span className="text-sm text-neutral-300 group-hover:text-white transition-colors">{feature}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            </CardContent>
-
-                                            <CardFooter className="p-8 pt-6 relative">
-                                                <Button asChild className="w-full h-14 text-base font-black uppercase tracking-widest shadow-2xl transition-all hover:bg-primary/90 hover:scale-[1.02] active:scale-[0.98]" variant={plan.popular ? "default" : "outline"}>
-                                                    <Link href="/login">{plan.cta}</Link>
-                                                </Button>
-                                            </CardFooter>
-                                        </Card>
-                                    </motion.div>
+                                        <div className="space-y-4 pt-12">
+                                            <Button asChild className="w-full h-16 text-lg font-black uppercase tracking-widest shadow-2xl transition-all hover:bg-accent/90 hover:scale-[1.02] active:scale-[0.98] bg-accent text-white border-none">
+                                                <Link href="/login">
+                                                    {currentPlan.cta}
+                                                    <ArrowRight className="ml-3 h-5 w-5" />
+                                                </Link>
+                                            </Button>
+                                            <p className="text-center text-xs text-neutral-500 font-bold uppercase tracking-widest">
+                                                No hidden costs • Expert Delivery
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Navigation Buttons */}
-                    <div className="flex justify-center items-center gap-6 mt-12">
-                        <button
-                            onClick={scrollPrev}
-                            className="p-3 rounded-full border border-white/10 hover:border-primary transition-colors text-white hover:text-primary bg-white/5 backdrop-blur-sm"
-                            aria-label="Previous slide"
-                        >
-                            <ChevronLeft className="w-6 h-6" />
-                        </button>
-
-                        <div className="flex gap-2">
-                            {scrollSnaps.map((_, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => scrollTo(index)}
-                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${selectedIndex === index ? "bg-primary w-8" : "bg-white/20 hover:bg-white/40"}`}
-                                    aria-label={`Go to slide ${index + 1}`}
-                                />
-                            ))}
-                        </div>
-
-                        <button
-                            onClick={scrollNext}
-                            className="p-3 rounded-full border border-white/10 hover:border-primary transition-colors text-white hover:text-primary bg-white/5 backdrop-blur-sm"
-                            aria-label="Next slide"
-                        >
-                            <ChevronRight className="w-6 h-6" />
-                        </button>
-                    </div>
+                            </Card>
+                        </motion.div>
+                    </AnimatePresence>
                 </div>
             </div>
         </section>
     );
 };
+
+const Badge = ({ variant, className }: { variant: string, className?: string }) => {
+    if (variant === 'popular') {
+        return (
+            <div className={cn("inline-flex items-center bg-accent text-white text-[9px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em] shadow-lg", className)}>
+                Most Popular
+            </div>
+        );
+    }
+    return null;
+}
