@@ -35,7 +35,7 @@ export const Pricing = () => {
             <div className="absolute inset-0 opacity-[0.01] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
 
             <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 md:mb-32">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12 sm:mb-20 md:mb-32">
                     <div className="max-w-2xl">
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
@@ -46,10 +46,10 @@ export const Pricing = () => {
                                 <Activity className="w-3 h-3 text-accent" />
                                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">System Architecture</span>
                             </div>
-                            <h2 className="font-headline text-5xl md:text-8xl font-bold mb-8 text-white tracking-tighter">
+                            <h2 className="font-headline text-4xl sm:text-5xl md:text-8xl font-bold mb-8 text-white tracking-tighter">
                                 The <span className="text-accent italic">Blueprint.</span>
                             </h2>
-                            <p className="text-xl text-neutral-500 font-medium leading-relaxed">
+                            <p className="text-lg sm:text-xl text-neutral-500 font-medium leading-relaxed">
                                 Select your operational tier to initialize the system configuration.
                             </p>
                         </motion.div>
@@ -104,27 +104,27 @@ export const Pricing = () => {
                     >
                         {/* 1. Main Specs (Large) */}
                         <div className="lg:col-span-8">
-                            <Card className="h-full border-white/5 bg-white/[0.02] p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 p-8">
-                                    <Cpu className="w-12 h-12 text-white/[0.03] group-hover:text-accent/10 transition-colors" />
+                            <Card className="h-full border-white/5 bg-white/[0.02] p-6 sm:p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 p-4 sm:p-8">
+                                    <Cpu className="w-8 h-8 sm:w-12 sm:h-12 text-white/[0.03] group-hover:text-accent/10 transition-colors" />
                                 </div>
                                 
-                                <div className="space-y-12">
+                                <div className="space-y-8 sm:space-y-12">
                                     <div className="space-y-4">
-                                        <h3 className="text-4xl md:text-6xl font-bold font-headline text-white tracking-tight">
+                                        <h3 className="text-2xl sm:text-4xl md:text-6xl font-bold font-headline text-white tracking-tight break-words">
                                             {currentPlan.title}
                                         </h3>
-                                        <p className="text-lg md:text-xl text-neutral-400 max-w-xl leading-relaxed">
+                                        <p className="text-base sm:text-lg md:text-xl text-neutral-400 max-w-xl leading-relaxed">
                                             {currentPlan.description}
                                         </p>
                                     </div>
 
-                                    <div className="grid sm:grid-cols-2 gap-12">
-                                        <div className="space-y-8">
+                                    <div className="grid sm:grid-cols-2 gap-8 sm:gap-12">
+                                        <div className="space-y-6 sm:space-y-8">
                                             <p className="text-[11px] font-black uppercase tracking-[0.4em] text-accent">Technical Capabilities</p>
-                                            <div className="grid gap-4">
+                                            <div className="grid gap-3 sm:gap-4">
                                                 {currentPlan.features.map((f) => (
-                                                    <div key={f} className="flex items-start gap-4 group">
+                                                    <div key={f} className="flex items-start gap-3 sm:gap-4 group">
                                                         <div className="h-5 w-5 rounded-full border border-white/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:border-accent group-hover:bg-accent/10 transition-all">
                                                             <CheckCircle className="h-3 w-3 text-accent" />
                                                         </div>
@@ -135,13 +135,13 @@ export const Pricing = () => {
                                         </div>
 
                                         <div className="space-y-8">
-                                            <div className="p-8 rounded-3xl bg-white/[0.03] border border-white/5 space-y-8 backdrop-blur-sm">
+                                            <div className="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/5 space-y-6 sm:space-y-8 backdrop-blur-sm">
                                                 <div className="space-y-4">
                                                     <div className="flex items-center gap-2 text-neutral-500">
                                                         <Clock className="w-4 h-4" />
                                                         <span className="text-[10px] font-black uppercase tracking-[0.2em]">Deployment Cycle</span>
                                                     </div>
-                                                    <p className="text-3xl font-bold text-white">{currentPlan.timeline}</p>
+                                                    <p className="text-2xl sm:text-3xl font-bold text-white">{currentPlan.timeline}</p>
                                                 </div>
                                                 <div className="space-y-4">
                                                     <div className="flex items-center gap-2 text-neutral-500">
@@ -161,13 +161,13 @@ export const Pricing = () => {
 
                         {/* 2. ROI & Pricing (Small Stack) */}
                         <div className="lg:col-span-4 flex flex-col gap-6">
-                            <Card className="flex-1 border-white/5 bg-accent/5 p-8 rounded-[2.5rem] flex flex-col justify-between relative overflow-hidden">
+                            <Card className="flex-1 border-white/5 bg-accent/5 p-6 sm:p-8 rounded-[2.5rem] flex flex-col justify-between relative overflow-hidden">
                                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-accent/20 blur-[80px] rounded-full" />
                                 
                                 <div className="space-y-4">
                                     <span className="text-[11px] font-black uppercase tracking-[0.4em] text-accent">Investment</span>
                                     <div className="space-y-1">
-                                        <div className="text-5xl md:text-7xl font-bold text-white tracking-tighter">
+                                        <div className="text-3xl sm:text-5xl md:text-7xl font-bold text-white tracking-tighter break-words">
                                             {currentPlan.price.replace('Starting From ', '')}
                                         </div>
                                         <p className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
@@ -186,7 +186,7 @@ export const Pricing = () => {
                                 </div>
                             </Card>
 
-                            <Card className="border-white/5 bg-white/[0.02] p-8 rounded-[2.5rem] space-y-6">
+                            <Card className="border-white/5 bg-white/[0.02] p-6 sm:p-8 rounded-[2.5rem] space-y-6">
                                 <div className="flex items-center gap-3">
                                     <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
                                         <ShieldCheck className="h-4 w-4 text-emerald-500" />
@@ -202,7 +202,7 @@ export const Pricing = () => {
                 </AnimatePresence>
 
                 {/* System Specs Bar */}
-                <div className="mt-12 p-6 rounded-[2rem] border border-white/5 bg-white/[0.01] flex flex-wrap items-center justify-around gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-600">
+                <div className="mt-12 p-4 sm:p-6 rounded-[2rem] border border-white/5 bg-white/[0.01] flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-600">
                     <div className="flex items-center gap-2">
                         <Sparkles className="w-3 h-3 text-accent" />
                         Next.js 15
