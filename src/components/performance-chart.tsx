@@ -68,15 +68,15 @@ const chartConfig = {
 
 export function PerformanceMarketingChart() {
   return (
-    <Card className="w-full">
+    <Card className="w-full border-white/5 bg-white/[0.02] rounded-[2rem] backdrop-blur-sm">
         <CardHeader>
-            <CardTitle>Client Success: Shreeram Enterprise, Mumbai</CardTitle>
-            <CardDescription>A snapshot of a recent high-performance campaign.</CardDescription>
+            <CardTitle className="font-headline text-xl md:text-2xl text-white tracking-tight">Client Success: Shreeram Enterprise, Mumbai</CardTitle>
+            <CardDescription className="text-neutral-400">A snapshot of a recent high-performance campaign.</CardDescription>
         </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-                 <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div className="min-h-[250px] md:min-h-[300px]">
+                 <ChartContainer config={chartConfig} className="min-h-[250px] md:min-h-[300px] w-full">
                     <BarChart accessibilityLayer data={campaignData}>
                         <defs>
                             <linearGradient id="fillReach" x1="0" y1="0" x2="0" y2="1">
@@ -113,10 +113,10 @@ export function PerformanceMarketingChart() {
                     </BarChart>
                 </ChartContainer>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 items-center">
                  {campaignData.map((campaign) => (
-                    <div key={campaign.name} className="flex flex-col items-center justify-center p-4 text-center h-full">
-                        <ChartContainer config={{ results: { label: campaign.resultType, color: campaign.fill } }} className="h-40 w-40">
+                    <div key={campaign.name} className="flex flex-col items-center justify-center p-3 sm:p-4 text-center h-full">
+                        <ChartContainer config={{ results: { label: campaign.resultType, color: campaign.fill } }} className="h-32 w-32 sm:h-40 sm:w-40">
                              <RadialBarChart 
                                 data={[{...campaign, name: 'results'}]} 
                                 startAngle={90} 
@@ -128,20 +128,20 @@ export function PerformanceMarketingChart() {
                                 <ChartTooltip content={<ChartTooltipContent nameKey="results" />} />
                              </RadialBarChart>
                         </ChartContainer>
-                       <h3 className="font-headline text-lg font-bold mt-4">{campaign.name}</h3>
-                        <p className="text-sm text-muted-foreground mb-1">{campaign.resultType}: {campaign.results.toLocaleString()}</p>
-                        <p className="text-xs text-muted-foreground">Cost per Result</p>
-                        <p className="font-bold text-lg">₹{campaign.cpr}</p>
+                       <h3 className="font-headline text-sm sm:text-lg font-bold mt-3 sm:mt-4 text-white">{campaign.name}</h3>
+                        <p className="text-xs sm:text-sm text-neutral-400 mb-1">{campaign.resultType}: {campaign.results.toLocaleString()}</p>
+                        <p className="text-[10px] sm:text-xs text-neutral-500">Cost per Result</p>
+                        <p className="font-bold text-base sm:text-lg text-white">₹{campaign.cpr}</p>
                     </div>
                  ))}
             </div>
         </div>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
+      <CardFooter className="flex-col items-start gap-2 text-sm text-neutral-500">
+        <div className="flex gap-2 font-medium leading-none text-neutral-400">
           Campaign results from last 30 days.
         </div>
-        <div className="leading-none text-muted-foreground">
+        <div className="leading-none">
           Showing key metrics from our recent performance marketing efforts for Shreeram Enterprise.
         </div>
       </CardFooter>

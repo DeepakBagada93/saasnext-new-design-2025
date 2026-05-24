@@ -1,241 +1,135 @@
-# SaaSNext — Digital Systems Pricing
+# SaaSNext AI Business Subscription
 
-## Hero Section
+## Build Your AI Business Stack
 
-# Digital Systems Built For Modern Businesses
-
-We don’t sell traditional services.  
-We build AI-powered digital systems that automate operations, generate leads, and help businesses scale faster.
-
-From premium websites to intelligent AI workflows — every system is designed to become a long-term growth asset for your business.
-
-[ Launch My System ]   [ Book Strategy Call ]
+Create your custom business system with monthly subscription pricing.
 
 ---
 
-# Choose Your System
+# Core Infrastructure
+
+| Service | Monthly Price |
+|---|---|
+| Premium Website | ₹2,999 |
+| Hosting & Security | ₹999 |
+| Website Maintenance | ₹999 |
+| Analytics Dashboard | ₹1,499 |
+| Landing Pages | ₹2,999 |
 
 ---
 
-# 01 — Launch System
+# AI Systems
 
-### Perfect For
-Startups, creators, local businesses, personal brands, and early-stage companies launching online professionally.
-
-## What You Get
-
-- Premium modern website
-- Mobile responsive design
-- 5–8 custom pages
-- Lead capture forms
-- WhatsApp integration
-- Booking/contact system
-- Basic SEO setup
-- Performance optimization
-- Analytics integration
-- Fast deployment
-
-## Outcome
-
-Launch a professional digital presence that builds trust and converts visitors into leads.
-
-## Timeline
-3–5 Days
-
-## Investment
-# Starting From ₹8,000
-
-[ Launch My Website System ]
+| Service | Monthly Price |
+|---|---|
+| AI Chatbot | ₹1,999 |
+| WhatsApp Automation | ₹2,999 |
+| AI Lead Capture | ₹3,999 |
+| AI Content Engine | ₹6,999 |
+| AI Support Assistant | ₹4,999 |
 
 ---
 
-# 02 — Growth System
+# Growth Systems
 
-### Perfect For
-Businesses that want automated lead generation and higher conversions.
-
-## What You Get
-
-- High-converting landing pages
-- AI chatbot integration
-- CRM integration
-- Automated lead capture
-- Email automation workflows
-- Conversion tracking
-- Meta ads funnel pages
-- Google ads funnel setup
-- Lead dashboard
-- Marketing automation
-
-## Outcome
-
-Turn your website into a 24/7 lead generation engine.
-
-## Timeline
-5–10 Days
-
-## Investment
-# Starting From ₹25,000
-
-[ Build My Growth System ]
+| Service | Monthly Price |
+|---|---|
+| SEO Growth System | ₹4,999 |
+| Google Ads Management | ₹7,999 |
+| Meta Ads Management | ₹7,999 |
+| Social Media Content | ₹5,999 |
+| Conversion Optimization | ₹3,999 |
 
 ---
 
-# 03 — AI Business System
+# Business Operations
 
-### Perfect For
-Businesses wanting to automate operations using AI workflows and intelligent systems.
-
-## What You Get
-
-- AI customer support assistant
-- Workflow automation
-- Internal business dashboard
-- CRM + automation setup
-- AI follow-up system
-- Custom business workflows
-- Team management panel
-- AI-powered operations
-- Analytics & reporting
-- Custom integrations
-
-## Outcome
-
-Replace repetitive manual work with intelligent AI systems that scale operations.
-
-## Timeline
-2–4 Weeks
-
-## Investment
-# Starting From ₹80,000
-
-[ Automate My Business ]
+| Service | Monthly Price |
+|---|---|
+| CRM Dashboard | ₹4,999 |
+| Appointment Booking System | ₹1,999 |
+| Email Automation | ₹2,999 |
+| Workflow Automation | ₹4,999 |
+| Customer Management Portal | ₹5,999 |
 
 ---
 
-# 04 — SaaS MVP System
+# Smart Pricing Calculator
 
-### Perfect For
-Founders building AI startups, SaaS products, or internal platforms.
+## Example Stack
 
-## What You Get
+### Starter Business Stack
+- Website
+- Hosting
+- Maintenance
 
-- Premium SaaS UI/UX
-- Authentication system
-- User dashboard
-- Admin dashboard
-- AI integration
-- Subscription/payment setup
-- Supabase backend
-- Database architecture
-- API integrations
-- Deployment & launch
-
-## Outcome
-
-Launch your scalable SaaS product in days instead of months.
-
-## Timeline
-2–6 Weeks
-
-## Investment
-# Starting From ₹50,000
-
-[ Build My SaaS Product ]
+= ₹4,997/month
 
 ---
 
-# 05 — Content Automation System
+### Growth Business Stack
+- Website
+- Hosting
+- AI Chatbot
+- WhatsApp Automation
+- SEO System
 
-### Perfect For
-Creators, agencies, founders, and personal brands scaling content production.
-
-## What You Get
-
-- AI content workflows
-- Automated content generation
-- Social media automation
-- AI research pipeline
-- Video workflow systems
-- Blog automation
-- Scheduling workflows
-- Content dashboard
-- Multi-platform publishing
-- AI-assisted production
-
-## Outcome
-
-Build a 24/7 AI-powered content engine.
-
-## Timeline
-1–3 Weeks
-
-## Investment
-# Starting From ₹30,000
-
-[ Build My Content System ]
+= ₹13,995/month
 
 ---
 
-# Why SaaSNext
+### AI Business OS
+- Website
+- Hosting
+- AI Chatbot
+- CRM Dashboard
+- Google Ads
+- Meta Ads
+- AI Content Engine
+- Workflow Automation
 
-## We Build Systems — Not Just Websites
-
-Traditional agencies deliver pages.  
-We build infrastructure that helps your business operate smarter.
-
-Every SaaSNext system is designed around:
-
-- Automation
-- Scalability
-- Conversion
-- AI integration
-- Premium user experience
-- Long-term business growth
+= ₹36,991/month
 
 ---
 
-# The SaaSNext Workflow
+# Setup Fee
 
-## Step 01 — Strategy
-We understand your business workflow, goals, and operational bottlenecks.
-
-## Step 02 — System Architecture
-We design the digital infrastructure and automation flow.
-
-## Step 03 — Build & Integrate
-We develop the complete system with AI, backend, and integrations.
-
-## Step 04 — Launch & Scale
-Your system goes live with performance optimization and scalability in mind.
+| Plan Type | Setup Fee |
+|---|---|
+| Starter Setup | ₹9,999 |
+| Growth Setup | ₹24,999 |
+| AI Business OS Setup | ₹49,999+ |
 
 ---
 
-# Frequently Asked Questions
+# Positioning
 
-## How fast can you deliver?
-Most systems launch within 3 days to 4 weeks depending on complexity.
+SaaSNext provides:
+- websites
+- AI automation
+- growth systems
+- business infrastructure
 
-## Do you use AI integrations?
-Yes. We integrate modern AI workflows, assistants, and automation tools based on business needs.
-
-## Can systems scale later?
-Absolutely. Every system is designed with scalability and future upgrades in mind.
-
-## Do you provide support?
-Yes. Ongoing support and optimization plans are available after launch.
-
-## Can you redesign existing systems?
-Yes. We can modernize, automate, and optimize existing websites or workflows.
+All under one monthly subscription.
 
 ---
 
-# Final CTA
+# CTA
 
-# Build Your Digital System
+## Build Your AI Business Stack
+Launch your business system in days, not months.
 
-Launch faster.  
-Automate smarter.  
-Scale with AI-powered infrastructure.
-
-[ Start Your System ]
+| Module              | Monthly |
+| ------------------- | ------- |
+| Website             | ₹2999   |
+| Hosting             | ₹999    |
+| AI Chatbot          | ₹1999   |
+| WhatsApp Automation | ₹2999   |
+| SEO System          | ₹4999   |
+| Ads Management      | ₹7999   |
+| Landing Pages       | ₹2999   |
+| CRM Dashboard       | ₹4999   |
+| AI Content Engine   | ₹6999   |
+| Booking System      | ₹1999   |
+| Analytics Dashboard | ₹1499   |
+| Maintenance         | ₹999    |
