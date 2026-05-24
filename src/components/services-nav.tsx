@@ -13,7 +13,7 @@ export function ServicesNav({ services, activeService }: { services: Service[], 
     return (
         <nav className="space-y-8">
             <div className="space-y-2">
-                <span className="text-[10px] font-mono tracking-[0.3em] text-primary uppercase opacity-50">Navigation</span>
+                <span className="text-[10px] font-mono tracking-[0.3em] text-accent uppercase opacity-50">Navigation</span>
                 <h3 className="font-headline text-2xl font-bold text-white tracking-tight">Our Services</h3>
             </div>
             <ul className="space-y-4">
@@ -24,14 +24,14 @@ export function ServicesNav({ services, activeService }: { services: Service[], 
                             className={cn(
                                 'group flex items-center gap-4 py-2 text-sm font-medium transition-all duration-300 outline-none',
                                 activeService === service.slug
-                                    ? 'text-primary pl-4'
+                                    ? 'text-accent pl-4'
                                     : 'text-neutral-500 hover:text-white'
                             )}
                         >
                             {activeService === service.slug && (
                                 <motion.div
                                     layoutId="activeNav"
-                                    className="absolute left-0 w-1 h-full bg-primary rounded-full shadow-[0_0_10px_rgba(41,171,226,0.5)]"
+                                    className="absolute left-0 w-1 h-full bg-accent rounded-full shadow-[0_0_10px_rgba(242,106,46,0.5)]"
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 />
                             )}

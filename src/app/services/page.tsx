@@ -41,10 +41,10 @@ export default function ServicesPage() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-black text-white selection:bg-primary selection:text-white">
+        <div className="min-h-screen bg-black text-white selection:bg-accent selection:text-white">
             {/* Immersive Background */}
             <div className="fixed inset-0 z-0">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(41,171,226,0.1),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(242,106,46,0.1),transparent_50%)]" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
                 
                 <motion.div 
@@ -53,7 +53,7 @@ export default function ServicesPage() {
                         scale: [1, 1.1, 1],
                     }}
                     transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                    className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-primary/20 blur-[120px] rounded-full" 
+                    className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-accent/20 blur-[120px] rounded-full" 
                 />
             </div>
 
@@ -64,7 +64,7 @@ export default function ServicesPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-primary text-sm font-mono mb-8"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/5 backdrop-blur-sm text-accent text-sm font-mono mb-8"
                     >
                         <Sparkles className="w-4 h-4" />
                         <span>PREMIUM DIGITAL SOLUTIONS</span>
@@ -108,13 +108,13 @@ export default function ServicesPage() {
                                 >
                                     {/* Service Header */}
                                     <div className="mb-16">
-                                        <div className="flex items-center gap-4 mb-6 text-primary">
-                                            <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20">
+                                        <div className="flex items-center gap-4 mb-6 text-accent">
+                                            <div className="p-3 rounded-2xl bg-accent/10 border border-accent/20">
                                                 <Icon className="w-8 h-8" />
                                             </div>
                                             <span className="text-sm font-mono uppercase tracking-[0.3em] opacity-50">0{index + 1} / {service.title}</span>
                                         </div>
-                                        <h2 className="font-headline text-5xl md:text-7xl font-bold text-white group-hover:text-primary transition-colors duration-500">
+                                        <h2 className="font-headline text-5xl md:text-7xl font-bold text-white group-hover:text-accent transition-colors duration-500">
                                             {service.title}
                                         </h2>
                                     </div>
@@ -129,9 +129,9 @@ export default function ServicesPage() {
                                             </TextReveal>
 
                                             <div className="relative p-8 rounded-3xl border border-white/5 bg-white/[0.02] backdrop-blur-sm group/card hover:bg-white/[0.04] transition-all duration-500 overflow-hidden">
-                                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full" />
+                                                <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 blur-3xl rounded-full" />
                                                 <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
-                                                    <Layout className="w-5 h-5 text-primary" />
+                                                    <Layout className="w-5 h-5 text-accent" />
                                                     The Framework
                                                 </h3>
                                                 <p className="text-neutral-400 leading-relaxed italic">"{service.process}"</p>
@@ -140,7 +140,7 @@ export default function ServicesPage() {
 
                                         <div className="md:col-span-2 space-y-12">
                                             <div className="space-y-6">
-                                                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-primary">Key Benefits</h3>
+                                                <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-accent">Key Benefits</h3>
                                                 <div className="space-y-4">
                                                     {service.benefits.split(',').map((benefit: string, i: number) => (
                                                         <motion.div 
@@ -148,7 +148,7 @@ export default function ServicesPage() {
                                                             whileHover={{ x: 10 }}
                                                             className="flex items-center gap-3 group/item"
                                                         >
-                                                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                                            <div className="w-1.5 h-1.5 rounded-full bg-accent" />
                                                             <span className="text-neutral-300 group-hover/item:text-white transition-colors">{benefit.trim()}</span>
                                                         </motion.div>
                                                     ))}
@@ -158,10 +158,10 @@ export default function ServicesPage() {
                                             <div className="pt-8 border-t border-white/10">
                                                 <Link
                                                     href="/contact"
-                                                    className="inline-flex items-center gap-4 text-xl font-bold text-white hover:text-primary transition-all group/link"
+                                                    className="inline-flex items-center gap-4 text-xl font-bold text-white hover:text-accent transition-all group/link"
                                                 >
                                                     Initialize Project
-                                                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover/link:bg-primary group-hover/link:border-primary transition-all duration-300">
+                                                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover/link:bg-accent group-hover/link:border-accent transition-all duration-300">
                                                         <ArrowRight className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" />
                                                     </div>
                                                 </Link>
@@ -173,11 +173,11 @@ export default function ServicesPage() {
                         })}
 
                         {/* Why Productized Section */}
-                        <section className="relative py-24 px-8 md:px-16 rounded-[3rem] border border-white/10 bg-gradient-to-br from-primary/10 via-transparent to-purple-500/5 overflow-hidden group">
+                        <section className="relative py-24 px-8 md:px-16 rounded-[3rem] border border-white/10 bg-gradient-to-br from-accent/10 via-transparent to-purple-500/5 overflow-hidden group">
                             <div className="absolute inset-0 bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,black,transparent)]" />
                             <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center">
                                 <div>
-                                    <h2 className="font-headline text-4xl md:text-6xl font-bold mb-10 text-white">Why Our <br/><span className="text-primary">Packages</span> Win.</h2>
+                                    <h2 className="font-headline text-4xl md:text-6xl font-bold mb-10 text-white">Why Our <br/><span className="text-accent">Packages</span> Win.</h2>
                                     <div className="grid gap-8">
                                         {[
                                             { title: "Zero Guesswork", desc: "Clear deliverables, fixed pricing, and predictable timelines." },
@@ -185,7 +185,7 @@ export default function ServicesPage() {
                                             { title: "Market Dominance", desc: "SEO & AI integration built into the core of every system." },
                                         ].map((benefit, i) => (
                                             <div key={i} className="flex gap-6">
-                                                <div className="text-primary font-mono text-xl opacity-50">0{i+1}</div>
+                                                <div className="text-accent font-mono text-xl opacity-50">0{i+1}</div>
                                                 <div>
                                                     <h4 className="font-bold text-xl text-white mb-2">{benefit.title}</h4>
                                                     <p className="text-neutral-400">{benefit.desc}</p>
@@ -196,7 +196,7 @@ export default function ServicesPage() {
                                 </div>
                                 <div className="p-8 rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl space-y-8">
                                     <h3 className="text-2xl font-bold font-headline text-white flex items-center gap-3">
-                                        <Sparkles className="w-6 h-6 text-primary" />
+                                        <Sparkles className="w-6 h-6 text-accent" />
                                         Performance Add-Ons
                                     </h3>
                                     <div className="grid sm:grid-cols-2 gap-4">
@@ -208,8 +208,8 @@ export default function ServicesPage() {
                                             "Neural Workflows",
                                             "Insight Dashboards"
                                         ].map((addon, i) => (
-                                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 transition-colors">
-                                                <div className="w-2 h-2 rounded-full bg-primary" />
+                                            <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-accent/30 transition-colors">
+                                                <div className="w-2 h-2 rounded-full bg-accent" />
                                                 <span className="text-sm font-medium">{addon}</span>
                                             </div>
                                         ))}
@@ -225,7 +225,7 @@ export default function ServicesPage() {
             <section className="relative z-10 py-32 bg-black">
                 <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
                     <div className="text-center mb-20">
-                        <span className="text-xs font-mono text-primary tracking-[0.3em] uppercase">Knowledge Base</span>
+                        <span className="text-xs font-mono text-accent tracking-[0.3em] uppercase">Knowledge Base</span>
                         <h2 className="font-headline text-4xl md:text-6xl font-bold text-white mt-4">Common Questions</h2>
                     </div>
                     <div className="space-y-4">
