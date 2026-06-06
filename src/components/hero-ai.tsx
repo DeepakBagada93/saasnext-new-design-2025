@@ -45,18 +45,19 @@ export function HeroAI() {
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-primary text-sm font-mono mb-8"
                         >
                             <Sparkles className="w-4 h-4" />
-                            <span>NEXT-GEN AI & WEB AUTOMATION</span>
+                            <span>SaaSNext AI Business OS v5.0</span>
                         </motion.div>
 
                         <h1 className="font-headline text-5xl md:text-7xl font-bold text-white tracking-tight mb-6 leading-[1.1]">
-                            Best AI Agency in <br />
+                            Stop Buying Websites. <br />
+                            Run Your Business on an <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-purple-600">
-                                Junagadh & Beyond.
+                                AI Operating System.
                             </span>
                         </h1>
 
                         <p className="text-xl text-neutral-400 max-w-xl mb-10 leading-relaxed">
-                            SaaSNext builds custom AI Agents, intelligent automation workflows, and high-performance web applications that help businesses rank in AI search engines and convert visitors into loyal customers.
+                            SaaSNext AI Business OS is an all-in-one growth platform that automates operations, captures leads, and scales your company with intelligent AI agents. One Subscription. One Dashboard. One AI-Powered OS.
                         </p>
 
                         <div className="flex flex-wrap gap-4">

@@ -19,7 +19,7 @@ export const ProblemSolution = () => {
                         transition={{ duration: 0.6 }}
                         className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
                     >
-                        You have a great product, <br /> but nobody knows about it.
+                        Your business is great, <br /> but your systems are manual.
                     </motion.h2>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
@@ -28,7 +28,7 @@ export const ProblemSolution = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="text-xl text-neutral-400 max-w-2xl mx-auto"
                     >
-                        In today's crowded digital landscape, being "good" isn't enough. You need to be visible, engaging, and persuasive.
+                        In the age of AI, running a business with static websites and manual spreadsheets is like racing a supercar on a bicycle.
                     </motion.p>
                 </div>
 
@@ -44,13 +44,13 @@ export const ProblemSolution = () => {
                         <div className="absolute -top-6 -left-6 bg-red-500 rounded-full p-4 shadow-lg shadow-red-500/20">
                             <AlertTriangle className="w-8 h-8 text-white" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-6 text-red-200">The Silent Business Killer</h3>
+                        <h3 className="text-2xl font-bold mb-6 text-red-200">The Growth Bottleneck</h3>
                         <ul className="space-y-4">
                             {[
-                                "Outdated website design that repels visitors",
-                                "Zero visibility on Google (SEO graveyard)",
-                                "Wasted ad spend with no ROI",
-                                "Manual processes slowing down growth"
+                                "Static websites that don't capture leads",
+                                "Manual follow-ups that miss opportunities",
+                                "Scattered data across multiple subscriptions",
+                                "Repetitive tasks killing your productivity"
                             ].map((item, idx) => (
                                 <li key={idx} className="flex items-start gap-3 text-red-100/80">
                                     <XCircle className="w-6 h-6 text-red-500 flex-shrink-0" />
@@ -71,13 +71,13 @@ export const ProblemSolution = () => {
                         <div className="absolute -top-6 -right-6 bg-emerald-500 rounded-full p-4 shadow-lg shadow-emerald-500/20">
                             <CheckCircle2 className="w-8 h-8 text-white" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-6 text-emerald-200">The SaaSNext Advantage</h3>
+                        <h3 className="text-2xl font-bold mb-6 text-emerald-200">The AI OS Advantage</h3>
                         <ul className="space-y-4">
                             {[
-                                "High-performance, modern web experiences",
-                                "Data-driven SEO strategies that rank",
-                                "AI-powered automation for 24/7 efficiency",
-                                "Targeted campaigns that convert leads"
+                                "Autonomous AI Agents working 24/7",
+                                "Unified Dashboard for all operations",
+                                "Automated Lead Capture & Growth",
+                                "One Subscription, Infinite Scalability"
                             ].map((item, idx) => (
                                 <li key={idx} className="flex items-start gap-3 text-emerald-100/80">
                                     <CheckCircle2 className="w-6 h-6 text-emerald-500 flex-shrink-0" />

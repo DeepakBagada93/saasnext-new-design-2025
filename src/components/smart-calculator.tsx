@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Plus, X, Globe, Clock, Info, ShieldCheck, ChevronRight, ChevronLeft, Rocket, Cpu, TrendingUp, Briefcase } from "lucide-react";
+import { Check, Plus, X, Globe, Clock, Info, ShieldCheck, ChevronRight, ChevronLeft, Rocket, Cpu, TrendingUp, Briefcase, Bot } from "lucide-react";
 import { 
   PRICING_SERVICES, PRICING_CATEGORIES, 
   CURRENCIES, CurrencyCode, 
@@ -15,10 +15,10 @@ import { cn } from "@/lib/utils";
 import { sendNotificationEmail } from "@/app/actions/send-notification-email";
 
 const CATEGORY_ICONS: Record<string, any> = {
-  "Core Infrastructure": Rocket,
-  "AI Systems": Cpu,
-  "Growth Systems": TrendingUp,
-  "Business Operations": Briefcase,
+  "Core OS Infrastructure": Cpu,
+  "AI Intelligence": Bot,
+  "Growth Engine": TrendingUp,
+  "Business Automation": Briefcase,
 };
 
 export const PricingCalculator = () => {
@@ -96,8 +96,8 @@ export const PricingCalculator = () => {
         <div className="mb-12 md:mb-20">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10">
                 <div className="space-y-2">
-                    <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tighter">Empire <span className="text-accent italic">Architect.</span></h2>
-                    <p className="text-neutral-500 text-xs font-bold uppercase tracking-widest">Global Build v4.0</p>
+                    <h2 className="text-4xl md:text-5xl font-headline font-bold tracking-tighter">AI OS <span className="text-accent italic">Architect.</span></h2>
+                    <p className="text-neutral-500 text-xs font-bold uppercase tracking-widest">AI Business OS v5.0</p>
                 </div>
                 
                 {/* Horizontal Stepper Indicator */}
@@ -196,7 +196,7 @@ export const PricingCalculator = () => {
                                 <Input name="phone" required placeholder="WHATSAPP" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="h-16 bg-black border-neutral-800 rounded-2xl focus:border-accent text-xs font-bold tracking-widest" />
                             </div>
                             <Button type="submit" disabled={isSubmitting || selectedIds.length === 0} className="w-full h-20 bg-accent text-white hover:bg-accent/90 rounded-3xl font-black uppercase tracking-[0.25em] text-xs transition-all shadow-2xl shadow-accent/20">
-                                {isSubmitting ? "ENCRYPTING..." : "INITIALIZE EMPIRE BUILD"}
+                                {isSubmitting ? "ENCRYPTING..." : "INITIALIZE AI OS DEPLOYMENT"}
                             </Button>
                         </form>
                     </div>

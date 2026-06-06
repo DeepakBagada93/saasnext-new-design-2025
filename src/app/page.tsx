@@ -99,8 +99,8 @@ export default function Home() {
       <section id="services" className="py-20 md:py-28 bg-neutral-50 dark:bg-black overflow-hidden">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <CreativeSectionHeader 
-            title="Productized Web Solutions"
-            subtitle="From 3-day rapid launches to enterprise digital platforms, we provide ready-to-deploy systems that scale with your business."
+            title="Productized AI OS Solutions"
+            subtitle="From essential AI foundations to enterprise-grade operating systems, we provide ready-to-deploy modules that automate and grow your business."
             className="mb-12"
           />
 
