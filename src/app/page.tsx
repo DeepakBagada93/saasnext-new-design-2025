@@ -10,6 +10,10 @@ import { HeroAI } from "@/components/hero-ai";
 
 // Dynamic imports for below-the-fold components
 const DirectAnswer = dynamic(() => import("@/components/direct-answer").then(mod => mod.DirectAnswer), { ssr: true });
+const Pricing = dynamic(() => import("@/components/pricing").then(mod => mod.Pricing), { 
+  ssr: false,
+  loading: () => <div className="h-[600px] w-full bg-neutral-900 animate-pulse rounded-3xl mx-auto max-w-7xl my-20" />
+});
 const PricingCalculator = dynamic(() => import("@/components/smart-calculator").then(mod => mod.PricingCalculator), { 
   ssr: false,
   loading: () => <div className="h-[600px] w-full bg-neutral-900 animate-pulse rounded-3xl mx-auto max-w-7xl my-20" />
@@ -65,7 +69,10 @@ export default function Home() {
       {/* Direct Answer for AEO */}
       <DirectAnswer />
 
-      {/* Pricing Section */}
+      {/* AI OS Packages Section */}
+      <Pricing />
+
+      {/* Custom AI OS Architect Section */}
       <PricingCalculator />
 
       {/* AEO Comparison */}
