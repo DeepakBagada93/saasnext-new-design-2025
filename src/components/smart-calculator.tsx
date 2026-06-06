@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Plus, X, Globe, Clock, Info, ShieldCheck, ChevronRight, ChevronLeft, Rocket, Cpu, TrendingUp, Briefcase, Bot } from "lucide-react";
+import { Check, Plus, X, Globe, Clock, Info, ShieldCheck, ChevronRight, ChevronLeft, Rocket, Cpu, TrendingUp, Briefcase, Bot, Layers, ShoppingBag, LayoutDashboard, UserPlus, Filter, Search, MessageSquareText, Zap, Mic, Database, Calendar, Repeat } from "lucide-react";
 import { 
   PRICING_SERVICES, PRICING_CATEGORIES, 
   CURRENCIES, CurrencyCode, 
@@ -15,10 +15,14 @@ import { cn } from "@/lib/utils";
 import { sendNotificationEmail } from "@/app/actions/send-notification-email";
 
 const CATEGORY_ICONS: Record<string, any> = {
-  "Core OS Infrastructure": Cpu,
-  "AI Intelligence": Bot,
-  "Growth Engine": TrendingUp,
-  "Business Automation": Briefcase,
+  "Digital Presence": Globe,
+  "Growth & Lead Gen": TrendingUp,
+  "AI & WhatsApp": Bot,
+  "Business Operations": Briefcase,
+};
+
+const SERVICE_ICONS: Record<string, any> = {
+  Globe, Layers, ShoppingBag, LayoutDashboard, UserPlus, Filter, Search, TrendingUp, Bot, MessageSquareText, Zap, Mic, Database, Calendar, Repeat, ShieldCheck
 };
 
 export const PricingCalculator = () => {
@@ -148,31 +152,42 @@ export const PricingCalculator = () => {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {PRICING_SERVICES.filter(s => s.category === steps[currentStep]).map(s => (
-                            <button 
-                                key={s.id}
-                                onClick={() => toggleService(s.id)}
-                                className={cn(
-                                    "flex items-center justify-between gap-6 p-7 rounded-[2rem] border transition-all duration-300 text-left relative overflow-hidden",
-                                    selectedIds.includes(s.id)
-                                    ? "bg-white text-black border-white shadow-xl scale-[1.02]"
-                                    : "bg-neutral-900/10 border-neutral-800 hover:border-neutral-700 text-neutral-400"
-                                )}
-                            >
-                                <div className="space-y-1 relative z-10 flex-1 min-w-0">
-                                    <div className="font-bold text-base md:text-lg tracking-tight leading-tight truncate">{s.name}</div>
-                                    <div className={cn("text-[10px] font-mono tracking-widest uppercase", 
-                                        selectedIds.includes(s.id) ? "text-neutral-500" : "text-neutral-700"
-                                    )}>{currentCurrency.symbol}{s.prices[currencyCode].toLocaleString()} / MO</div>
-                                </div>
-                                <div className={cn(
-                                    "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all shrink-0 relative z-10",
-                                    selectedIds.includes(s.id) ? "bg-black border-black" : "border-neutral-800 opacity-40 group-hover:opacity-100"
-                                )}>
-                                    {selectedIds.includes(s.id) ? <Check className="w-5 h-5 text-white" strokeWidth={4} /> : <Plus className="w-5 h-5" />}
-                                </div>
-                            </button>
-                        ))}
+                        {PRICING_SERVICES.filter(s => s.category === steps[currentStep]).map(s => {
+                            const SvgIcon = SERVICE_ICONS[s.icon] || Info;
+                            return (
+                                <button 
+                                    key={s.id}
+                                    onClick={() => toggleService(s.id)}
+                                    className={cn(
+                                        "flex items-center justify-between gap-6 p-7 rounded-[2rem] border transition-all duration-300 text-left relative overflow-hidden group",
+                                        selectedIds.includes(s.id)
+                                        ? "bg-white text-black border-white shadow-xl scale-[1.02]"
+                                        : "bg-neutral-900/10 border-neutral-800 hover:border-neutral-700 text-neutral-400"
+                                    )}
+                                >
+                                    <div className="space-y-3 relative z-10 flex-1 min-w-0">
+                                        <div className={cn(
+                                            "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
+                                            selectedIds.includes(s.id) ? "bg-black/5 text-black" : "bg-neutral-800/50 text-neutral-600"
+                                        )}>
+                                            <SvgIcon className="w-4 h-4" />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <div className="font-bold text-base md:text-lg tracking-tight leading-tight truncate">{s.name}</div>
+                                            <div className={cn("text-[10px] font-mono tracking-widest uppercase", 
+                                                selectedIds.includes(s.id) ? "text-neutral-500" : "text-neutral-700"
+                                            )}>{currentCurrency.symbol}{s.prices[currencyCode].toLocaleString()} / MO</div>
+                                        </div>
+                                    </div>
+                                    <div className={cn(
+                                        "w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all shrink-0 relative z-10",
+                                        selectedIds.includes(s.id) ? "bg-black border-black" : "border-neutral-800 opacity-40 group-hover:opacity-100"
+                                    )}>
+                                        {selectedIds.includes(s.id) ? <Check className="w-5 h-5 text-white" strokeWidth={4} /> : <Plus className="w-5 h-5" />}
+                                    </div>
+                                </button>
+                            );
+                        })}
                     </div>
                 </motion.div>
               ) : (
@@ -183,22 +198,56 @@ export const PricingCalculator = () => {
                     exit={{ opacity: 0, x: -20 }}
                     className="space-y-10"
                 >
-                    <div className="bg-neutral-900/20 border border-neutral-900 rounded-[3rem] p-10 md:p-16 space-y-10">
-                        <div className="space-y-4">
-                            <h3 className="text-3xl font-headline font-bold text-white">Final Information</h3>
-                            <p className="text-neutral-500 max-w-sm">Provide your secure uplink details to finalize the configuration.</p>
-                        </div>
+                    <div className="bg-neutral-900/20 border border-neutral-900 rounded-[3rem] p-10 md:p-16 space-y-10 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
                         
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <Input name="name" required placeholder="NAME" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="h-16 bg-black border-neutral-800 rounded-2xl focus:border-accent text-sm font-bold tracking-widest" />
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <Input name="email" type="email" required placeholder="EMAIL" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="h-16 bg-black border-neutral-800 rounded-2xl focus:border-accent text-xs font-bold tracking-widest" />
-                                <Input name="phone" required placeholder="WHATSAPP" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="h-16 bg-black border-neutral-800 rounded-2xl focus:border-accent text-xs font-bold tracking-widest" />
+                        <div className="space-y-6 relative z-10">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20">
+                                <Rocket className="w-3 h-3 text-accent" />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-accent">Deployment Ready</span>
                             </div>
-                            <Button type="submit" disabled={isSubmitting || selectedIds.length === 0} className="w-full h-20 bg-accent text-white hover:bg-accent/90 rounded-3xl font-black uppercase tracking-[0.25em] text-xs transition-all shadow-2xl shadow-accent/20">
-                                {isSubmitting ? "ENCRYPTING..." : "INITIALIZE AI OS DEPLOYMENT"}
-                            </Button>
-                        </form>
+                            <h3 className="text-4xl md:text-5xl font-headline font-bold text-white tracking-tighter">Your Custom <span className="text-accent">AI OS Plan.</span></h3>
+                            <p className="text-neutral-500 max-w-xl text-lg">We've architected a bespoke operational stack based on your selections. Review your configuration and initialize the uplink.</p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-10 relative z-10">
+                            <div className="space-y-6">
+                                <div className="space-y-4">
+                                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-600">Selected Modules</span>
+                                    <div className="space-y-3">
+                                        {selectedServices.map(s => (
+                                            <div key={s.id} className="flex justify-between items-center py-3 border-b border-neutral-800/50">
+                                                <span className="text-sm text-neutral-300 font-medium">{s.name}</span>
+                                                <span className="text-xs font-mono text-neutral-500">{currentCurrency.symbol}{s.prices[currencyCode].toLocaleString()}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="p-6 rounded-2xl bg-accent/5 border border-accent/10 flex justify-between items-center">
+                                    <div className="space-y-1">
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-accent">Monthly Investment</p>
+                                        <p className="text-xs text-neutral-500">{currentContract.label} Billing Cycle</p>
+                                    </div>
+                                    <div className="text-3xl font-bold text-white tracking-tighter">
+                                        {currentCurrency.symbol}{finalPrice.toLocaleString()}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="space-y-8">
+                                <div className="space-y-4">
+                                    <span className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-600">Initialize Uplink</span>
+                                    <form onSubmit={handleSubmit} className="space-y-4">
+                                        <Input name="name" required placeholder="FULL NAME" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="h-14 bg-black/50 border-neutral-800 rounded-xl focus:border-accent text-xs font-bold tracking-widest" />
+                                        <Input name="email" type="email" required placeholder="WORK EMAIL" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className="h-14 bg-black/50 border-neutral-800 rounded-xl focus:border-accent text-xs font-bold tracking-widest" />
+                                        <Input name="phone" required placeholder="WHATSAPP NUMBER" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} className="h-14 bg-black/50 border-neutral-800 rounded-xl focus:border-accent text-xs font-bold tracking-widest" />
+                                        <Button type="submit" disabled={isSubmitting || selectedIds.length === 0} className="w-full h-16 bg-accent text-white hover:bg-accent/90 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] transition-all shadow-2xl shadow-accent/20">
+                                            {isSubmitting ? "ENCRYPTING..." : "DEPLOY MY AI OS"}
+                                        </Button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </motion.div>
               )}

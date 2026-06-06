@@ -37,158 +37,130 @@ export interface ServiceItem {
 }
 
 export const PRICING_CATEGORIES = [
-  "Core OS Infrastructure",
-  "AI Intelligence",
-  "Growth Engine",
-  "Business Automation"
+  "Digital Presence",
+  "Growth & Lead Gen",
+  "AI & WhatsApp",
+  "Business Operations"
 ];
 
 export const PRICING_SERVICES: ServiceItem[] = [
-  // Core OS Infrastructure
+  // Digital Presence
   { 
-    id: "os-foundation", 
-    name: "AI OS Foundation", 
-    prices: { INR: 4999, USD: 149, AUD: 219, EUR: 139, GBP: 119 },
-    category: "Core OS Infrastructure", 
-    icon: "Cpu" 
-  },
-  { 
-    id: "premium-web-interface", 
-    name: "Premium Web Interface", 
+    id: "essential-os", 
+    name: "Essential One-Page OS", 
     prices: { INR: 2999, USD: 99, AUD: 149, EUR: 89, GBP: 79 },
-    category: "Core OS Infrastructure", 
+    category: "Digital Presence", 
     icon: "Globe" 
   },
   { 
-    id: "secure-cloud-hosting", 
-    name: "Secure Cloud Hosting", 
-    prices: { INR: 999, USD: 49, AUD: 69, EUR: 45, GBP: 39 },
-    category: "Core OS Infrastructure", 
-    icon: "ShieldCheck" 
+    id: "multi-page-os", 
+    name: "Multi-Page Business OS", 
+    prices: { INR: 4999, USD: 149, AUD: 219, EUR: 139, GBP: 119 },
+    category: "Digital Presence", 
+    icon: "Layers" 
   },
   { 
-    id: "os-maintenance", 
-    name: "System Maintenance", 
-    prices: { INR: 1499, USD: 59, AUD: 89, EUR: 55, GBP: 49 },
-    category: "Core OS Infrastructure", 
-    icon: "Settings" 
+    id: "ecommerce-os", 
+    name: "Enterprise E-commerce OS", 
+    prices: { INR: 9999, USD: 299, AUD: 449, EUR: 279, GBP: 239 },
+    category: "Digital Presence", 
+    icon: "ShoppingBag" 
   },
   { 
-    id: "unified-dashboard", 
-    name: "Unified OS Dashboard", 
-    prices: { INR: 1999, USD: 99, AUD: 149, EUR: 89, GBP: 79 },
-    category: "Core OS Infrastructure", 
-    icon: "BarChart3" 
-  },
-
-  // AI Intelligence
-  { 
-    id: "ai-business-assistant", 
-    name: "24/7 AI Assistant", 
-    prices: { INR: 2999, USD: 129, AUD: 189, EUR: 119, GBP: 99 },
-    category: "AI Intelligence", 
-    icon: "Bot" 
-  },
-  { 
-    id: "whatsapp-ai-agent", 
-    name: "WhatsApp AI Agent", 
-    prices: { INR: 3999, USD: 149, AUD: 219, EUR: 139, GBP: 119 },
-    category: "AI Intelligence", 
-    icon: "MessageSquareText" 
-  },
-  { 
-    id: "voice-ai-integration", 
-    name: "Voice AI Integration", 
-    prices: { INR: 5999, USD: 249, AUD: 369, EUR: 229, GBP: 199 },
-    category: "AI Intelligence", 
-    icon: "Mic" 
-  },
-  { 
-    id: "ai-content-generator", 
-    name: "AI Content Engine", 
-    prices: { INR: 4999, USD: 199, AUD: 299, EUR: 179, GBP: 159 },
-    category: "AI Intelligence", 
-    icon: "PenTool" 
-  },
-  { 
-    id: "predictive-analytics", 
-    name: "Predictive Analytics", 
-    prices: { INR: 3999, USD: 159, AUD: 239, EUR: 149, GBP: 129 },
-    category: "AI Intelligence", 
-    icon: "Zap" 
+    id: "custom-dashboard", 
+    name: "Custom Admin Dashboard", 
+    prices: { INR: 7499, USD: 249, AUD: 369, EUR: 229, GBP: 199 },
+    category: "Digital Presence", 
+    icon: "LayoutDashboard" 
   },
 
-  // Growth Engine
+  // Growth & Lead Gen
   { 
-    id: "ai-lead-capture", 
-    name: "AI Lead Capture System", 
+    id: "lead-capture-engine", 
+    name: "AI Lead Capture Engine", 
     prices: { INR: 3999, USD: 149, AUD: 219, EUR: 139, GBP: 119 },
-    category: "Growth Engine", 
+    category: "Growth & Lead Gen", 
     icon: "UserPlus" 
   },
   { 
-    id: "seo-growth-os", 
+    id: "sales-funnel-auto", 
+    name: "Automated Sales Funnel", 
+    prices: { INR: 5999, USD: 199, AUD: 299, EUR: 179, GBP: 159 },
+    category: "Growth & Lead Gen", 
+    icon: "Filter" 
+  },
+  { 
+    id: "aeo-seo-pack", 
     name: "AEO/SEO Growth Pack", 
-    prices: { INR: 5999, USD: 299, AUD: 449, EUR: 279, GBP: 239 },
-    category: "Growth Engine", 
+    prices: { INR: 4999, USD: 159, AUD: 239, EUR: 149, GBP: 129 },
+    category: "Growth & Lead Gen", 
     icon: "Search" 
   },
   { 
-    id: "ad-campaign-manager", 
-    name: "AI Ads Manager", 
-    prices: { INR: 7999, USD: 349, AUD: 519, EUR: 319, GBP: 279 },
-    category: "Growth Engine", 
+    id: "ad-manager-os", 
+    name: "Multi-Channel Ads Manager", 
+    prices: { INR: 7999, USD: 299, AUD: 449, EUR: 279, GBP: 239 },
+    category: "Growth & Lead Gen", 
     icon: "TrendingUp" 
   },
+
+  // AI & WhatsApp
   { 
-    id: "social-automation", 
-    name: "Social Growth Auto", 
-    prices: { INR: 4999, USD: 199, AUD: 299, EUR: 179, GBP: 159 },
-    category: "Growth Engine", 
-    icon: "Share2" 
+    id: "whatsapp-ai-agent", 
+    name: "24/7 WhatsApp AI Agent", 
+    prices: { INR: 3999, USD: 149, AUD: 219, EUR: 139, GBP: 119 },
+    category: "AI & WhatsApp", 
+    icon: "Bot" 
   },
   { 
-    id: "conversion-optimizer", 
-    name: "Conversion Engine", 
-    prices: { INR: 2999, USD: 129, AUD: 189, EUR: 119, GBP: 99 },
-    category: "Growth Engine", 
-    icon: "Target" 
+    id: "whatsapp-crm-tracking", 
+    name: "WhatsApp CRM & Tracking", 
+    prices: { INR: 2499, USD: 89, AUD: 129, EUR: 79, GBP: 69 },
+    category: "AI & WhatsApp", 
+    icon: "MessageSquareText" 
+  },
+  { 
+    id: "whatsapp-broadcast", 
+    name: "WhatsApp Broadcast Engine", 
+    prices: { INR: 1999, USD: 69, AUD: 99, EUR: 65, GBP: 59 },
+    category: "AI & WhatsApp", 
+    icon: "Zap" 
+  },
+  { 
+    id: "voice-ai-ivr", 
+    name: "Voice AI & IVR System", 
+    prices: { INR: 5999, USD: 249, AUD: 369, EUR: 229, GBP: 199 },
+    category: "AI & WhatsApp", 
+    icon: "Mic" 
   },
 
-  // Business Automation
+  // Business Operations
   { 
     id: "crm-os-module", 
     name: "AI CRM Module", 
-    prices: { INR: 3999, USD: 159, AUD: 239, EUR: 149, GBP: 129 },
-    category: "Business Automation", 
+    prices: { INR: 3499, USD: 129, AUD: 189, EUR: 119, GBP: 99 },
+    category: "Business Operations", 
     icon: "Database" 
   },
   { 
-    id: "appointment-automation", 
+    id: "auto-booking-system", 
     name: "Auto-Booking System", 
-    prices: { INR: 1999, USD: 89, AUD: 129, EUR: 79, GBP: 69 },
-    category: "Business Automation", 
+    prices: { INR: 1999, USD: 79, AUD: 119, EUR: 75, GBP: 65 },
+    category: "Business Operations", 
     icon: "Calendar" 
   },
   { 
     id: "workflow-engine", 
     name: "Custom Workflow Engine", 
-    prices: { INR: 4999, USD: 199, AUD: 299, EUR: 179, GBP: 159 },
-    category: "Business Automation", 
+    prices: { INR: 4499, USD: 159, AUD: 239, EUR: 149, GBP: 129 },
+    category: "Business Operations", 
     icon: "Repeat" 
   },
   { 
-    id: "email-marketing-os", 
-    name: "AI Email Marketing", 
-    prices: { INR: 2999, USD: 129, AUD: 189, EUR: 119, GBP: 99 },
-    category: "Business Automation", 
-    icon: "Mail" 
-  },
-  { 
-    id: "client-portal-os", 
-    name: "Client Management OS", 
-    prices: { INR: 5999, USD: 249, AUD: 369, EUR: 229, GBP: 199 },
-    category: "Business Automation", 
-    icon: "Users" 
+    id: "system-maintenance", 
+    name: "Maintenance & Security", 
+    prices: { INR: 1499, USD: 59, AUD: 89, EUR: 55, GBP: 49 },
+    category: "Business Operations", 
+    icon: "ShieldCheck" 
   },
 ];
