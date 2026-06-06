@@ -14,6 +14,10 @@ const PricingCalculator = dynamic(() => import("@/components/smart-calculator").
   ssr: false,
   loading: () => <div className="h-[600px] w-full bg-neutral-900 animate-pulse rounded-3xl mx-auto max-w-7xl my-20" />
 });
+const Pricing = dynamic(() => import("@/components/pricing").then(mod => mod.Pricing), { 
+  ssr: false,
+  loading: () => <div className="h-[600px] w-full bg-neutral-900 animate-pulse rounded-3xl mx-auto max-w-7xl my-20" />
+});
 const AEOComparison = dynamic(() => import("@/components/aeo-comparison").then(mod => mod.AEOComparison), { ssr: false });
 const ProblemSolution = dynamic(() => import("@/components/problem-solution").then(mod => mod.ProblemSolution), { ssr: false });
 const GEOSection = dynamic(() => import("@/components/geo-section").then(mod => mod.GEOSection), { ssr: false });
@@ -67,6 +71,7 @@ export default function Home() {
 
       {/* AI OS Packages Section */}
       <PricingCalculator />
+      <Pricing />
 
       {/* AEO Comparison */}
       <AEOComparison />

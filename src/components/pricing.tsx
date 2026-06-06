@@ -47,10 +47,10 @@ export const Pricing = () => {
                                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">System Architecture</span>
                             </div>
                             <h2 className="font-headline text-4xl sm:text-5xl md:text-8xl font-bold mb-8 text-white tracking-tighter">
-                                The <span className="text-accent italic">Blueprint.</span>
+                                Base <span className="text-accent italic">Systems.</span>
                             </h2>
                             <p className="text-lg sm:text-xl text-neutral-500 font-medium leading-relaxed">
-                                Select your operational tier to initialize the system configuration.
+                                Select a pre-configured operational tier to jumpstart your AI OS deployment.
                             </p>
                         </motion.div>
                     </div>
