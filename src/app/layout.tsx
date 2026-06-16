@@ -53,9 +53,9 @@ export const metadata: Metadata = {
     siteName: 'SaaSNext',
     images: [
       {
-        url: 'https://saasnext.in/saaasnext.png',
+        url: 'https://saasnext.in/icon.png',
         width: 1200,
-        height: 630,
+        height: 1200,
         alt: 'SaaSNext Web Design and Marketing',
       },
     ],
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'SaaSNext: Best Web Design & Digital Marketing Company in Junagadh',
     description: 'Transform your business with SaaSNext. Expert web design, SEO, and AI solutions in Junagadh.',
-    images: ['https://saasnext.in/saaasnext.png'],
+    images: ['https://saasnext.in/icon.png'],
     creator: '@Saasnext_db',
   },
   icons: {
@@ -103,7 +103,7 @@ const structuredData = {
     {
       "@type": "LocalBusiness",
       "name": "SaaSNext",
-      "image": "https://saasnext.in/saaasnext.png",
+      "image": "https://saasnext.in/icon.png",
       "@id": "https://saasnext.in/#localbusiness",
       "url": "https://saasnext.in/",
       "telephone": "+91 7016179234",
