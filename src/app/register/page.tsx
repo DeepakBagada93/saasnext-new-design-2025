@@ -12,7 +12,7 @@ import { Logo } from "@/components/logo";
 import { useToast } from "@/hooks/use-toast";
 import { sendNotificationEmail } from "../actions/send-notification-email";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, UserPlus, ShieldCheck } from "lucide-react";
+import { ArrowRight, UserPlus, ShieldCheck } from "lucide-react";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");

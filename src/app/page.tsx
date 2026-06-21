@@ -90,11 +90,11 @@ export default function Home() {
             Log in to our explorer panel to track your projects, manage AI agents, and access premium automation tools in real-time.
           </p>
           <div className="flex justify-center gap-4">
-            <Button asChild size="lg" className="rounded-full px-8">
-              <Link href="/login">Explore All Services <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            <Button asChild size="lg" className="rounded-full px-8 bg-accent hover:bg-accent/90 text-white">
+              <Link href="/book">Book Service Slot <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-full px-8">
-              <Link href="/services">View Catalog</Link>
+              <Link href="/login">Client Portal</Link>
             </Button>
           </div>
         </div>
@@ -197,18 +197,18 @@ export default function Home() {
       <section id="local-seo" className="py-20 md:py-28 bg-card">
         <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold">Dominate Local Search with Junagadh SEO</h2>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">Dominate Search & AI Overviews Globally & Locally</h2>
             <TextReveal>
               <p className="text-lg text-muted-foreground">
-                Being on the first page of Google isn't a luxury; it's a necessity. Our web development and SEO services in Junagadh put your business in front of the customers who matter most.
+                Whether you need local visibility in <strong>Junagadh, Ahmedabad, Gandhinagar, and Gujarat</strong>, or want to target customers across the <strong>US, UK, and Dubai</strong>, our website development and SEO solutions put you on top. We offer cheap, best-in-class local SEO, citations, and advanced Generative Engine Optimization (GEO).
               </p>
             </TextReveal>
             <ul className="space-y-4">
               {[
-                "Targeted Local Keywords for Junagadh Market",
-                "Google My Business Optimization",
-                "High-Quality Backlink Building",
-                "Mobile-First Responsive Design"
+                "Targeted Local Keywords & Local Citations (Junagadh, Gujarat)",
+                "Global Service Reach Targeting US, UK, and Dubai Markets",
+                "Optimized for Google AI Overviews, Gemini, and SearchGPT",
+                "High-performance, Cheap & Affordable Custom Web Applications"
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3">
                   <CheckCircle className="h-6 w-6 text-primary flex-shrink-0" />

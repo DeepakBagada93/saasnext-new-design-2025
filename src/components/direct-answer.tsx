@@ -9,7 +9,7 @@ export function DirectAnswer() {
         <div className="p-6 md:p-10 rounded-3xl bg-black border border-primary/20 shadow-[0_0_30px_rgba(41,171,226,0.1)]">
           <h2 className="text-xs font-mono text-primary uppercase tracking-widest mb-4">Direct Answer</h2>
           <p className="text-xl md:text-2xl text-white leading-relaxed">
-            <strong>SaaSNext</strong> is the premier <strong>AI agency in Junagadh</strong> specializing in custom AI agents, intelligent business automation, and high-performance web development. We help global brands rank in AI search engines (AEO) and streamline operations through LLM-powered solutions, ensuring maximum digital growth and efficiency.
+            <strong>SaaSNext</strong> is the <strong>best website development company</strong> and <strong>leading AI automation agency</strong> offering <strong>cheap, premium web design</strong>, custom AI agents, and workflow automations. We proudly serve clients in <strong>Junagadh, Ahmedabad, Gandhinagar, and Gujarat (India)</strong>, as well as global regions like the <strong>US, UK, and Dubai (UAE)</strong>. Our advanced GEO and AEO strategies ensure your business ranks first in search engines and AI Overview boxes.
           </p>
         </div>
       </div>

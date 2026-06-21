@@ -25,12 +25,14 @@ const spaceGrotesk = Space_Grotesk({
 
 
 export const metadata: Metadata = {
-  title: 'Best AI Agency in Junagadh — Custom Web App & Automation | SaaSNext',
-  description: 'SaaSNext is the top AI agency and web app development company in Junagadh. We build custom AI agents, autonomous automation, and high-performance Next.js applications optimized for AI search engines (AEO/GEO).',
+  title: 'Best AI Agency & Custom Web App Development Company | SaaSNext',
+  description: 'SaaSNext is the leading AI agency & web app development company serving Junagadh, Ahmedabad, Gandhinagar, Gujarat, USA, UK, and Dubai. We build custom AI agents, business automations, and premium high-performance Next.js websites optimized for AI Overview search engines (GEO/AEO) at cheap & affordable prices.',
   keywords: [
     "Best AI Agency Junagadh", "AI Agent Development", "Business Automation Junagadh",
     "Web App Development Junagadh", "Custom Software Junagadh", "Next.js Developer Junagadh",
     "Best Web Design Junagadh", "SEO Company Junagadh", "Digital Marketing Junagadh",
+    "Web Development Ahmedabad", "Cheap Web Design Gandhinagar", "Best AI Agency USA",
+    "Custom Software UK", "Business Automation Dubai", "Leading Web Developers Gujarat",
     "AI Solutions for Business", "Autonomous AI Agents", "Python Automation",
     "GEO Optimization", "AEO Strategies", "Generative Engine Optimization", "Answer Engine Optimization",
     "SaaSNext", "Deepak Bagada"
@@ -129,6 +131,14 @@ const structuredData = {
         },
         {
           "@type": "City",
+          "name": "Ahmedabad"
+        },
+        {
+          "@type": "City",
+          "name": "Gandhinagar"
+        },
+        {
+          "@type": "City",
           "name": "Rajkot"
         },
         {
@@ -138,9 +148,21 @@ const structuredData = {
         {
           "@type": "Country",
           "name": "India"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        },
+        {
+          "@type": "Country",
+          "name": "United Kingdom"
+        },
+        {
+          "@type": "Country",
+          "name": "United Arab Emirates"
         }
       ],
-      "description": "SaaSNext is a top-rated web design and digital marketing agency in Junagadh, specializing in custom website development, lead generation, and social media marketing to help local businesses grow. Now fully optimized for AI Search and Answer Engines.",
+      "description": "SaaSNext is a leading web app development company and AI automation agency serving Junagadh, Ahmedabad, Gandhinagar, Gujarat (India), the USA, the UK, and Dubai (UAE). We build custom AI agents, business automation systems, and high-performance, affordable, and cheap web applications optimized for SEO, AEO, and GEO.",
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
@@ -195,15 +217,39 @@ const structuredData = {
     },
     {
       "@type": "Service",
-      "name": "Web Design Junagadh",
+      "name": "Web Design & Custom Web App Development",
       "provider": {
         "@id": "https://saasnext.in/#localbusiness"
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "Junagadh"
+      "areaServed": [
+        { "@type": "City", "name": "Junagadh" },
+        { "@type": "City", "name": "Ahmedabad" },
+        { "@type": "City", "name": "Gandhinagar" },
+        { "@type": "State", "name": "Gujarat" },
+        { "@type": "Country", "name": "India" },
+        { "@type": "Country", "name": "United States" },
+        { "@type": "Country", "name": "United Kingdom" },
+        { "@type": "Country", "name": "United Arab Emirates" }
+      ],
+      "description": "Cheap, best, and leading website design and custom React/Next.js web application development services in Junagadh, Ahmedabad, Gandhinagar, Gujarat, USA, UK, and Dubai."
+    },
+    {
+      "@type": "Service",
+      "name": "AI Automation & Business Agents",
+      "provider": {
+        "@id": "https://saasnext.in/#localbusiness"
       },
-      "description": "Professional web design services in Junagadh for small businesses and startups. Optimized for SEO, AEO, and GEO."
+      "areaServed": [
+        { "@type": "City", "name": "Junagadh" },
+        { "@type": "City", "name": "Ahmedabad" },
+        { "@type": "City", "name": "Gandhinagar" },
+        { "@type": "State", "name": "Gujarat" },
+        { "@type": "Country", "name": "India" },
+        { "@type": "Country", "name": "United States" },
+        { "@type": "Country", "name": "United Kingdom" },
+        { "@type": "Country", "name": "United Arab Emirates" }
+      ],
+      "description": "Leading custom AI agent integration, LLM-powered business automation workflows, and generative optimization services across local and global markets."
     },
     {
       "@type": "FAQPage",

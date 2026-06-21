@@ -106,7 +106,7 @@ export default function ContactPage() {
         <div className="pt-8 border-t">
           <h3 className="font-headline text-2xl font-bold mb-4">Service Areas</h3>
           <div className="flex flex-wrap gap-2">
-            {['Junagadh', 'Rajkot', 'Ahmedabad', 'Surat', 'Vadodara', 'Mumbai', 'Pune', 'Bangalore', 'Dubai', 'USA', 'UK'].map((city) => (
+            {['Junagadh', 'Rajkot', 'Ahmedabad', 'Gandhinagar', 'Surat', 'Vadodara', 'Mumbai', 'Pune', 'Bangalore', 'Dubai', 'USA', 'UK'].map((city) => (
               <span key={city} className="px-3 py-1 bg-muted rounded-full text-sm">{city}</span>
             ))}
           </div>

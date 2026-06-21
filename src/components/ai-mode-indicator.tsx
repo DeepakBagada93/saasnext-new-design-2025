@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, Sparkles, Cpu, ChevronRight } from 'lucide-react';
+import { Bot, Cpu, ChevronRight } from 'lucide-react';
 
 const models = [
   { name: 'Gemini 1.5 Pro', color: 'text-blue-400', bg: 'bg-blue-400/10' },
@@ -54,7 +54,6 @@ export function AIModeIndicator() {
             </motion.div>
           </AnimatePresence>
           <div className="hidden sm:block ml-2 text-neutral-600">
-            <Sparkles className="w-3 h-3 inline mr-1" />
             <span>99.9% LLM Parsability</span>
           </div>
         </div>

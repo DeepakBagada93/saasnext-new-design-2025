@@ -4,7 +4,7 @@ import { portfolioItems } from '@/lib/data';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft, ArrowUpRight, Activity, Target, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Activity, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function PortfolioItemDetails({ portfolioItemId }: { portfolioItemId: string }) {
@@ -86,7 +86,6 @@ export default function PortfolioItemDetails({ portfolioItemId }: { portfolioIte
                                     </div>
                                     <div>
                                         <h3 className="font-headline text-sm font-bold text-accent uppercase tracking-widest mb-3 flex items-center gap-2">
-                                            <Sparkles className="w-4 h-4" />
                                             Our Solution
                                         </h3>
                                         <p className="text-sm sm:text-base text-neutral-400 leading-relaxed">{item.solution}</p>
@@ -146,9 +145,6 @@ export default function PortfolioItemDetails({ portfolioItemId }: { portfolioIte
                                 className="p-6 sm:p-8 rounded-[2rem] border border-white/5 bg-white/[0.02] space-y-4"
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="h-8 w-8 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                                        <Sparkles className="h-4 w-4 text-emerald-500" />
-                                    </div>
                                     <span className="text-[10px] font-black uppercase tracking-widest text-neutral-400">Tech Stack</span>
                                 </div>
                                 <div className="flex flex-wrap gap-2">

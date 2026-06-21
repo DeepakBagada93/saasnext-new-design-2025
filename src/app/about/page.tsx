@@ -30,16 +30,16 @@ const coreValues = [
 
 const whyChooseUsItems = [
     {
-        title: "Local Junagadh Expertise",
-        description: "Our team consists of industry veterans with proven track records in the Junagadh market. As a leading AI and web design company in Junagadh, we understand the local landscape."
+        title: "Gujarat & Global SEO/GEO Authority",
+        description: "Our team serves clients locally in Junagadh, Ahmedabad, Gandhinagar, and Rajkot, and globally in the US, UK, and Dubai. We understand both local nuances and international search standards."
     },
     {
-        title: "Custom-Tailored Solutions",
-        description: "We don't do one-size-fits-all. Every custom AI and website development Junagadh project is tailored to your unique business needs."
+        title: "Cheap & Custom Web Development",
+        description: "We don't do one-size-fits-all. Every custom AI agent and website development project is tailored to your business needs at the best, most affordable prices."
     },
     {
-        title: "Dedicated Long-Term Support",
-        description: "We're with you every step of the way, from initial concept to post-launch support and beyond for all our services in Junagadh."
+        title: "Leading AI Automation & Citations",
+        description: "We implement robust schema markup, citation-rich assets, and local SEO citations to secure top positions on Google Maps and AI Overviews."
     }
 ];
 
@@ -83,7 +83,7 @@ export default function AboutPage() {
                         />
                         <TextReveal>
                             <p className="text-xl md:text-2xl text-muted-foreground">
-                                A passionate, Junagadh-based AI and Automation company dedicated to crafting solutions that drive growth for businesses just like yours. We specialize in custom web development and digital marketing strategies tailored for the local market.
+                                A passionate, Gujarat-based AI and Automation company serving Junagadh, Ahmedabad, Gandhinagar, and global markets (USA, UK, Dubai). We craft cheap, high-performance digital systems, custom web apps, and automated workflows that drive growth.
                             </p>
                         </TextReveal>
                     </div>
@@ -103,7 +103,7 @@ export default function AboutPage() {
                     <div className="text-center max-w-3xl mx-auto">
                         <h2 className="font-headline text-4xl md:text-5xl font-bold">Our Core Values</h2>
                         <TextReveal>
-                            <p className="mt-4 text-muted-foreground text-lg">These are the principles that guide every project, partnership, and decision we make as the best AI and digital marketing agency in Junagadh.</p>
+                            <p className="mt-4 text-muted-foreground text-lg">These are the principles that guide every project, partnership, and decision we make as the best AI and digital marketing agency in Junagadh, Ahmedabad, and globally.</p>
                         </TextReveal>
                     </div>
                     <div className="mt-16 grid md:grid-cols-3 gap-8">
@@ -120,7 +120,7 @@ export default function AboutPage() {
 
             <section className="py-20 md:py-28 text-center bg-card">
                 <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Why Choose SaaSNext in Junagadh?</h2>
+                    <h2 className="font-headline text-4xl md:text-5xl font-bold">Why Choose SaaSNext?</h2>
                     <div className="mt-8 grid md:grid-cols-3 gap-8 text-left">
                         {whyChooseUsItems.map((item, index) => (
                             <div key={item.title} className="flex gap-4">
@@ -145,7 +145,7 @@ export default function AboutPage() {
                 <div className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
                     <h2 className="font-headline text-3xl md:text-4xl font-bold mb-8">Our Mission</h2>
                     <blockquote className="text-2xl md:text-4xl font-medium leading-relaxed">
-                        "To empower businesses in Junagadh and beyond with cutting-edge digital solutions that bridge the gap between human creativity and artificial intelligence."
+                        "To empower businesses in Junagadh, Ahmedabad, Gandhinagar, Gujarat, and across the globe with cutting-edge digital solutions that bridge the gap between human creativity and artificial intelligence."
                     </blockquote>
                 </div>
             </section>

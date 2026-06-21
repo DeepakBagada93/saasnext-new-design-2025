@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Loader2, Clock, Target, Zap, ArrowRight, Sparkles, Activity, ShieldCheck, Cpu } from "lucide-react";
+import { CheckCircle, Loader2, Clock, Target, Zap, ArrowRight, Activity, ShieldCheck, Cpu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePackages, Package } from "@/hooks/use-packages";
@@ -204,19 +204,15 @@ export const Pricing = () => {
                 {/* System Specs Bar */}
                 <div className="mt-12 p-4 sm:p-6 rounded-[2rem] border border-white/5 bg-white/[0.01] flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-neutral-600">
                     <div className="flex items-center gap-2">
-                        <Sparkles className="w-3 h-3 text-accent" />
                         Next.js 15
                     </div>
                     <div className="flex items-center gap-2">
-                        <Sparkles className="w-3 h-3 text-accent" />
                         Supabase DB
                     </div>
                     <div className="flex items-center gap-2">
-                        <Sparkles className="w-3 h-3 text-accent" />
                         AI Agent Ready
                     </div>
                     <div className="flex items-center gap-2">
-                        <Sparkles className="w-3 h-3 text-accent" />
                         Cloud Deployment
                     </div>
                 </div>

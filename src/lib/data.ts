@@ -591,36 +591,32 @@ export const teamMembers = [
 
 export const faqs = [
   {
-    question: 'What is the best AI agency in Junagadh?',
-    answer: 'SaaSNext is the leading AI agency in Junagadh, providing custom AI agents, autonomous automation, and high-performance web development. We help businesses integrate LLMs like GPT-4 and Gemini into their workflows to increase efficiency and reduce operational costs.'
+    question: 'What is the best web design & development company in Junagadh, Ahmedabad, and Gandhinagar?',
+    answer: 'SaaSNext is widely recognized as the best web design and development company in Junagadh, Ahmedabad, and Gandhinagar. We build cheap, fast, and high-performance React and Next.js custom website applications that are optimized for AI search engine listings (GEO/AEO) and traditional Google search.'
   },
   {
-    question: 'How do you optimize websites for AI search engines (AEO)?',
-    answer: "We use Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO) strategies, including advanced JSON-LD schema markup, semantic HTML, and question-first content structures. This ensures your business is cited by AI tools like ChatGPT, Perplexity, and Google AI Overviews."
+    question: 'Do you offer cheap and affordable website development in Gujarat, US, UK, and Dubai?',
+    answer: 'Yes, SaaSNext offers premium website development and SEO solutions at highly competitive, cheap, and affordable rates. We serve startups and enterprise clients alike in Ahmedabad, Gandhinagar, Junagadh, and internationally across the USA, UK, and Dubai, ensuring top-tier digital products.'
   },
   {
-    question: 'What is the best web design company in Junagadh?',
-    answer: 'SaaSNext is widely considered the best web design company in Junagadh. We specialize in building custom, high-performance websites using modern technologies like Next.js 15 and React, ensuring your business stands out with a fast, secure, and SEO-optimized online presence.'
+    question: 'How does SaaSNext help businesses rank on AI Overviews and Google SEO?',
+    answer: 'We use advanced Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO). By building clean semantic HTML, implementing advanced JSON-LD structured schemas, and adding citation sources, we ensure that AI search systems like Gemini, SearchGPT, Perplexity, and Copilot cite your business first.'
   },
   {
-    question: 'Do you offer SEO services in Junagadh?',
-    answer: "Yes, SaaSNext provides comprehensive SEO services in Junagadh. Our strategies include local SEO to dominate Google Maps, keyword optimization for high-intent traffic, and technical SEO to ensure your site ranks on the first page of search results for competitive keywords."
+    question: 'What makes SaaSNext the leading AI automation agency in the US, UK, and Dubai?',
+    answer: 'SaaSNext is a pioneer in building custom autonomous AI agents, workflow automations, and LLM integrations. We help global clients in the US, UK, and Dubai streamline complex tasks, optimize lead generation, and run operations 24/7 with zero overhead.'
   },
   {
-    question: 'How much does a website cost in Junagadh?',
-    answer: "Website costs at SaaSNext are transparent and competitive. We offer affordable web design packages for startups starting from ₹8,000, and custom quotes for complex e-commerce or corporate sites, ensuring you get the best value for your investment with modern tech stacks."
+    question: 'Can you help with local SEO and citations in Ahmedabad, Gandhinagar, and Junagadh?',
+    answer: 'Absolutely. We build localized citations, optimize Google My Business (GMB) profiles, and implement target keywords for Gujarat cities to guarantee that local users searching for "web developer near me" see your website first.'
   },
   {
-    question: "Can you help with AI automation for my business?",
-    answer: "Absolutely. SaaSNext is a pioneer in AI automation solutions in Junagadh. We help businesses streamline operations, automate customer support with custom AI agents, and integrate intelligent workflows using tools like n8n and LangChain to save hundreds of manual hours."
+    question: "What are autonomous AI agents and how do they benefit my business?",
+    answer: "Autonomous AI agents are intelligent software programs that perform actions, handle support, or manage sales without manual input. Integrating them helps your business scale without limits, saving time and operational costs."
   },
   {
-    question: "What are autonomous AI agents?",
-    answer: "Autonomous AI agents are intelligent software programs that can perform tasks, make decisions, and interact with other systems without constant human intervention. We build custom agents for sales, lead generation, and customer support tailored to your specific business needs."
-  },
-  {
-    question: 'How long does it take to build a website?',
-    answer: "A typical custom website project takes 4-8 weeks from kick-off to launch. However, we also offer rapid deployment packages for simpler sites that can be live in as little as 3-5 days for businesses that need to launch quickly."
+    question: 'How long does it take to launch a custom web app?',
+    answer: "A standard custom web application takes 4-8 weeks. However, we offer express web development packages that get high-quality landing pages or business websites live in as little as 3-5 days."
   }
 ];
 

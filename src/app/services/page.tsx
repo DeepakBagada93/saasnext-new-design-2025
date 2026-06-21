@@ -5,7 +5,7 @@ import { ServicesNav } from '@/components/services-nav';
 import { AnimatedHeadline } from '@/components/animated-headline';
 import { TextReveal } from '@/components/text-reveal';
 import { motion } from 'framer-motion';
-import { ArrowRight, BrainCircuit, Code, Search, Megaphone, Feather, Sparkles, Layout } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Code, Search, Megaphone, Feather, Layout } from 'lucide-react';
 import Link from 'next/link';
 
 const iconMap: Record<string, any> = {
@@ -66,7 +66,6 @@ export default function ServicesPage() {
                         transition={{ duration: 0.6 }}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/20 bg-accent/5 backdrop-blur-sm text-accent text-sm font-mono mb-8"
                     >
-                        <Sparkles className="w-4 h-4" />
                         <span>PREMIUM DIGITAL SOLUTIONS</span>
                     </motion.div>
 
@@ -196,7 +195,6 @@ export default function ServicesPage() {
                                 </div>
                                 <div className="p-8 rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl space-y-8">
                                     <h3 className="text-2xl font-bold font-headline text-white flex items-center gap-3">
-                                        <Sparkles className="w-6 h-6 text-accent" />
                                         Performance Add-Ons
                                     </h3>
                                     <div className="grid sm:grid-cols-2 gap-4">

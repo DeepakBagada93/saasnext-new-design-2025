@@ -9,7 +9,6 @@ import {
   Code2,
   Megaphone,
   MessageCircle,
-  Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -101,7 +100,6 @@ export default function ClientDashboardPage() {
         <div className="grid lg:grid-cols-[1.35fr_0.65fr]">
           <div className="space-y-8 p-5 sm:p-8 lg:p-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-accent">
-              <Sparkles className="h-3.5 w-3.5" />
               20 Second Setup
             </div>
 
