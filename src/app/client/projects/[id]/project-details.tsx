@@ -34,6 +34,7 @@ function WhatsappIcon(props: any) {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
         >
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
         </svg>
@@ -47,6 +48,7 @@ function NotionIcon(props: any) {
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 24 24" 
             fill="currentColor"
+            aria-hidden="true"
         >
             <path d="M13.633 21.026L12 18.053V2.974h8.333v13.567l-2.018-3.026L19.528 17.5l-5.895 3.526zM5.333 2.974h5.667v18.052H5.333V2.974zm1.112 1.111v15.83h3.443V4.085H6.445z"/>
         </svg>

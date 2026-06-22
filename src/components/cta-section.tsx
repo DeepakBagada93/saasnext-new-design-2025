@@ -10,7 +10,7 @@ export function CTASection() {
         <section className="relative py-24 md:py-32 overflow-hidden bg-primary text-primary-foreground">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
-                <svg className="w-full h-full" width="100%" height="100%">
+                <svg className="w-full h-full" width="100%" height="100%" aria-hidden="true">
                     <pattern id="dot-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                         <circle cx="2" cy="2" r="1" fill="currentColor" />
                     </pattern>

@@ -95,7 +95,7 @@ export function HeroAnimation() {
       </div>
 
       {/* Particles */}
-      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" aria-hidden="true">
         {[...Array(PARTICLE_COUNT)].map((_, i) => (
           <circle
             key={i}

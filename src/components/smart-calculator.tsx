@@ -318,7 +318,7 @@ export const PricingCalculator = () => {
                                 {selectedServices.map(s => (
                                     <motion.div key={s.id} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex justify-between items-center group">
                                         <span className="text-xs text-neutral-500 group-hover:text-white transition-colors">{s.name}</span>
-                                        <button onClick={() => toggleService(s.id)} className="text-neutral-700 hover:text-red-500 transition-colors"><X className="w-3.5 h-3.5" /></button>
+                                        <button onClick={() => toggleService(s.id)} className="text-neutral-700 hover:text-red-500 transition-colors" aria-label={`Remove ${s.name}`}><X className="w-3.5 h-3.5" /></button>
                                     </motion.div>
                                 ))}
                             </AnimatePresence>

@@ -23,6 +23,7 @@ export const Card = React.memo(
             onMouseLeave={() => setHovered(null)}
             className={cn(
                 "rounded-2xl relative bg-neutral-900 overflow-hidden h-[300px] md:h-[350px] w-full transition-all duration-300 ease-out border border-neutral-800 group",
+                "focus-within:scale-[1.02] focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 focus-within:z-10",
                 hovered !== null && hovered !== index && "blur-sm scale-[0.98] opacity-50",
                 hovered === index && "scale-[1.02] border-primary/50 ring-2 ring-primary/20 z-10"
             )}
@@ -43,7 +44,7 @@ export const Card = React.memo(
                     //   hovered === index ? "opacity-100" : "opacity-0"
                 )}
             >
-                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <div className="transform translate-y-4 group-hover:translate-y-0 group-focus-within:translate-y-0 transition-transform duration-300">
                     <p className="text-xs font-medium text-primary mb-1 uppercase tracking-wider bg-black/50 w-fit px-2 py-0.5 rounded backdrop-blur-sm">
                         {card.service}
                     </p>
@@ -53,7 +54,7 @@ export const Card = React.memo(
                         </h3>
                     </div>
 
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                    <div className="opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 pointer-events-none group-hover:pointer-events-auto group-focus-within:pointer-events-auto transition-opacity duration-300 delay-100">
                         <Button asChild size="sm" className="w-full h-8 text-xs bg-primary text-black hover:bg-primary/90">
                             <Link href={card.url} target="_blank" className="flex items-center justify-center gap-2">
                                 View Project <ArrowRight className="w-4 h-4" />

@@ -52,16 +52,18 @@ export function HeroAI() {
                     <div className="lg:col-span-7 text-center lg:text-left space-y-8">
                         
                         {/* Interactive Sparkle/Launch Badge */}
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-md text-primary text-xs md:text-sm font-mono hover:bg-primary/10 transition-colors cursor-pointer group mx-auto lg:mx-0"
-                        >
-                            <Cpu className="w-4 h-4 animate-spin [animation-duration:8s] text-accent" />
-                            <span>SaaSNext AI Business OS v5.0</span>
-                            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                        </motion.div>
+                        <Link href="/documentation" className="inline-block mx-auto lg:mx-0 focus-visible:outline-none rounded-full">
+                            <motion.div
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6 }}
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-md text-primary text-xs md:text-sm font-mono hover:bg-primary/10 transition-colors group"
+                            >
+                                <Cpu className="w-4 h-4 animate-spin [animation-duration:8s] text-accent" />
+                                <span>SaaSNext AI Business OS v5.0</span>
+                                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                            </motion.div>
+                        </Link>
 
                         {/* Title with Gradient Highlights */}
                         <h1 className="font-headline text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.05]">
@@ -133,37 +135,37 @@ export function HeroAI() {
                             {/* Visual Grid */}
                             <div className="grid grid-cols-2 gap-4">
                                 
-                                <div className="p-5 rounded-2xl bg-primary/5 border border-primary/10 hover:border-primary/30 space-y-3 group hover:bg-primary/10 transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                                <Link href="/services" className="p-5 rounded-2xl bg-primary/5 border border-primary/10 hover:border-primary/30 space-y-3 group hover:bg-primary/10 transition-all duration-300 hover:-translate-y-1 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:border-primary/50">
                                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary border border-primary/20 group-hover:scale-110 transition-transform">
                                         <Bot className="w-5 h-5" />
                                     </div>
                                     <h3 className="text-white font-bold text-sm">AI Agents</h3>
                                     <p className="text-[11px] text-neutral-400 leading-normal">Custom LLM support & sales digital workforces.</p>
-                                </div>
+                                </Link>
 
-                                <div className="p-5 rounded-2xl bg-purple-500/5 border border-purple-500/10 hover:border-purple-500/30 space-y-3 group hover:bg-purple-500/10 transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                                <Link href="/services" className="p-5 rounded-2xl bg-purple-500/5 border border-purple-500/10 hover:border-purple-500/30 space-y-3 group hover:bg-purple-500/10 transition-all duration-300 hover:-translate-y-1 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50">
                                     <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 border border-purple-500/20 group-hover:scale-110 transition-transform">
                                         <Zap className="w-5 h-5" />
                                     </div>
                                     <h3 className="text-white font-bold text-sm">Automation</h3>
                                     <p className="text-[11px] text-neutral-400 leading-normal">Zero-touch operations & backend systems.</p>
-                                </div>
+                                </Link>
 
-                                <div className="p-5 rounded-2xl bg-blue-500/5 border border-blue-500/10 hover:border-blue-500/30 space-y-3 group hover:bg-blue-500/10 transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                                <Link href="/services" className="p-5 rounded-2xl bg-blue-500/5 border border-blue-500/10 hover:border-blue-500/30 space-y-3 group hover:bg-blue-500/10 transition-all duration-300 hover:-translate-y-1 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50">
                                     <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20 group-hover:scale-110 transition-transform">
                                         <Layout className="w-5 h-5" />
                                     </div>
                                     <h3 className="text-white font-bold text-sm">Web Interfaces</h3>
                                     <p className="text-[11px] text-neutral-400 leading-normal">High-performance custom React/Next.js apps.</p>
-                                </div>
+                                </Link>
 
-                                <div className="p-5 rounded-2xl bg-orange-500/5 border border-orange-500/10 hover:border-orange-500/30 space-y-3 group hover:bg-orange-500/10 transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                                <Link href="/services" className="p-5 rounded-2xl bg-orange-500/5 border border-orange-500/10 hover:border-orange-500/30 space-y-3 group hover:bg-orange-500/10 transition-all duration-300 hover:-translate-y-1 block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/50 focus-visible:border-orange-500/50">
                                     <div className="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 border border-orange-500/20 group-hover:scale-110 transition-transform">
                                         <Globe className="w-5 h-5" />
                                     </div>
                                     <h3 className="text-white font-bold text-sm">AEO & Citations</h3>
                                     <p className="text-[11px] text-neutral-400 leading-normal">Rank #1 in Google AI Overviews & SearchGPT.</p>
-                                </div>
+                                </Link>
 
                             </div>
                         </motion.div>
